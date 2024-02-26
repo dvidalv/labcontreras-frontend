@@ -1,0 +1,86 @@
+.footer {
+	background-color: var(--color-primary);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+padding: 20px 10px 10px 10px;
+
+	.info-compania {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: center;
+		flex-basis: 95%;
+		/* gap: 15px; */
+	}
+
+	.datos {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+
+		.info {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			img {
+				width: 15px;
+				height: 15px;
+				margin-bottom: 5px;
+
+				@media (min-width: 768px) {
+					width: 20px;
+					height: 20px;
+				}
+			}
+
+			span {
+				color: var(--color-light);
+				font-weight: 200;
+				font-size: 0.5rem;
+
+				@media (min-width: 768px) {
+					font-size: 0.8rem;
+				}
+			}
+		}
+	}
+
+	.redes-sociales {
+		flex-basis: 5%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		margin-top: 10px;
+		filter: invert(90%) sepia(0%) saturate(1%) hue-rotate(360deg)
+			brightness(107%) contrast(100%);
+
+		img {
+			width: 20px;
+			height: 20px;
+		}
+	}
+}
+
+.icons-footer {
+	filter: invert(90%) sepia(0%) saturate(1%) hue-rotate(360deg) brightness(107%)
+		contrast(100%);
+}
+
+.derechos{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--color-light);
+	font-size: 0.5rem;
+	font-weight: 200;
+	margin-top: 0;
+
+	@media (min-width: 768px) {
+		font-size: 0.8rem;
+	}
+}

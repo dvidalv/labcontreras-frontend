@@ -1,15 +1,127 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-primary: #7F4D8C;
+  --color-primary-light: #B693BF;
+  --color-secondary: #2D2B73;
+  --color-gris: #CFCFCF;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-gray: ##0F1111;
+  --color-error: #FF0000;
+  --color-success: #00FF00;
+  --color-warning: #FFA500;
+  --color-info: #0000FF;
+  --color-dark: #000000;
+  --color-light: #FFFFFF;
+  --color-transparent: transparent;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-dark: rgba(0, 0, 0, 0.2);
+  --color-shadow-light: rgba(0, 0, 0, 0.05);
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-dark);
+  background-color: var(--color-gray);
+}
+
+.page__content {
+  color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background: none;
+}
+
+input {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+input:focus {
+  outline: none;
+}
+
+input:disabled {
+  cursor: not-allowed;
+}
+
+input:disabled:hover {
+  background: none;
+}
+
+textarea {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+textarea:disabled:hover {
+  background: none;
+}
+
+
+
+
+
 

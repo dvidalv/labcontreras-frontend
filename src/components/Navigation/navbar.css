@@ -1,0 +1,80 @@
+
+
+.header .navbar {
+	transition: all 0.5s;
+	align-items: center;
+	display: none;
+	justify-content: center;
+	
+	@media (min-width: 768px) {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+	}
+		&.open {
+			display: flex;
+}
+
+	a {
+		transition: all 0.5s;
+		text-decoration: none;
+		color: var(--color-black);
+		font-size: 12px;
+		-webkit-transition: all 0.5s;
+		-moz-transition: all 0.5s;
+		-ms-transition: all 0.5s;
+		-o-transition: all 0.5s;
+		@media (min-width: 768px) {
+			font-size: 1rem;
+		}
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
+}
+
+.footer .navbar {
+	transition: all 0.5s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;
+	gap: 10px;
+	background-color: var(--color-gris);
+
+	a{
+		transition: all 0.5s;
+		text-decoration: none;
+		color: var(--color-black);
+		font-size: 12px;
+		-webkit-transition: all 0.5s;
+		-moz-transition: all 0.5s;
+		-ms-transition: all 0.5s;
+		-o-transition: all 0.5s;
+		@media (min-width: 768px){
+			font-size: 1rem;
+		}
+	
+	}
+
+	@media (min-width: 768px){
+	}
+}
+
+
+
+.navbar__menu {
+	transition: all 0.5s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;
+	gap: 10px;
+	background-color: var(--color-gris);
+
+	@media (min-width: 768px){
+	}
+
+
+}
