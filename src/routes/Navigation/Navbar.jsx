@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './navbar.css';
 // eslint-disable-next-line react/prop-types
 function Navbar({ color, bgColor, isMenuOpen }) {
@@ -5,31 +6,32 @@ function Navbar({ color, bgColor, isMenuOpen }) {
 		<nav className={`navbar ${isMenuOpen ? 'open' : ''}`}  style={{ backgroundColor: bgColor }}>
 			<ul className="navbar__menu" style={{ backgroundColor: bgColor }}>
 				<li className="navbar__item">
-					<a href="#inicio" className="navbar__link" style={{ color: color }}>
+					<Link to="/" className="navbar__link" style={{ color: color }}>
 						Inicio
-					</a>
+					</Link>
 				</li>
 				<li className="navbar__item">
-					<a href="#nosotros" className="navbar__link" style={{ color: color }}>
+					<Link to="/nosotros" className="navbar__link" style={{ color: color }}>	
 						Nosotros
-					</a>
+					</Link>
 				</li>
 				<li className="navbar__item">
-					<a
-						href="#servicios"
-						className="navbar__link"
-						style={{ color: color }}
-					>
+					<Link to="/pacientes" className="navbar__link" style={{ color: color }}>
+					Pacientes
+					</Link>
+				</li>
+				<li className="navbar__item">
+					<Link to="/servicios" className="navbar__link" style={{ color: color }}>
 						Servicios
-					</a>
+					</Link>
 				</li>
 				<li className="navbar__item">
-					<a href="#contacto" className="navbar__link" style={{ color: color }}>
+					<Link to="/seguros" className="navbar__link" style={{ color: color }}>
 						Seguros
-					</a>
+					</Link>
 				</li>
 				<li className="navbar__item">
-					<a href="#contacto" className="navbar__link" style={{ color: color }}>
+					<a href="/contacto" className="navbar__link" style={{ color: color }}>
 						Contacto
 					</a>
 				</li>

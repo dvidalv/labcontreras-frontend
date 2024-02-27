@@ -4,10 +4,12 @@ import './app.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import { useAppContext } from '../../contexts/MyContext';
+
 
 function App() {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	//get viewport width
 	const resizeListener = () => {
 		let windowWidth = window.innerWidth; // Almacenar en una variable
