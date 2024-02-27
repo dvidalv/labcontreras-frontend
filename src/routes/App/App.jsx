@@ -9,7 +9,7 @@ import { useAppContext } from '../../contexts/MyContext';
 
 function App() {
 
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { isMenuOpen, setIsMenuOpen } = useAppContext();
 	//get viewport width
 	const resizeListener = () => {
 		let windowWidth = window.innerWidth; // Almacenar en una variable
