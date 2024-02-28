@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './header.css';
 import logo from '../../images/logo.svg';
 import pin from '../../images/pin.svg';
@@ -8,7 +7,12 @@ import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
 import Navbar from '../Navigation/Navbar';
 import menumovil from '../../images/menu.svg';
-// eslint-disable-next-line react/prop-types
+
+Header.propTypes = {
+	isMenuOpen: PropTypes.bool.isRequired,
+	setIsMenuOpen: PropTypes.func.isRequired,
+};
+
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	return (
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
@@ -47,7 +51,19 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					</a>
 				</div>
 			</div>
-			{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} />}
+			<div className={`header__menu ${isMenuOpen ? 'open' : ''}`}>
+				{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} />}
+			</div>
+			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
+				{
+					<Navbar
+						color="var(--color-blanco)"
+						bgColor="var(--color-trasparente)"
+						isMenuOpen={isMenuOpen}
+						display={true}
+					/>
+				}
+			</div>
 		</header>
 	);
 }

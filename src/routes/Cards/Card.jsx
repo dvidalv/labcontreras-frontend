@@ -16,23 +16,8 @@ function Cards({
 		setIsFlipped(!isFlipped);
 	};
 
-	// const card = document.querySelector('.cards__item');
-	// console.log(card);
-	// card.addEventListener('click', function () {
-	// 	card.classList.toggle('is-flipped');
-	// });
 
 	return (
-		// <div className="scene">
-		// 	<div className="cards__container">
-		// 		<div className="cards__item">
-		// 			<img src={imagen} alt={nombre} />
-		// 			<p>{nombre}</p>
-		// 		</div>
-		// 		<div className="cards__item card__face--back"></div>
-		// 	</div>
-		// </div>
-
 		<div className="scene" onClick={handleClick}>
 			<div className={`card ${isFlipped ? 'is-flipped' : ''}`}>
 				<div className="card__face card__face--front">

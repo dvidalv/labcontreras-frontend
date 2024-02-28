@@ -11,21 +11,21 @@ function App() {
 
 	const { isMenuOpen, setIsMenuOpen } = useAppContext();
 	//get viewport width
-	const resizeListener = () => {
-		let windowWidth = window.innerWidth; // Almacenar en una variable
-		let vw = windowWidth * 0.01;
-		document.documentElement.style.setProperty('--vw', `${vw}px`);
-		setIsMenuOpen(windowWidth <= 768);
-	};
-
-	useEffect(() => {
-		window.addEventListener('resize', resizeListener);
-		// Initial check
-		resizeListener();
-		return () => {
-			window.removeEventListener('resize', resizeListener);
-		};
-	}, []);
+	
+	// useEffect(() => {
+	// 	const resizeListener = () => {
+	// 		let windowWidth = window.innerWidth; // Almacenar en una variable
+	// 		let vw = windowWidth * 0.01;
+	// 		document.documentElement.style.setProperty('--vw', `${vw}px`);
+	// 		setIsMenuOpen(windowWidth <= 768);
+	// 	};
+	// 	window.addEventListener('resize', resizeListener);
+	// 	// Initial check
+	// 	resizeListener();
+	// 	return () => {
+	// 		window.removeEventListener('resize', resizeListener);
+	// 	};
+	// }, [setIsMenuOpen]);
 
 	return (
 		<div className="page__content">
