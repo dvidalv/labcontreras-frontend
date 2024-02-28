@@ -114,7 +114,7 @@
 
 	.header__menu-movil {
 		filter: invert(90%) sepia(0%) saturate(1%) hue-rotate(360deg)
-		brightness(107%) contrast(100%);
+			brightness(107%) contrast(100%);
 	}
 	.header__login-icon {
 		display: none;
@@ -122,7 +122,6 @@
 }
 
 .header__menu-movil {
-
 	width: 20px;
 	z-index: 100;
 	@media (min-width: 768px) {
@@ -158,4 +157,56 @@
 
 .header__menu.open {
 	display: none;
+}
+
+.menu-btn {
+	position: absolute;
+	z-index: 1;
+	right: 1rem;
+	top: 1rem;
+	height: 20px;
+	width: 28px;
+	cursor: pointer;
+
+	.menu-btn__burger {
+		position: absolute;
+		right: 0;
+		top: 0.5rem;
+		width: 28px;
+		height: 3px;
+		background-color: var(--color-black);
+
+		&::before {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: -8px;
+			width: 28px;
+			height: 3px;
+			background-color: var(--color-black);
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 8px;
+			width: 28px;
+			height: 3px;
+			background-color: var(--color-black);
+		}
+	}
+	&.open {
+		filter: invert(90%) sepia(0%) saturate(1%) hue-rotate(360deg)
+			brightness(107%) contrast(100%);
+		transform: rotate(720deg);
+		background: transparent;
+		&::before {
+			transform: rotate(45deg) translate(5px, 8px);
+		}
+		&::after {
+			width: 28px;
+			transform: rotate(-45deg) translate(3px, -7px);
+		}
+	}
 }

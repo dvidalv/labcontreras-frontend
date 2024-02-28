@@ -36,12 +36,18 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 				</div>
 
 				<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
-					<img
+					{/* <img
 						src={menumovil}
 						alt="menu"
 						className="header__menu-movil"
 						onClick={() => setIsMenuOpen(!isMenuOpen)}
-					/>
+					/> */}
+					<div
+						onClick={() => setIsMenuOpen(!isMenuOpen)}
+						className={`menu-btn ${isMenuOpen ? 'open' : ''}`}
+					>
+						<span className="menu-btn__burger"></span>
+					</div>
 					<a href="#">
 						<img
 							src={login}
