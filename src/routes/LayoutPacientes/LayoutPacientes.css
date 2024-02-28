@@ -1,12 +1,18 @@
 .main {
+	background-color: var(--color-primary-light);
 	display: grid;
 	grid-template-columns: minmax(200px, 20%) minmax(200px, 80%);
 	height: 100vh;
+	/* margin-top: 20px; */
 }
 
 .sidebar {
 	background-color: var(--color-primary);
 	padding: 20px;
+
+	h2{
+		margin: 0;
+	}
 	
 	ul {
 		list-style: none;

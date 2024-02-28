@@ -11,7 +11,6 @@ function NotFound() {
 			<p>
 			<i>{error.statusText || error.message}</i>
 			</p>
-			<p>Page not found</p>
 			<Link to="/" className='notFound__link'>Go back to home</Link>
 		</div>
 	)

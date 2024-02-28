@@ -18,7 +18,7 @@ function Root() {
 
 	return (
 		<>
-			<Header />
+			{/* <Header /> */}
 			<main className="main">
 				<aside className="sidebar">
 					<h2>Pacientes</h2>
