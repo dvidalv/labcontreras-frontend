@@ -6,7 +6,6 @@ import phone from '../../images/telefono.svg';
 import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
 import Navbar from '../Navigation/Navbar';
-import menumovil from '../../images/menu.svg';
 
 Header.propTypes = {
 	isMenuOpen: PropTypes.bool.isRequired,

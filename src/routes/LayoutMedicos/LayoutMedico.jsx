@@ -1,5 +1,4 @@
-import './LayoutPacientes.css';
-import Header from '../Header/Header.jsx';
+import './LayoutMedico.css';
 import {
 	Outlet,
 	useLoaderData,
@@ -12,16 +11,14 @@ import {
 } from 'react-router-dom';
 import { useEffect } from 'react';
 
-function LayoutPacientes() {
+function LayoutMedico() {
 	const submit = useSubmit();	
 	const navigate = useNavigate();
 
 	return (
-		<>
-			{/* <Header /> */}
 			<main className="main">
 				<aside className="sidebar">
-					<h2>Pacientes</h2>
+					<h2>Medicos</h2>
 					<div className="search">
 					<Form id="search-Form" role="search">
 						<input
@@ -49,21 +46,20 @@ function LayoutPacientes() {
 					<nav>
 						<ul>
 							<li>
-								<Link to={"/pacientes/1"}>Paciente 1</Link>
+								<Link to={"/pacientes/1"}>Medico 1</Link>
 							</li>
 							<li>
-								<Link to={"/pacientes/2"}>Paciente 2</Link>
+								<Link to={"/pacientes/2"}>Medico 2</Link>
 							</li>
 							<li>
-								<Link to={"/pacientes/3"}>Paciente 3</Link>
+								<Link to={"/pacientes/3"}>Medico 3</Link>
 							</li>
 						</ul>
 					</nav>
 				</aside>
 				<Outlet />
 			</main>
-		</>
 	);
 }
 
-export default LayoutPacientes;
+export default LayoutMedico;

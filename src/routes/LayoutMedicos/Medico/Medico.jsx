@@ -1,9 +1,9 @@
 import { Form } from 'react-router-dom';
-import './pacientes.css';
+import './medico.css';
 import {useAppContext} from '../../../contexts/MyContext';
 
 
-function Paciente() {
+function Medico() {
 
 	const { sharedState, updateSharedState } = useAppContext();
 
@@ -47,4 +47,4 @@ function Paciente() {
 	);
 }
 
-export default Paciente;
+export default Medico;

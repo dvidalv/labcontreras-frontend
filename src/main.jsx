@@ -6,6 +6,8 @@ import App from './routes/App/App.jsx';
 import Main from './routes/Main/Main.jsx';
 import LayoutPacientes from './routes/LayoutPacientes/LayoutPacientes.jsx';
 import Paciente from './routes/LayoutPacientes/Paciente/Paciente.jsx';
+import LayoutMedicos from './routes/LayoutMedicos/LayoutMedico.jsx';
+import Medico from './routes/LayoutMedicos/Medico/Medico.jsx';
 import NotFound from './routes/NotFound/NotFound.jsx';
 import { AppProvider } from './contexts/MyContext';
 
@@ -22,6 +24,16 @@ const router = createBrowserRouter([
 					{
 						path: ':id',
 						element: <Paciente />,
+					},
+				],
+			},
+			{
+				path: 'medicos/',
+				element: <LayoutMedicos />,
+				children: [
+					{
+						path: ':id',
+						element: <Medico />,
 					},
 				],
 			},

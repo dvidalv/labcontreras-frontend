@@ -21,6 +21,11 @@ function Navbar({ color, bgColor, isMenuOpen, display }) {
 					</NavLink>
 				</li>
 				<li className="navbar__item">
+					<NavLink to="/medicos" className="navbar__link" style={{ color: color }}>
+						Médicos
+					</NavLink>
+				</li>
+				<li className="navbar__item">
 					<NavLink to="/servicios" className="navbar__link" style={{ color: color }}>
 						Servicios
 					</NavLink>
