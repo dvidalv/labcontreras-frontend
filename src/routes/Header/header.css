@@ -10,7 +10,6 @@
 	flex-direction: column;
 
 	&.open {
-		min-height: 100px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
