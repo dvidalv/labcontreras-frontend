@@ -126,16 +126,11 @@
 
 	width: 20px;
 	z-index: 100;
-	order: 1;
-
-	&.open {
-
-	}
-
 	@media (min-width: 768px) {
 		display: none;
 	}
 }
+
 .otro-menu {
 	visibility: hidden;
 	position: absolute;
@@ -157,13 +152,7 @@
 		align-items: center;
 
 		li a {
-			color: '#f4f4';
 			font-size: 1rem;
-			text-decoration: none;
-			transition: all 0.5s;
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 	}
 }
