@@ -1,5 +1,5 @@
 import { Form } from 'react-router-dom';
-import './pacientes.css';
+import './paciente.css';
 import {useAppContext} from '../../../contexts/MyContext';
 
 

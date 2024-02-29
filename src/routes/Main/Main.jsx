@@ -1,5 +1,5 @@
 import './main.css';
-import Card from '../Cards/Card';
+import Card from '../../components/Cards/Card';
 import microscopio from '../../images/microscopio.svg';
 import reportes from '../../images/reportes.svg';
 import mensajeria from '../../images/mensajeria.svg';

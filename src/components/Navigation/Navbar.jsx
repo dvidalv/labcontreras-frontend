@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './navbar.css';
 // eslint-disable-next-line react/prop-types
 function Navbar({ color, bgColor, isMenuOpen, display }) {

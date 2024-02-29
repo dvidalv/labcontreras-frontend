@@ -15,14 +15,13 @@ function Medico() {
 			</div>
 			<div className="paciente__info">
 				<div>
-					<h3>Información del Paciente</h3>
-					<p>Edad: 25 años</p>
-					<p>Sexo: Masculino</p>
+					<h3>Nommbre del Medico</h3>
 					<p>
 						Correo:
 						<a href="mailto:correo@correo.com">correo@correo.com</a>
 					</p>
 					<p>Teléfono: 1234567890</p>
+					<p>Celular: 1234567890</p>
 				</div>
 				<div className="paciente__acciones">
 					<Form action="edit">

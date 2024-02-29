@@ -1,5 +1,5 @@
 import './LayoutPacientes.css';
-import Header from '../Header/Header.jsx';
+import Header from '../../components/Header/Header.jsx';
 import {
 	Outlet,
 	useLoaderData,

@@ -46,13 +46,13 @@ function LayoutMedico() {
 					<nav>
 						<ul>
 							<li>
-								<Link to={"/pacientes/1"}>Medico 1</Link>
+								<Link to={"/medicos/1"}>Medico 1</Link>
 							</li>
 							<li>
-								<Link to={"/pacientes/2"}>Medico 2</Link>
+								<Link to={"/medicos/2"}>Medico 2</Link>
 							</li>
 							<li>
-								<Link to={"/pacientes/3"}>Medico 3</Link>
+								<Link to={"/medicos/3"}>Medico 3</Link>
 							</li>
 						</ul>
 					</nav>

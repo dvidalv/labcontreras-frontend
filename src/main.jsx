@@ -10,6 +10,8 @@ import LayoutMedicos from './routes/LayoutMedicos/LayoutMedico.jsx';
 import Medico from './routes/LayoutMedicos/Medico/Medico.jsx';
 import NotFound from './routes/NotFound/NotFound.jsx';
 import { AppProvider } from './contexts/MyContext';
+import Signup from './routes/Signup/Signup.jsx';
+import Signin from './routes/Sigin/Signin.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
 						element: <Medico />,
 					},
 				],
+			},
+			{
+				path: 'signup/',
+				element: <Signup />,
+			},
+			{
+				path: 'signin/',
+				element: <Signin />,
 			},
 		],
 		errorElement: <NotFound />,

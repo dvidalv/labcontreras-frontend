@@ -1,15 +1,16 @@
+
 .header .navbar {
 	transition: all 0.5s;
 	align-items: center;
 	display: none;
 	justify-content: center;
-
+	
 	@media (min-width: 768px) {
 		display: flex;
 		justify-content: center;
 		gap: 10px;
 		margin-top: 10px;
-
+		
 		& ul {
 			padding: 10px;
 		}
@@ -17,7 +18,7 @@
 	&.open {
 		display: flex;
 	}
-
+	
 	.navbar__link {
 		transition: all 0.5s;
 		display: flex;
