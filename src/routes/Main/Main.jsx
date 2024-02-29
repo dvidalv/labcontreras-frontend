@@ -18,7 +18,7 @@ import meta from '../../images/meta.png';
 
 function Main() {
 	return (
-		<main>
+		<main className='page'>
 			<section className="hero"></section>
 			<section className="services">
 				<div className="services__container">

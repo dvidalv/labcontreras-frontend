@@ -21,15 +21,11 @@
   --color-shadow-dark: rgba(0, 0, 0, 0.2);
   --color-shadow-light: rgba(0, 0, 0, 0.05);
   --color-gray: #585858;
-  --color-fondo: rgba(0, 0, 0, 0.744);
+  --color-fondo: #E3E6E6;
 
   
 }
 
-#root {
-max-width: 1200px;
-margin: 0 auto;
-}
 *,
 *:before,
 *:after {
