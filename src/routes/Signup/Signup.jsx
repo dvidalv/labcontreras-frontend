@@ -8,23 +8,23 @@ function Signup() {
 
 				<label className="signup__form-label" htmlFor="name">
 					Name
-				<input type="text" id="name" name="name" className="signup__form-input" placeholder="Enter your name" />
 				</label>
+				<input type="text" id="name" name="name" className="signup__form-input" placeholder="Enter your name" />
 				
 				<label className="signup__form-label" htmlFor="email">
 					Email
-				<input type="email" id="email" name="email" className="signup__form-input" placeholder="Enter your email" />
 				</label>
+				<input type="email" id="email" name="email" className="signup__form-input" placeholder="Enter your email" />
 				
 				<label className="signup__form-label" htmlFor="password">
 					Password
-				<input type="password" id="password" name="password" className="signup__form-input"	 placeholder="Enter your password" />
 				</label>	
+				<input type="password" id="password" name="password" className="signup__form-input"	 placeholder="Enter your password" />
 
 				<label className="signup__form-label" htmlFor="password">
 					Confirm Password
-				<input type="password" id="password" name="password" className="signup__form-input"	 placeholder="Confirm your password" />
 				</label>
+				<input type="password" id="password" name="password" className="signup__form-input"	 placeholder="Confirm your password" />
 				
 				<div className="signup__form-links">
 					<Link	 to="/signin" className="signup__form-link">Ya tienes cuenta?</Link>

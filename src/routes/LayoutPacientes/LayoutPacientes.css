@@ -3,7 +3,6 @@
 	display: grid;
 	grid-template-columns: minmax(200px, 30%) minmax(400px, 70%);
 	height: 100vh;
-	/* margin-top: 20px; */
 }
 
 .sidebar {
@@ -53,6 +52,7 @@ form input {
 }
 
 #search-Form{
+	display: flex;
 	position: relative;
 }
 
