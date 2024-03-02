@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
 import logo from '../../images/logo.svg';
@@ -13,14 +13,11 @@ Header.propTypes = {
 	setIsMenuOpen: PropTypes.func.isRequired,
 };
 
-
-
 function Header({ isMenuOpen, setIsMenuOpen }) {
-
 	const navigate = useNavigate();
 	const navigae = (url) => {
 		navigate(url);
-	}
+	};
 	return (
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
