@@ -1,6 +1,11 @@
 .page {
 	max-width: 1400px;
 	margin: 0 auto;
+	padding-top: 68px;
+	
+	@media (min-width: 768px) {
+		padding-top: 156.22px;
+	}
 }
 .hero {
 	height: 300px;

@@ -17,7 +17,7 @@ Header.propTypes = {
 function Header({ isMenuOpen, setIsMenuOpen }) {
 const [isMenuFixed, setIsMenuFixed] = useState(false);
 const [scrollY, setScrollY] = useState(0);
-
+/*
 useEffect(() => {
 	const handleScroll = () => {
 		setScrollY(window.scrollY);
@@ -34,7 +34,9 @@ useEffect(() => {
 		window.removeEventListener('scroll', handleScroll);
 	};
 }, [scrollY]);
+*/
 
+/*
 useEffect(() => {
 	if (isMenuFixed) {
 		// Agrega la regla CSS al body cuando isMenuFixed es true
@@ -44,7 +46,7 @@ useEffect(() => {
 		document.body.classList.remove('menu-fixed');
 	}
 }, [isMenuFixed]); // Este efecto se ejecuta cada vez que isMenuFixed cambia
-
+*/
 
 
 	const navigate = useNavigate();
