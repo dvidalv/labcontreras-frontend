@@ -1,5 +1,5 @@
 
-import '../../vendor/normalize.css';
+// import '../../vendor/normalize.css';
 import './app.css';
 import Header from '../../components/Header/Header';
 

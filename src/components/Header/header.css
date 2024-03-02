@@ -1,6 +1,7 @@
 .header {
+	height: var(--header-height-mobile);
 	z-index: 100;
-	position:fixed;
+	position: fixed;
 	width: 100%;
 	background-color: var(--color-white);
 	transition: all 0.5s;
@@ -17,6 +18,7 @@
 	}
 
 	@media (min-width: 768px) {
+		height: var(--header-height);
 		flex-direction: column;
 		justify-content: space-between;
 		margin-top: 0;
@@ -132,7 +134,7 @@
 	visibility: hidden;
 	position: fixed;
 	background-color: rgb(0, 0, 0);
-	top: 68px;
+	top: var(--header-height-mobile);
 	right: 0;
 	transform: translateX(100%);
 	transition: 0.5s;

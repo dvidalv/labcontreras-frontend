@@ -3,6 +3,8 @@
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
+  --header-height: 138px;  
+  --header-height-mobile: 60px;
 
 	--color-primary: #7f4d8c;
 	--color-primary-light: #b693bf;
@@ -27,7 +29,7 @@
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
+	box-sizing: border-box;
 }
 
 body {

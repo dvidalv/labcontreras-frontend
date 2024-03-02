@@ -3,7 +3,11 @@
 	display: grid;
 	grid-template-columns: minmax(200px, 30%) minmax(400px, 70%);
 	height: 100vh;
-	padding-top: 146.22px;
+	padding-top: var(--header-height);
+
+	@media (max-width: 768px) {
+		padding-top: var(--header-height-mobile);
+	}
 }
 
 .sidebar {

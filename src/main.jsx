@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './vendor/normalize.css';
 import './index.css';
 import App from './routes/App/App.jsx';
 import Main from './routes/Main/Main.jsx';
@@ -12,8 +13,6 @@ import NotFound from './routes/NotFound/NotFound.jsx';
 import { AppProvider } from './contexts/MyContext';
 import Signup from './routes/Forms/Signup/Signup.jsx';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
-
-
 
 const router = createBrowserRouter([
 	{

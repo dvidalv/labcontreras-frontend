@@ -17,8 +17,6 @@ function LayoutPacientes() {
 	const navigate = useNavigate();
 
 	return (
-		<>
-			{/* <Header /> */}
 			<main className="main">
 				<aside className="sidebar">
 					<h2>Pacientes</h2>
@@ -62,7 +60,7 @@ function LayoutPacientes() {
 				</aside>
 				<Outlet />
 			</main>
-		</>
+
 	);
 }
 

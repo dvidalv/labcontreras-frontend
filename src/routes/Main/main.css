@@ -2,9 +2,10 @@
 	max-width: 1400px;
 	margin: 0 auto;
 	padding-top: 68px;
+	padding-top: var(--header-height-mobile);
 	
 	@media (min-width: 768px) {
-		padding-top: 146.22px;
+		padding-top: var(--header-height);
 	}
 }
 .hero {
