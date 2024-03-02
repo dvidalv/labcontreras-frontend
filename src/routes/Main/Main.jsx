@@ -36,7 +36,7 @@ function Main() {
 						</li>
 						<li className="services__item">
 							<img src={reportes} alt="icono" />
-							<p>Pruebas por especifidad</p>
+							<p>Pruebas por especificidad</p>
 						</li>
 						<li className="services__item">
 							<img src={mensajeria} alt="icono" />
