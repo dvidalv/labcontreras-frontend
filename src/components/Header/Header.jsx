@@ -40,17 +40,15 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 				</div>
 
 				<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
-					{/* <img
-						src={menumovil}
-						alt="menu"
-						className="header__menu-movil"
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-					/> */}
 					<div
 						onClick={() => setIsMenuOpen(!isMenuOpen)}
 						className={`menu-btn ${isMenuOpen ? 'open' : ''}`}
 					>
-						<span className="menu-btn__burger"></span>
+						<div className="menu-btn__burger">
+							<div className={`bar1 ${isMenuOpen ? 'change' : ''}`}></div>
+							<div className={`bar2 ${isMenuOpen ? 'change' : ''}`}></div>
+							<div className={`bar3 ${isMenuOpen ? 'change' : ''}`}></div>
+						</div>
 					</div>
 					<a href="#">
 						<img
