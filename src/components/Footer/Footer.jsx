@@ -34,7 +34,7 @@ function Footer() {
 				</a>
 			</div>
 			<div className="derechos">
-				<span>© 2021 Laboratorio del patologia Contreras Robledo. Todos los derechos reservados.</span>
+				<span>© 2021 Laboratorio de Patología Contreras Robledo. Todos los derechos reservados.</span>
 			</div>
 		</footer>
 	);

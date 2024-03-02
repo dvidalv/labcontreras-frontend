@@ -49,11 +49,12 @@
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
 .card__face--front {
+	box-sizing: border-box;
 	border-radius: 15px;
 	background-color: var(--color-white);
 	transition: all 1s ease;
@@ -67,6 +68,8 @@
 }
 
 .card__face--back {
+	box-sizing: border-box;
+	padding: 5px;
 	border-radius: 15px;
 	transform: rotateY(180deg);
 	background-color: var(--color-white);
@@ -74,13 +77,21 @@
 	h3 {
 		font-weight: 700;
 		font-size: 1.5rem;
+		margin: 5px 0;
 	}
 
 	.card__text {
-		font-size: 1rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		/* align-items: center; */
+		padding-left: 10px;
+		font-size: 12px;
 		margin: 2px 0;
 		font-weight: 200;
-
+		width: 100%;
+		margin: 5px 0;
+		
 		&.correo {
 			font-weight: 200;
 			color: var(--color-info);
@@ -90,4 +101,34 @@
 
 .card.is-flipped {
 	transform: rotateY(180deg);
+}
+
+.card__text__item{
+	display: flex;
+	gap: 5px;
+	align-items: center;
+
+	span{
+		margin-right: 5px;
+	}
+
+	img{
+		width: 18px;
+		height: 18px;
+	}
+}
+.card__text.icon{
+	font-size: 1.5rem;
+	color: var(--color-info);
+
+}
+.card__back__info{
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	img{
+		width: 50px;
+		height: 50px;
+	}
 }

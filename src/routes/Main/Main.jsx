@@ -36,11 +36,11 @@ function Main() {
 						</li>
 						<li className="services__item">
 							<img src={reportes} alt="icono" />
-							<p>Pruebas por especidad</p>
+							<p>Pruebas por especifidad</p>
 						</li>
 						<li className="services__item">
 							<img src={mensajeria} alt="icono" />
-							<p>Mensajeria Personalizado</p>
+							<p>Mensajería Personalizada</p>
 						</li>
 						<li className="services__item">
 							<img src={inmunohistoquimica} alt="icono" />
@@ -65,9 +65,9 @@ function Main() {
 						<li>
 							<Card
 								cargo="Director General"
-								nombre="Dr. Felix Contreras"
+								nombre="Dr. Félix Contreras"
 								imagen={felix}
-								correo="felix@pathogenomica.com"
+								correo="felix@labcontreras.com"
 								telefono="5555555555"
 								extension="123"
 								celular="5555555555"
@@ -76,9 +76,9 @@ function Main() {
 						<li>
 							<Card
 								cargo="Patologa"
-								nombre="Dra. Leti"
+								nombre="Dra. Leticia Matias"
 								imagen={leti}
-								correo="felix@pathogenomica.com"
+								correo="leticia@labcontreras.com"
 								telefono="5555555555"
 								extension="123"
 								celular="5555555555"
@@ -89,7 +89,7 @@ function Main() {
 								cargo="Patologa"
 								nombre="Dra. Naomi Inuyama"
 								imagen={naomi}
-								correo="felix@pathogenomica.com"
+								correo="ninuyama@labcontreras.com"
 								telefono="5555555555"
 								extension="123"
 								celular="5555555555"
