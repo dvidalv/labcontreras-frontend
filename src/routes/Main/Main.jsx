@@ -54,7 +54,7 @@ function Main() {
 					<div className="about__text">
 						<h1>SOBRE NOSOTROS</h1>
 						<p>
-							En PathoGenomica, estamos comprometidos con la excelencia en el
+							En nuestro laboratorio, estamos comprometidos con la excelencia en el
 							servicio y la calidad de los resultados. Nuestro equipo de
 							patólogos, técnicos y personal administrativo está dedicado a
 							proporcionar resultados precisos y oportunos para ayudar a los
