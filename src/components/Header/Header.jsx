@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
@@ -14,6 +15,38 @@ Header.propTypes = {
 };
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
+const [isMenuFixed, setIsMenuFixed] = useState(false);
+const [scrollY, setScrollY] = useState(0);
+
+useEffect(() => {
+	const handleScroll = () => {
+		setScrollY(window.scrollY);
+
+		if (scrollY > 95) {
+			setIsMenuFixed(true);
+		} else {
+			setIsMenuFixed(false);
+		}
+	};
+
+	window.addEventListener('scroll', handleScroll);
+	return () => {
+		window.removeEventListener('scroll', handleScroll);
+	};
+}, [scrollY]);
+
+useEffect(() => {
+	if (isMenuFixed) {
+		// Agrega la regla CSS al body cuando isMenuFixed es true
+		document.body.classList.add('menu-fixed');
+	} else {
+		// Remueve la regla CSS del body cuando isMenuFixed es false
+		document.body.classList.remove('menu-fixed');
+	}
+}, [isMenuFixed]); // Este efecto se ejecuta cada vez que isMenuFixed cambia
+
+
+
 	const navigate = useNavigate();
 	const navigae = (url) => {
 		navigate(url);
@@ -60,7 +93,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					</a>
 				</div>
 			</div>
-			<div className={`header__menu ${isMenuOpen ? 'open' : ''}`}>
+			<div className={`header__menu ${isMenuOpen ? 'open' : ''} ${isMenuFixed && !isMenuOpen ? 'headerFixed' : ''}`}>
 				{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} />}
 			</div>
 			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>

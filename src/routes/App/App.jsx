@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 import '../../vendor/normalize.css';
 import './app.css';
 import Header from '../../components/Header/Header';
@@ -10,11 +10,10 @@ import { Outlet } from 'react-router-dom';
 function App() {
 	const { isMenuOpen, setIsMenuOpen } = useAppContext();
 
-
 	return (
 		<div className="page__content">
 			<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-				<Outlet />
+			<Outlet />
 			<Footer />
 		</div>
 	);

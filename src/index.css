@@ -41,6 +41,10 @@ body {
   line-height: 1.5;
 }
 
+.menu-fixed {
+	padding-top: 66px;
+}
+
 .page__content {
   color: #fff;
   max-width: 100%;
