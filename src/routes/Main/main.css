@@ -3,7 +3,7 @@
 	margin: 0 auto;
 	padding-top: 68px;
 	padding-top: var(--header-height-mobile);
-	
+
 	@media (min-width: 768px) {
 		padding-top: var(--header-height);
 	}
@@ -14,7 +14,6 @@
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-
 }
 .services {
 	background-color: var(--color-dark);
@@ -95,19 +94,33 @@
 
 .about__text {
 	justify-content: space-between;
+	margin-bottom: 40px;
 	padding: 10px 40px 0 40px;
-
+	
 	h1 {
 		flex-basis: 40%;
-		max-width: 60px;
+		width: 60px;
 	}
-
+	
 	p {
 		flex-basis: 60%;
 	}
-
+	
 	@media (min-width: 768px) {
+		max-width: 80%;
+		margin: 0 auto;
 		display: flex;
+		margin-bottom: 40px;
+		justify-content: space-between;
+		gap: 20px;
+		h1{
+			flex-basis: 40%;
+			width: auto;
+		}
+		p{
+			flex-basis: 60%;
+		}
+		
 	}
 }
 .cards {
@@ -130,8 +143,8 @@
 	flex-basis: 200px;
 }
 
-
 .seguros {
+	padding-top: 20px;
 	background-color: var(--color-gris);
 	color: var(--color-dark);
 	text-align: center;
@@ -145,10 +158,10 @@
 
 	ul {
 		padding: 20px;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			gap: 10px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
 	}
 
 	li {
