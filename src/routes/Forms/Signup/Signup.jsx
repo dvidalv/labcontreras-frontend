@@ -20,7 +20,6 @@ function Signup() {
 		}
 		try {
 			const res = await register(data.name, data.email, data.password);
-			console.log('Registro:', res);
 			if (res.status === 'error') {
 				alert(res.message);
 			}if (res.status === 'success') {

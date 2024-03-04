@@ -1,9 +1,9 @@
-.cards {
+/* .cards {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	gap: 20px;
 	margin-top: 20px;
-}
+} */
 
 .scene {
 	width: 100%;
