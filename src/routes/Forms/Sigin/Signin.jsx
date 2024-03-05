@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import '../form.css';
+import Tooltip from '../../../components/ToolTip/Tooltip';
+import { useAppContext } from '../../../contexts/MyContext';
+
 function Signin() {
+	const { showTooltip } = useAppContext();
 	return (
 		<div className="form-container">
 			<h1 className="form-container__title">Signin</h1>
@@ -22,6 +26,7 @@ function Signin() {
 				
 				<button type="submit" className="form__button">Submit</button>
 			</form>
+			{ showTooltip && <Tooltip message="You have successfully signed in" type="success" />}
 		</div>
 	);
 }

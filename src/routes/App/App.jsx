@@ -9,6 +9,7 @@ import { Outlet } from 'react-router-dom';
 
 function App() {
 	const { isMenuOpen, setIsMenuOpen } = useAppContext();
+	
 
 	return (
 		<div className="page__content">
