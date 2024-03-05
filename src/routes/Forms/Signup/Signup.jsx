@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../form.css';
 import Tooltip from '../../../components/ToolTip/Tooltip';
-import { register } from '../../../utils/auth';
+import { registerAction } from '../../../utils/auth';
 import { useAppContext } from '../../../contexts/MyContext';
 
 function Signup() {
@@ -22,7 +22,7 @@ function Signup() {
 			return;
 		}
 		try {
-			const res = await register(data.name, data.email, data.password);
+			const res = await registerAction(data.name, data.email, data.password);
 			if (res.status === 'error') {
 				// alert(res.message);
 				setType('alert');

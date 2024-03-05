@@ -1,5 +1,5 @@
 //Registrar un nuevo usuario
-export const register = async (name, email, password) => {
+export const registerAction = async (name, email, password) => {
 	try {
 		const res = await fetch('http://localhost:3001/api/users/signup', {
 			method: 'POST',

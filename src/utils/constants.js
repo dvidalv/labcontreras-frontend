@@ -1,9 +1,9 @@
-let BASE_URL;
+let API_URL;
 
 if (window.location.hostname === "localhost") {
-    BASE_URL = 'http://localhost:3000';
+    API_URL = 'http://localhost:3000';
 } else {
-    BASE_URL = 'https://api.alrededorusa.mooo.com';
+    API_URL = 'my-api-url.com';
 }
 
-export default BASE_URL;
+export default API_URL;

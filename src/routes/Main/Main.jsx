@@ -16,9 +16,10 @@ import humano from '../../images/humano.png';
 import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
 
-function Main() {
+function Main({ loggedIn, setLoggedIn }) {
+	console.log('loggedIn:', loggedIn);
 	return (
-		<main className='page'>
+		<main className="page">
 			<section className="hero"></section>
 			<section className="services">
 				<div className="services__container">
@@ -54,8 +55,8 @@ function Main() {
 					<div className="about__text">
 						<h1>SOBRE NOSOTROS</h1>
 						<p>
-							En nuestro laboratorio, estamos comprometidos con la excelencia en el
-							servicio y la calidad de los resultados. Nuestro equipo de
+							En nuestro laboratorio, estamos comprometidos con la excelencia en
+							el servicio y la calidad de los resultados. Nuestro equipo de
 							patólogos, técnicos y personal administrativo está dedicado a
 							proporcionar resultados precisos y oportunos para ayudar a los
 							médicos a tomar decisiones informadas.

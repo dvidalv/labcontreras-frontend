@@ -13,6 +13,8 @@ export const AppProvider = ({ children }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
 	const [message, setMessage] = useState('');
 	const [type, setType] = useState('');
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [token, setToken] = useState('');
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {
@@ -30,6 +32,8 @@ export const AppProvider = ({ children }) => {
 				setMessage,
 				type,
 				setType,
+				loggedIn,
+				setLoggedIn,
 			}}
 		>
 			{children}
