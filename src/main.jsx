@@ -14,7 +14,7 @@ import { AppProvider } from './contexts/MyContext';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
 import Signup from './routes/Forms/Signup/Signup.jsx';
 
-// import RequireAuth from './components/ProtectedRout/RequireAuth.jsx';
+import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 			{ index: true, element: <Main /> },
 			{
 				path: 'pacientes/',
-				element: <LayoutPacientes />,
+				element: <RequireAuth><LayoutPacientes /></RequireAuth>,
 				children: [
 					{
 						path: ':id',
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'medicos/',
-				element: <LayoutMedicos />,
+				element: <RequireAuth><LayoutMedicos /></RequireAuth>,
 				children: [
 					{
 						path: ':id',
