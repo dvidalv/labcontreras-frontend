@@ -1,23 +1,55 @@
-import { Form, Link, useSubmit } from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 import '../form.css';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
-import { getContact } from '../../../utils/api';
-
-export async function action() {
-	const contact = await getContact();
-	return contact;
-}
+import { authorize, checkToken } from '../../../utils/auth';
 
 function Signin() {
-	const { showTooltip } = useAppContext();
+	const {
+		showTooltip,
+		setShowTooltip,
+		setMessage,
+		setType,
+		token,
+		setToken,
+	} = useAppContext();
+	
+	const navigate = useNavigate();
 
-	const submit = useSubmit();
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		submit(event.currentTarget);
-	};
+
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const email = formData.get('email');
+		const password = formData.get('password');
+		try {
+			const response = await authorize(email, password);
+			if (!response.ok) {
+				// Si la respuesta no es OK, muestra el tooltip con el mensaje de error y detiene la ejecución.
+				setShowTooltip(true);
+				setType('error');
+				setMessage('Password o Email incorrectos');
+				return; // Detiene la ejecución si la respuesta no es exitosa.
+			}
+			const res = await response.json();
+			if (res.token) {
+				setToken(res.token);
+				localStorage.setItem('token', res.token); // Guarda el token en el almacenamiento local.
+				// Configura los mensajes y muestra el tooltip de éxito.
+				setMessage('Inicio de sesión exitoso');
+				setType('success');
+				setShowTooltip(true);
+				//redirect to home
+			}
+		} catch (err) {
+			console.error(err); // Es útil para depuración ver el error en la consola.
+			setType('error');
+			setMessage('Ha ocurrido un error al intentar iniciar sesión.');
+			setShowTooltip(true);
+		}
+	}
 
 	return (
 		<div className="form-container">

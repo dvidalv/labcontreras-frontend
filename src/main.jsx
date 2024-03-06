@@ -13,7 +13,6 @@ import NotFound from './routes/NotFound/NotFound.jsx';
 import { AppProvider } from './contexts/MyContext';
 import Signup from './routes/Forms/Signup/Signup.jsx';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
-import { registerAction as actionSignup } from './utils/auth.js';
 
 const router = createBrowserRouter([
 	{
@@ -44,7 +43,6 @@ const router = createBrowserRouter([
 			{
 				path: 'signup/',
 				element: <Signup />,
-				action: actionSignup,
 			},
 			{
 				path: 'signin/',

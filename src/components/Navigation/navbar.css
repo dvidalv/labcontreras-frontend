@@ -23,20 +23,16 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		color: var(--color-black);
+		font-size: 16px;
 		padding: 5px;
 		border-radius: 5px;
 		&:hover {
 			background-color: var(--color-secondary);
+			color: var(--color-white);
 		}
 		a {
-			transition: all 0.5s;
 			text-decoration: none;
-			color: var(--color-black);
-			font-size: 12px;
-			-webkit-transition: all 0.5s;
-			-moz-transition: all 0.5s;
-			-ms-transition: all 0.5s;
-			-o-transition: all 0.5s;
 			@media (min-width: 768px) {
 				font-size: 1rem;
 			}

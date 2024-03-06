@@ -101,7 +101,7 @@ useEffect(() => {
 			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
 				{
 					<Navbar
-						color="var(--color-blanco)"
+						color="var(--color-black)"
 						bgColor="var(--color-trasparente)"
 						isMenuOpen={isMenuOpen}
 						display={true}

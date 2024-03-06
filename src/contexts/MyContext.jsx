@@ -34,6 +34,8 @@ export const AppProvider = ({ children }) => {
 				setType,
 				loggedIn,
 				setLoggedIn,
+				token,
+				setToken,
 			}}
 		>
 			{children}
