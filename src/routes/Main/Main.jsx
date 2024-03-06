@@ -16,8 +16,7 @@ import humano from '../../images/humano.png';
 import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
 
-function Main({ loggedIn, setLoggedIn }) {
-	console.log('loggedIn:', loggedIn);
+function Main() {
 	return (
 		<main className="page">
 			<section className="hero"></section>

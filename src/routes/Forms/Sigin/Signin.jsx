@@ -1,8 +1,8 @@
-import { Form, Link, useNavigate } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import '../form.css';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
-import { authorize, checkToken } from '../../../utils/auth';
+import { authorize } from '../../../utils/auth';
 
 function Signin() {
 	const {
@@ -14,11 +14,6 @@ function Signin() {
 		setToken,
 	} = useAppContext();
 	
-	const navigate = useNavigate();
-
-
-
-
 	async function handleSubmit(e) {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -35,8 +30,9 @@ function Signin() {
 			}
 			const res = await response.json();
 			if (res.token) {
+				// Si la respuesta es OK, guarda el token en el estado y en el almacenamiento local.
 				setToken(res.token);
-				localStorage.setItem('token', res.token); // Guarda el token en el almacenamiento local.
+				localStorage.setItem('token', res.token); // Correctly saves the token with a key 'token'; // Guarda el token en el almacenamiento local.
 				// Configura los mensajes y muestra el tooltip de éxito.
 				setMessage('Inicio de sesión exitoso');
 				setType('success');

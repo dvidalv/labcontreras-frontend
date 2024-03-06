@@ -12,11 +12,13 @@ function App() {
 	const { isMenuOpen, setIsMenuOpen, loggedIn, setLoggedIn, token, setToken } = useAppContext();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (!loggedIn) {
-			navigate('/signin');
-		}
-	}, [loggedIn, navigate]);
+
+
+	// useEffect(() => {
+	// 	if (token) {
+	// 		authorize(token);
+	// 	}
+	// }, [token]);
 
 
 	return (

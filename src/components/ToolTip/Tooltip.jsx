@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './tooltip.css';
 /* eslint-disable react/prop-types */
 import successIcon from '../../images/check.svg';
@@ -6,10 +6,7 @@ import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
 
 function Tooltip({ message, type }) {
-	const navigate = useNavigate();
-	function handleClick() {
-		navigate('/');
-	}
+
 	const { setShowTooltip, token } = useAppContext();
 	return (
 		<div className="tooltip">

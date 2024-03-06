@@ -34,25 +34,25 @@ export const authorize = (email, password) => {
 
 // comprueba el token la validez del token
 export const checkToken = async (token) => {
-  try {
-    const response = await fetch(`${API_URL}/users/verifyToken`, { 
-      method: 'GET', // GET es común para verificar tokens
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Asegúrate de que la capitalización de 'Authorization' sea aceptada por tu servidor
-      },
-    });
+	try {
+		const response = await fetch(`${API_URL}/users/verifyToken`, {
+			method: 'GET', // GET es común para verificar tokens
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`, // Asegúrate de que la capitalización de 'Authorization' sea aceptada por tu servidor
+			},
+		});
 
-    if (!response.ok) {
-      // Lanza un error con información específica del estado para ser manejado por la función que llama
-      throw new Error(`Network response was not ok: ${response.status}`);
-    }
+		if (!response.ok) {
+			// Lanza un error con información específica del estado para ser manejado por la función que llama
+			throw new Error(`Network response was not ok: ${response.status}`);
+		}
 
-    return await response.json(); // Retorna la respuesta del servidor
-  } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
-    // Lanza el error para permitir que la función que llama maneje este caso
-    throw error;
-  }
+		return await response.json(); // Retorna la respuesta del servidor
+	} catch (error) {
+		console.error('There has been a problem with your fetch operation:', error);
+		// Lanza el error para permitir que la función que llama maneje este caso
+		throw error;
+	}
 };
