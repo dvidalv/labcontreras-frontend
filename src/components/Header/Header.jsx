@@ -18,7 +18,7 @@ Header.propTypes = {
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const { token, setToken } = useAppContext();
-	const [isMenuFixed, setIsMenuFixed] = useState(false);
+	const [isMenuFixed] = useState(false);
 
 	const handleLogout = () => {
 		console.log();
@@ -95,7 +95,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
 				{
 					<Navbar
-						color="var(--color-black)"
+						color="var(--color-white)"
 						bgColor="var(--color-trasparente)"
 						isMenuOpen={isMenuOpen}
 						display={true}
