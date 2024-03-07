@@ -1,5 +1,6 @@
 import API_URL from './constants';
 
+
 export const registerAction = async (formData) => {
 	const submission = {
 		name: formData.get('name'),
@@ -31,6 +32,8 @@ export const authorize = (email, password) => {
 		body: JSON.stringify({ email, password }),
 	});
 };
+
+
 
 // comprueba el token la validez del token
 export const checkToken = async (token) => {

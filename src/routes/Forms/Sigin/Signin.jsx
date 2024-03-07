@@ -3,17 +3,15 @@ import '../form.css';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import { authorize } from '../../../utils/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Signin() {
-	const {
-		showTooltip,
-		setShowTooltip,
-		setMessage,
-		setType,
-		token,
-		setToken,
-	} = useAppContext();
-	
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { from } = location.state || { from: { pathname: "/" } };
+	const { showTooltip, setShowTooltip, setMessage, setType, token, setToken } =
+		useAppContext();
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -29,6 +27,7 @@ function Signin() {
 				return; // Detiene la ejecución si la respuesta no es exitosa.
 			}
 			const res = await response.json();
+			navigate(from.pathname, { replace: true }); // Redirect to the previous page
 			if (res.token) {
 				// Si la respuesta es OK, guarda el token en el estado y en el almacenamiento local.
 				setToken(res.token);

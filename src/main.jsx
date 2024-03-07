@@ -13,8 +13,8 @@ import NotFound from './routes/NotFound/NotFound.jsx';
 import { AppProvider } from './contexts/MyContext';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
 import Signup from './routes/Forms/Signup/Signup.jsx';
-
 import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
+
 
 const router = createBrowserRouter([
 	{
