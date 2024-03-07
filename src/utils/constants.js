@@ -1,9 +1,4 @@
-let API_URL;
+const API_URL = 'https://labcontreras-backend.vercel.app/';
 
-if (window.location.hostname === "localhost") {
-    API_URL = 'http://localhost:3001/api';
-} else {
-    API_URL = 'my-api-url.com';
-}
 
 export default API_URL;
