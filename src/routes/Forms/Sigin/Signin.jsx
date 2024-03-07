@@ -33,9 +33,9 @@ function Signin() {
 				setToken(res.token);
 				localStorage.setItem('token', res.token); // Correctly saves the token with a key 'token'; // Guarda el token en el almacenamiento local.
 				// Configura los mensajes y muestra el tooltip de éxito.
-				setMessage('Inicio de sesión exitoso');
-				setType('success');
-				setShowTooltip(true);
+				// setMessage('Inicio de sesión exitoso');
+				// setType('success');
+				// setShowTooltip(true);
 				//redirect to home
 			}
 		} catch (err) {

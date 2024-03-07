@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
@@ -7,7 +7,9 @@ import pin from '../../images/pin.svg';
 import phone from '../../images/telefono.svg';
 import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
+import logout from '../../images/logout.svg';
 import Navbar from '../Navigation/Navbar';
+import { useAppContext } from '../../contexts/MyContext';
 
 Header.propTypes = {
 	isMenuOpen: PropTypes.bool.isRequired,
@@ -15,39 +17,15 @@ Header.propTypes = {
 };
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
-const [isMenuFixed, setIsMenuFixed] = useState(false);
-const [scrollY, setScrollY] = useState(0);
-/*
-useEffect(() => {
-	const handleScroll = () => {
-		setScrollY(window.scrollY);
+	const { token, setToken } = useAppContext();
+	const [isMenuFixed, setIsMenuFixed] = useState(false);
 
-		if (scrollY > 95) {
-			setIsMenuFixed(true);
-		} else {
-			setIsMenuFixed(false);
-		}
+	const handleLogout = () => {
+		console.log();
+		localStorage.removeItem('token');
+		setToken(null);
+		navigate('/signin/');
 	};
-
-	window.addEventListener('scroll', handleScroll);
-	return () => {
-		window.removeEventListener('scroll', handleScroll);
-	};
-}, [scrollY]);
-*/
-
-/*
-useEffect(() => {
-	if (isMenuFixed) {
-		// Agrega la regla CSS al body cuando isMenuFixed es true
-		document.body.classList.add('menu-fixed');
-	} else {
-		// Remueve la regla CSS del body cuando isMenuFixed es false
-		document.body.classList.remove('menu-fixed');
-	}
-}, [isMenuFixed]); // Este efecto se ejecuta cada vez que isMenuFixed cambia
-*/
-
 
 	const navigate = useNavigate();
 	const navigae = (url) => {
@@ -85,17 +63,33 @@ useEffect(() => {
 							<div className={`bar3 ${isMenuOpen ? 'change' : ''}`}></div>
 						</div>
 					</div>
-					<a href="#">
-						<img
-							onClick={() => navigae('/signin/')}
-							src={login}
-							alt="login"
-							className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-						/>
-					</a>
+					{ !token &&
+						<a href="#">
+							<img
+								onClick={() => navigae('/signin/')}
+								src={login}
+								alt="login"
+								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+							/>
+						</a>
+					}
+					{ token &&
+						<a href="#">
+							<img
+								onClick={() => handleLogout()}
+								src={logout}
+								alt="login"
+								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+							/>
+						</a>
+					}
 				</div>
 			</div>
-			<div className={`header__menu ${isMenuOpen ? 'open' : ''} ${isMenuFixed && !isMenuOpen ? 'headerFixed' : ''}`}>
+			<div
+				className={`header__menu ${isMenuOpen ? 'open' : ''} ${
+					isMenuFixed && !isMenuOpen ? 'headerFixed' : ''
+				}`}
+			>
 				{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} />}
 			</div>
 			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
