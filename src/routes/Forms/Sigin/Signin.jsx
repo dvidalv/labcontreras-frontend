@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function Signin() {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { from } = location.state || { from: { pathname: "/" } };
+	const { from } = location.state || { from: { pathname: '/' } };
 	const { showTooltip, setShowTooltip, setMessage, setType, token, setToken } =
 		useAppContext();
 

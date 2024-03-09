@@ -19,8 +19,6 @@
 
 	@media (min-width: 768px) {
 		height: var(--header-height);
-		flex-direction: column;
-		justify-content: space-between;
 		margin-top: 0;
 		padding-top: 10px;
 

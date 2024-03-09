@@ -14,6 +14,8 @@ import { AppProvider } from './contexts/MyContext';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
 import Signup from './routes/Forms/Signup/Signup.jsx';
 import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
+import Contact from './routes/Forms/Contact/Contact.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -50,19 +52,13 @@ const router = createBrowserRouter([
 				path: 'signin/',
 				element: <Signin />,
 			},
+			{
+				path: 'contact/',
+				element: <Contact />,
+			}
 		],
 		errorElement: <NotFound />,
 	},
-	// {
-	// 	path: 'pacientes/',
-	// 	element: <LayoutPacientes />,
-	// 	children: [
-	// 		{
-	// 			path: ':id',
-	// 			element: <Paciente />,
-	// 		},
-	// 	],
-	// },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

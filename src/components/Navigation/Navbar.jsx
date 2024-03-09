@@ -36,7 +36,7 @@ function Navbar({ color, bgColor, isMenuOpen, display }) {
 					</NavLink>
 				</li>
 				<li className="navbar__item">
-					<NavLink to="/contacto" className="navbar__link" style={{ color: color }}>
+					<NavLink to="/contact" className="navbar__link" style={{ color: color }}>
 						Contacto
 					</NavLink>
 				</li>
