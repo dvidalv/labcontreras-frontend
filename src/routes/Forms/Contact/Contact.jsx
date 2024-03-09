@@ -7,11 +7,13 @@ function Contact() {
 		const formData = new FormData(e.currentTarget);
 		const email = formData.get('email');
 		const subject = formData.get('subject');
-		const body = formData.get('message');
+		const message = formData.get('message');
 
-		console.log(email, body, subject);
+		console.log(email, subject, message);
 
-
+		contact(email, subject, message).then((res) => {
+			console.log(res);
+		});
 	};
 
 	return (
