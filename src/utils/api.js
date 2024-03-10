@@ -1,4 +1,4 @@
-import API_URL  from './constants';
+import API_URL from './constants';
 
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {
@@ -12,7 +12,7 @@ export async function signinUser(email, password) {
 }
 
 export async function createUser(email, password) {
-	const response = await fetch(`${API_URL}/signup`, {
+	const response = await fetch(`${API_URL}/users/signup`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -32,5 +32,3 @@ export async function contact(email, subject, message) {
 	});
 	return response.json();
 }
-
-

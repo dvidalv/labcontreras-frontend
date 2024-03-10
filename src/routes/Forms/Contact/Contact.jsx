@@ -9,8 +9,6 @@ function Contact() {
 		const subject = formData.get('subject');
 		const message = formData.get('message');
 
-		console.log(email, subject, message);
-
 		contact(email, subject, message).then((res) => {
 			console.log(res);
 		});
