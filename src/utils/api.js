@@ -23,7 +23,7 @@ export async function createUser(email, password) {
 }
 
 export async function contact(email, subject, message) {
-	const response = await fetch(`${API_URL}/contact`, {
+	const response = await fetch(`${API_URL}/api/contact`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
