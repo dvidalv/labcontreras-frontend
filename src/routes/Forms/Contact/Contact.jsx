@@ -1,11 +1,19 @@
-import { Form } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { contact } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 
 function Contact() {
+	
+	const resetform = () => {
+		document.getElementById('contact-form').reset();
+	};
+	
+	const navigation = useNavigate();
+
 	const { showTooltip, setShowTooltip, message, setMessage, type, setType } =
 		useAppContext();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -19,6 +27,7 @@ function Contact() {
 				setShowTooltip(true);
 				setType('success');
 				setMessage('Mensaje enviado');
+				resetform();
 			} else {
 				setShowTooltip(true);
 				setType('error');
@@ -31,7 +40,7 @@ function Contact() {
 		<div className="form-container">
 			<h1>Contactanos</h1>
 			<p>Si tienes alguna duda o necesitas ayuda, no dudes en contactarnos</p>
-			<Form className="form" onSubmit={handleSubmit}>
+			<Form id="contact-form" className="form" onSubmit={handleSubmit}>
 				<label className="form__label" htmlFor="email">
 					Email
 				</label>
@@ -73,6 +82,14 @@ function Contact() {
 				</button>
 			</Form>
 			{showTooltip && <Tooltip message={message} type={type} />}
+			{navigation.state === 'loading' && (
+				<div
+					id="details"
+					className={navigation.state === 'loading' ? 'loading' : ''}
+				>
+					<p>Detalles</p>
+				</div>
+			)}
 		</div>
 	);
 }

@@ -6,10 +6,13 @@ import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
 
 function Tooltip({ message, type}) {
-	// let location = 'contact'
+
+	let location = 'contact'
 	
 	const { setShowTooltip, token } = useAppContext();
 	return (
+
+		
 		<div className="tooltip">
 			<div className="tooltip__container">
 				{type === 'success' && (
@@ -19,7 +22,7 @@ function Tooltip({ message, type}) {
 					<img src={alertIcon} alt="icon" className="tooltip__icon" />
 				)}
 				<p className="tooltip__message">{message}</p>
-				{type === 'success' && !token && (
+				{type === 'success' &&  !token && !location && (
 					<Link
 						onClick={() => setShowTooltip(false)}
 						to="/signin"
@@ -50,6 +53,17 @@ function Tooltip({ message, type}) {
 					<button
 						onClick={() => {
 							setShowTooltip(false);
+						}}
+						className="tooltip__link"
+					>
+						Aceptar
+					</button>
+				)}
+				{type === 'success' && location && (
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+							location = '';
 						}}
 						className="tooltip__link"
 					>
