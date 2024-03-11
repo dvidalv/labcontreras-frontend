@@ -4,6 +4,7 @@ import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 
 function Contact() {
+	const location = 'contact';
 	
 	const resetform = () => {
 		document.getElementById('contact-form').reset();
@@ -81,7 +82,7 @@ function Contact() {
 					Enviar
 				</button>
 			</Form>
-			{showTooltip && <Tooltip message={message} type={type} />}
+			{showTooltip && <Tooltip message={message} type={type} location={location} />}
 			{navigation.state === 'loading' && (
 				<div
 					id="details"

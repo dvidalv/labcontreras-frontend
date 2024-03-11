@@ -1,18 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './tooltip.css';
 /* eslint-disable react/prop-types */
 import successIcon from '../../images/check.svg';
 import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
 
-function Tooltip({ message, type}) {
-
-	let location = 'contact'
-	
-	const { setShowTooltip, token } = useAppContext();
+function Tooltip({ message, type, location }) {
+	const navigate = useNavigate();
+	const { setShowTooltip } = useAppContext();
 	return (
-
-		
 		<div className="tooltip">
 			<div className="tooltip__container">
 				{type === 'success' && (
@@ -22,7 +18,7 @@ function Tooltip({ message, type}) {
 					<img src={alertIcon} alt="icon" className="tooltip__icon" />
 				)}
 				<p className="tooltip__message">{message}</p>
-				{type === 'success' &&  !token && !location && (
+				{type === 'success' && location === 'signup' && (
 					<Link
 						onClick={() => setShowTooltip(false)}
 						to="/signin"
@@ -31,7 +27,7 @@ function Tooltip({ message, type}) {
 						Iniciar sesión
 					</Link>
 				)}
-				{type === 'success' && token && (
+				{type === 'success' && location === 'signin' && (
 					<Link
 						onClick={() => setShowTooltip(false)}
 						to="/"
@@ -40,26 +36,30 @@ function Tooltip({ message, type}) {
 						Ir a Home
 					</Link>
 				)}
-				{/* {type === 'error' && (
-					<Link
-						onClick={() => setShowTooltip(false)}
-						to="/signin"
-						className="tooltip__link"
-					>
-						Iniciar sesión
-					</Link>
-				)} */}
-				{type === 'error' && (
+				{type === 'error' && location === 'signup' && (
 					<button
 						onClick={() => {
 							setShowTooltip(false);
+							location = '';
+							navigate('/signin');
 						}}
 						className="tooltip__link"
 					>
 						Aceptar
 					</button>
 				)}
-				{type === 'success' && location && (
+				{type === 'error' && location === 'signin' && (
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+							location = '';
+						}}
+						className="tooltip__link"
+					>
+						Aceptar
+					</button>
+				)}
+				{type === 'success' && location === 'contact' && (
 					<button
 						onClick={() => {
 							setShowTooltip(false);

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import {registerAction} from '../../../utils/auth';
 
 function Signup() {
+	const location = 'signup';
 	const { showTooltip, setShowTooltip, message, setMessage, type, setType } =
 	useAppContext();
 	
@@ -92,7 +93,7 @@ function Signup() {
 					{isSubmitting ? 'Enviando...' : 'Enviar'}
 				</button>
 			</Form>
-			{showTooltip && <Tooltip message={message} type={type} />}
+			{showTooltip && <Tooltip message={message} type={type} location={location} />}
 		</div>
 	);
 }

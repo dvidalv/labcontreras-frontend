@@ -6,10 +6,11 @@ import { authorize } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Signin() {
-	const location = useLocation();
+	const location = 'signin';
+	const locationState = useLocation();
 	const navigate = useNavigate();
-	const { from } = location.state || { from: { pathname: '/' } };
-	const { showTooltip, setShowTooltip, setMessage, setType, token, setToken } =
+	const { from } = locationState.state || { from: { pathname: '/' } };
+	const { showTooltip, setShowTooltip, message, setMessage, type, setType, token, setToken } =
 		useAppContext();
 
 	async function handleSubmit(e) {
@@ -19,6 +20,7 @@ function Signin() {
 		const password = formData.get('password');
 		try {
 			const response = await authorize(email, password);
+			console.log(response);
 			if (!response.ok) {
 				// Si la respuesta no es OK, muestra el tooltip con el mensaje de error y detiene la ejecución.
 				setShowTooltip(true);
@@ -27,6 +29,7 @@ function Signin() {
 				return; // Detiene la ejecución si la respuesta no es exitosa.
 			}
 			const res = await response.json();
+			console.log(res);
 			navigate(from.pathname, { replace: true }); // Redirect to the previous page
 			if (res.token) {
 				// Si la respuesta es OK, guarda el token en el estado y en el almacenamiento local.
@@ -90,7 +93,11 @@ function Signin() {
 				</button>
 			</Form>
 			{showTooltip && (
-				<Tooltip message="You have successfully signed in" type="success" />
+				<Tooltip
+					message={message}
+					type={type}
+					location={location}
+				/>
 			)}
 		</div>
 	);
