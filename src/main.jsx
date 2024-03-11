@@ -16,8 +16,6 @@ import Signup from './routes/Forms/Signup/Signup.jsx';
 import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
 import Contact from './routes/Forms/Contact/Contact.jsx';
 
-
-
 const router = createBrowserRouter([
 	{
 		path: '/',

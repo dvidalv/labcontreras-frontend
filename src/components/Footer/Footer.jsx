@@ -9,7 +9,6 @@ function Footer() {
 	return (
 		<footer className="footer">
 			<div className="info-compania">
-				<Navbar color="var(--color-white)" bgColor="var(--color-transparent" />
 				<div className="datos">
 					<div className="info">
 						<img src={pin} alt="pin" className="icons-footer" />
