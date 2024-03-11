@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
 import logo from '../../images/logo.svg';
@@ -35,7 +35,9 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
 				<div className="header__info-compania">
-					<img src={logo} alt="logo LPCR" className="header-logo" />
+					<Link to="/">
+						<img src={logo} alt="logo LPCR" className="header-logo" />
+					</Link>
 					<div className="datos">
 						<div className="info">
 							<img src={pin} alt="pin" className="header-icons" />

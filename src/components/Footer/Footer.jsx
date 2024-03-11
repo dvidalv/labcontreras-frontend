@@ -1,4 +1,3 @@
-import Navbar from '../Navigation/Navbar';
 import pin from '../../images/pin.svg';
 import phone from '../../images/telefono.svg';
 import mail from '../../images/mail.svg';
