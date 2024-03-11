@@ -15,6 +15,7 @@ export const AppProvider = ({ children }) => {
 	const [type, setType] = useState('');
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [token, setToken] = useState('');
+	const {toollTipIsLocated, setToollTipIsLocated} = useState('');
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {
@@ -36,6 +37,8 @@ export const AppProvider = ({ children }) => {
 				setLoggedIn,
 				token,
 				setToken,
+				toollTipIsLocated,
+				setToollTipIsLocated
 			}}
 		>
 			{children}

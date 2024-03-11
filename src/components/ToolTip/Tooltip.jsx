@@ -5,8 +5,9 @@ import successIcon from '../../images/check.svg';
 import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
 
-function Tooltip({ message, type }) {
-
+function Tooltip({ message, type}) {
+	// let location = 'contact'
+	
 	const { setShowTooltip, token } = useAppContext();
 	return (
 		<div className="tooltip">
@@ -36,7 +37,7 @@ function Tooltip({ message, type }) {
 						Ir a Home
 					</Link>
 				)}
-				{type === 'error' && (
+				{/* {type === 'error' && (
 					<Link
 						onClick={() => setShowTooltip(false)}
 						to="/signin"
@@ -44,6 +45,16 @@ function Tooltip({ message, type }) {
 					>
 						Iniciar sesión
 					</Link>
+				)} */}
+				{type === 'error' && (
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+						}}
+						className="tooltip__link"
+					>
+						Aceptar
+					</button>
 				)}
 			</div>
 		</div>

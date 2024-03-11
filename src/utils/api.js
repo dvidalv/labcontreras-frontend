@@ -30,5 +30,6 @@ export async function contact(email, subject, message) {
 		},
 		body: JSON.stringify({ email, subject, message }),
 	});
+	console.log(response);
 	return response.json();
 }

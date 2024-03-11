@@ -1,5 +1,5 @@
-const API_URL = 'https://labcontreras-backend.vercel.app';
-// const API_URL = 'http://localhost:3001';
+// const API_URL = 'https://labcontreras-backend.vercel.app';
+const API_URL = 'http://localhost:3001';
 
 
 export default API_URL;

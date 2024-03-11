@@ -1,7 +1,11 @@
 import { Form } from 'react-router-dom';
-import {contact} from '../../../utils/api';
+import { contact } from '../../../utils/api';
+import Tooltip from '../../../components/ToolTip/Tooltip';
+import { useAppContext } from '../../../contexts/MyContext';
 
 function Contact() {
+	const { showTooltip, setShowTooltip, message, setMessage, type, setType } =
+		useAppContext();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -11,6 +15,15 @@ function Contact() {
 
 		contact(email, subject, message).then((res) => {
 			console.log(res);
+			if (res.status === 'success') {
+				setShowTooltip(true);
+				setType('success');
+				setMessage('Mensaje enviado');
+			} else {
+				setShowTooltip(true);
+				setType('error');
+				setMessage('Ha ocurrido un error al enviar el mensaje');
+			}
 		});
 	};
 
@@ -59,6 +72,7 @@ function Contact() {
 					Enviar
 				</button>
 			</Form>
+			{showTooltip && <Tooltip message={message} type={type} />}
 		</div>
 	);
 }
