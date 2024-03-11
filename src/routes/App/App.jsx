@@ -14,6 +14,7 @@ function App() {
 		useAppContext();
 	const navigate = useNavigate();
 
+
 	useEffect(() => {
 		const verifyToken = async () => {
 			const token = localStorage.getItem('token');
