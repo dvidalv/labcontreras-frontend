@@ -33,3 +33,8 @@ export async function contact(email, subject, message) {
 	console.log(response);
 	return response.json();
 }
+
+export async function getMedicos() {
+	const response = await fetch(`${API_URL}/medicos`);
+	return response.json();
+}

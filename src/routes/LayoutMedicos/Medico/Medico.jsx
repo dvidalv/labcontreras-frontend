@@ -1,13 +1,23 @@
-import { Form } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import './medico.css';
-import {useAppContext} from '../../../contexts/MyContext';
+import { useAppContext } from '../../../contexts/MyContext';
+import API_URL from '../../../utils/constants';
+import { checkToken } from '../../../utils/auth';
+import { useEffect } from 'react';
+
+// export async function loader({params, context}) {
+// 	const response = await fetch(`https://api.example.com/medicos/${params.id}`);
+// 	const data = await response.json();
+// 	return {
+// 		props: {
+// 			medico: data,
+// 		},
+// 	};
+// }
+
+export default function Medico() {
 
 
-function Medico() {
-
-	const { sharedState, updateSharedState } = useAppContext();
-
-	console.log(sharedState);
 	return (
 		<section className="paciente">
 			<div className="paciente__imagen">
@@ -25,9 +35,7 @@ function Medico() {
 				</div>
 				<div className="paciente__acciones">
 					<Form action="edit">
-						<button type="submit">
-							Editar
-						</button>
+						<button type="submit">Editar</button>
 					</Form>
 					<Form
 						action="destroy"
@@ -45,5 +53,3 @@ function Medico() {
 		</section>
 	);
 }
-
-export default Medico;

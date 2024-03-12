@@ -29,7 +29,6 @@ function Signin() {
 				return; // Detiene la ejecución si la respuesta no es exitosa.
 			}
 			const res = await response.json();
-			console.log(res);
 			navigate(from.pathname, { replace: true }); // Redirect to the previous page
 			if (res.token) {
 				// Si la respuesta es OK, guarda el token en el estado y en el almacenamiento local.
