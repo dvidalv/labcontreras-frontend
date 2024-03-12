@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import './map.css';
-// const MAP_KEY = 'AIzaSyBYj9ECOYBlQofzPND0STunyu5Glxx8iw8';
 
 function Map() {
 	useEffect(() => {
