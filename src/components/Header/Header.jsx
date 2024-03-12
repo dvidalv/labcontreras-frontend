@@ -7,7 +7,9 @@ import pin from '../../images/pin.svg';
 import phone from '../../images/telefono.svg';
 import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
+import login2 from '../../images/login-2.svg';
 import logout from '../../images/logout.svg';
+import logout2 from '../../images/logout-2.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
 
@@ -64,7 +66,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 							<div className={`bar3 ${isMenuOpen ? 'change' : ''}`}></div>
 						</div>
 					</div>
-					{ !token &&
+					{!token && (
 						<a href="#">
 							<img
 								onClick={() => navigae('/signin/')}
@@ -73,8 +75,8 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 							/>
 						</a>
-					}
-					{ token &&
+					)}
+					{token && (
 						<a href="#">
 							<img
 								onClick={() => handleLogout()}
@@ -83,7 +85,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 							/>
 						</a>
-					}
+					)}
 				</div>
 			</div>
 			<div
@@ -91,7 +93,13 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					isMenuFixed && !isMenuOpen ? 'headerFixed' : ''
 				}`}
 			>
-				{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />}
+				{
+					<Navbar
+						bgColor="var(--color-gris)"
+						isMenuOpen={isMenuOpen}
+						setIsMenuOpen={setIsMenuOpen}
+					/>
+				}
 			</div>
 			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
 				{
@@ -103,6 +111,28 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						setIsMenuOpen={setIsMenuOpen}
 					/>
 				}
+				<div className="header__login" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+					{!token && (
+						<a href="#">
+							<img
+								onClick={() => navigae('/signin/')}
+								src={login2}
+								alt="login"
+								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+							/>
+						</a>
+					)}
+					{token && (
+						<a href="#">
+							<img
+								onClick={() => handleLogout()}
+								src={logout2}
+								alt="login"
+								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+							/>
+						</a>
+					)}
+				</div>
 			</div>
 		</header>
 	);

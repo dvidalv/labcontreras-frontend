@@ -150,6 +150,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+
+		.header__login{
+			align-self: center;
+			margin-top: 10px;
+		}
 		li a {
 			font-size: 1.3rem;
 		}
