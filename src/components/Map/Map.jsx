@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import './map.css';
-const MAP_KEY = import.meta.env.MAP_KEY;
+// const MAP_KEY = 'AIzaSyBYj9ECOYBlQofzPND0STunyu5Glxx8iw8';
 
 function Map() {
 	useEffect(() => {
 		const loader = new Loader({
-			apiKey: MAP_KEY,
+			apiKey: import.meta.env.VITE_MAP_KEY,
 			version: 'weekly',
-			libraries: ['marker'], // Asegúrate de incluir la biblioteca 'marker'
+			libraries: ['marker'], // Asegúrate de incluir la biblioteca 'marker' necesaria para AdvancedMarkerElement
 		});
 
 		loader.load().then(() => {
@@ -19,20 +19,17 @@ function Map() {
 				mapId: 'DEMO_MAP_ID',
 			});
 
-			// Usar AdvancedMarkerElement en lugar de Marker
+			// Actualización: Usar AdvancedMarkerElement en lugar de Marker
 			const marker = new google.maps.marker.AdvancedMarkerElement({
 				position: position,
 				map: map,
 				title: 'Uluru',
+				// Aquí puedes agregar opciones adicionales específicas de AdvancedMarkerElement según sea necesario.
 			});
 		});
 	}, []);
 
-	return (
-
-			<div id="map"></div>
-
-	);
+	return <div id="map"></div>;
 }
 
 export default Map;
