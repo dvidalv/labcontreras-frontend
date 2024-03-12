@@ -5,7 +5,7 @@ import './map.css';
 function Map() {
 	useEffect(() => {
 		const loader = new Loader({
-			apiKey: import.meta.env.VITE_MAP_KEY,
+			apiKey: import.meta.env.MAP_KEY,
 			version: 'weekly',
 			libraries: ['marker'], // Asegúrate de incluir la biblioteca 'marker' necesaria para AdvancedMarkerElement
 		});
