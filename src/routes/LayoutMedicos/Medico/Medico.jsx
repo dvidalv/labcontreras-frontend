@@ -4,16 +4,17 @@ import { useAppContext } from '../../../contexts/MyContext';
 import API_URL from '../../../utils/constants';
 import { checkToken } from '../../../utils/auth';
 import { useEffect } from 'react';
+import { getMedicos } from '../../../utils/api';
 
-// export async function loader({params, context}) {
-// 	const response = await fetch(`https://api.example.com/medicos/${params.id}`);
-// 	const data = await response.json();
-// 	return {
-// 		props: {
-// 			medico: data,
-// 		},
-// 	};
-// }
+export async function loader({params, context}) {
+	const response = await fetch(`https://api.example.com/medicos/${params.id}`);
+	const data = await response.json();
+	return {
+		props: {
+			medico: data,
+		},
+	};
+}
 
 export default function Medico() {
 

@@ -26,7 +26,6 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const verifyToken = async () => {
       setIsLoading(true);
-      // Simula la verificación del token aquí. Por ejemplo:
       const response = await checkToken(token);
       if (response.status === 'success') {
       setToken(token);
@@ -39,7 +38,7 @@ export const AppProvider = ({ children }) => {
     if (token) {
       verifyToken();
     } else {
-      setIsLoading(false); // Si no hay token, no hay necesidad de cargar
+      setIsLoading(false);
     }
   }, [token]);
 
