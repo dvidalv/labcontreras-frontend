@@ -21,7 +21,6 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 	const [isMenuFixed] = useState(false);
 
 	const handleLogout = () => {
-		console.log();
 		localStorage.removeItem('token');
 		setToken(null);
 		navigate('/signin/');
@@ -92,7 +91,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					isMenuFixed && !isMenuOpen ? 'headerFixed' : ''
 				}`}
 			>
-				{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} />}
+				{<Navbar bgColor="var(--color-gris)" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />}
 			</div>
 			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
 				{
@@ -101,6 +100,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						bgColor="var(--color-trasparente)"
 						isMenuOpen={isMenuOpen}
 						display={true}
+						setIsMenuOpen={setIsMenuOpen}
 					/>
 				}
 			</div>

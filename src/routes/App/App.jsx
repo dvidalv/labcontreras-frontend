@@ -21,9 +21,9 @@ function App() {
 			if (token) {
 				try {
 					const response = await checkToken(token);
-					const {
-						user: { email, name },
-					} = response;
+					// const {
+					// 	user: { email, name },
+					// } = response;
 					if (response.status === 'success') {
 						setLoggedIn(true);
 						setToken(token);
