@@ -20,7 +20,6 @@ function Signin() {
 		const password = formData.get('password');
 		try {
 			const response = await authorize(email, password);
-			console.log(response);
 			if (!response.ok) {
 				// Si la respuesta no es OK, muestra el tooltip con el mensaje de error y detiene la ejecución.
 				setShowTooltip(true);
@@ -50,10 +49,10 @@ function Signin() {
 
 	return (
 		<div className="form-container">
-			<h1 className="form-container__title">Signin</h1>
+			<h1 className="form-container__title">Ingresar</h1>
 			<Form className="form" onSubmit={handleSubmit}>
 				<label className="form__label" htmlFor="email">
-					Email
+					Correo electrónico
 				</label>
 				<input
 					type="email"
@@ -61,11 +60,11 @@ function Signin() {
 					name="email"
 					required={true}
 					className="form__input"
-					placeholder="Enter your email"
+					placeholder="Ingresa tu correo electrónico"
 				/>
 
 				<label className="form__label" htmlFor="password">
-					Password
+					Clave
 				</label>
 				<input
 					required={true}
@@ -73,22 +72,22 @@ function Signin() {
 					id="password"
 					name="password"
 					className="form__input"
-					placeholder="Enter your password"
+					placeholder="Ingresa tu clave"
 				/>
 				<div className="form__links">
 					<Link
 						to="/forgot-password"
 						className="form__link form-link--forgot-password"
 					>
-						Forgot password?
+						¿Olvidaste tu contraseña?
 					</Link>
 					<Link to="/signup" className="form__link form__link_create-account">
-						Create account
+						Crear cuenta
 					</Link>
 				</div>
 
 				<button type="submit" className="form__button">
-					Submit
+					Ingresar
 				</button>
 			</Form>
 			{showTooltip && (

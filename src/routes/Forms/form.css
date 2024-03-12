@@ -6,13 +6,20 @@
 	justify-content: flex-start;
 	align-items: center;
 	text-emphasis: left;
-	padding-top: 50px;
+	padding-top: 20px;
 	justify-content: center;
+
+	@media (min-width: 768px){
+
+			padding-top: 150px;
+
+	}
 
 	.form-container__title {
 		font-size: 1.5rem;
 		font-weight: 400;
 		margin-bottom: 20px;
+		color: var(--color-white);
 	}
 
 	.form {
@@ -38,13 +45,13 @@
 		}
 
 		.form__links {
-			margin-bottom: 20px;
+			margin-bottom: 5px;
 			text-align: right;
 			display: flex;
 			gap: 10px;
 
 			.form__link {
-				margin-top: 20px;
+				/* margin-top: 20px; */
 				text-align: right;
 				text-align: center;
 				color: var(--color-primary);

@@ -33,10 +33,10 @@ function Signup() {
 
 	return (
 		<div className="form-container">
-			<h1 className="form-container__title">Signup</h1>
+			<h1 className="form-container__title">Crear cuenta</h1>
 			<Form className="form" onSubmit={handleSubmit}>
 				<label className="form__label" htmlFor="name">
-					Name
+					Nombre
 				</label>
 				<input
 					type="text"
@@ -44,11 +44,11 @@ function Signup() {
 					name="name"
 					required={true}
 					className="form__input"
-					placeholder="Enter your name"
+					placeholder="Ingresa tu nombre"
 				/>
 
 				<label className="form__label" htmlFor="email">
-					Email
+					Correo electrónico
 				</label>
 				<input
 					type="email"
@@ -56,11 +56,11 @@ function Signup() {
 					name="email"
 					required={true}
 					className="form__input"
-					placeholder="Enter your email"
+					placeholder="Ingresa tu correo electrónico"
 				/>
 
 				<label className="form__label" htmlFor="password">
-					Password
+					Clave
 				</label>
 				<input
 					type="password"
@@ -68,11 +68,11 @@ function Signup() {
 					name="password"
 					required={true}
 					className="form__input"
-					placeholder="Enter your password"
+					placeholder="Ingresa tu clave"
 				/>
 
 				<label className="form__label" htmlFor="password">
-					Confirm Password
+					Confirmar clave
 				</label>
 				<input
 					type="password"
@@ -80,7 +80,7 @@ function Signup() {
 					name="confirmpassword"
 					required={true}
 					className="form__input"
-					placeholder="Confirm your password"
+					placeholder="Confirma tu clave"
 				/>
 
 				<div className="form__links">
