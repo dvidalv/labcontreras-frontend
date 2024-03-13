@@ -1,10 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
+// Asegúrate de que process.env.VITE_MAP_KEY esté definido en tu entorno
+const mapKey = process.env.VITE_MAP_KEY;
+
 export default defineConfig({
   plugins: [react()],
   define: {
-    __MAP_KEY__: JSON.stringify(import.meta.env.VITE_MAP_KEY)
-  }
-})
+    'process.env.VITE_MAP_KEY': JSON.stringify(mapKey),
+  },
+});
+
