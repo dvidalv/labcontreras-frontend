@@ -3,12 +3,11 @@ import { Loader } from '@googlemaps/js-api-loader';
 import './map.css';
 
 function Map() {
-
 	useEffect(() => {
 		const loader = new Loader({
 			apiKey: import.meta.env.VITE_MAP_KEY,
 			version: 'weekly',
-			libraries: ['marker'], // Asegúrate de incluir la biblioteca 'marker' necesaria para AdvancedMarkerElement
+			libraries: ['places'], // Asegúrate de incluir la biblioteca 'marker' necesaria para AdvancedMarkerElement
 		});
 
 		loader.load().then(() => {
