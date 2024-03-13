@@ -3,11 +3,9 @@ import { Loader } from '@googlemaps/js-api-loader';
 import './map.css';
 import config from '../../../config.js';
 
-
-
 function Map() {
-	// let apiKey = process.env.REACT_APP_MAP_KEY;
-	let apiKey = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_MAP_KEY : config.MAP_KEY;
+	let apiKey = process.env.REACT_APP_MAP_KEY;
+	// let apiKey = config.MAP_KEY;
 	useEffect(() => {
 		const loader = new Loader({
 			apiKey: config.MAP_KEY,
