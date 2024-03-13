@@ -58,7 +58,9 @@ export const AppProvider = ({ children }) => {
 				token,
 				setToken,
 				toollTipIsLocated,
-				setToollTipIsLocated
+				setToollTipIsLocated,
+				isLoading,
+				setIsLoading,
 			}}
 		>
 			{children}

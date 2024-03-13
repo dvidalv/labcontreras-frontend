@@ -1,34 +1,35 @@
-import React, { useEffect } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
-import './map.css';
+import React, { useEffect, useState } from 'react';
 
 function Map() {
-	useEffect(() => {
-		const loader = new Loader({
-			apiKey: import.meta.env.VITE_MAP_KEY,
-			version: 'weekly',
-			libraries: ['places'], // Asegúrate de incluir la biblioteca 'marker' necesaria para AdvancedMarkerElement
-		});
+  let map;
 
-		loader.load().then(() => {
-			const position = { lat: 19.460590382146453, lng: -70.68068279690394 };
-			const map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 16,
-				center: position,
-				mapId: 'DEMO_MAP_ID',
-			});
+async function initMap() {
+  // The location of Uluru
+  const position = { lat: 19.460651078179666, lng: -70.68071498259943 };
+  // Request needed libraries.
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
 
-			// Actualización: Usar AdvancedMarkerElement en lugar de Marker
-			const marker = new google.maps.marker.AdvancedMarkerElement({
-				position: position,
-				map: map,
-				title: 'Lab Conteras',
-				// Aquí puedes agregar opciones adicionales específicas de AdvancedMarkerElement según sea necesario.
-			});
-		});
-	}, []);
+  // The map, centered at Uluru
+  map = new Map(document.getElementById("map"), {
+    zoom: 16,
+    center: position,
+    mapId: "DEMO_MAP_ID",
+  });
 
-	return <div id="map"></div>;
+  // The marker, positioned at Uluru
+  const marker = new AdvancedMarkerView({
+    map: map,
+    position: position,
+    title: "Uluru",
+  });
+}
+
+initMap();
+
+  return <div id="map" style={{ height: '400px', width: '100%' }}></div>;
 }
 
 export default Map;
+
