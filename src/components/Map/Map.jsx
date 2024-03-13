@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import './map.css';
-import config from '../../../config.js';
+
 
 
 
