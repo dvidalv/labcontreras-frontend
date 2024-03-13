@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import './map.css';
 
 function Map() {
-  let map;
+	const position = {
+		lat: 19.460610613258446,
+		lng: -70.68062915211819
+	};
 
-async function initMap() {
-  // The location of Uluru
-  const position = { lat: 19.460651078179666, lng: -70.68071498259943 };
-  // Request needed libraries.
-  //@ts-ignore
-  const { Map } = await google.maps.importLibrary("maps");
-  const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
-
-  // The map, centered at Uluru
-  map = new Map(document.getElementById("map"), {
-    zoom: 16,
-    center: position,
-    mapId: "DEMO_MAP_ID",
-  });
-
-  // The marker, positioned at Uluru
-  const marker = new AdvancedMarkerView({
-    map: map,
-    position: position,
-    title: "Uluru",
-  });
-}
-
-initMap();
-
-  return <div id="map" style={{ height: '400px', width: '100%' }}></div>;
+	return <div className="map">
+		<MapContainer center={position} zoom={18} scrollWheelZoom={false} className="map">
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker position={position}>
+      <Popup>
+        Laboratorio de Patología Contreras Robledo
+      </Popup>
+    </Marker>
+  </MapContainer>
+	</div>;
 }
 
 export default Map;
-
+19.460610613258446, -70.68062915211819
