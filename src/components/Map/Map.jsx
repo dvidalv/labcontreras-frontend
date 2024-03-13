@@ -10,7 +10,7 @@ function Map() {
 	// let apiKey = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_MAP_KEY : config.MAP_KEY;
 	useEffect(() => {
 		const loader = new Loader({
-			apiKey: process.env.MAP_KEY,
+			apiKey: import.meta.env.VITE_REACT_APP_MAP_KEY,
 			version: 'weekly',
 			libraries: ['marker'], // Asegúrate de incluir la biblioteca 'marker' necesaria para AdvancedMarkerElement
 		});
