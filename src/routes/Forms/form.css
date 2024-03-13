@@ -23,7 +23,6 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	text-align: center;
 	padding-top: 20px;
 
 	@media (min-width: 768px) {
