@@ -10,10 +10,17 @@ import {
 	Link,
 } from 'react-router-dom';
 import { useEffect } from 'react';
+import { getMedicos } from '../../utils/api';
+
+export async	function loader() {
+		return getMedicos();
+	}
 
 function LayoutMedico() {
+	const medicos = useLoaderData();
 	const submit = useSubmit();	
 	const navigate = useNavigate();
+
 
 	return (
 			<main className="main">
