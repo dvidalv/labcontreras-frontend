@@ -38,3 +38,8 @@ export async function getMedicos() {
 	const response = await fetch(`${API_URL}/medicos`);
 	return response.json();
 }
+
+export async function medicosWhitelist() {
+	const response = await fetch(`${API_URL}/medicos/whitelist`);
+	return response.json();
+}

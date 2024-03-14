@@ -3,30 +3,28 @@ import {
 	Outlet,
 	useLoaderData,
 	Form,
-	redirect,
-	NavLink,
 	useNavigate,
 	useSubmit,
 	Link,
 } from 'react-router-dom';
-import { useEffect } from 'react';
 import { getMedicos } from '../../utils/api';
 
-export async	function loader() {
-		return getMedicos();
-	}
+export async function loader() {
+	const medicos = await getMedicos();
+	return medicos;
+}
 
 function LayoutMedico() {
 	const medicos = useLoaderData();
-	const submit = useSubmit();	
-	const navigate = useNavigate();
+	console.log(medicos);
 
+	const submit = useSubmit();
 
 	return (
-			<main className="main">
-				<aside className="sidebar">
-					<h2>Medicos</h2>
-					<div className="search">
+		<main className="main">
+			<aside className="sidebar">
+				<h2>Medicos</h2>
+				<div className="search">
 					<Form id="search-Form" role="search">
 						<input
 							id="q"
@@ -46,26 +44,22 @@ function LayoutMedico() {
 						<div id="search-spinner" aria-hidden hidden={''} />
 						<div className="sr-only" aria-live="polite"></div>
 					</Form>
-						<Form method="post">
-							<button type="submit">New</button>
-						</Form>
-					</div>
-					<nav>
-						<ul>
-							<li>
-								<Link to={"/medicos/1"}>Medico 1</Link>
+					<Form method="post">
+						<button type="submit">New</button>
+					</Form>
+				</div>
+				<nav>
+					<ul>
+						{medicos.map((medico) => (
+							<li key={medico._id}>
+								<Link to={`/medicos/${medico._id}`}>{medico.nombre}</Link>
 							</li>
-							<li>
-								<Link to={"/medicos/2"}>Medico 2</Link>
-							</li>
-							<li>
-								<Link to={"/medicos/3"}>Medico 3</Link>
-							</li>
-						</ul>
-					</nav>
-				</aside>
-				<Outlet />
-			</main>
+						))}
+					</ul>
+				</nav>
+			</aside>
+			<Outlet />
+		</main>
 	);
 }
 
