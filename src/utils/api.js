@@ -1,5 +1,6 @@
 import API_URL from './constants';
 
+
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {
 		method: 'POST',
@@ -39,7 +40,29 @@ export async function getMedicos() {
 	return response.json();
 }
 
+export async function getMedico(id) {
+	const response = await fetch(`${API_URL}/medicos/${id}`);
+	return response.json();
+}
+
 export async function medicosWhitelist() {
 	const response = await fetch(`${API_URL}/medicos/whitelist`);
 	return response.json();
+}
+
+export async function loader() {
+	const medicos = await getMedicos();
+	return medicos;
+}
+
+export async function getMedicoById({ params }) {
+	const medico = await getMedico(params.id);
+	if (!medico) {
+		return {
+			status: 404,
+			statusText: 'Medico no encontrado',
+		};
+	}
+	return { medico };
+	
 }

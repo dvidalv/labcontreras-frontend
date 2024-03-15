@@ -6,6 +6,7 @@ import {
 	useNavigate,
 	useSubmit,
 	Link,
+	NavLink,
 } from 'react-router-dom';
 import { getMedicos } from '../../utils/api';
 
@@ -16,7 +17,6 @@ export async function loader() {
 
 function LayoutMedico() {
 	const medicos = useLoaderData();
-	console.log(medicos);
 
 	const submit = useSubmit();
 
@@ -48,11 +48,11 @@ function LayoutMedico() {
 						<button type="submit">New</button>
 					</Form>
 				</div>
-				<nav>
-					<ul>
+				<nav className="nav">
+					<ul className="nav__ul">
 						{medicos.map((medico) => (
-							<li key={medico._id}>
-								<Link to={`/medicos/${medico._id}`}>{medico.nombre}</Link>
+							<li className='nav__li' key={medico._id}>
+								<NavLink to={`/medicos/${medico._id}`}>{medico.nombre}</NavLink>
 							</li>
 						))}
 					</ul>

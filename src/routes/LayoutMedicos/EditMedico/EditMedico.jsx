@@ -1,18 +1,22 @@
 import { Form, useLoaderData, useNavigate } from 'react-router-dom';
 import './medico.css';
-// import { getMedicoById } from '../../../utils/api';
+import { useAppContext } from '../../../contexts/MyContext';
+import API_URL from '../../../utils/constants';
+import { checkToken } from '../../../utils/auth';
+import { useEffect } from 'react';
+import { getMedico } from '../../../utils/api';
 
-// export async function loader({ params }) {
-// 	const medico = await getMedico(params.id);
-// 	if (!medico) {
-// 		return {
-// 			status: 404,
-// 			statusText: 'Medico no encontrado',
-// 		};
-// 	}
-// 	return { medico };
+export async function loader({ params }) {
+	const medico = await getMedico(params.id);
+	if (!medico) {
+		return {
+			status: 404,
+			statusText: 'Medico no encontrado',
+		};
+	}
+	return { medico };
 	
-// }
+}
 
 export default function Medico() {
 	const { medico } = useLoaderData();

@@ -53,6 +53,16 @@
 		}
 	}
 }
+.nav li  {
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	width: 100%;
+}
+.active {
+	background-color: var(--color-secondary);
+	padding: .5rem 1rem;
+	border-radius: 0.5rem;
+}
 
 form input {
 	width: 100%;
