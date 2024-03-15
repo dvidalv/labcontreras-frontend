@@ -36,7 +36,7 @@ export async function contact(email, subject, message) {
 }
 
 export async function getMedicos() {
-	const response = await fetch(`${API_URL}/medicos`);
+	const response = await fetch(`${API_URL}/api/medicos`);
 	return response.json();
 }
 
