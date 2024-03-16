@@ -16,6 +16,8 @@ import Signup from './routes/Forms/Signup/Signup.jsx';
 import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
 import Contact from './routes/Forms/Contact/Contact.jsx';
 import { getMedicoById as loaderMedico } from './utils/api';
+import EditMedico from './routes/LayoutMedicos/EditMedico/EditMedico.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -46,7 +48,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: ':id/edit',
-						element: <Medico />,
+						element: <EditMedico />,
 					}
 				],
 			},

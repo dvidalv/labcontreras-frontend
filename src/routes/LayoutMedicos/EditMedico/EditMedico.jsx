@@ -1,57 +1,79 @@
-import { Form, useLoaderData, useNavigate } from 'react-router-dom';
-import './medico.css';
-import { useAppContext } from '../../../contexts/MyContext';
-import API_URL from '../../../utils/constants';
-import { checkToken } from '../../../utils/auth';
-import { useEffect } from 'react';
-import { getMedico } from '../../../utils/api';
+import { Form } from 'react-router-dom';
+import './editMedico.css';
 
-export async function loader({ params }) {
-	const medico = await getMedico(params.id);
-	if (!medico) {
-		return {
-			status: 404,
-			statusText: 'Medico no encontrado',
-		};
-	}
-	return { medico };
-	
-}
-
-export default function Medico() {
-	const { medico } = useLoaderData();
+function EditMedico() {
 	return (
-		<section className="paciente">
-			<div className="paciente__imagen">
-				<img src="https://via.placeholder.com/150" alt="Paciente" />
-			</div>
-			<div className="paciente__info">
-				<div>
-					<h3>{medico.nombre}</h3>
-					<p>
-						Correo:
-						<a href="mailto:correo@correo.com">correo@correo.com</a>
-					</p>
-					<p>Teléfono: 1234567890</p>
-					<p>Celular: 1234567890</p>
+		<div className="editMedico">
+			<h2 className="editMedico__title">Medico</h2>
+			<Form className="editMedico__form" action="edit">
+				<div className="form-group">
+					<p className="label">Nombre</p>
+					<div className="input-group">
+						<input type="text" id="nombre" name="nombre" placeholder="Nombre" />
+						<input
+							type="text"
+							id="apellido"
+							name="apellido"
+							placeholder="Apellido"
+						/>
+					</div>
 				</div>
-				<div className="paciente__acciones">
-					<Form action="edit">
-						<button type="submit">Editar</button>
-					</Form>
-					<Form
-						action="destroy"
-						method="post"
-						onSubmit={(event) => {
-							if (!confirm('Please confirm you want to delete this record.')) {
-								event.preventDefault();
-							}
-						}}
-					>
-						<button type="submit">Eliminar</button>
-					</Form>
+
+				<div className="form-group">
+					<p className="label">Correo</p>
+					<div className="input-group">
+						<input
+							type="email"
+							id="correo"
+							name="correo"
+							placeholder="Correo"
+						/>
+					</div>
 				</div>
-			</div>
-		</section>
+
+				<div className="form-group">
+					<p className="label">Telefono</p>
+					<div className="input-group">
+						<input
+							type="tel"
+							id="telefono"
+							name="telefono"
+							placeholder="Telefono"
+						/>
+					</div>
+				</div>
+
+				<div className="form-group">
+					<p className="label">Celular</p>
+					<div className="input-group">
+						<input
+							type="tel"
+							id="celular"
+							name="celular"
+							placeholder="Celular"
+						/>
+					</div>
+				</div>
+
+				<div className="form-group">
+					<p className="label">Especialidad</p>
+					<div className="input-group">
+						<input
+							type="text"
+							id="especialidad"
+							name="especialidad"
+							placeholder="Especialidad"
+						/>
+					</div>
+				</div>
+				<div className="form-group__buttons">
+					<button type="submit">Guardar</button>
+					<button type="submit">Editar</button>
+				</div>
+
+			</Form>
+		</div>
 	);
 }
+
+export default EditMedico;
