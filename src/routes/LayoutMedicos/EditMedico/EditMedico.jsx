@@ -6,7 +6,11 @@ function EditMedico() {
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Agregar Medico</h2>
-			<Form className="editMedico__form" action="edit">
+			<Form
+				className="editMedico__form"
+				action="/medicos/edit"
+				method="post"
+			>
 				<div className="form-group">
 					<p className="label">Nombre</p>
 					<div className="input-group">

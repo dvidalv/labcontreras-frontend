@@ -20,6 +20,7 @@ import Contact from './routes/Forms/Contact/Contact.jsx';
 import { getMedicoById as loaderMedico } from './utils/api';
 import EditMedico from './routes/LayoutMedicos/EditMedico/EditMedico.jsx';
 import { action as actionMedico } from './routes/LayoutMedicos/actionMedico.jsx';
+import { action as actionEditMedico } from './routes/LayoutMedicos/EditMedico/actionEdit.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
 					{
 						path: 'edit',
 						element: <EditMedico />,
+						action: actionEditMedico,
 					},
 				],
 			},
