@@ -35,6 +35,7 @@ export async function contact(email, subject, message) {
 	return response.json();
 }
 
+
 export async function getMedicos() {
 	const response = await fetch(`${API_URL}/medicos`);
 	return response.json();
@@ -47,6 +48,17 @@ export async function getMedico(id) {
 
 export async function medicosWhitelist() {
 	const response = await fetch(`${API_URL}/medicos/whitelist`);
+	return response.json();
+}
+
+export async function createMedico(data) {
+	const response = await fetch(`${API_URL}/medicos`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
 	return response.json();
 }
 

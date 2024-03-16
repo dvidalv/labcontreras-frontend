@@ -7,7 +7,9 @@ import App from './routes/App/App.jsx';
 import Main from './routes/Main/Main.jsx';
 import LayoutPacientes from './routes/LayoutPacientes/LayoutPacientes.jsx';
 import Paciente from './routes/LayoutPacientes/Paciente/Paciente.jsx';
-import LayoutMedicos, { loader as loaderMedicos } from './routes/LayoutMedicos/LayoutMedico.jsx';
+import LayoutMedicos, {
+	loader as loaderMedicos,
+} from './routes/LayoutMedicos/LayoutMedico.jsx';
 import Medico from './routes/LayoutMedicos/Medico/Medico.jsx';
 import NotFound from './routes/NotFound/NotFound.jsx';
 import { AppProvider } from './contexts/MyContext';
@@ -17,8 +19,7 @@ import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
 import Contact from './routes/Forms/Contact/Contact.jsx';
 import { getMedicoById as loaderMedico } from './utils/api';
 import EditMedico from './routes/LayoutMedicos/EditMedico/EditMedico.jsx';
-
-
+import { action as actionMedico } from './routes/LayoutMedicos/actionMedico.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
 			{ index: true, element: <Main /> },
 			{
 				path: 'pacientes/',
-				element: <RequireAuth><LayoutPacientes /></RequireAuth>,
+				element: (
+					<RequireAuth>
+						<LayoutPacientes />
+					</RequireAuth>
+				),
 				children: [
 					{
 						path: ':id',
@@ -38,8 +43,13 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'medicos/',
-				element: <RequireAuth><LayoutMedicos /></RequireAuth>,
+				element: (
+					<RequireAuth>
+						<LayoutMedicos />
+					</RequireAuth>
+				),
 				loader: loaderMedicos,
+				action: actionMedico,
 				children: [
 					{
 						path: ':id',
@@ -47,9 +57,9 @@ const router = createBrowserRouter([
 						loader: loaderMedico,
 					},
 					{
-						path: ':id/edit',
+						path: 'edit',
 						element: <EditMedico />,
-					}
+					},
 				],
 			},
 			{
@@ -63,7 +73,7 @@ const router = createBrowserRouter([
 			{
 				path: 'contact/',
 				element: <Contact />,
-			}
+			},
 		],
 		errorElement: <NotFound />,
 	},

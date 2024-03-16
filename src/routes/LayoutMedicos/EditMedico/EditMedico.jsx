@@ -1,10 +1,11 @@
-import { Form } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import './editMedico.css';
 
 function EditMedico() {
+	const navigate = useNavigate();
 	return (
 		<div className="editMedico">
-			<h2 className="editMedico__title">Medico</h2>
+			<h2 className="editMedico__title">Agregar Medico</h2>
 			<Form className="editMedico__form" action="edit">
 				<div className="form-group">
 					<p className="label">Nombre</p>
@@ -68,7 +69,9 @@ function EditMedico() {
 				</div>
 				<div className="form-group__buttons">
 					<button type="submit">Guardar</button>
-					<button type="submit">Editar</button>
+					<button type="button" 					onClick={() => {
+						navigate(-1);
+					}}>Cancelar</button>
 				</div>
 
 			</Form>

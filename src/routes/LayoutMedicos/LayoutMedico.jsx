@@ -23,7 +23,7 @@ function LayoutMedico() {
 	return (
 		<main className="main">
 			<aside className="sidebar">
-				<h2>Medicos</h2>
+				<h2>Agregar</h2>
 				<div className="search">
 					<Form id="search-Form" role="search">
 						<input
@@ -44,7 +44,7 @@ function LayoutMedico() {
 						<div id="search-spinner" aria-hidden hidden={''} />
 						<div className="sr-only" aria-live="polite"></div>
 					</Form>
-					<Form method="post">
+					<Form method="post" action="/medicos">
 						<button type="submit">New</button>
 					</Form>
 				</div>
