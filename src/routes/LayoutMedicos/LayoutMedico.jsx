@@ -3,17 +3,10 @@ import {
 	Outlet,
 	useLoaderData,
 	Form,
-	useNavigate,
 	useSubmit,
-	Link,
 	NavLink,
+	Link,
 } from 'react-router-dom';
-import { getMedicos } from '../../utils/api';
-
-export async function loader() {
-	const medicos = await getMedicos();
-	return medicos;
-}
 
 function LayoutMedico() {
 	const medicos = useLoaderData();
@@ -44,15 +37,17 @@ function LayoutMedico() {
 						<div id="search-spinner" aria-hidden hidden={''} />
 						<div className="sr-only" aria-live="polite"></div>
 					</Form>
-					<Form method="post" action="/medicos">
-						<button type="submit">New</button>
-					</Form>
+					<Link to="/medicos/nuevo">
+						<button type="button">New</button>
+					</Link>
 				</div>
 				<nav className="nav">
 					<ul className="nav__ul">
 						{medicos.map((medico) => (
-							<li className='nav__li' key={medico._id}>
-								<NavLink to={`/medicos/${medico._id}`}>{medico.nombre}</NavLink>
+							<li className="nav__li" key={medico._id}>
+								<NavLink
+									to={`/medicos/${medico._id}`}
+								>{`${medico.nombre} ${medico.apellido}`}</NavLink>
 							</li>
 						))}
 					</ul>

@@ -1,14 +1,12 @@
-import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import './nuevoMedico.css';
 
-function EditMedico() {
-	const { id } = useParams();
+function NuevoMedico() {
 	const navigate = useNavigate();
-	const { medico } = useLoaderData();
 	return (
 		<div className="editMedico">
-			<h2 className="editMedico__title">Editar Medico</h2>
-			<Form className="editMedico__form" action={`/medicos/${id}/edit`} method="put">
+			<h2 className="editMedico__title">Agregar Medico</h2>
+			<Form className="editMedico__form" action="/medicos/nuevo" method="post">
 				<div className="form-group">
 					<p className="label">Nombre</p>
 					<div className="input-group">
@@ -17,14 +15,14 @@ function EditMedico() {
 							id="nombre"
 							name="nombre"
 							placeholder="Nombre"
-							defaultValue={medico.nombre}
+							defaultValue="David"
 						/>
 						<input
 							type="text"
 							id="apellido"
 							name="apellido"
 							placeholder="Apellido"
-							defaultValue={medico.apellido}
+							defaultValue="Vidal"
 						/>
 					</div>
 				</div>
@@ -39,7 +37,7 @@ function EditMedico() {
 							placeholder="Correo"
 							required
 							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
-							defaultValue={medico.email}
+							defaultValue="david.vidal@outlook.com"
 						/>
 					</div>
 				</div>
@@ -54,7 +52,7 @@ function EditMedico() {
 							placeholder="Clave"
 							minLength="6"
 							required
-							defaultValue={medico.password}
+							defaultValue="1234567"
 						/>
 					</div>
 				</div>
@@ -67,7 +65,7 @@ function EditMedico() {
 							id="telefono"
 							name="telefono"
 							placeholder="Telefono"
-							defaultValue={medico.telefono}
+							defaultValue="1234567"
 						/>
 					</div>
 				</div>
@@ -80,7 +78,7 @@ function EditMedico() {
 							id="celular"
 							name="celular"
 							placeholder="Celular"
-							defaultValue={medico.celular}
+							defaultValue="1234567"
 						/>
 					</div>
 				</div>
@@ -93,12 +91,12 @@ function EditMedico() {
 							id="especialidad"
 							name="especialidad"
 							placeholder="Especialidad"
-							defaultValue={medico.especialidad}
+							defaultValue="Medico General"
 						/>
 					</div>
 				</div>
 				<div className="form-group__buttons">
-					<button type="submit">Guardar</button>
+					<button type="submit">Crear</button>
 					<button
 						type="button"
 						onClick={() => {
@@ -113,4 +111,4 @@ function EditMedico() {
 	);
 }
 
-export default EditMedico;
+export default NuevoMedico;

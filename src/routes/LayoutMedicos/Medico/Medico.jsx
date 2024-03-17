@@ -1,7 +1,8 @@
-import { Form, useLoaderData, useNavigate } from 'react-router-dom';
+import { Form, useLoaderData, useParams } from 'react-router-dom';
 import './medico.css';
 
 export default function Medico() {
+	const { id } = useParams();
 	const { medico } = useLoaderData();
 	return (
 		<section className="paciente">
@@ -13,17 +14,17 @@ export default function Medico() {
 					<h3>{medico.nombre}</h3>
 					<p>
 						Correo:
-						<a href="mailto:correo@correo.com">correo@correo.com</a>
+						<a href="mailto:correo@correo.com">{medico.email}</a>
 					</p>
-					<p>Teléfono: 1234567890</p>
-					<p>Celular: 1234567890</p>
+					<p>{`Teléfono: ${medico.telefono}`}</p>
+					<p>{`Celular: ${medico.celular}`}</p>
 				</div>
 				<div className="paciente__acciones">
 					<Form action="edit">
 						<button type="submit">Editar</button>
 					</Form>
 					<Form
-						action="destroy"
+						action={`/medicos/${id}/destroy`}
 						method="post"
 						onSubmit={(event) => {
 							if (!confirm('Please confirm you want to delete this record.')) {

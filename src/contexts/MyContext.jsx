@@ -17,6 +17,8 @@ export const AppProvider = ({ children }) => {
 	const [token, setToken] = useState(localStorage.getItem('token') || null);
 	const {toollTipIsLocated, setToollTipIsLocated} = useState('');
 	const [isLoading, setIsLoading] = useState(true);
+	const [medicos, setMedicos] = useState([]);
+	const [error, setError] = useState(null);
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {
@@ -61,6 +63,10 @@ export const AppProvider = ({ children }) => {
 				setToollTipIsLocated,
 				isLoading,
 				setIsLoading,
+				medicos,
+				setMedicos,
+				error,
+				setError,
 			}}
 		>
 			{children}

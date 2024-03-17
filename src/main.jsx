@@ -3,24 +3,32 @@ import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './vendor/normalize.css';
 import './index.css';
+import { AppProvider } from './contexts/MyContext';
+import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
 import App from './routes/App/App.jsx';
 import Main from './routes/Main/Main.jsx';
 import LayoutPacientes from './routes/LayoutPacientes/LayoutPacientes.jsx';
 import Paciente from './routes/LayoutPacientes/Paciente/Paciente.jsx';
-import LayoutMedicos, {
-	loader as loaderMedicos,
-} from './routes/LayoutMedicos/LayoutMedico.jsx';
-import Medico from './routes/LayoutMedicos/Medico/Medico.jsx';
 import NotFound from './routes/NotFound/NotFound.jsx';
-import { AppProvider } from './contexts/MyContext';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
 import Signup from './routes/Forms/Signup/Signup.jsx';
-import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
 import Contact from './routes/Forms/Contact/Contact.jsx';
+
+import LayoutMedicos from './routes/LayoutMedicos/LayoutMedico.jsx';
+import { loader as loaderMedicos } from './routes/LayoutMedicos/layoutMedicoLoader.jsx';
+
 import { getMedicoById as loaderMedico } from './utils/api';
+
+import Medico from './routes/LayoutMedicos/Medico/Medico.jsx';
+import { action as actionMedico } from './routes/LayoutMedicos/Medico/actionMedico.jsx';
+import { action as destroyMedico } from './routes/LayoutMedicos/Medico/destroyMedico.jsx';
+
+import NuevoMedico from './routes/LayoutMedicos/nuevoMedico/NuevoMedico.jsx';
+import { action as actionNuevoMedico } from './routes/LayoutMedicos/nuevoMedico/actionNuevo.jsx';
+
 import EditMedico from './routes/LayoutMedicos/EditMedico/EditMedico.jsx';
-import { action as actionMedico } from './routes/LayoutMedicos/actionMedico.jsx';
-import { action as actionEditMedico } from './routes/LayoutMedicos/EditMedico/actionEdit.jsx';
+import { action as actionEditMedico } from './routes/LayoutMedicos/EditMedico/actionEditMedico.jsx';
+import { loader as editMedicoLoader } from './routes/LayoutMedicos/EditMedico/editMedicoLoader.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -58,9 +66,20 @@ const router = createBrowserRouter([
 						loader: loaderMedico,
 					},
 					{
-						path: 'edit',
+						path: ':id/edit',
 						element: <EditMedico />,
+						loader: editMedicoLoader,
 						action: actionEditMedico,
+					},
+					{
+						path: ':id/destroy',
+						action: destroyMedico,
+						element: <h1>Eliminando...</h1>,
+					},
+					{
+						path: 'nuevo/',
+						element: <NuevoMedico />,
+						action: actionNuevoMedico,
 					},
 				],
 			},

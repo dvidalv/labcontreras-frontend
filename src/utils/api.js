@@ -46,6 +46,24 @@ export async function getMedico(id) {
 	return response.json();
 }
 
+export async function updateMedico(id, data) {
+	const response = await fetch(`${API_URL}/medicos/${id}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
+	return response.json();
+}
+
+export async function destroyMedico(id) {
+	const response = await fetch(`${API_URL}/medicos/${id}`, {
+		method: 'DELETE',
+	});
+	return response.json();
+}
+
 export async function medicosWhitelist() {
 	const response = await fetch(`${API_URL}/medicos/whitelist`);
 	return response.json();
