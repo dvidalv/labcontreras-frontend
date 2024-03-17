@@ -75,6 +75,7 @@ const router = createBrowserRouter([
 						path: ':id/destroy',
 						action: destroyMedico,
 						element: <h1>Eliminando...</h1>,
+						errorElement: <h1>Hubo un error al eliminar el medico</h1>,
 					},
 					{
 						path: 'nuevo/',
