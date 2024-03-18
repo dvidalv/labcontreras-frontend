@@ -20,7 +20,7 @@ function AvatarPopup({ onClose, isOpen}) {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 		};
-	}, []);
+	}, [onClose, isOpen]);
 
 	return (
 		<div className={`overlay ${isOpen ? 'isOpen' : 'hidden'}`} onClick={onClose}>
