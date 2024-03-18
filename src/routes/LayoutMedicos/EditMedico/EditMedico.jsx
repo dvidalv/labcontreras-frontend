@@ -15,6 +15,8 @@ function EditMedico() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { medico } = useLoaderData();
+	const { url } = medico;
+	console.log('medico', medico.url);
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Editar Medico</h2>
@@ -50,6 +52,20 @@ function EditMedico() {
 							required
 							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
 							defaultValue={medico.email}
+						/>
+					</div>
+				</div>
+				
+				<div className="form-group">
+					<p className="label">Link de la imagen</p>
+					<div className="input-group">
+						<input
+							type="url"
+							id="imagen"
+							name="url"
+							placeholder="Link de la imagen"
+							defaultValue={url? url : avatarUrl}
+							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
 						/>
 					</div>
 				</div>
@@ -128,7 +144,7 @@ function EditMedico() {
 				/>
 			)}
 			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
-				<img src={avatarUrl ? avatarUrl : avatarDoctor} alt="Avatar" />
+				<img src={url ? url : avatarUrl} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>
 		</div>

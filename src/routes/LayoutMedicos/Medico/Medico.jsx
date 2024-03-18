@@ -6,7 +6,7 @@ export default function Medico() {
 	return (
 		<section className="paciente">
 			<div className="paciente__imagen">
-				<img src="https://via.placeholder.com/150" alt="Paciente" />
+				<img src={medico.url} alt="Paciente" />
 			</div>
 			<div className="paciente__info">
 				<div>

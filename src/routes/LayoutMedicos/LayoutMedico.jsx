@@ -50,10 +50,13 @@ function LayoutMedico() {
 						<ul className="nav__ul">
 							{medicos.map((medico) => (
 								<li className="nav__li" key={medico._id}>
-									<NavLink
-										to={`/medicos/${medico._id}`}
-									>{`${medico.nombre} ${medico.apellido}`}</NavLink>
-								</li>
+								<NavLink
+									to={`/medicos/${medico._id}`}
+								>{`${medico.nombre} ${medico.apellido}`}</NavLink>
+								<div className="nav__li__actions">
+									<img src={medico.url} alt="Avatar" />
+								</div>
+							</li>
 							))}
 						</ul>
 					</nav>
