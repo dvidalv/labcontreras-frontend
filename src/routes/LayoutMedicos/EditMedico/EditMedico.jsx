@@ -16,7 +16,6 @@ function EditMedico() {
 	const navigate = useNavigate();
 	const { medico } = useLoaderData();
 	const { url } = medico;
-	console.log('medico', medico.url);
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Editar Medico</h2>
@@ -144,7 +143,7 @@ function EditMedico() {
 				/>
 			)}
 			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
-				<img src={url ? url : avatarUrl} alt="Avatar" />
+				<img src={url ? url : avatarDoctor} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>
 		</div>

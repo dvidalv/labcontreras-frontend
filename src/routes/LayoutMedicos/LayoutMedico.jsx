@@ -10,6 +10,8 @@ import {
 } from 'react-router-dom';
 import Preloader from '../../components/Preloader/Preloader.jsx';
 
+import avatarDoctor from '../../images/avatarDoctor.svg';
+
 function LayoutMedico() {
 	const navigate = useNavigation();
 	const medicos = useLoaderData();
@@ -21,14 +23,13 @@ function LayoutMedico() {
 			{navigate.state === 'loading' && <Preloader />}
 			<main className="main">
 				<aside className="sidebar">
-					<h2>Agregar</h2>
 					<div className="search">
 						<Form id="search-Form" role="search">
 							<input
 								id="q"
 								className={''}
 								aria-label="Search contacts"
-								placeholder="Search"
+								placeholder="Buscar..."
 								type="search"
 								name="q"
 								defaultValue={''}
@@ -54,7 +55,10 @@ function LayoutMedico() {
 									to={`/medicos/${medico._id}`}
 								>{`${medico.nombre} ${medico.apellido}`}</NavLink>
 								<div className="nav__li__actions">
-									<img src={medico.url} alt="Avatar" />
+									<img
+										src={medico.url ? medico.url : avatarDoctor}
+										alt="Avatar"
+									/>
 								</div>
 							</li>
 							))}
