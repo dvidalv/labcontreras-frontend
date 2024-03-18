@@ -1,16 +1,9 @@
 import { Form, useNavigate } from 'react-router-dom';
 import './nuevoMedico.css';
-import AvatarPopup  from '../../../components/AvatarPopup/AvatarPopup';
-import { useState } from 'react';
-import avatarDoctor from '../../../images/avatarDoctor.svg';
 
 function NuevoMedico() {
-	const [isOpen, setIsOpen] = useState(false)
 	const navigate = useNavigate();
 
-	const handleCLosePopup = () => {
-		setIsOpen(false);
-	};
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Agregar Medico</h2>
@@ -18,12 +11,7 @@ function NuevoMedico() {
 				<div className="form-group">
 					<p className="label">Nombre</p>
 					<div className="input-group">
-						<input
-							type="text"
-							id="nombre"
-							name="nombre"
-							placeholder="Nombre"
-						/>
+						<input type="text" id="nombre" name="nombre" placeholder="Nombre" />
 						<input
 							type="text"
 							id="apellido"
@@ -43,7 +31,6 @@ function NuevoMedico() {
 							placeholder="Correo"
 							required
 							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
-
 						/>
 					</div>
 				</div>
@@ -109,11 +96,6 @@ function NuevoMedico() {
 					</button>
 				</div>
 			</Form>
-			{isOpen && <AvatarPopup onClose={handleCLosePopup} setIsOpen={setIsOpen} isOpen={isOpen} />}
-			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
-				<img src={avatarDoctor} alt="Avatar" />
-				<p>Subir Foto</p>
-			</div>
 		</div>
 	);
 }

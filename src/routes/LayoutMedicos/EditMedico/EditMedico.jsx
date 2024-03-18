@@ -1,7 +1,17 @@
 import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
-import './nuevoMedico.css';
+import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
+import avatarDoctor from '../../../images/avatarDoctor.svg';
+import { useState } from 'react';
+
 
 function EditMedico() {
+	const [isOpen, setIsOpen] = useState(false);
+	const [avatarUrl, setAvatarUrl] = useState('');
+
+	const handleCLosePopup = () => {
+		setIsOpen(false);
+	};
+
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { medico } = useLoaderData();
@@ -109,6 +119,18 @@ function EditMedico() {
 					</button>
 				</div>
 			</Form>
+			{isOpen && (
+				<AvatarPopup
+					onClose={handleCLosePopup}
+					setIsOpen={setIsOpen}
+					isOpen={isOpen}
+					setAvatarUrl={setAvatarUrl}
+				/>
+			)}
+			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
+				<img src={avatarUrl ? avatarUrl : avatarDoctor} alt="Avatar" />
+				<p>Subir Foto</p>
+			</div>
 		</div>
 	);
 }

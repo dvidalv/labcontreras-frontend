@@ -1,5 +1,4 @@
 import { Form, useLoaderData, useParams } from 'react-router-dom';
-import './medico.css';
 
 export default function Medico() {
 	const { id } = useParams();

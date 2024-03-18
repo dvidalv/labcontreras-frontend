@@ -12,6 +12,7 @@
 	visibility: hidden;
 	transform: scale(1.1);
 	transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+  z-index: 1;
 
 }
 .overlay.isOpen {
@@ -79,11 +80,25 @@ input[type="file"]::file-selector-button:active {
   background-color: #e5e7eb;
 }
 
+input[type="submit"] {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #0964b0;
+  color: white;
+  border: none;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  transition: background-color 200ms;
+  z-index: 10;
+}
+
 .input-file{
-	display: flex;
+	/* display: flex;
 	align-items: center;
 	gap: 10px;
 	margin-bottom: 20px;
 	width: 100%;
 	position: relative;
+  z-index: 10; */
 }
