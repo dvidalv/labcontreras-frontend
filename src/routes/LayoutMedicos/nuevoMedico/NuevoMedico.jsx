@@ -1,8 +1,16 @@
 import { Form, useNavigate } from 'react-router-dom';
 import './nuevoMedico.css';
+import AvatarPopup  from '../../../components/AvatarPopup/AvatarPopup';
+import { useState } from 'react';
+import avatarDoctor from '../../../images/avatarDoctor.svg';
 
 function NuevoMedico() {
+	const [isOpen, setIsOpen] = useState(false)
 	const navigate = useNavigate();
+
+	const handleCLosePopup = () => {
+		setIsOpen(false);
+	};
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Agregar Medico</h2>
@@ -101,6 +109,11 @@ function NuevoMedico() {
 					</button>
 				</div>
 			</Form>
+			{isOpen && <AvatarPopup onClose={handleCLosePopup} setIsOpen={setIsOpen} isOpen={isOpen} />}
+			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
+				<img src={avatarDoctor} alt="Avatar" />
+				<p>Subir Foto</p>
+			</div>
 		</div>
 	);
 }
