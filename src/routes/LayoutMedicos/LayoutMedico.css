@@ -1,9 +1,8 @@
 .main {
 	display: grid;
 	grid-template-columns: minmax(150px, 30%) minmax(150px, 70%);
-	/* height: 100vh; */
+	grid-template-rows: 100vh;
 	background-color: var(--color-primary-light);
-	/* padding-top: var(--header-height-mobile); */
 
 	@media (min-width: 768px){
 		padding-top: var(--header-height);
@@ -12,7 +11,9 @@
 	}
 
 	@media (min-width: 1024px){
-		grid-template-columns: minmax(150px, 30%) minmax(150px, 70%);
+
+			grid-template-columns: minmax(150px, 30%) minmax(150px, 70%);
+
 	}
 }
 
