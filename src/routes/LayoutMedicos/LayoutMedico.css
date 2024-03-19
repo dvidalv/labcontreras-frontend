@@ -1,7 +1,7 @@
 .main {
 	display: grid;
 	grid-template-columns: minmax(150px, 30%) minmax(150px, 70%);
-	grid-template-rows: 100vh;
+	grid-template-rows: calc(100vh - 200px);
 	background-color: var(--color-primary-light);
 
 	@media (min-width: 768px){
