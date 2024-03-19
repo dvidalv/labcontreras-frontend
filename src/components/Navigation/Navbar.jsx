@@ -15,11 +15,11 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen}) {
 						Nosotros
 					</NavLink>
 				</li>
-				<li className="navbar__item">
+				{/* <li className="navbar__item">
 					<NavLink to="/pacientes" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 					Pacientes
 					</NavLink>
-				</li>
+				</li> */}
 				<li className="navbar__item">
 					<NavLink to="/medicos" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 						Médicos
