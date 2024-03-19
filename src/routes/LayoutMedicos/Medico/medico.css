@@ -20,7 +20,6 @@
 		align-items: center;
 		padding-top: 1rem;
 		margin: 0 auto;
-		overflow: hidden;
 		@media (min-width: 768px){
 			margin-top: 0;
 
