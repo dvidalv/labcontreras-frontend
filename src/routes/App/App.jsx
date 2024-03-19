@@ -13,9 +13,15 @@ function App() {
 
 	return (
 		<div className="page__content">
-			<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-			<Outlet loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-			<Footer />
+			<div className="header">
+				<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+			</div>
+			<div className="content">
+				<Outlet loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+			</div>
+			<div className="footer--container">
+				<Footer />
+			</div>
 		</div>
 	);
 }

@@ -4,7 +4,7 @@
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-  --header-height: 138px;  
+  --header-height: 52px;  
   --header-height-mobile: 70px;
 
 	--color-primary: #7f4d8c;
@@ -38,13 +38,13 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: var(--font-family);
-	font-size: 1rem;
+	font-size: .625rem;
 	line-height: 1.5;
 }
 
 .page__content {
 	color: #fff;
-	max-width: 100%;
+	min-width: 320px;
 }
 h1,h2,h3,h4,h5,h6 {
 	margin: 0;

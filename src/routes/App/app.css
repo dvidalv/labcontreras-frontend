@@ -1,0 +1,20 @@
+.page__content {
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: var(--header-height-mobile) auto 200px;
+
+	.header{
+		grid-row: 1/2;
+		height: var(--header-height-mobile);
+	}
+	.content{
+		grid-row: 2/3;
+	}
+	.footer--container{
+		grid-row: 3/4;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	}
+
+}
+

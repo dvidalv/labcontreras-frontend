@@ -1,15 +1,16 @@
 import { Form, useLoaderData, useParams } from 'react-router-dom';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
+import './medico.css';
 
 export default function Medico() {
 	const { id } = useParams();
 	const { medico } = useLoaderData();
 	return (
-		<section className="paciente">
-			<div className="paciente__imagen">
-				<img src={medico.url ? medico.url : avatarDoctor} alt="Paciente" />
+		<section className="medico">
+			<div className="medico__imagen">
+				<img src={medico.url ? medico.url : avatarDoctor} alt="Medico" />
 			</div>
-			<div className="paciente__info">
+			<div className="medico__info">
 				<div>
 					<h3>{`${medico.nombre} ${medico.apellido}`}</h3>
 					<p>
@@ -19,7 +20,7 @@ export default function Medico() {
 					<p>{`Teléfono: ${medico.telefono}`}</p>
 					<p>{`Celular: ${medico.celular}`}</p>
 				</div>
-				<div className="paciente__acciones">
+				<div className="medico__acciones">
 					<Form action="edit">
 						<button type="submit">Editar</button>
 					</Form>
