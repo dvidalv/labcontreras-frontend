@@ -143,7 +143,7 @@ function EditMedico() {
 				/>
 			)}
 			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
-				<img src={url ? url : avatarDoctor} alt="Avatar" />
+				<img src={avatarUrl ? avatarUrl : avatarDoctor} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>
 		</div>
