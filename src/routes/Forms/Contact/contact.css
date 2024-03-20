@@ -8,9 +8,7 @@
 }
 
 .contact-container {
-
-
-	@media (min-width: 768px){
+	@media (min-width: 768px) {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		padding-top: var(--header-height);
@@ -33,31 +31,34 @@
 		justify-content: center;
 	}
 
-
-	.form{
-		input, textarea{
+	.form {
+		input,
+		textarea {
 			width: 100%;
 			margin-bottom: 20px;
 			padding: 10px;
 			border: 1px solid var(--color-white);
 			border-radius: 5px;
-		
+		}
+		textarea {
+			height: 100px;
+		}
+		input::placeholder{
+			font-size: 0.9rem;
+		}
 	}
 }
-}
 
-
-
-.form-container{
+.form-container {
 	padding: 20px;
 
-	h1{
+	h1 {
 		font-size: 2rem;
 		margin: 50px 0 0 0;
 	}
 
-	p{
-		font-size: .9rem;
+	p {
+		font-size: 0.9rem;
 		text-align: center;
 	}
 }
