@@ -68,7 +68,6 @@ function Contact() {
 						required={true}
 						className="form__input"
 						placeholder="Asunto de tu mensaje"
-						defaultValue="Contacto"
 					/>
 
 					<label className="form__label" htmlFor="message">
