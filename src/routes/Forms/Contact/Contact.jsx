@@ -3,6 +3,7 @@ import { contact } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import Map from '../../../components/Map/Map';
+import './contact.css';
 
 function Contact() {
 	const location = 'contact';
