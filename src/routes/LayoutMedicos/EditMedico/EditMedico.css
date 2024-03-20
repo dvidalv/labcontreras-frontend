@@ -50,8 +50,9 @@
 	}
 }
 .editMedico__form {
+	margin: 0 auto;
 	margin-top: 20px;
-	width: 100%;
+	max-width: 800px;
 	padding: 0 10px;
 
 	@media (min-width: 768px) {
