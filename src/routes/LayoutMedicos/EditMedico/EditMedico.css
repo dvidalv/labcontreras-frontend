@@ -5,12 +5,17 @@
 	align-items: center;
 	width: 70px;
 	height: 70px;
-	border-radius: 50%;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 	cursor: pointer;
 	position: absolute;
-	top: 38px;
-	left: 33px;
+	top: -50px;
+	left: 5px;
+	
+	@media (min-width: 768px){
+		top: -50px;
+		left: 10px;
+		border-radius: 50%;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+	}
 
 	img {
 		width: 60%;
@@ -29,26 +34,29 @@
 }
 
 .editMedico {
-	position: relative;
+	/* position: relative; */
+	margin-top: 60px;
 }
-.contenedor__avatar {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 20px 0;
-}
+
 
 .editMedico__title {
 	color: var(--color-primary);
-	font-size: 2rem;
+	font-size: 1.5rem;
 	margin-bottom: 20px;
 	text-align: center;
 	margin: 20px 0;
+	@media (min-width: 768px) {
+		font-size: 2rem;
+	}
 }
 .editMedico__form {
-	margin-top: 60px;
+	margin-top: 20px;
 	width: 100%;
-	padding: 0 40px;
+	padding: 0 10px;
+
+	@media (min-width: 768px) {
+		padding: 0 20px;
+	}
 }
 .form-group {
 	display: flex;
@@ -56,13 +64,18 @@
 	width: 100%;
 
 	.label {
-		font-size: 1.2rem;
+		font-size: .8rem;
 		width: 30%;
 		margin: 0;
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
 		text-align: left;
+		
+		@media (min-width: 768px){
+			font-size: 1rem;
+			
+		}
 	}
 }
 
@@ -70,18 +83,22 @@
 	width: 70%;
 	display: flex;
 	gap: 10px;
-	
+
 	input {
-		font-size: 1rem;
-		height: 40px;
+		font-size: .8rem;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 		color: #000;
+		@media (min-width: 768px){
+			font-size: 1rem;
+		}
 	}
 	input::placeholder {
 		color: var(--color-gris);
-		font-size: .8rem;
-	}
 
+		@media (min-width: 768px){
+			font-size: 1rem;
+		}
+	}
 }
 
 .form-group__buttons {

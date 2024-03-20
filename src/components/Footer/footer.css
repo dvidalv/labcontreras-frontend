@@ -82,4 +82,8 @@
 	font-size: .8rem;
 	font-weight: 200;
 	margin-top: 0;
+	span {
+		text-align: center;
+		font-size: .6rem;
+	}
 }

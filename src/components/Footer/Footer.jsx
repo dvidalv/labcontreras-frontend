@@ -24,15 +24,18 @@ function Footer() {
 				</div>
 			</div>
 			<div className="redes-sociales">
-				<a href="#" target="_blank" rel="noreferrer">
+				<a href="https://www.facebook.com/contrerasrobledo/?locale=es_LA" target="_blank" rel="noreferrer">
 					<img src={facebook} alt="facebook" />
 				</a>
-				<a href="#" target="_blank" rel="noreferrer">
+				<a href="https://www.instagram.com/labcontrerasrobledo/" target="_blank" rel="noreferrer">
 					<img src={instagram} alt="instagram" />
 				</a>
 			</div>
 			<div className="derechos">
-				<span>© 2021 Laboratorio de Patología Contreras Robledo. Todos los derechos reservados.</span>
+				<span>
+					© 2021 Laboratorio de Patología Contreras Robledo. Todos los derechos
+					reservados.
+				</span>
 			</div>
 		</footer>
 	);
