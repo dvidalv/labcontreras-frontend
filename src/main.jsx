@@ -30,6 +30,8 @@ import EditMedico from './routes/LayoutMedicos/EditMedico/EditMedico.jsx';
 import { action as actionEditMedico } from './routes/LayoutMedicos/EditMedico/actionEditMedico.jsx';
 import { loader as editMedicoLoader } from './routes/LayoutMedicos/EditMedico/editMedicoLoader.jsx';
 
+import Nosotros from './routes/Nosotros/Nosotros.jsx';
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
 						element: <Paciente />,
 					},
 				],
+			},
+			{
+				path: 'nosotros/',
+				element: <Nosotros />,
 			},
 			{
 				path: 'medicos/',

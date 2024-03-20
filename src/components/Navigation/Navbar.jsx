@@ -30,11 +30,11 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen}) {
 						Servicios
 					</NavLink>
 				</li>
-				<li className="navbar__item">
+				{/* <li className="navbar__item">
 					<NavLink to="/seguros" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 						Seguros
 					</NavLink>
-				</li>
+				</li> */}
 				<li className="navbar__item">
 					<NavLink to="/contact" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 						Contacto

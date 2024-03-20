@@ -15,6 +15,7 @@ function EditMedico() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { medico } = useLoaderData();
+	console.log('medico', medico);
 	const { url } = medico;
 	return (
 		<div className="editMedico">
@@ -63,7 +64,7 @@ function EditMedico() {
 							id="imagen"
 							name="url"
 							placeholder="Link de la imagen"
-							defaultValue={url? url : avatarUrl}
+							defaultValue={medico.url? medico.url : avatarUrl}
 							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
 						/>
 					</div>
@@ -143,7 +144,7 @@ function EditMedico() {
 				/>
 			)}
 			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
-				<img src={avatarUrl ? avatarUrl : avatarDoctor} alt="Avatar" />
+				<img src={url ? url : avatarDoctor} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>
 		</div>

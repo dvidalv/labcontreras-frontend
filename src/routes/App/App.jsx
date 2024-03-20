@@ -13,6 +13,7 @@ function App() {
 
 	return (
 		<div className="page__content">
+			
 			<div className="header">
 				<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 			</div>

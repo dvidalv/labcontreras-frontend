@@ -35,7 +35,7 @@ function NuevoMedico() {
 					</div>
 				</div>
 
-				<div className="form-group">
+				{/* <div className="form-group">
 					<p className="label">Correo</p>
 					<div className="input-group">
 						<input
@@ -45,7 +45,7 @@ function NuevoMedico() {
 							placeholder="Link de la imagen"
 						/>
 					</div>
-				</div>
+				</div> */}
 
 				<div className="form-group">
 					<p className="label">Clave</p>

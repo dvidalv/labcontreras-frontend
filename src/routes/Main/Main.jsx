@@ -15,6 +15,7 @@ import palic from '../../images/palic.png';
 import humano from '../../images/humano.png';
 import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
+import { Link } from 'react-router-dom';
 
 function Main() {
 	return (
@@ -58,8 +59,9 @@ function Main() {
 							el servicio y la calidad de los resultados. Nuestro equipo de
 							patólogos, técnicos y personal administrativo está dedicado a
 							proporcionar resultados precisos y oportunos para ayudar a los
-							médicos a tomar decisiones informadas.
+							médicos a tomar decisiones informadas. 
 						</p>
+						<Link className="about__link" to="/nosotros">Más..</Link>
 					</div>
 					<ul className="cards">
 						<li>
