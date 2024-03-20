@@ -6,6 +6,8 @@
 	font-weight: 400;
   --header-height: 52px;  
   --header-height-mobile: 70px;
+	--footer-height: 200px;
+	--footer-height-mobile: 200px;
 
 	--color-primary: #7f4d8c;
 	--color-primary-light: #b693bf;

@@ -2,7 +2,7 @@
 	height: 100vh;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: var(--header-height-mobile) auto 200px;
+	grid-template-rows: var(--header-height-mobile) auto var(--footer-height);
 
 	.header{
 		grid-row: 1/2;
