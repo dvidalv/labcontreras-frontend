@@ -5,7 +5,9 @@ export async function action({ request, params }) {
 	const formData = await request.formData();
 	const updates = Object.fromEntries(formData);
 	// console.log('updates', updates);
-	await updateMedico(params.id, updates);
+	const response = await updateMedico(params.id, updates)
+	// console.log('response', response);
+
 	return redirect(`/medicos/${params.id}`);
 
 }

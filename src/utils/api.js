@@ -68,7 +68,24 @@ export async function updateMedico(id, data) {
 		},
 		body: JSON.stringify(data),
 	});
-	return response.json();
+	// console.log(response);
+	if(response.ok){
+		const responseData = await response.json();
+		// console.log('responseData', responseData);
+		return {
+			success: true,
+			medico: responseData.medico,
+		}
+
+	}else{
+		const errorData = await response.json();
+		// console.log('errorData', errorData);
+		return{
+			success: false,
+			error: errorData.message,
+			status: errorData.status,
+		}
+	}
 }
 
 export async function destroyMedico(id) {
