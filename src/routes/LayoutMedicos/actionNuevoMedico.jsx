@@ -7,7 +7,11 @@ export async function action({ request }) {
 		const data = Object.fromEntries(formData);
 		const resultado = await createMedico(data);
 		if (resultado.medico) {
-			return redirect(`/medicos/${resultado.medico._id}`);
+			return redirect(`/medicos/${resultado.medico._id}`, {
+				state: {
+					mensaje: 'Médico creado correctamente',
+				},
+			});
 		} else {
 			// Asumiendo que el servidor responde con un mensaje de error en resultado.error
 			return redirect('/medicos/edit', {

@@ -44,7 +44,7 @@ function LayoutMedico() {
 							<div className="sr-only" aria-live="polite"></div>
 						</Form>
 						<Link to="/medicos/nuevo">
-							<button type="button">New</button>
+							<button type="button">Nuevo</button>
 						</Link>
 					</div>
 					<nav className="nav">

@@ -1,6 +1,5 @@
 import API_URL from './constants';
 
-
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {
 		method: 'POST',
@@ -31,10 +30,9 @@ export async function contact(email, subject, message) {
 		},
 		body: JSON.stringify({ email, subject, message }),
 	});
-	console.log(response);
+	// console.log(response);
 	return response.json();
 }
-
 
 export async function getMedicos() {
 	const response = await fetch(`${API_URL}/medicos`);
@@ -46,8 +44,24 @@ export async function getMedico(id) {
 	return response.json();
 }
 
+
+export async function createMedico(data) {
+	const response = await fetch(`${API_URL}/medicos`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
+	return response.json();
+}
+
+
 export async function updateMedico(id, data) {
-	const response = await fetch(`${API_URL}/medicos/${id}`, {
+	// const verified = await
+	// verifyUser(id, data.password);
+
+	const response = await fetch(`${API_URL}/medicos/${id}/update`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
@@ -69,16 +83,6 @@ export async function medicosWhitelist() {
 	return response.json();
 }
 
-export async function createMedico(data) {
-	const response = await fetch(`${API_URL}/medicos`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(data),
-	});
-	return response.json();
-}
 
 export async function loader() {
 	const medicos = await getMedicos();
@@ -94,5 +98,4 @@ export async function getMedicoById({ params }) {
 		};
 	}
 	return { medico };
-	
 }

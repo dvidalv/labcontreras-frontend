@@ -16,11 +16,11 @@ function EditMedico() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { medico } = useLoaderData();
-	console.log('medico', medico);
+	// console.log('medico', medico);
 	const { url } = medico;
 	return (
 		<div className="editMedico">
-			<h2 className="editMedico__title">Editar Medico</h2>
+			<h2 className="editMedico__title">Editar Médico</h2>
 			<Form className="editMedico__form" action={`/medicos/${id}/edit`} method="put">
 				<div className="form-group">
 					<p className="label">Nombre</p>
@@ -67,6 +67,7 @@ function EditMedico() {
 							placeholder="Link de la imagen"
 							defaultValue={medico.url? medico.url : avatarUrl}
 							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
+							disabled
 						/>
 					</div>
 				</div>
@@ -87,7 +88,7 @@ function EditMedico() {
 				</div>
 
 				<div className="form-group">
-					<p className="label">Telefono</p>
+					<p className="label">Teléfono</p>
 					<div className="input-group">
 						<input
 							type="tel"

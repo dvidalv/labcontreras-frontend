@@ -1,10 +1,13 @@
-import { Form, useLoaderData, useParams } from 'react-router-dom';
+import { Form, useLoaderData, useParams, useLocation } from 'react-router-dom';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
 import './medico.css';
 
 export default function Medico() {
 	const { id } = useParams();
 	const { medico } = useLoaderData();
+	const location = useLocation();
+	const { mensaje } = location.state || {};
+	// console.log(location.state);
 	return (
 		<section className="medico">
 			<div className="medico__imagen">
@@ -34,6 +37,9 @@ export default function Medico() {
 						}}
 					>
 						<button type="submit">Eliminar</button>
+						<div>
+							{mensaje && <div>{mensaje}</div>}
+						</div>
 					</Form>
 				</div>
 			</div>
