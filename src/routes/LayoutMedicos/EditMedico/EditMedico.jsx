@@ -2,29 +2,48 @@ import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
 import { useState } from 'react';
+import { useAppContext } from '../../../contexts/MyContext';
 import './EditMedico.css';
-
+import { updateMedico } from '../../../utils/api';
+import Tooltip from '../../../components/ToolTip/Tooltip';
 
 function EditMedico() {
-console.log(history.pushState.state);
-
+	const { id } = useParams();
+	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState('');
+	const { message, setMessage, type, setType } = useAppContext();
 
+	console.log(message);
 
 	const handleCLosePopup = () => {
 		setIsOpen(false);
 	};
 
-	const { id } = useParams();
-	const navigate = useNavigate();
+	const handleSubmint = async (event) => {
+		event.preventDefault();
+		const formData = new FormData(event.target);
+		const data = Object.fromEntries(formData);
+		// console.log('data', data);
+		const response = await updateMedico(id, data);
+		console.log('response', response.success);
+		if (response.error) {
+			setMessage(response.error);
+			setType(!response.success ? 'false' : 'error');
+		} else {
+			navigate(`/medicos/${id}`);
+		}
+	};
+
+	console.log(type);
+	console.log(message);
+
 	const { medico } = useLoaderData();
-	// console.log('medico', medico);
 	const { url } = medico;
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Editar Médico</h2>
-			<Form className="editMedico__form" action={`/medicos/${id}/edit`} method="put">
+			<Form className="editMedico__form" method="put" onSubmit={handleSubmint}>
 				<div className="form-group">
 					<p className="label">Nombre</p>
 					<div className="input-group">
@@ -59,7 +78,7 @@ console.log(history.pushState.state);
 						/>
 					</div>
 				</div>
-				
+
 				<div className="form-group">
 					<p className="label">Link de la imagen</p>
 					<div className="input-group">
@@ -68,7 +87,7 @@ console.log(history.pushState.state);
 							id="imagen"
 							name="url"
 							placeholder="Link de la imagen"
-							defaultValue={medico.url? medico.url : avatarUrl}
+							defaultValue={medico.url ? medico.url : avatarUrl}
 							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
 							disabled
 						/>
@@ -152,6 +171,15 @@ console.log(history.pushState.state);
 				<img src={url ? url : avatarDoctor} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>
+			{message && (
+				<Tooltip
+					type="error"
+					message={message}
+					location="editMedico"
+					setMessage={setMessage}
+					className="tooltip--visible"
+				/>
+			)}
 		</div>
 	);
 }

@@ -5,11 +5,11 @@ import successIcon from '../../images/check.svg';
 import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
 
-function Tooltip({ message, type, location }) {
+function Tooltip({ message, type, location, setMessage, className}) {
 	const navigate = useNavigate();
 	const { setShowTooltip } = useAppContext();
 	return (
-		<div className="tooltip">
+		<div className={`tooltip ${className}`}>
 			<div className="tooltip__container">
 				{type === 'success' && (
 					<img src={successIcon} alt="icon" className="tooltip__icon" />
@@ -64,6 +64,18 @@ function Tooltip({ message, type, location }) {
 						onClick={() => {
 							setShowTooltip(false);
 							location = '';
+						}}
+						className="tooltip__link"
+					>
+						Aceptar
+					</button>
+				)}
+				{type === 'error' && location === 'editMedico' && (
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+							location = '';
+							setMessage('');
 						}}
 						className="tooltip__link"
 					>

@@ -8,6 +8,21 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .7s ease, visibility 0s .7s; /* Ajuste aquí */
+}
+
+.tooltip--visible{
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0s; /* Asegura que visibility se vuelve visible inmediatamente */
+}
+
+.tooltip--hidden{
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .7s ease, visibility 0s .7s; /* Asegura que visibility se oculta después de la transición */
 }
 
 .tooltip__container{
