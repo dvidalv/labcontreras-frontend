@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { Form, useLoaderData, useNavigate, useParams, useLocation } from 'react-router-dom';
 import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
 import { useState } from 'react';
@@ -6,8 +6,12 @@ import './EditMedico.css';
 
 
 function EditMedico() {
+	const location = useLocation();
+	console.log(location.state);
+
 	const [isOpen, setIsOpen] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState('');
+
 
 	const handleCLosePopup = () => {
 		setIsOpen(false);
