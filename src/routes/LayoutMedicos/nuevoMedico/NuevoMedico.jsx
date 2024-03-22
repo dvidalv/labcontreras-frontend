@@ -166,6 +166,7 @@ function NuevoMedico() {
 					type={type}
 					location={location}
 					className="tooltip--visible"
+					setMessage={setMessage}
 				/>
 			)}
 		</div>

@@ -111,6 +111,7 @@ function Tooltip({ message, type, location, setMessage, className}) {
 						onClick={() => {
 							setShowTooltip(false);
 							location = '';
+							setMessage('');
 						}}
 						className="tooltip__link"
 					>
