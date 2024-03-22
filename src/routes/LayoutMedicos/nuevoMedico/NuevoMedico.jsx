@@ -1,9 +1,24 @@
 import { Form, useNavigate } from 'react-router-dom';
 import { createMedico } from '../../../utils/api';
+import { useAppContext } from '../../../contexts/MyContext';
 import './nuevoMedico.css';
+import ToolTip from '../../../components/ToolTip/Tooltip.jsx';
 
 function NuevoMedico() {
 	const navigate = useNavigate();
+	const {
+		medicos,
+		setMedicos,
+		message,
+		setMessage,
+		type,
+		setType,
+		setError,
+		location,
+		setLocation,
+		showTooltip,
+		setShowTooltip,
+	} = useAppContext();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -16,14 +31,27 @@ function NuevoMedico() {
 			// Llamar a la API para crear un nuevo médico
 			const response = await createMedico(data);
 			if (response.medico) {
-				alert('Médico creado con éxito');
+				setMedicos([...medicos, response.medico]);
 				navigate('/medicos'); // Redirigir al usuario a la lista de médicos
 			} else {
-				alert('Error al crear médico: ' + response.message);
+				if (response.error === 'E11000') {
+					setShowTooltip(true);
+					setMessage('El correo ya existe');
+					setType('error');
+					setError(true);
+					setLocation('nuevoMedico');
+				}
+				if (response.message === 'Validation failed') {
+					setShowTooltip(true);
+					setMessage('Error de Validación. Revise los datos ingresados');
+					setType('error');
+					setError(true);
+					setLocation('nuevoMedico');
+				}
+				return;
 			}
 		} catch (error) {
-			console.error('Error al crear médico:', error);
-			alert('Error al crear médico. Por favor, intente de nuevo.');
+			console.log(error);
 		}
 	};
 
@@ -132,6 +160,14 @@ function NuevoMedico() {
 					</button>
 				</div>
 			</Form>
+			{showTooltip && (
+				<ToolTip
+					message={message}
+					type={type}
+					location={location}
+					className="tooltip--visible"
+				/>
+			)}
 		</div>
 	);
 }

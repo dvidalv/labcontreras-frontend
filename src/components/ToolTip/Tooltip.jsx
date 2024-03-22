@@ -4,13 +4,36 @@ import './tooltip.css';
 import successIcon from '../../images/check.svg';
 import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
+import { useEffect } from 'react';
 
 function Tooltip({ message, type, location, setMessage, className}) {
 	const navigate = useNavigate();
 	const { setShowTooltip } = useAppContext();
+
+	// Manejador para cerrar el tooltip cuando se presiona Enter
+	useEffect(() => {
+		const handleKeyDown = (event) => {
+			if (event.key === 'Enter' || event.key === 'Escape') {
+				setShowTooltip(false);
+			}
+		};
+
+		// Agregar listener
+		window.addEventListener('keydown', handleKeyDown);
+
+		// Remover listener al desmontar
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [setShowTooltip]);
+
+	const closeTooltip = () => {
+		setShowTooltip(false);
+	};
+
 	return (
-		<div className={`tooltip ${className}`}>
-			<div className="tooltip__container">
+		<div className={`tooltip ${className}`} onClick={closeTooltip}>
+			<div className="tooltip__container" onClick={e => e.stopPropagation()}>
 				{type === 'success' && (
 					<img src={successIcon} alt="icon" className="tooltip__icon" />
 				)}
@@ -76,6 +99,17 @@ function Tooltip({ message, type, location, setMessage, className}) {
 							setShowTooltip(false);
 							location = '';
 							setMessage('');
+						}}
+						className="tooltip__link"
+					>
+						Aceptar
+					</button>
+				)}
+				{type === 'error' && location === 'nuevoMedico' && (
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+							location = '';
 						}}
 						className="tooltip__link"
 					>

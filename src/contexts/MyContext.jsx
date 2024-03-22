@@ -21,6 +21,7 @@ export const AppProvider = ({ children }) => {
 	const [medico, setMedico] = useState({});
 	const [error, setError] = useState(null);
 	const [avatarUrl, setAvatarUrl] = useState('');
+	const [location, setLocation] = useState('');
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {
@@ -73,6 +74,8 @@ export const AppProvider = ({ children }) => {
 				setError,
 				avatarUrl,
 				setAvatarUrl,
+				location,
+				setLocation,
 			}}
 		>
 			{children}
