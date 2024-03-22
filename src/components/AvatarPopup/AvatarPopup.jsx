@@ -38,7 +38,7 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 	// Efecto para escuchar la tecla Escape
 	useEffect(() => {
 		const handleKeyDown = (event) => {
-			if (event.key === 'Escape') {
+			if (event.key === 'Enter' || event.key === 'Escape') {
 				onClose();
 			}
 		};
@@ -55,7 +55,7 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 	return (
 		<div
 			className={`overlay ${isOpen ? 'isOpen' : 'hidden'}`}
-			// onClick={onClose}
+			onClick={onClose}
 		>
 			<form
 				id="avatar-form"
@@ -63,6 +63,7 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 				onSubmit={handleSubirImagen}
 				encType="multipart/form-data"
 				method="post"
+				onClick={e => e.stopPropagation()}
 			>
 				<div className="form-group">
 					<div className="input-file">
