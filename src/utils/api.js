@@ -46,6 +46,7 @@ export async function getMedico(id) {
 
 
 export async function createMedico(data) {
+	// console.log(data);
 	const response = await fetch(`${API_URL}/medicos`, {
 		method: 'POST',
 		headers: {

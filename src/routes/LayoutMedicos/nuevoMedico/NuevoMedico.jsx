@@ -1,22 +1,40 @@
 import { Form, useNavigate } from 'react-router-dom';
+import { createMedico } from '../../../utils/api';
 import './nuevoMedico.css';
 
 function NuevoMedico() {
 	const navigate = useNavigate();
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		// FormData es una clase que nos permite crear un objeto clave/valor a partir de un formulario
+		const formData = new FormData(e.target);
+		const data = Object.fromEntries(formData);
+		// console.log(data);
+		try {
+			// Llamar a la API para crear un nuevo médico
+			const response = await createMedico(data);
+			if (response.medico) {
+				alert('Médico creado con éxito');
+				navigate('/medicos'); // Redirigir al usuario a la lista de médicos
+			} else {
+				alert('Error al crear médico: ' + response.message);
+			}
+		} catch (error) {
+			console.error('Error al crear médico:', error);
+			alert('Error al crear médico. Por favor, intente de nuevo.');
+		}
+	};
+
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Agregar Medico</h2>
-			<Form className="editMedico__form" action="/medicos/nuevo" method="post">
+			<Form className="editMedico__form" onSubmit={handleSubmit}>
 				<div className="form-group">
 					<p className="label">Nombre</p>
 					<div className="input-group">
-						<input
-							type="text"
-							id="nombre"
-							name="nombre"
-							placeholder="Nombre"
-						/>
+						<input type="text" id="nombre" name="nombre" placeholder="Nombre" />
 						<input
 							type="text"
 							id="apellido"
