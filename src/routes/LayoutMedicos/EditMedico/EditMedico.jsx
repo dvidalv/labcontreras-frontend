@@ -23,6 +23,7 @@ function EditMedico() {
 		setMedicos,
 		medicos,
 	} = useAppContext();
+	
 	useEffect(() => {
 		// Este efecto no hace nada por sí mismo, pero se re-ejecutará cuando `medicos` cambie.
 	}, [medicos]);
@@ -72,14 +73,12 @@ function EditMedico() {
 							id="nombre"
 							name="nombre"
 							placeholder="Nombre"
-							defaultValue={medico.nombre}
 						/>
 						<input
 							type="text"
 							id="apellido"
 							name="apellido"
 							placeholder="Apellido"
-							defaultValue={medico.apellido}
 						/>
 					</div>
 				</div>
@@ -94,7 +93,6 @@ function EditMedico() {
 							placeholder="Correo"
 							required
 							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
-							defaultValue={medico.email}
 						/>
 					</div>
 				</div>
@@ -107,14 +105,12 @@ function EditMedico() {
 							id="imagen"
 							name="url"
 							placeholder="Link de la imagen"
-							defaultValue={medico.url}
 							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
 							disabled
 						/>
 						<input
 							type="hidden"
 							name="url"
-							defaultValue={avatarUrl ? avatarUrl : medico.url}
 						/>
 					</div>
 				</div>
@@ -129,7 +125,6 @@ function EditMedico() {
 							placeholder="Clave"
 							minLength="6"
 							required
-							defaultValue={medico.password}
 						/>
 					</div>
 				</div>
@@ -142,7 +137,6 @@ function EditMedico() {
 							id="telefono"
 							name="telefono"
 							placeholder="Telefono"
-							defaultValue={medico.telefono}
 						/>
 					</div>
 				</div>
@@ -155,7 +149,6 @@ function EditMedico() {
 							id="celular"
 							name="celular"
 							placeholder="Celular"
-							defaultValue={medico.celular}
 						/>
 					</div>
 				</div>
@@ -168,7 +161,6 @@ function EditMedico() {
 							id="especialidad"
 							name="especialidad"
 							placeholder="Especialidad"
-							defaultValue={medico.especialidad}
 						/>
 					</div>
 				</div>
