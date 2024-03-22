@@ -16,14 +16,12 @@ function NuevoMedico() {
 							id="nombre"
 							name="nombre"
 							placeholder="Nombre"
-							defaultValue="David"
 						/>
 						<input
 							type="text"
 							id="apellido"
 							name="apellido"
 							placeholder="Apellido"
-							defaultValue="Vidal"
 						/>
 					</div>
 				</div>
@@ -38,12 +36,11 @@ function NuevoMedico() {
 							placeholder="Correo"
 							required
 							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
-							defaultValue="david.vidal@medicapp.com"
 						/>
 					</div>
 				</div>
 
-				<div className="form-group">
+				{/* <div className="form-group">
 					<p className="label">Link</p>
 					<div className="input-group">
 						<input
@@ -54,7 +51,7 @@ function NuevoMedico() {
 							disabled
 						/>
 					</div>
-				</div>
+				</div> */}
 
 				<div className="form-group">
 					<p className="label">Clave</p>
@@ -78,7 +75,6 @@ function NuevoMedico() {
 							id="telefono"
 							name="telefono"
 							placeholder="Telefono"
-							defaultValue="1234567"
 						/>
 					</div>
 				</div>
@@ -91,7 +87,6 @@ function NuevoMedico() {
 							id="celular"
 							name="celular"
 							placeholder="Celular"
-							defaultValue="0987654321"
 						/>
 					</div>
 				</div>
@@ -104,7 +99,6 @@ function NuevoMedico() {
 							id="especialidad"
 							name="especialidad"
 							placeholder="Especialidad"
-							defaultValue="Cardiologia"
 						/>
 					</div>
 				</div>
