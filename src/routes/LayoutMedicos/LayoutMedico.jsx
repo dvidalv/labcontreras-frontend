@@ -1,4 +1,5 @@
 import './LayoutMedico.css';
+import { useAppContext } from '../../contexts/MyContext.jsx';
 import {
 	Outlet,
 	useLoaderData,
@@ -11,12 +12,20 @@ import {
 import Preloader from '../../components/Preloader/Preloader.jsx';
 
 import avatarDoctor from '../../images/avatarDoctor.svg';
+import { useEffect } from 'react';
 
 function LayoutMedico() {
+	const { medicos, setMedicos } = useAppContext();
 	const navigate = useNavigation();
-	const medicos = useLoaderData();
+
+	const data = useLoaderData();
+	// const medicos = useLoaderData();
+	useEffect(() => {
+		setMedicos(data);
+	}, [data, setMedicos]);
 
 	const submit = useSubmit();
+
 
 	return (
 		<>
@@ -51,16 +60,16 @@ function LayoutMedico() {
 						<ul className="nav__ul">
 							{medicos.map((medico) => (
 								<li className="nav__li" key={medico._id}>
-								<NavLink
-									to={`/medicos/${medico._id}`}
-								>{`${medico.nombre} ${medico.apellido}`}</NavLink>
-								<div className="nav__li__actions">
-									<img
-										src={medico.url ? medico.url : avatarDoctor}
-										alt="Avatar"
-									/>
-								</div>
-							</li>
+									<NavLink
+										to={`/medicos/${medico._id}`}
+									>{`${medico.nombre} ${medico.apellido}`}</NavLink>
+									<div className="nav__li__actions">
+										<img
+											src={medico.url ? medico.url : avatarDoctor}
+											alt="Avatar"
+										/>
+									</div>
+								</li>
 							))}
 						</ul>
 					</nav>

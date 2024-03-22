@@ -57,18 +57,15 @@ export async function createMedico(data) {
 }
 
 
-export async function updateMedico(id, data) {
-	// const verified = await
-	// verifyUser(id, data.password);
+export async function editMedico(id, data) {
 
-	const response = await fetch(`${API_URL}/medicos/${id}/update`, {
+	const response = await fetch(`${API_URL}/medicos/${id}/edit`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(data),
 	});
-	// console.log(response);
 	if(response.ok){
 		const responseData = await response.json();
 		// console.log('responseData', responseData);

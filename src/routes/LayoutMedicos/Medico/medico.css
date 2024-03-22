@@ -57,6 +57,7 @@
 			margin: 0;
 			font-size: 1rem;
 			font-weight: 500;
+			text-align: left;
 			/* width: 70%; */
 
 			@media (min-width: 768px) {

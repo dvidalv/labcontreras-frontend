@@ -9,30 +9,30 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 		event.stopPropagation();
 		// Accede al formulario y crea un FormData directamente desde él
 		const formData = new FormData(event.target);
-		console.log('formData', formData);
+		// console.log('formData', formData);
 
-		// try {
-		// 	const response = await fetch(`${url}/upload`, {
-		// 		method: 'POST',
-		// 		body: formData, // Usa formData directamente
-		// 		// No establezcas el encabezado 'Content-Type' cuando uses FormData
-		// 		// El navegador lo establecerá automáticamente con el 'boundary' correcto
-		// 	});
-		// 	if (!response.ok) {
-		// 		throw new Error('Network response was not ok');
-		// 	}
+		try {
+			const response = await fetch(`${url}/upload`, {
+				method: 'POST',
+				body: formData, // Usa formData directamente
+				// No establezcas el encabezado 'Content-Type' cuando uses FormData
+				// El navegador lo establecerá automáticamente con el 'boundary' correcto
+			});
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
 
-		// 	const result = await response.json();
-		// 	console.log(result.url);
-		// 	const avatarUrl = result.url;
-		// 	if (avatarUrl) {
-		// 		setIsOpen(false);
-		// 		setAvatarUrl(avatarUrl);
-		// 	}
-		// 	// Aquí puedes manejar la respuesta, por ejemplo, mostrar la URL de la imagen subida
-		// } catch (error) {
-		// 	console.error('Error al subir el archivo:', error);
-		// }
+			const result = await response.json();
+			// console.log(result.url);
+			// const avatarUrl = result.url;
+			if (result.url) {
+				setIsOpen(false);
+				setAvatarUrl(result.url);
+			}
+			// Aquí puedes manejar la respuesta, por ejemplo, mostrar la URL de la imagen subida
+		} catch (error) {
+			console.error('Error al subir el archivo:', error);
+		}
 	};
 
 	// Efecto para escuchar la tecla Escape

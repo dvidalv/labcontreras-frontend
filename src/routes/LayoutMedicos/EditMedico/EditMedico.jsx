@@ -1,32 +1,51 @@
 import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../contexts/MyContext';
 import './EditMedico.css';
-import { updateMedico } from '../../../utils/api';
+import { editMedico } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 
 function EditMedico() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
-	const [avatarUrl, setAvatarUrl] = useState('');
-	const { message, setMessage, type, setType } = useAppContext();
+// Estado inicial como cadena vacía
+	const {
+		message,
+		setMessage,
+		setType,
+		medico,
+		setMedico,
+		avatarUrl,
+		setAvatarUrl,
+		setMedicos,
+		medicos,
+	} = useAppContext();
+	useEffect(() => {
+		// Este efecto no hace nada por sí mismo, pero se re-ejecutará cuando `medicos` cambie.
+	}, [medicos]);
 
-	console.log(message);
+	// console.log(avatarUrl);
+
+	// console.log(message);
 
 	const handleCLosePopup = () => {
 		setIsOpen(false);
 	};
-
+	// console.log(isOpen);
 	const handleSubmint = async (event) => {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
 		// console.log('data', data);
-		const response = await updateMedico(id, data);
-		console.log('response', response.success);
+		const response = await editMedico(id, data);
+		setMedicos(
+			medicos.map((medico) => {
+					return medico._id === id ? {...medico, ...response.medico} : medico;
+			})
+	);
 		if (response.error) {
 			setMessage(response.error);
 			setType(!response.success ? 'false' : 'error');
@@ -35,11 +54,12 @@ function EditMedico() {
 		}
 	};
 
-	console.log(type);
-	console.log(message);
+	const { medico: medicoData } = useLoaderData();
 
-	const { medico } = useLoaderData();
-	const { url } = medico;
+	useEffect(() => {
+		setMedico(medicoData);
+	}, [medicoData, setMedico]);
+
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Editar Médico</h2>
@@ -87,9 +107,14 @@ function EditMedico() {
 							id="imagen"
 							name="url"
 							placeholder="Link de la imagen"
-							defaultValue={medico.url ? medico.url : avatarUrl}
+							defaultValue={medico.url}
 							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
 							disabled
+						/>
+						<input
+							type="hidden"
+							name="url"
+							defaultValue={avatarUrl ? avatarUrl : medico.url}
 						/>
 					</div>
 				</div>
@@ -168,7 +193,7 @@ function EditMedico() {
 				/>
 			)}
 			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
-				<img src={url ? url : avatarDoctor} alt="Avatar" />
+				<img src={avatarUrl ? avatarUrl : avatarDoctor} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>
 			{message && (

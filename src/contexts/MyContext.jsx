@@ -18,7 +18,9 @@ export const AppProvider = ({ children }) => {
 	const {toollTipIsLocated, setToollTipIsLocated} = useState('');
 	const [isLoading, setIsLoading] = useState(true);
 	const [medicos, setMedicos] = useState([]);
+	const [medico, setMedico] = useState({});
 	const [error, setError] = useState(null);
+	const [avatarUrl, setAvatarUrl] = useState('');
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {
@@ -65,8 +67,12 @@ export const AppProvider = ({ children }) => {
 				setIsLoading,
 				medicos,
 				setMedicos,
+				medico,
+				setMedico,
 				error,
 				setError,
+				avatarUrl,
+				setAvatarUrl,
 			}}
 		>
 			{children}
