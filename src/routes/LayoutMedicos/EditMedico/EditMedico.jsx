@@ -11,26 +11,33 @@ function EditMedico() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
-// Estado inicial como cadena vacía
+	const data = useLoaderData();
+	const [medicoData, setMedicoData] = useState(data.medico || {});
+
 	const {
 		message,
 		setMessage,
 		setType,
-		medico,
 		setMedico,
 		avatarUrl,
 		setAvatarUrl,
 		setMedicos,
 		medicos,
 	} = useAppContext();
-	
+
+
 	useEffect(() => {
-		// Este efecto no hace nada por sí mismo, pero se re-ejecutará cuando `medicos` cambie.
-	}, [medicos]);
-
-	// console.log(avatarUrl);
-
-	// console.log(message);
+		// Actualiza el estado si data.medico cambia
+		setMedicoData(data.medico || {});
+}, [data.medico]);
+	
+const handleChange = (e) => {
+	const { name, value } = e.target;
+	setMedicoData(prevState => ({
+			...prevState,
+			[name]: value
+	}));
+};
 
 	const handleCLosePopup = () => {
 		setIsOpen(false);
@@ -55,11 +62,7 @@ function EditMedico() {
 		}
 	};
 
-	const { medico: medicoData } = useLoaderData();
 
-	useEffect(() => {
-		setMedico(medicoData);
-	}, [medicoData, setMedico]);
 
 	return (
 		<div className="editMedico">
@@ -73,12 +76,16 @@ function EditMedico() {
 							id="nombre"
 							name="nombre"
 							placeholder="Nombre"
+							value={medicoData.nombre || ''}
+							onChange={handleChange}
 						/>
 						<input
 							type="text"
 							id="apellido"
 							name="apellido"
 							placeholder="Apellido"
+							value={medicoData.apellido || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -93,6 +100,8 @@ function EditMedico() {
 							placeholder="Correo"
 							required
 							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+							value={medicoData.email || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -111,6 +120,8 @@ function EditMedico() {
 						<input
 							type="hidden"
 							name="url"
+							value={medicoData.url || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -125,6 +136,8 @@ function EditMedico() {
 							placeholder="Clave"
 							minLength="6"
 							required
+							value={medicoData.password || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -137,6 +150,8 @@ function EditMedico() {
 							id="telefono"
 							name="telefono"
 							placeholder="Telefono"
+							value={medicoData.telefono || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -149,6 +164,8 @@ function EditMedico() {
 							id="celular"
 							name="celular"
 							placeholder="Celular"
+							value={medicoData.celular || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -161,6 +178,8 @@ function EditMedico() {
 							id="especialidad"
 							name="especialidad"
 							placeholder="Especialidad"
+							value={medicoData.especialidad || ''}
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -169,6 +188,7 @@ function EditMedico() {
 					<button
 						type="button"
 						onClick={() => {
+							setAvatarUrl('');
 							navigate(-1); // navegar hacia atras
 						}}
 					>
