@@ -14,6 +14,7 @@ function Tooltip({ message, type, location, setMessage, className}) {
 	useEffect(() => {
 		const handleKeyDown = (event) => {
 			if (event.key === 'Enter' || event.key === 'Escape') {
+				event.preventDefault();
 				setShowTooltip(false);
 			}
 		};
