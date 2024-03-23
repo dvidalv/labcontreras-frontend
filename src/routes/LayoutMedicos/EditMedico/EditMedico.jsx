@@ -27,19 +27,18 @@ function EditMedico() {
 
 	console.log(avatarUrl);
 
-
 	useEffect(() => {
 		// Actualiza el estado si data.medico cambia
 		setMedicoData(data.medico || {});
-}, [data.medico]);
-	
-const handleChange = (e) => {
-	const { name, value } = e.target;
-	setMedicoData(prevState => ({
+	}, [data.medico]);
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setMedicoData((prevState) => ({
 			...prevState,
-			[name]: value
-	}));
-};
+			[name]: value,
+		}));
+	};
 
 	const handleCLosePopup = () => {
 		setIsOpen(false);
@@ -53,9 +52,10 @@ const handleChange = (e) => {
 		const response = await editMedico(id, data);
 		setMedicos(
 			medicos.map((medico) => {
-					return medico._id === id ? {...medico, ...response.medico} : medico;
+				return medico._id === id ? { ...medico, ...response.medico } : medico;
 			})
-	);
+		);
+		setAvatarUrl('');
 		if (response.error) {
 			setMessage(response.error);
 			setType(!response.success ? 'false' : 'error');
@@ -63,8 +63,6 @@ const handleChange = (e) => {
 			navigate(`/medicos/${id}`);
 		}
 	};
-
-
 
 	return (
 		<div className="editMedico">
@@ -193,6 +191,7 @@ const handleChange = (e) => {
 						type="button"
 						onClick={() => {
 							setAvatarUrl('');
+							console.log('papa');
 							navigate(-1); // navegar hacia atras
 						}}
 					>
