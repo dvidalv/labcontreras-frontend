@@ -3,32 +3,33 @@ import '../form.css';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import { useState } from 'react';
-import {registerAction} from '../../../utils/auth';
+import { registerAction } from '../../../utils/auth';
 
 function Signup() {
-	const location = 'signup';
-	const { showTooltip, setShowTooltip, message, setMessage, type, setType } =
-	useAppContext();
-	
+	const { showTooltip, setShowTooltip, message, setMessage, type, setType, location, setLocation } =
+		useAppContext();
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const res = await registerAction(formData);
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const res = await registerAction(formData);
+		console.log(res)
 
 		if (res.status === 'success') {
+			console.log(1);
 			setMessage(res.message);
 			setType('success');
 			setShowTooltip(true);
 		} else {
+			console.log(2)
 			setMessage(res.message);
 			setType('error');
 			setShowTooltip(true);
+			setLocation('signup');
 		}
 		setIsSubmitting(true);
-	
 	};
 
 	return (
@@ -71,18 +72,6 @@ function Signup() {
 					placeholder="Ingresa tu clave"
 				/>
 
-				<label className="form__label" htmlFor="password">
-					Confirmar clave
-				</label>
-				<input
-					type="password"
-					id="confirmpassword"
-					name="confirmpassword"
-					required={true}
-					className="form__input"
-					placeholder="Confirma tu clave"
-				/>
-
 				<div className="form__links">
 					<Link to="/signin" className="form__link">
 						Ya tienes cuenta?
@@ -93,7 +82,14 @@ function Signup() {
 					{isSubmitting ? 'Enviando...' : 'Enviar'}
 				</button>
 			</Form>
-			{showTooltip && <Tooltip message={message} type={type} location={location} />}
+			{showTooltip && (
+				<Tooltip
+					message={message}
+					type={type}
+					location={location}
+					className="tooltip--visible"
+				/>
+			)}
 		</div>
 	);
 }
