@@ -25,6 +25,8 @@ function EditMedico() {
 		medicos,
 	} = useAppContext();
 
+	console.log(avatarUrl);
+
 
 	useEffect(() => {
 		// Actualiza el estado si data.medico cambia
@@ -115,12 +117,14 @@ const handleChange = (e) => {
 							name="url"
 							placeholder="Link de la imagen"
 							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
+							value={avatarUrl || medicoData.url || ''}
+							onChange={handleChange}
 							disabled
 						/>
 						<input
 							type="hidden"
 							name="url"
-							value={medicoData.url || ''}
+							value={avatarUrl || medicoData.url || ''}
 							onChange={handleChange}
 						/>
 					</div>
