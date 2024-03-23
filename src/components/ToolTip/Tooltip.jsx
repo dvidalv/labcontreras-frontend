@@ -6,9 +6,9 @@ import alertIcon from '../../images/alert.svg';
 import { useAppContext } from '../../contexts/MyContext';
 import { useEffect } from 'react';
 
-function Tooltip({ message, type, location, setMessage, className}) {
+function Tooltip({ type, location, className}) {
 	const navigate = useNavigate();
-	const { setShowTooltip } = useAppContext();
+	const { setShowTooltip, message, setMessage } = useAppContext();
 
 	// Manejador para cerrar el tooltip cuando se presiona Enter
 	useEffect(() => {
@@ -53,9 +53,13 @@ function Tooltip({ message, type, location, setMessage, className}) {
 				)}
 				{type === 'success' && location === 'signin' && (
 					<Link
-						onClick={() => setShowTooltip(false)}
+						onClick={() => {
+							setShowTooltip(false);
+							setMessage('');
+						}}
 						to="/"
 						className="tooltip__link"
+						
 					>
 						Ir a Home
 					</Link>
@@ -65,6 +69,7 @@ function Tooltip({ message, type, location, setMessage, className}) {
 						onClick={() => {
 							setShowTooltip(false);
 							location = '';
+							setMessage('');
 							navigate('/signin');
 						}}
 						className="tooltip__link"
@@ -72,11 +77,24 @@ function Tooltip({ message, type, location, setMessage, className}) {
 						Aceptar
 					</button>
 				)}
+				{type === 'success' && location === 'signin' && (
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+							location = '';
+							setMessage('');
+						}}
+						className="tooltip__link"
+					>
+							Aceptar
+						</button>
+				)}
 				{type === 'error' && location === 'signin' && (
 					<button
 						onClick={() => {
 							setShowTooltip(false);
 							location = '';
+							setMessage('');
 						}}
 						className="tooltip__link"
 					>

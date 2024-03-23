@@ -6,12 +6,13 @@ import { authorize } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Signin() {
-	const location = 'signin';
+	// const location = 'signin';
 	const locationState = useLocation();
 	const navigate = useNavigate();
 	const { from } = locationState.state || { from: { pathname: '/' } };
-	const { showTooltip, setShowTooltip, message, setMessage, type, setType, token, setToken } =
+	const { showTooltip, setShowTooltip, message, setMessage, type, setType, token, setToken, location, setLocation } =
 		useAppContext();
+		console.log(message);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -25,6 +26,7 @@ function Signin() {
 				setShowTooltip(true);
 				setType('error');
 				setMessage('Password o Email incorrectos');
+				setLocation('signin');
 				return; // Detiene la ejecución si la respuesta no es exitosa.
 			}
 			const res = await response.json();
@@ -34,10 +36,12 @@ function Signin() {
 				setToken(res.token);
 				localStorage.setItem('token', res.token); // Correctly saves the token with a key 'token'; // Guarda el token en el almacenamiento local.
 				// Configura los mensajes y muestra el tooltip de éxito.
-				// setMessage('Inicio de sesión exitoso');
-				// setType('success');
-				// setShowTooltip(true);
-				//redirect to home
+				setMessage('Inicio de sesión exitoso');
+				setType('success');
+				setShowTooltip(true);
+				setLocation('signin');
+				
+				// redirect to home
 			}
 		} catch (err) {
 			console.error(err); // Es útil para depuración ver el error en la consola.
@@ -95,6 +99,7 @@ function Signin() {
 					message={message}
 					type={type}
 					location={location}
+					className="tooltip--visible"
 				/>
 			)}
 		</div>

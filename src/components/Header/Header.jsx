@@ -19,12 +19,13 @@ Header.propTypes = {
 };
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
-	const { token, setToken } = useAppContext();
+	const { token, setToken, setShowTooltip } = useAppContext();
 	const [isMenuFixed] = useState(false);
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
 		setToken(null);
+		setShowTooltip(false);
 		navigate('/signin/');
 	};
 
