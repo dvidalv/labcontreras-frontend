@@ -1,23 +1,19 @@
-.nosotros{
+.nosotros {
 	margin-top: var(--header-height-mobil);
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: calc(100vh - var(--header-height) - var(--footer-height)) 1fr;
 
 	grid-template-areas:
-		"ed"
-		"noinfo";
+		'ed'
+		'noinfo';
 
-		@media (min-width: 768px){
-			margin-top: var(--header-height);
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 1fr;
-			grid-template-areas:
-				"ed noinfo";
-
-
-		}
-
+	@media (min-width: 768px) {
+		margin-top: var(--header-height);
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		grid-template-areas: 'ed noinfo';
+	}
 }
 
 .nosotros__img {
@@ -55,6 +51,10 @@
 		line-height: 2.5;
 		font-family: Inter, sans-serif;
 		font-weight: 300;
+
+		@media (min-width: 768px) {
+			font-size: 1.2rem;
+		}
 	}
 
 	.nosotros__foto-group {

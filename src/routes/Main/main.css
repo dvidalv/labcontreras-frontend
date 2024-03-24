@@ -115,6 +115,7 @@
 
 	p {
 		flex-basis: 60%;
+		font-size: 1.2rem;
 	}
 
 	@media (min-width: 768px) {
@@ -154,29 +155,21 @@
 		top: 20px;
 		right: 10px;
 
-		@media (min-width: 768px){
+		@media (min-width: 768px) {
 			top: 10%;
 		}
 	}
 }
 .cards {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 	flex-wrap: wrap;
-	gap: 20px;
-	max-width: 70%;
-	margin: 0 auto;
+	justify-content: center;
+	gap: 10px;
 }
 
 .cards li {
-	list-style: none;
-	display: flex;
-	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	flex: 1 1;
-	flex-basis: 200px;
+	flex-basis: 180px;
 }
 
 .seguros {

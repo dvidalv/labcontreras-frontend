@@ -21,7 +21,6 @@ import { getMedicos } from '../../utils/api';
 import { useEffect } from 'react';
 
 function Main() {
-
 	const { setMedicos, medicos } = useAppContext();
 	// console.log(medicos);
 	useEffect(() => {
@@ -31,7 +30,6 @@ function Main() {
 		};
 		fetchMedicos();
 	}, [setMedicos]);
-
 
 	// console.log(medicos);
 	return (
@@ -75,16 +73,18 @@ function Main() {
 							el servicio y la calidad de los resultados. Nuestro equipo de
 							patólogos, técnicos y personal administrativo está dedicado a
 							proporcionar resultados precisos y oportunos para ayudar a los
-							médicos a tomar decisiones informadas. 
+							médicos a tomar decisiones informadas.
 						</p>
-						<Link className="about__link" to="/nosotros">Más..</Link>
+						<Link className="about__link" to="/nosotros">
+							Más..
+						</Link>
 					</div>
 					<ul className="cards">
 						{medicos.map((medico) => (
 							<li key={medico._id}>
 								<Card
 									cargo={medico.cargo}
-									nombre={medico.nombre}
+									nombre={`${medico.nombre} ${medico.apellido}`}
 									imagen={medico.url}
 									correo={medico.email}
 									telefono={medico.telefono}
@@ -93,39 +93,6 @@ function Main() {
 								/>
 							</li>
 						))}
-						{/* <li>
-							<Card
-								cargo="Director General"
-								nombre="Dr. Félix Contreras"
-								imagen={felix}
-								correo="felix@labcontreras.com"
-								telefono="5555555555"
-								extension="123"
-								celular="5555555555"
-							/>
-						</li>
-						<li>
-							<Card
-								cargo="Patologa"
-								nombre="Dra. Leticia Matias"
-								imagen={leti}
-								correo="leticia@labcontreras.com"
-								telefono="5555555555"
-								extension="123"
-								celular="5555555555"
-							/>
-						</li>
-						<li>
-							<Card
-								cargo="Patologa"
-								nombre="Dra. Naomi Inuyama"
-								imagen={naomi}
-								correo="ninuyama@labcontreras.com"
-								telefono="5555555555"
-								extension="123"
-								celular="5555555555"
-							/>
-						</li> */}
 					</ul>
 				</div>
 			</section>
