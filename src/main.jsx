@@ -37,7 +37,11 @@ const router = createBrowserRouter([
 		path: '/',
 		element: <App />,
 		children: [
-			{ index: true, element: <Main /> },
+			{
+				index: true,
+				element: <Main />,
+				loader: loaderMedicos,
+			},
 			{
 				path: 'pacientes/',
 				element: (

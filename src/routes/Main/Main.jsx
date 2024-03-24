@@ -15,9 +15,25 @@ import palic from '../../images/palic.png';
 import humano from '../../images/humano.png';
 import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import { useAppContext } from '../../contexts/MyContext';
+import { getMedicos } from '../../utils/api';
+import { useEffect } from 'react';
 
 function Main() {
+
+	const { setMedicos, medicos } = useAppContext();
+	// console.log(medicos);
+	useEffect(() => {
+		const fetchMedicos = async () => {
+			const data = await getMedicos();
+			setMedicos(data);
+		};
+		fetchMedicos();
+	}, [setMedicos]);
+
+
+	// console.log(medicos);
 	return (
 		<main className="page">
 			<section className="hero"></section>
@@ -64,7 +80,20 @@ function Main() {
 						<Link className="about__link" to="/nosotros">Más..</Link>
 					</div>
 					<ul className="cards">
-						<li>
+						{medicos.map((medico) => (
+							<li key={medico._id}>
+								<Card
+									cargo={medico.cargo}
+									nombre={medico.nombre}
+									imagen={medico.url}
+									correo={medico.email}
+									telefono={medico.telefono}
+									extension={medico.extension}
+									celular={medico.celular}
+								/>
+							</li>
+						))}
+						{/* <li>
 							<Card
 								cargo="Director General"
 								nombre="Dr. Félix Contreras"
@@ -96,7 +125,7 @@ function Main() {
 								extension="123"
 								celular="5555555555"
 							/>
-						</li>
+						</li> */}
 					</ul>
 				</div>
 			</section>
