@@ -39,6 +39,11 @@ export async function getMedicos() {
 	return response.json();
 }
 
+export async function getMedicosByQuery(q) {
+	const response = await fetch(`${API_URL}/medicos?q=${q}`);
+	return response.json();
+}
+
 export async function getMedico(id) {
 	const response = await fetch(`${API_URL}/medicos/${id}`);
 	return response.json();

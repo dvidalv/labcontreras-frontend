@@ -12,11 +12,22 @@ import {
 import Preloader from '../../components/Preloader/Preloader.jsx';
 
 import avatarDoctor from '../../images/avatarDoctor.svg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { getMedicos } from '../../utils/api';
+
+export async function loader(request) {
+	const url = new URL(request.url);
+	const q = url.searchParams.get('q');
+	const medicos = await getMedicos(q);
+	return medicos;
+}
 function LayoutMedico() {
 	const { medicos, setMedicos } = useAppContext();
 	const navigate = useNavigation();
+
+	// Estado para almacenar el valor del input de búsqueda
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const data = useLoaderData();
 	// const medicos = useLoaderData();
@@ -24,8 +35,9 @@ function LayoutMedico() {
 		setMedicos(data);
 	}, [data, setMedicos]);
 
-	const submit = useSubmit();
-
+	const filterMedicos = medicos.filter((medico) => {
+		return `${medico.nombre} ${medico.apellido}`.toLowerCase().includes(searchTerm.toLowerCase());
+	});
 
 	return (
 		<>
@@ -43,10 +55,7 @@ function LayoutMedico() {
 								name="q"
 								defaultValue={''}
 								onChange={(event) => {
-									const isFirstSearch = '' == null;
-									submit(event.currentTarget.form, {
-										replace: isFirstSearch,
-									});
+									setSearchTerm(event.target.value); 
 								}}
 							/>
 							<div id="search-spinner" aria-hidden hidden={''} />
@@ -58,7 +67,7 @@ function LayoutMedico() {
 					</div>
 					<nav className="nav">
 						<ul className="nav__ul">
-							{medicos.map((medico) => (
+						{filterMedicos.map((medico) => ( 
 								<li className="nav__li" key={medico._id}>
 									<NavLink
 										to={`/medicos/${medico._id}`}
