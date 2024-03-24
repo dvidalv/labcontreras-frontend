@@ -13,6 +13,9 @@ function Signin() {
 	const { showTooltip, setShowTooltip, message, setMessage, type, setType, token, setToken, location, setLocation } =
 		useAppContext();
 		console.log(message);
+		console.log(type);
+		console.log(location);
+		console.log(showTooltip);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -35,13 +38,6 @@ function Signin() {
 				// Si la respuesta es OK, guarda el token en el estado y en el almacenamiento local.
 				setToken(res.token);
 				localStorage.setItem('token', res.token); // Correctly saves the token with a key 'token'; // Guarda el token en el almacenamiento local.
-				// Configura los mensajes y muestra el tooltip de éxito.
-				setMessage('Inicio de sesión exitoso');
-				setType('success');
-				setShowTooltip(true);
-				setLocation('signin');
-				
-				// redirect to home
 			}
 		} catch (err) {
 			console.error(err); // Es útil para depuración ver el error en la consola.
