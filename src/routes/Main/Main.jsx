@@ -4,9 +4,6 @@ import microscopio from '../../images/microscopio.svg';
 import reportes from '../../images/reportes.svg';
 import mensajeria from '../../images/mensajeria.svg';
 import inmunohistoquimica from '../../images/inmuno.svg';
-import felix from '../../images/felix.png';
-import leti from '../../images/leti.png';
-import naomi from '../../images/naomi.png';
 import reservas from '../../images/reservas.png';
 import universal from '../../images/universal.png';
 import senasa from '../../images/senasa.png';
@@ -15,14 +12,13 @@ import palic from '../../images/palic.png';
 import humano from '../../images/humano.png';
 import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../../contexts/MyContext';
 import { getMedicos } from '../../utils/api';
 import { useEffect } from 'react';
 
 function Main() {
 	const { setMedicos, medicos } = useAppContext();
-	// console.log(medicos);
 	useEffect(() => {
 		const fetchMedicos = async () => {
 			const data = await getMedicos();
@@ -31,12 +27,11 @@ function Main() {
 		fetchMedicos();
 	}, [setMedicos]);
 
-	// console.log(medicos);
 	return (
 		<main className="page">
 			<section className="hero"></section>
 			<section className="services">
-				<div className="services__container">
+				<div id="services" className="services__container">
 					<h1>NUESTROS SERVICIOS</h1>
 					<p>
 						Seguimos tan comprometidos hoy, como lo fueron nuestros patólogos
