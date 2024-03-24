@@ -46,14 +46,15 @@
 
 	.nosotros__info-text {
 		color: var(--color-gray);
-		font-size: 0.8rem;
+		font-size: 1.2rem;
 		margin-bottom: 1rem;
-		line-height: 2.5;
+		line-height: 1.8;
 		font-family: Inter, sans-serif;
 		font-weight: 300;
 
 		@media (min-width: 768px) {
 			font-size: 1.2rem;
+			line-height: 1.8;
 		}
 	}
 

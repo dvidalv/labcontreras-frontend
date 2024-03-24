@@ -24,10 +24,8 @@ import { action as actionMedico } from './routes/LayoutMedicos/Medico/actionMedi
 import { action as destroyMedico } from './routes/LayoutMedicos/Medico/destroyMedico.jsx';
 
 import NuevoMedico from './routes/LayoutMedicos/nuevoMedico/NuevoMedico.jsx';
-// import { action as actionNuevoMedico } from './routes/LayoutMedicos/nuevoMedico/actionNuevo.jsx';
 
 import EditMedico from './routes/LayoutMedicos/EditMedico/EditMedico.jsx';
-import { action as actionEditMedico } from './routes/LayoutMedicos/EditMedico/actionEditMedico.jsx';
 import { loader as editMedicoLoader } from './routes/LayoutMedicos/EditMedico/editMedicoLoader.jsx';
 
 import Nosotros from './routes/Nosotros/Nosotros.jsx';
@@ -79,7 +77,6 @@ const router = createBrowserRouter([
 						path: ':id/edit',
 						element: <EditMedico />,
 						loader: editMedicoLoader,
-						action: actionEditMedico,
 					},
 					{
 						path: ':id/destroy',

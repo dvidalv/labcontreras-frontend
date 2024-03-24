@@ -18,7 +18,6 @@ function EditMedico() {
 		message,
 		setMessage,
 		setType,
-		setMedico,
 		avatarUrl,
 		setAvatarUrl,
 		setMedicos,
@@ -43,12 +42,10 @@ function EditMedico() {
 	const handleCLosePopup = () => {
 		setIsOpen(false);
 	};
-	// console.log(isOpen);
 	const handleSubmint = async (event) => {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
-		// console.log('data', data);
 		const response = await editMedico(id, data);
 		setMedicos(
 			medicos.map((medico) => {
@@ -128,7 +125,7 @@ function EditMedico() {
 					</div>
 				</div>
 
-				<div className="form-group">
+				{/* <div className="form-group">
 					<p className="label">Clave</p>
 					<div className="input-group">
 						<input
@@ -142,7 +139,7 @@ function EditMedico() {
 							onChange={handleChange}
 						/>
 					</div>
-				</div>
+				</div> */}
 
 				<div className="form-group">
 					<p className="label">Teléfono</p>
