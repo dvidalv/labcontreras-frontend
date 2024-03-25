@@ -43,13 +43,16 @@ function Tooltip({ type, location, className}) {
 				)}
 				<p className="tooltip__message">{message}</p>
 				{type === 'success' && location === 'signup' && (
-					<Link
-						onClick={() => setShowTooltip(false)}
-						to="/signin"
+					<button
+						onClick={() => {
+							setShowTooltip(false);
+							setMessage('');
+							navigate('/signin');
+						}}
 						className="tooltip__link"
 					>
 						Iniciar sesión
-					</Link>
+					</button>
 				)}
 				{type === 'success' && location === 'signin' && (
 					<Link

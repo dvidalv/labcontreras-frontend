@@ -16,6 +16,7 @@
 			padding: 10px;
 			border: 1px solid var(--color-black);
 			border-radius: 5px;
+			font-size: 1rem;
 		}
 		.form__label {
 			font-size: 1rem;
@@ -58,6 +59,6 @@
 			color: var(--color-info);
 		}
 	}
-}
+
 
 

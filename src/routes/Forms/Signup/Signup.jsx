@@ -28,6 +28,7 @@ function Signup() {
 			setMessage(res.message);
 			setType('success');
 			setShowTooltip(true);
+			setLocation('signup');
 		} else {
 
 			setMessage(res.message);
