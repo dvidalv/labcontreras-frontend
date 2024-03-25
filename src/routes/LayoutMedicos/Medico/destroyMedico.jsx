@@ -2,7 +2,6 @@ import { redirect } from 'react-router-dom';
 import { destroyMedico } from '../../../utils/api';
 
 export async function action({ params }) {
-	// console.log('params', params);
 	const resultado = await destroyMedico(params.id);
 	if (resultado.medico) {
 		return redirect('/medicos');

@@ -35,7 +35,6 @@ export async function getMedico(id) {
 
 
 export async function createMedico(data) {
-	// console.log(data);
 	const response = await fetch(`${API_URL}/medicos`, {
 		method: 'POST',
 		headers: {
@@ -58,7 +57,6 @@ export async function editMedico(id, data) {
 	});
 	if(response.ok){
 		const responseData = await response.json();
-		// console.log('responseData', responseData);
 		return {
 			success: true,
 			medico: responseData.medico,
@@ -66,7 +64,6 @@ export async function editMedico(id, data) {
 
 	}else{
 		const errorData = await response.json();
-		// console.log('errorData', errorData);
 		return{
 			success: false,
 			error: errorData.message,
@@ -113,6 +110,6 @@ export async function contact(email, subject, message) {
 		},
 		body: JSON.stringify({ email, subject, message }),
 	});
-	// console.log(response);
+
 	return response.json();
 }

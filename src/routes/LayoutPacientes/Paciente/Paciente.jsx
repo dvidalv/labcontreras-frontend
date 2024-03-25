@@ -7,7 +7,7 @@ function Paciente() {
 
 	const { sharedState, updateSharedState } = useAppContext();
 
-	console.log(sharedState);
+
 	return (
 		<section className="paciente">
 			<div className="paciente__imagen">
