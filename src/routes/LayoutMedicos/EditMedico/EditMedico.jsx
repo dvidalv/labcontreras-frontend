@@ -24,7 +24,6 @@ function EditMedico() {
 		medicos,
 	} = useAppContext();
 
-	console.log(avatarUrl);
 
 	useEffect(() => {
 		// Actualiza el estado si data.medico cambia
@@ -188,7 +187,7 @@ function EditMedico() {
 						type="button"
 						onClick={() => {
 							setAvatarUrl('');
-							console.log('papa');
+
 							navigate(-1); // navegar hacia atras
 						}}
 					>

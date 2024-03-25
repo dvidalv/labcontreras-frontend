@@ -22,7 +22,6 @@ export const AppProvider = ({ children }) => {
 	const [error, setError] = useState(null);
 	const [avatarUrl, setAvatarUrl] = useState('');
 	const [location, setLocation] = useState('');
-	console.log(medicos);
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {

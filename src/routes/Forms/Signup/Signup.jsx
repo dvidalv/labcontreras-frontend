@@ -25,12 +25,11 @@ function Signup() {
 		const res = await registerAction(formData);
 
 		if (res.status === 'success') {
-			console.log(1);
 			setMessage(res.message);
 			setType('success');
 			setShowTooltip(true);
 		} else {
-			console.log(2);
+
 			setMessage(res.message);
 			setType('error');
 			setShowTooltip(true);

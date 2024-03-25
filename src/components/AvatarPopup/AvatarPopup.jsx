@@ -9,7 +9,6 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 		event.stopPropagation();
 		// Accede al formulario y crea un FormData directamente desde él
 		const formData = new FormData(event.target);
-		// console.log('formData', formData);
 
 		try {
 			const response = await fetch(`${url}/upload`, {
@@ -23,7 +22,7 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 			}
 
 			const result = await response.json();
-			// console.log(result.url);
+
 			// const avatarUrl = result.url;
 			if (result.url) {
 				setIsOpen(false);

@@ -7,7 +7,7 @@ export default function Medico() {
 	const { medico } = useLoaderData();
 	const location = useLocation();
 	const { mensaje } = location.state || {};
-	// console.log(location.state);
+
 	return (
 		<section className="medico">
 			<div className="medico__imagen">
