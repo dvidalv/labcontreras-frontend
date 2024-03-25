@@ -11,12 +11,10 @@
 	}
 
 	.medico__imagen {
-		aspect-ratio: 1/1;
-		max-width: 80%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin: 0 auto;
+
 		overflow: hidden;
 		@media (min-width: 768px) {
 			margin-top: 0;
@@ -25,10 +23,8 @@
 		}
 
 		img {
-			margin-top: 30px;
-			object-fit: cover;
 			height: 100%;
-			width: 100%;
+
 			@media (min-width: 768px) {
 				width: 100%;
 			}

@@ -22,17 +22,13 @@ function NuevoMedico() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		// FormData es una clase que nos permite crear un objeto clave/valor a partir de un formulario
 		const formData = new FormData(e.target);
 		const data = Object.fromEntries(formData);
-		// console.log(data);
 		try {
-			// Llamar a la API para crear un nuevo médico
 			const response = await createMedico(data);
 			if (response.medico) {
 				setMedicos([...medicos, response.medico]);
-				navigate('/medicos'); // Redirigir al usuario a la lista de médicos
+				navigate('/medicos');
 			} else {
 				if (response.error === 'E11000') {
 					setShowTooltip(true);
@@ -85,20 +81,6 @@ function NuevoMedico() {
 						/>
 					</div>
 				</div>
-
-				{/* <div className="form-group">
-					<p className="label">Link</p>
-					<div className="input-group">
-						<input
-							type="url"
-							id="imagen"
-							name="url"
-							placeholder="Link de la imagen"
-							disabled
-						/>
-					</div>
-				</div> */}
-
 				<div className="form-group">
 					<p className="label">Clave</p>
 					<div className="input-group">
@@ -153,7 +135,7 @@ function NuevoMedico() {
 					<button
 						type="button"
 						onClick={() => {
-							navigate(-1); // navegar hacia atras
+							navigate(-1);
 						}}
 					>
 						Cancelar

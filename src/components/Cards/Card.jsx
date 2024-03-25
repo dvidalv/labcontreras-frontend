@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './cards.css';
 import mail2 from '../../images/mail2.svg';
-import cellphone from '../../images/cellphone.svg';
 import phoneOffice from '../../images/phone-office.svg';
 import phone from '../../images/phone.svg';
 
@@ -12,7 +11,6 @@ function Cards({
 	imagen,
 	correo,
 	telefono,
-	extension,
 	celular,
 }) {
 	const [isFlipped, setIsFlipped] = useState(false);

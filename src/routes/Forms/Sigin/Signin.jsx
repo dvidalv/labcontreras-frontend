@@ -6,16 +6,20 @@ import { authorize } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Signin() {
-	// const location = 'signin';
 	const locationState = useLocation();
 	const navigate = useNavigate();
 	const { from } = locationState.state || { from: { pathname: '/' } };
-	const { showTooltip, setShowTooltip, message, setMessage, type, setType, token, setToken, location, setLocation } =
-		useAppContext();
-		console.log(message);
-		console.log(type);
-		console.log(location);
-		console.log(showTooltip);
+	const {
+		showTooltip,
+		setShowTooltip,
+		message,
+		setMessage,
+		type,
+		setType,
+		setToken,
+		location,
+		setLocation,
+	} = useAppContext();
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -25,22 +29,20 @@ function Signin() {
 		try {
 			const response = await authorize(email, password);
 			if (!response.ok) {
-				// Si la respuesta no es OK, muestra el tooltip con el mensaje de error y detiene la ejecución.
 				setShowTooltip(true);
 				setType('error');
 				setMessage('Password o Email incorrectos');
 				setLocation('signin');
-				return; // Detiene la ejecución si la respuesta no es exitosa.
+				return;
 			}
 			const res = await response.json();
-			navigate(from.pathname, { replace: true }); // Redirect to the previous page
+			navigate(from.pathname, { replace: true });
 			if (res.token) {
-				// Si la respuesta es OK, guarda el token en el estado y en el almacenamiento local.
 				setToken(res.token);
-				localStorage.setItem('token', res.token); // Correctly saves the token with a key 'token'; // Guarda el token en el almacenamiento local.
+				localStorage.setItem('token', res.token);
 			}
 		} catch (err) {
-			console.error(err); // Es útil para depuración ver el error en la consola.
+			console.error(err);
 			setType('error');
 			setMessage('Ha ocurrido un error al intentar iniciar sesión.');
 			setShowTooltip(true);

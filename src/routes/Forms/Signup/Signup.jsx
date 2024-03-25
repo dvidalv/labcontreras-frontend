@@ -6,8 +6,16 @@ import { useState } from 'react';
 import { registerAction } from '../../../utils/auth';
 
 function Signup() {
-	const { showTooltip, setShowTooltip, message, setMessage, type, setType, location, setLocation } =
-		useAppContext();
+	const {
+		showTooltip,
+		setShowTooltip,
+		message,
+		setMessage,
+		type,
+		setType,
+		location,
+		setLocation,
+	} = useAppContext();
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -15,7 +23,6 @@ function Signup() {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		const res = await registerAction(formData);
-		console.log(res)
 
 		if (res.status === 'success') {
 			console.log(1);
@@ -23,7 +30,7 @@ function Signup() {
 			setType('success');
 			setShowTooltip(true);
 		} else {
-			console.log(2)
+			console.log(2);
 			setMessage(res.message);
 			setType('error');
 			setShowTooltip(true);
