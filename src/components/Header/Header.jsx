@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
@@ -76,6 +76,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 							/>
 						</a>
+						
 					)}
 					{token && (
 						<a href="#">
@@ -102,7 +103,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					/>
 				}
 			</div>
-			<div className={`otro-menu ${isMenuOpen ? 'open' : ''}`}>
+			<div className={`menu-lateral ${isMenuOpen ? 'open' : ''}`}>
 				{
 					<Navbar
 						color="var(--color-white)"
