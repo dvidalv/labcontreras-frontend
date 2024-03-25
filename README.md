@@ -9,9 +9,11 @@ Este proyecto es una página web diseñada para un laboratorio de patología. Pe
 - **Interfaz Intuitiva:** Diseñada para ser fácil de usar, permitiendo una gestión eficiente de la información.
 
 ## Tecnologías Utilizadas
-- Frontend: HTML, CSS, JavaScript
+- Frontend: React
 - Backend: Node.js, Express
-- Base de Datos: MongoDB
+- Base de Datos: MongoDB Atlas
+- Map Leaflet
+- SendGrid
 
 ## Instalación
 Para instalar y ejecutar este proyecto localmente, sigue estos pasos:

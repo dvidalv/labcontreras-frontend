@@ -44,10 +44,6 @@ function Cards({
 							<span className="card__text telefono">{telefono}</span>
 						</div>
 						<div className="card__text__item">
-							<img src={cellphone} alt="extension" />
-							<span className="card__text extension">{extension}</span>
-						</div>
-						<div className="card__text__item">
 							<img src={phone} alt="celular" />
 							<span className="card__text celular">{celular}</span>
 						</div>
