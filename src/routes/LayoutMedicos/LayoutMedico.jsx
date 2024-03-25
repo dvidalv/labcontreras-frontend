@@ -4,7 +4,6 @@ import {
 	Outlet,
 	useLoaderData,
 	Form,
-	useSubmit,
 	NavLink,
 	Link,
 	useNavigation,
@@ -14,14 +13,6 @@ import Preloader from '../../components/Preloader/Preloader.jsx';
 import avatarDoctor from '../../images/avatarDoctor.svg';
 import { useEffect, useState } from 'react';
 
-import { getMedicos } from '../../utils/api';
-
-export async function loader(request) {
-	const url = new URL(request.url);
-	const q = url.searchParams.get('q');
-	const medicos = await getMedicos(q);
-	return medicos;
-}
 function LayoutMedico() {
 	const { medicos, setMedicos } = useAppContext();
 	const navigate = useNavigation();

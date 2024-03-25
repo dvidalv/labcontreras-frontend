@@ -22,27 +22,11 @@ export async function createUser(email, password) {
 	return response.json();
 }
 
-export async function contact(email, subject, message) {
-	const response = await fetch(`${API_URL}/api/contact`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ email, subject, message }),
-	});
-	// console.log(response);
-	return response.json();
-}
-
 export async function getMedicos() {
 	const response = await fetch(`${API_URL}/medicos`);
 	return response.json();
 }
 
-export async function getMedicosByQuery(q) {
-	const response = await fetch(`${API_URL}/medicos?q=${q}`);
-	return response.json();
-}
 
 export async function getMedico(id) {
 	const response = await fetch(`${API_URL}/medicos/${id}`);
@@ -118,4 +102,17 @@ export async function getMedicoById({ params }) {
 		};
 	}
 	return { medico };
+}
+
+
+export async function contact(email, subject, message) {
+	const response = await fetch(`${API_URL}/api/contact`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ email, subject, message }),
+	});
+	// console.log(response);
+	return response.json();
 }

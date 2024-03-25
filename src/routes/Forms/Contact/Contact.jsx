@@ -25,7 +25,6 @@ function Contact() {
 		const message = formData.get('message');
 
 		contact(email, subject, message).then((res) => {
-			console.log(res);
 			if (res.status === 'success') {
 				setShowTooltip(true);
 				setType('success');
@@ -86,7 +85,7 @@ function Contact() {
 					</button>
 				</Form>
 				{showTooltip && (
-					<Tooltip message={message} type={type} location={location} />
+					<Tooltip message={message} type={type} location={location} className='tooltip--visible' />
 				)}
 				{navigation.state === 'loading' && (
 					<div
