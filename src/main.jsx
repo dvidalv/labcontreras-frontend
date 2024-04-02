@@ -30,6 +30,7 @@ import { loader as editMedicoLoader } from './routes/LayoutMedicos/EditMedico/ed
 
 import Nosotros from './routes/Nosotros/Nosotros.jsx';
 
+
 const router = createBrowserRouter([
 	{
 		path: '/',
