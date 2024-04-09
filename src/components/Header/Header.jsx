@@ -56,38 +56,58 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					</div>
 				</div>
 
-				<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
-					<div
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-						className={`menu-btn ${isMenuOpen ? 'open' : ''}`}
-					>
-						<div className="menu-btn__burger">
-							<div className={`bar1 ${isMenuOpen ? 'change' : ''}`}></div>
-							<div className={`bar2 ${isMenuOpen ? 'change' : ''}`}></div>
-							<div className={`bar3 ${isMenuOpen ? 'change' : ''}`}></div>
+				<div className="header__user">
+					<div className="header__user_info">
+						<div className="header__user_info--user">
+							{token && (
+								<Link to="/profile">
+									<div className="header__user_info--user--img">
+										<img
+											src="https://res.cloudinary.com/dv44uehlk/image/upload/v1711241008/avatars/hgfhnlga1veno63mm0cs.png"
+											alt="user"
+											className="header__user_info--user--img"
+										/>
+									</div>
+									{/* <span className="header__user_info--user--name">
+										Bienvenido, Usuario
+									</span> */}
+								</Link>
+							)}
 						</div>
 					</div>
-					{!token && (
-						<a href="#">
-							<img
-								onClick={() => navigae('/signin/')}
-								src={login}
-								alt="login"
-								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-							/>
-						</a>
-						
-					)}
-					{token && (
-						<a href="#">
-							<img
-								onClick={() => handleLogout()}
-								src={logout}
-								alt="login"
-								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-							/>
-						</a>
-					)}
+
+					<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
+						<div
+							onClick={() => setIsMenuOpen(!isMenuOpen)}
+							className={`menu-btn ${isMenuOpen ? 'open' : ''}`}
+						>
+							<div className="menu-btn__burger">
+								<div className={`bar1 ${isMenuOpen ? 'change' : ''}`}></div>
+								<div className={`bar2 ${isMenuOpen ? 'change' : ''}`}></div>
+								<div className={`bar3 ${isMenuOpen ? 'change' : ''}`}></div>
+							</div>
+						</div>
+						{!token && (
+							<a href="#">
+								<img
+									onClick={() => navigae('/signin/')}
+									src={login}
+									alt="login"
+									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+								/>
+							</a>
+						)}
+						{token && (
+							<a href="#">
+								<img
+									onClick={() => handleLogout()}
+									src={logout}
+									alt="login"
+									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+								/>
+							</a>
+						)}
+					</div>
 				</div>
 			</div>
 			<div
@@ -113,7 +133,10 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						setIsMenuOpen={setIsMenuOpen}
 					/>
 				}
-				<div className="header__login" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+				<div
+					className="header__login"
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+				>
 					{!token && (
 						<a href="#">
 							<img

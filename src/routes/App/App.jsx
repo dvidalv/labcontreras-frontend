@@ -7,16 +7,12 @@ import { useAppContext } from '../../contexts/MyContext';
 import { Outlet } from 'react-router-dom';
 
 function App() {
-	const { isMenuOpen, setIsMenuOpen, loggedIn, setLoggedIn } =
-		useAppContext();
-
+	const { isMenuOpen, setIsMenuOpen, loggedIn, setLoggedIn } = useAppContext();
 
 	return (
 		<div className="page__content">
-			
-			<div className="header">
-				<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-			</div>
+			<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+
 			<div className="content">
 				<Outlet loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 			</div>
