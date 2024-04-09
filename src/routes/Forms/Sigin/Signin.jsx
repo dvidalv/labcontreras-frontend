@@ -77,15 +77,15 @@ function Signin() {
 					placeholder="Ingresa tu clave"
 				/>
 				<div className="form__links">
-					<Link
+					{/* <Link
 						to="/forgot-password"
 						className="form__link form-link--forgot-password"
 					>
 						¿Olvidaste tu contraseña?
-					</Link>
-					<Link to="/signup" className="form__link form__link_create-account">
+					</Link> */}
+					{/* <Link to="/signup" className="form__link form__link_create-account">
 						Crear cuenta
-					</Link>
+					</Link> */}
 				</div>
 
 				<button type="submit" className="form__button">
