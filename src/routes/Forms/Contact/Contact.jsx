@@ -42,7 +42,7 @@ function Contact() {
 		<div className="contact-container">
 			<Map />
 			<div className="form-container">
-				<h1>Contactanos</h1>
+				<h1>Contáctanos</h1>
 				<p>Si tienes alguna duda o necesitas ayuda, no dudes en contactarnos</p>
 				<Form id="contact-form" className="form" onSubmit={handleSubmit}>
 					<label className="form__label" htmlFor="email">
@@ -70,7 +70,7 @@ function Contact() {
 					/>
 
 					<label className="form__label" htmlFor="message">
-						Message
+						Mensaje
 					</label>
 					<textarea
 						id="message"

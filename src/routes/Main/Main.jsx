@@ -34,10 +34,7 @@ function Main() {
 				<div id="services" className="services__container">
 					<h1>NUESTROS SERVICIOS</h1>
 					<p>
-						Seguimos tan comprometidos hoy, como lo fueron nuestros patólogos
-						fundadores, para proporcionar resultados precisos de pruebas de
-						diagnóstico y servicios de soporte excepcionales, con un equipo
-						multidisciplinario, en todas las áreas de anatomía patológica.
+					is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
 					</p>
 					<ul className="services__list">
 						<li className="services__item">
