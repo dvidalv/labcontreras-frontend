@@ -37,6 +37,7 @@
 
 	@media (min-width: 768px) {
 		padding: 0;
+		height: 100%;
 	}
 }
 
@@ -44,11 +45,12 @@
 	display: flex;
 	align-items: center;
 	height: 100%;
-
+	
 	.header-logo {
 		width: 110px;
-
+		
 		@media (min-width: 768px) {
+			height: 100%;
 			width: 120px;
 			padding: 10px;
 		}
@@ -66,7 +68,7 @@
 			align-items: center;
 			span {
 				color: var(--color-black);
-				font-size: 0.8rem;
+				font-size: 0.5rem;
 				font-weight: 400;
 			}
 		}
@@ -82,6 +84,7 @@
 	@media (min-width: 768px) {
 		.datos {
 			display: flex;
+			
 		}
 	}
 }
@@ -91,6 +94,11 @@
 	align-items: center;
 	gap: 50px;
 	width: 100%;
+
+	@media (min-width: 768px){
+		gap: 20px;
+	
+	}
 }
 .header__user_info--user a {
 	display: flex;
