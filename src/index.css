@@ -87,9 +87,6 @@ button:disabled {
 	cursor: not-allowed;
 }
 
-button:disabled:hover {
-	background: none;
-}
 
 input {
 	border: none;

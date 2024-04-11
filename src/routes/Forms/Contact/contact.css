@@ -23,6 +23,8 @@
 	justify-content: start;
 	align-items: center;
 
+
+	
 	input {
 		margin-bottom: 40px;
 	}
@@ -34,16 +36,19 @@
 	.form {
 		input,
 		textarea {
+			margin-bottom: 0;
 			width: 100%;
-			margin-bottom: 20px;
 			padding: 10px;
+			/* margin-bottom: 20px; */
 			border: 1px solid var(--color-white);
 			border-radius: 5px;
+
+
 		}
 		textarea {
 			height: 100px;
 		}
-		input::placeholder{
+		input::placeholder {
 			font-size: 0.9rem;
 		}
 	}
@@ -57,8 +62,16 @@
 		margin: 50px 0 0 0;
 	}
 
-	p {
-		font-size: 0.9rem;
-		text-align: center;
+	.form__error {
+		margin: 0;
+		color: red;
+		font-size: 12px;
+		font-weight: 100;
+		text-align: left;
+		padding-bottom: 10px;
+		height: 30px;
 	}
 }
+
+
+
