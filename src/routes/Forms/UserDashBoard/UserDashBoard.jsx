@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppContext } from '../../../contexts/MyContext';
 import './UserDashBoard.css';
 
 const schema = z.object({
@@ -10,6 +11,9 @@ const schema = z.object({
 });
 
 function UserDashBoard() {
+
+	const { user, setUser, token } = useAppContext();
+
 	const {
 		register,
 		handleSubmit,
@@ -17,8 +21,8 @@ function UserDashBoard() {
 		formState: { errors, isSubmitting },
 	} = useForm({
 		defaultValues: {
-			name: '',
-			email: '',
+			name: user.name || '',
+			email: user.email || '',
 			password: '',
 		},
 		resolver: zodResolver(schema),

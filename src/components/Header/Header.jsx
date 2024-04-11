@@ -19,7 +19,7 @@ Header.propTypes = {
 };
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
-	const { token, setToken, setShowTooltip } = useAppContext();
+	const { token, setToken, setShowTooltip, user } = useAppContext();
 	const [isMenuFixed] = useState(false);
 
 	const handleLogout = () => {
@@ -68,9 +68,9 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 											className="header__user_info--user--img"
 										/>
 									</div>
-									{/* <span className="header__user_info--user--name">
-										Bienvenido, Usuario
-									</span> */}
+									<span className="header__user_info--user--name">
+										Bienvenido, {user.name}
+									</span>
 								</Link>
 							)}
 						</div>

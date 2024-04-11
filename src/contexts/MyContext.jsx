@@ -22,6 +22,9 @@ export const AppProvider = ({ children }) => {
 	const [error, setError] = useState(null);
 	const [avatarUrl, setAvatarUrl] = useState('');
 	const [location, setLocation] = useState('');
+	const [user, setUser] = useState({});
+
+	// console.log(user);
 
 	// Aquí puedes agregar funciones para modificar el estado, si es necesario
 	// const updateSharedState = (newState) => {
@@ -34,6 +37,7 @@ export const AppProvider = ({ children }) => {
       const response = await checkToken(token);
       if (response.status === 'success') {
       setToken(token);
+			setUser(response.user);
       } else {
       setToken(null);
       }
@@ -76,6 +80,8 @@ export const AppProvider = ({ children }) => {
 				setAvatarUrl,
 				location,
 				setLocation,
+				user,
+				setUser,
 			}}
 		>
 			{children}

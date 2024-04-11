@@ -83,9 +83,9 @@ function Signin() {
 					>
 						¿Olvidaste tu contraseña?
 					</Link> */}
-					{/* <Link to="/signup" className="form__link form__link_create-account">
+					<Link to="/signup" className="form__link form__link_create-account">
 						Crear cuenta
-					</Link> */}
+					</Link>
 				</div>
 
 				<button type="submit" className="form__button">
