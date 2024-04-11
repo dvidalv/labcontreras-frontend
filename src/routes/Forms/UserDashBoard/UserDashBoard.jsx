@@ -49,27 +49,31 @@ function UserDashBoard() {
 				>
 					<label htmlFor="name">
 						Nombre
+						<input
+							type="text"
+							name="name"
+							placeholder="Nombre"
+							{...register('name')}
+						/>
+						{errors.name && <p className="error">{errors.name.message}</p>}
 					</label>
-					<input
-						type="text"
-						name="name"
-						placeholder="Nombre"
-						{...register('name')}
-					/>
-					{errors.name && <p className="error">{errors.name.message}</p>}
-					<label htmlFor="email">Email</label>
-					<input placeholder="Email" {...register('email')} />
-					{errors.email && <p className="error">{errors.email.message}</p>}
-					<label htmlFor="password">Password</label>
-					<input
-						type="password"
-						name="password"
-						placeholder="Password"
-						{...register('password')}
-					/>
-					{errors.password && (
-						<p className="error">{errors.password.message}</p>
-					)}
+					<label htmlFor="email">
+						Email
+						<input placeholder="Email" {...register('email')} />
+						{errors.email && <p className="error">{errors.email.message}</p>}
+					</label>
+					<label htmlFor="password">
+						Password
+						<input
+							type="password"
+							name="password"
+							placeholder="Password"
+							{...register('password')}
+						/>
+						{errors.password && (
+							<p className="error">{errors.password.message}</p>
+						)}
+					</label>
 					<button
 						className="user_dashboard-button"
 						disabled={isSubmitting}

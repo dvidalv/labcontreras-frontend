@@ -6,6 +6,7 @@
 	.user_dashboard-container{
 		max-width: 500px;
 		margin: 0 auto;
+		margin-top: 2rem;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -23,6 +24,7 @@
 			font-size: 1.2rem;
 			font-weight: 700;
 			color: var(--color-black);
+			margin-bottom: 1rem;
 		}
 	}
 
