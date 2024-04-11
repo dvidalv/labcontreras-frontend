@@ -30,6 +30,8 @@ import { loader as editMedicoLoader } from './routes/LayoutMedicos/EditMedico/ed
 
 import Nosotros from './routes/Nosotros/Nosotros.jsx';
 
+import UserDashBoard from './routes/Forms/UserDashBoard/UserDashBoard.jsx';
+
 
 const router = createBrowserRouter([
 	{
@@ -102,6 +104,10 @@ const router = createBrowserRouter([
 			{
 				path: 'contact/',
 				element: <Contact />,
+			},
+			{
+				path: 'user-dashboard/',
+				element: <UserDashBoard />,
 			},
 		],
 		errorElement: <NotFound />,

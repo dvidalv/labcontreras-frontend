@@ -60,7 +60,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					<div className="header__user_info">
 						<div className="header__user_info--user">
 							{token && (
-								<Link to="/profile">
+								<Link to="/user-dashboard">
 									<div className="header__user_info--user--img">
 										<img
 											src="https://res.cloudinary.com/dv44uehlk/image/upload/v1711241008/avatars/hgfhnlga1veno63mm0cs.png"
