@@ -47,6 +47,9 @@ function UserDashBoard() {
 					className="user_dashboard-form"
 					onSubmit={handleSubmit(handleForm)}
 				>
+					<label htmlFor="name">
+						Nombre
+					</label>
 					<input
 						type="text"
 						name="name"
@@ -54,8 +57,10 @@ function UserDashBoard() {
 						{...register('name')}
 					/>
 					{errors.name && <p className="error">{errors.name.message}</p>}
+					<label htmlFor="email">Email</label>
 					<input placeholder="Email" {...register('email')} />
 					{errors.email && <p className="error">{errors.email.message}</p>}
+					<label htmlFor="password">Password</label>
 					<input
 						type="password"
 						name="password"
