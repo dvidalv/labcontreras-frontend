@@ -81,20 +81,7 @@ function NuevoMedico() {
 						/>
 					</div>
 				</div>
-				<div className="form-group">
-					<p className="label">Clave</p>
-					<div className="input-group">
-						<input
-							type="password"
-							id="password"
-							name="password"
-							placeholder="Clave"
-							minLength="6"
-							required
-						/>
-					</div>
-				</div>
-
+				
 				<div className="form-group">
 					<p className="label">Telefono</p>
 					<div className="input-group">

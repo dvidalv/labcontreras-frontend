@@ -47,33 +47,29 @@ function UserDashBoard() {
 					className="user_dashboard-form"
 					onSubmit={handleSubmit(handleForm)}
 				>
-					<label htmlFor="name">
-						Nombre
+
 						<input
 							type="text"
 							name="name"
 							placeholder="Nombre"
 							{...register('name')}
 						/>
-						{errors.name && <p className="error">{errors.name.message}</p>}
-					</label>
-					<label htmlFor="email">
-						Email
+						<p className="error">{errors.name && errors.name.message}</p>
+
+
 						<input placeholder="Email" {...register('email')} />
-						{errors.email && <p className="error">{errors.email.message}</p>}
-					</label>
-					<label htmlFor="password">
-						Password
+						<p className="error">{errors.email && errors.email.message}</p>
+
+
 						<input
 							type="password"
 							name="password"
 							placeholder="Password"
 							{...register('password')}
 						/>
-						{errors.password && (
-							<p className="error">{errors.password.message}</p>
-						)}
-					</label>
+						<p className="error">
+							{errors.password && errors.password.message}
+						</p>
 					<button
 						className="user_dashboard-button"
 						disabled={isSubmitting}
