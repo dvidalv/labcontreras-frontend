@@ -79,8 +79,8 @@ function Signup() {
 					placeholder="Ingresa tu clave"
 				/>
 
-				<div className="form__links">
-					<Link to="/signin" className="form__link">
+				<div className="form__links form__link_create-account">
+					<Link to="/signin">
 						Ya tienes cuenta?
 					</Link>
 				</div>
