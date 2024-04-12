@@ -3,6 +3,10 @@
 	background-color: var(--color-white);
 	height: calc(100vh - var(--header-height) - var(--footer-height));
 
+	@media (max-width: 768px){
+		padding-top: 20px;
+	}
+
 	.user_dashboard-container{
 		max-width: 500px;
 		margin: 0 auto;
@@ -25,6 +29,12 @@
 			font-weight: 700;
 			color: var(--color-black);
 			margin-bottom: 1rem;
+		}
+
+		@media (max-width: 768px){
+
+			max-width: 90%;
+			margin-top: 0;
 		}
 	}
 

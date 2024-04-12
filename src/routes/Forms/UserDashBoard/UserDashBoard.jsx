@@ -12,7 +12,7 @@ const schema = z.object({
 
 function UserDashBoard() {
 
-	const { user, setUser, token } = useAppContext();
+	const { user } = useAppContext();
 
 	const {
 		register,
