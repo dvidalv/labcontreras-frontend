@@ -3,6 +3,9 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppContext } from '../../../contexts/MyContext';
 import './UserDashBoard.css';
+import avatar from '../../../images/avatar.svg'
+import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
+import { useState } from 'react';
 
 const schema = z.object({
 	name: z.string().min(3).max(10),
@@ -11,7 +14,7 @@ const schema = z.object({
 });
 
 function UserDashBoard() {
-
+	const [isOpen, setIsOpen] = useState(false);
 	const { user } = useAppContext();
 
 	const {
@@ -47,6 +50,9 @@ function UserDashBoard() {
 		<div className="user_dashboard">
 			<div className="user_dashboard-container">
 				<h1>DASHBOARD</h1>
+				<div className='user_dashboard-avatar' onClick={() => setIsOpen(true)}>
+					{user.url ? <img src={user.url} alt="avatar" /> : <img src={avatar} alt="avatar" />}
+				</div>
 				<form
 					className="user_dashboard-form"
 					onSubmit={handleSubmit(handleForm)}
@@ -86,6 +92,7 @@ function UserDashBoard() {
 					{errors.root && <p className="error">{errors.root.message}</p>}
 				</form>
 			</div>
+			{isOpen && <AvatarPopup isOpen={isOpen} setIsOpen={setIsOpen} />}
 		</div>
 	);
 }

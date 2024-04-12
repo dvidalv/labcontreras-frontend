@@ -32,7 +32,8 @@
 .input-group{
 	width: 70%;
 	display: flex;
-	gap: 10px;
+	flex-direction: column;
+	/* gap: 10px; */
 
 	input{
 			height: 40px;

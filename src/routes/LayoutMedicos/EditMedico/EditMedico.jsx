@@ -1,4 +1,7 @@
 import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
 import { useEffect, useState } from 'react';
@@ -7,12 +10,39 @@ import './EditMedico.css';
 import { editMedico } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 
+const schema = z.object({
+	nombre: z.string().min(3).max(50),
+	apellido: z.string().min(3).max(50),
+	email: z.string().email(),
+	telefono: z.string().min(10).max(12),
+	celular: z.string().min(10).max(12),
+	especialidad: z.string().min(3).max(50),
+});
+
 function EditMedico() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
 	const data = useLoaderData();
 	const [medicoData, setMedicoData] = useState(data.medico || {});
+
+	const {
+		register,
+		handleSubmit,
+		setError,
+		formState: { errors, isSubmitting, isValid },
+	} = useForm({
+		defaultValues: {
+			nombre: medicoData.nombre || '',
+			apellido: medicoData.apellido || '',
+			email: medicoData.email || '',
+			telefono: medicoData.telefono || '',
+			celular: medicoData.celular || '',
+			especialidad: medicoData.especialidad || '',
+		},
+		resolver: zodResolver(schema),
+		mode: 'onChange',
+	});
 
 	const {
 		message,
@@ -24,65 +54,73 @@ function EditMedico() {
 		medicos,
 	} = useAppContext();
 
-
 	useEffect(() => {
 		// Actualiza el estado si data.medico cambia
 		setMedicoData(data.medico || {});
 	}, [data.medico]);
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setMedicoData((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
-	};
-
 	const handleCLosePopup = () => {
 		setIsOpen(false);
 	};
-	const handleSubmint = async (event) => {
-		event.preventDefault();
-		const formData = new FormData(event.target);
-		const data = Object.fromEntries(formData);
-		const response = await editMedico(id, data);
-		setMedicos(
-			medicos.map((medico) => {
-				return medico._id === id ? { ...medico, ...response.medico } : medico;
-			})
-		);
-		setAvatarUrl('');
-		if (response.error) {
-			setMessage(response.error);
-			setType(!response.success ? 'false' : 'error');
-		} else {
-			navigate(`/medicos/${id}`);
+
+	const handleForm = async (data) => {
+		try {
+			const response = await editMedico(id, data);
+			setMedicos(
+				medicos.map((medico) => {
+					return medico._id === id ? { ...medico, ...response.medico } : medico;
+				})
+			);
+			setAvatarUrl('');
+			if (response.error) {
+				setMessage(response.error);
+				setType(!response.success ? 'false' : 'error');
+			} else {
+				navigate(`/medicos/${id}`);
+			}
+		} catch (error) {
+			console.error('Error al editar el médico:', error);
+			setError('root', {
+				message: error.message,
+			});
 		}
 	};
 
 	return (
 		<div className="editMedico">
 			<h2 className="editMedico__title">Editar Médico</h2>
-			<Form className="editMedico__form" method="put" onSubmit={handleSubmint}>
+			<Form
+				className="editMedico__form"
+				method="put"
+				onSubmit={handleSubmit(handleForm)}
+			>
 				<div className="form-group">
 					<p className="label">Nombre</p>
 					<div className="input-group">
 						<input
+							{...register('nombre')}
 							type="text"
 							id="nombre"
 							name="nombre"
 							placeholder="Nombre"
-							value={medicoData.nombre || ''}
-							onChange={handleChange}
 						/>
+						<p className="error">{errors.nombre && errors.nombre.message}</p>
+					</div>
+				</div>
+
+				<div className="form-group">
+					<p className="label">Apellido</p>
+					<div className="input-group">
 						<input
+							{...register('apellido')}
 							type="text"
 							id="apellido"
 							name="apellido"
 							placeholder="Apellido"
-							value={medicoData.apellido || ''}
-							onChange={handleChange}
 						/>
+						<p className="error">
+							{errors.apellido && errors.apellido.message}
+						</p>
 					</div>
 				</div>
 
@@ -90,15 +128,13 @@ function EditMedico() {
 					<p className="label">Correo</p>
 					<div className="input-group">
 						<input
+							{...register('email')}
 							type="email"
 							id="correo"
 							name="email"
 							placeholder="Correo"
-							required
-							pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
-							value={medicoData.email || ''}
-							onChange={handleChange}
 						/>
+						<p className="error">{errors.email && errors.email.message}</p>
 					</div>
 				</div>
 
@@ -106,51 +142,31 @@ function EditMedico() {
 					<p className="label">Link de la imagen</p>
 					<div className="input-group">
 						<input
+							{...register('url')}
 							type="url"
 							id="imagen"
 							name="url"
 							placeholder="Link de la imagen"
-							pattern="https?://.+\.(png|jpg|jpeg|gif|svg)$"
-							value={avatarUrl || medicoData.url || ''}
-							onChange={handleChange}
 							disabled
 						/>
-						<input
-							type="hidden"
-							name="url"
-							value={avatarUrl || medicoData.url || ''}
-							onChange={handleChange}
-						/>
+						<p className="error">{errors.url && errors.url.message}</p>
+						<input type="hidden" name="url" />
 					</div>
 				</div>
-
-				{/* <div className="form-group">
-					<p className="label">Clave</p>
-					<div className="input-group">
-						<input
-							type="password"
-							id="password"
-							name="password"
-							placeholder="Clave"
-							minLength="6"
-							required
-							value={medicoData.password || ''}
-							onChange={handleChange}
-						/>
-					</div>
-				</div> */}
 
 				<div className="form-group">
 					<p className="label">Teléfono</p>
 					<div className="input-group">
 						<input
+							{...register('telefono')}
 							type="tel"
 							id="telefono"
 							name="telefono"
 							placeholder="Telefono"
-							value={medicoData.telefono || ''}
-							onChange={handleChange}
 						/>
+						<p className="error">
+							{errors.telefono && errors.telefono.message}
+						</p>
 					</div>
 				</div>
 
@@ -158,13 +174,13 @@ function EditMedico() {
 					<p className="label">Celular</p>
 					<div className="input-group">
 						<input
+							{...register('celular')}
 							type="tel"
 							id="celular"
 							name="celular"
 							placeholder="Celular"
-							value={medicoData.celular || ''}
-							onChange={handleChange}
 						/>
+						<p className="error">{errors.celular && errors.celular.message}</p>
 					</div>
 				</div>
 
@@ -172,17 +188,25 @@ function EditMedico() {
 					<p className="label">Especialidad</p>
 					<div className="input-group">
 						<input
+							{...register('especialidad')}
 							type="text"
 							id="especialidad"
 							name="especialidad"
 							placeholder="Especialidad"
-							value={medicoData.especialidad || ''}
-							onChange={handleChange}
 						/>
+						<p className="error">
+							{errors.especialidad && errors.especialidad.message}
+						</p>
 					</div>
 				</div>
 				<div className="form-group__buttons">
-					<button type="submit">Guardar</button>
+					<button
+						className={`button ${isSubmitting ? 'disabled' : ''}`}
+						type="submit"
+						disabled={isSubmitting || !isValid}
+					>
+						{isSubmitting ? 'Enviando...' : 'Guardar'}
+					</button>
 					<button
 						type="button"
 						onClick={() => {
@@ -191,8 +215,9 @@ function EditMedico() {
 							navigate(-1); // navegar hacia atras
 						}}
 					>
-						Cancelar
+						{isSubmitting ? 'Cancelando...' : 'Cancelar'}
 					</button>
+					{errors.root && <p className="error">{errors.root.message}</p>}
 				</div>
 			</Form>
 			{isOpen && (

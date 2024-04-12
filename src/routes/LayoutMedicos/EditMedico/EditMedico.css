@@ -61,7 +61,7 @@
 }
 .form-group {
 	display: flex;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	width: 100%;
 
 	.label {
@@ -83,7 +83,7 @@
 .input-group {
 	width: 70%;
 	display: flex;
-	gap: 10px;
+	/* gap: 10px; */
 
 	input {
 		font-size: .8rem;
