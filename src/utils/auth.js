@@ -1,24 +1,28 @@
 import API_URL from './constants';
 
 
-export const registerAction = async (formData) => {
-	const submission = {
-		name: formData.get('name'),
-		email: formData.get('email'),
-		password: formData.get('password'),
-	};
-	const { name, email, password } = submission;
+export const registerAction = async (data) => {
+	const { name, email, password } = data;
 
-	//send post request to the server
-	const response = await fetch(`${API_URL}/users/signup`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ name, email, password }),
-	});
-	const res = await response.json();
-	return res;
+	try {
+			const response = await fetch(`${API_URL}/users/signup`, {
+					method: 'POST',
+					headers: {
+							'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ name, email, password }),
+			});
+
+			if (response.ok === false) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const res = await response.json();
+			return res;
+	} catch (error) {
+			console.error('Error during registration:', error);
+			throw error; // Rethrow the error so it can be caught by the caller
+	}
 };
 
 //login and get token

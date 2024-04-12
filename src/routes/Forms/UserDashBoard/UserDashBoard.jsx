@@ -34,7 +34,6 @@ function UserDashBoard() {
 				setTimeout(resolve, 1000);
 			});
 			console.log(data);
-			throw new Error('Error');
 		} catch (error) {
 			console.log(error.message);
 			setError('root', {

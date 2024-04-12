@@ -3,10 +3,18 @@
 	.form{
 	
 		.form__input {
-			margin-bottom: 20px;
+			
 	
 		}
 	}
+}
+
+.form__error{
+	height: 20px;
+	margin: 0;
+	color: red;
+	font-size: 12px;
+	font-weight: 100;
 }
 
 
