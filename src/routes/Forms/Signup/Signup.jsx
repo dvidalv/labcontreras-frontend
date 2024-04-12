@@ -19,7 +19,7 @@ function Signup() {
 		register,
 		handleSubmit,
 		setError,
-		formState: { errors, isSubmitting },
+		formState: { errors, isSubmitting, isValid },
 	} = useForm({
 		defaultValues: {
 			name: '',
@@ -27,6 +27,7 @@ function Signup() {
 			password: '',
 		},
 		resolver: zodResolver(schema),
+		mode: 'onChange',
 	});
 
 	const {
@@ -117,7 +118,7 @@ function Signup() {
 					<Link to="/signin">Ya tienes cuenta?</Link>
 				</div>
 
-				<button type="submit" className="form__button" disabled={isSubmitting}>
+				<button className={`form__button ${!isValid || isSubmitting ? 'disabled' : ''}`} type="submit">
 					{isSubmitting ? 'Enviando...' : 'Enviar'}
 				</button>
 				<p className="form__error">{errors.root && errors.root.message}</p>

@@ -1,70 +1,71 @@
-
-
-	.form {
-		/* height: 50vh; */
-		box-sizing: border-box;
-		color: var(--color-black);
+.form {
+	/* height: 50vh; */
+	box-sizing: border-box;
+	color: var(--color-black);
+	width: 100%;
+	max-width: 400px;
+	padding: 20px;
+	background-color: var(--color-white);
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	.form__input {
 		width: 100%;
-		max-width: 400px;
-		padding: 20px;
-		background-color: var(--color-white);
-		border-radius: 10px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-		  .form__input {
-			width: 100%;
 
-			padding: 10px;
-			border: 1px solid var(--color-black);
-			border-radius: 5px;
-			font-size: 1rem;
-			
-		}
-		.form__label {
-			font-size: 1rem;
-			font-weight: 600;
-			margin-bottom: 5px;
-		}
+		padding: 10px;
+		border: 1px solid var(--color-black);
+		border-radius: 5px;
+		font-size: 1rem;
+	}
+	.form__label {
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 5px;
+	}
 
-		.form__links {
-			margin-bottom: 5px;
+	.form__links {
+		margin-bottom: 5px;
+		text-align: right;
+		display: flex;
+		gap: 10px;
+
+		.form__link {
+			/* margin-top: 20px; */
 			text-align: right;
-			display: flex;
-			gap: 10px;
+			text-align: center;
+			color: var(--color-primary);
+			text-decoration: none;
 
-			.form__link {
-				/* margin-top: 20px; */
-				text-align: right;
-				text-align: center;
-				color: var(--color-primary);
-				text-decoration: none;
-
-				&.signin_form-link--create-account {
-					color: var(--color-info);
-				}
+			&.signin_form-link--create-account {
+				color: var(--color-info);
 			}
 		}
+	}
 
-		.form__button {
-			width: 100%;
-			padding: 10px;
-			border: none;
-			border-radius: 5px;
-			background-color: var(--color-primary);
-			color: var(--color-white);
-			font-size: 1rem;
-			font-weight: 700;
-			cursor: pointer;
-		}
-
-		.form__link_create-account[href='/signup'] {
-			color: var(--color-info);
+	.form__button {
+		width: 100%;
+		padding: 10px;
+		border: none;
+		border-radius: 5px;
+		background-color: var(--color-primary);
+		color: var(--color-white);
+		font-size: 1rem;
+		font-weight: 700;
+		cursor: pointer;
+		transition: all 0.5s;
+		&.disabled {
+			background-color: var(--color-primary-light);
+			color: var(--color-black);
+			cursor: not-allowed;
 		}
 	}
 
-	.form__link_create-account, .form__link_create-account {
-		padding: 10px 0;
-		margin-left: 0;
+	.form__link_create-account[href='/signup'] {
+		color: var(--color-info);
 	}
+}
 
-
-
+.form__link_create-account,
+.form__link_create-account {
+	padding: 10px 0;
+	margin-left: 0;
+}

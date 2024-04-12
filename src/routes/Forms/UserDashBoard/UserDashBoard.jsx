@@ -18,7 +18,7 @@ function UserDashBoard() {
 		register,
 		handleSubmit,
 		setError,
-		formState: { errors, isSubmitting },
+		formState: { errors, isSubmitting, isValid },
 	} = useForm({
 		defaultValues: {
 			name: user.name || '',
@@ -26,6 +26,7 @@ function UserDashBoard() {
 			password: '',
 		},
 		resolver: zodResolver(schema),
+		mode: 'onChange',
 	});
 
 	const handleForm = async (data) => {
@@ -74,8 +75,10 @@ function UserDashBoard() {
 							{errors.password && errors.password.message}
 						</p>
 					<button
-						className="user_dashboard-button"
-						disabled={isSubmitting}
+						className={`user_dashboard-form-button ${
+							!isValid || isSubmitting ? 'disabled' : ''
+						}`}
+						disabled={!isValid || isSubmitting}
 						type="submit"
 					>
 						{isSubmitting ? 'Enviando...' : 'Enviar'}
