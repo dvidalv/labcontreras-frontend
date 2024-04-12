@@ -87,14 +87,14 @@ function Signin() {
 					placeholder="Ingresa tu clave"
 				/>
 				<p className="form__error">{errors.password?.message}</p>
-				<div className="form__links">
+				<div className="form__link form__link_create-account">
 					{/* <Link
 						to="/forgot-password"
 						className="form__link form-link--forgot-password"
 					>
 						¿Olvidaste tu contraseña?
 					</Link> */}
-					<Link to="/signup" className="form__link form__link_create-account">
+					<Link to="/signup" >
 						Crear cuenta
 					</Link>
 				</div>

@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import '../form.css';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
-import { useState } from 'react';
 import { registerAction } from '../../../utils/auth';
 
 const schema = z.object({
