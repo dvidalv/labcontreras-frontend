@@ -23,7 +23,6 @@ function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
 
 			const result = await response.json();
 
-			// const avatarUrl = result.url;
 			if (result.url) {
 				setIsOpen(false);
 				setAvatarUrl(result.url);

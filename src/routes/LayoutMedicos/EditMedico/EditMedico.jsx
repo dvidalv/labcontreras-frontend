@@ -27,6 +27,17 @@ function EditMedico() {
 	const [medicoData, setMedicoData] = useState(data.medico || {});
 
 	const {
+		message,
+		setMessage,
+		setType,
+		avatarUrl,
+		setAvatarUrl,
+		setMedicos,
+		medicos,
+	} = useAppContext();
+	console.log(avatarUrl);
+
+	const {
 		register,
 		handleSubmit,
 		setError,
@@ -43,17 +54,7 @@ function EditMedico() {
 		resolver: zodResolver(schema),
 		mode: 'onChange',
 	});
-
-	const {
-		message,
-		setMessage,
-		setType,
-		avatarUrl,
-		setAvatarUrl,
-		setMedicos,
-		medicos,
-	} = useAppContext();
-
+	
 	useEffect(() => {
 		// Actualiza el estado si data.medico cambia
 		setMedicoData(data.medico || {});
@@ -65,6 +66,7 @@ function EditMedico() {
 
 	const handleForm = async (data) => {
 		try {
+			data.url = avatarUrl;
 			const response = await editMedico(id, data);
 			setMedicos(
 				medicos.map((medico) => {
@@ -138,21 +140,21 @@ function EditMedico() {
 					</div>
 				</div>
 
-				<div className="form-group">
+				{/* <div className="form-group">
 					<p className="label">Link de la imagen</p>
 					<div className="input-group">
 						<input
-							{...register('url')}
+							{...register('url_v')}
 							type="url"
 							id="imagen"
-							name="url"
+							name="url_v"
 							placeholder="Link de la imagen"
 							disabled
 						/>
 						<p className="error">{errors.url && errors.url.message}</p>
-						<input type="hidden" name="url" />
+						<input {...register('url')} type="hidden" name="url" />
 					</div>
-				</div>
+				</div> */}
 
 				<div className="form-group">
 					<p className="label">Teléfono</p>
