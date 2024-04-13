@@ -21,6 +21,7 @@ function Contact() {
 		handleSubmit,
 		setError,
 		formState: { errors, isSubmitting },
+		reset,
 	} = useForm({
 		defaultValues: {
 			email: '',
@@ -44,6 +45,7 @@ function Contact() {
 				setShowTooltip(true);
 				setType('success');
 				setMessage('Mensaje enviado');
+				reset();
 			}
 		} catch (error) {
 			setShowTooltip(true);
