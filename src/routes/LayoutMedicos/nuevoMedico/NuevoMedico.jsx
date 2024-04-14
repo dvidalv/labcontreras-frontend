@@ -20,7 +20,6 @@ function NuevoMedico() {
 	const {
 		register,
 		handleSubmit,
-		setError,
 		formState: { errors, isSubmitting, isValid },
 	} = useForm({
 		defaultValues: {
@@ -50,10 +49,8 @@ function NuevoMedico() {
 	} = useAppContext();
 
 	const handleForm = async (data) => {
-		console.log(data)
 		try {
 			const response = await createMedico(data);
-			console.log(response)
 			if (response.medico) {
 				setMedicos([...medicos, response.medico]);
 				navigate('/medicos');
@@ -62,15 +59,16 @@ function NuevoMedico() {
 					setShowTooltip(true);
 					setMessage('El correo ya existe');
 					setType('error');
-					setError(true);
+	
 					setLocation('nuevoMedico');
+					return
 				}
 				if (response.message === 'Validation failed') {
 					setShowTooltip(true);
 					setMessage('Error de Validación. Revise los datos ingresados');
 					setType('error');
-					setError(true);
 					setLocation('nuevoMedico');
+					return;
 				}
 				return;
 			}
