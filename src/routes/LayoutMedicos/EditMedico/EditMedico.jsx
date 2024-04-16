@@ -86,8 +86,8 @@ function EditMedico() {
 								formData.append("image", file);
 								try {
 									const response = await uploadAvatar(formData);
-									if (response.url) { // Asume que la respuesta tiene una propiedad `url`
-										setAvatarUrl(response.url); // Actualiza el estado con la URL de la imagen
+									if (response.url) { 
+										setAvatarUrl(response.url); 
 										resolve();
 									} else {
 										Swal.showValidationMessage("No se pudo cargar la imagen");
