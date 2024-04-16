@@ -62,8 +62,6 @@ function EditMedico() {
 		setMedicoData(data.medico || {});
 	}, [data.medico]);
 
-
-		// Suponiendo que esta acción es llamada cuando quieres abrir el popup
 		const handleOpenPopup = async () => {
 			const { value: file } = await Swal.fire({
 				title: "Selecciona tu imagen de perfil",
@@ -112,7 +110,7 @@ function EditMedico() {
 						timer: 2000, // El popup se cerrará después de 3000 milisegundos (3 segundos)
 						timerProgressBar: true, // Muestra una barra de progreso que indica el tiempo restante
 						willClose: () => {
-								// Aquí puedes colocar cualquier código que quieras ejecutar justo antes de que el popup se cierre.
+							// Código que se ejecutará cuando el popup se cierre
 						}
 				});
 		}
