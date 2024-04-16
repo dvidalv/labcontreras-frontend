@@ -30,32 +30,7 @@ function Main() {
 	return (
 		<main className="page">
 			<section className="hero"></section>
-			<section className="services">
-				<div id="services" className="services__container">
-					<h1>NUESTROS SERVICIOS</h1>
-					<p>
-					is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-					</p>
-					<ul className="services__list">
-						<li className="services__item">
-							<img src={microscopio} alt="icono" />
-							<p>Solicitud de Resultados</p>
-						</li>
-						<li className="services__item">
-							<img src={reportes} alt="icono" />
-							<p>Pruebas por especificidad</p>
-						</li>
-						<li className="services__item">
-							<img src={mensajeria} alt="icono" />
-							<p>Mensajería Personalizada</p>
-						</li>
-						<li className="services__item">
-							<img src={inmunohistoquimica} alt="icono" />
-							<p>Inmunohistoquimica</p>
-						</li>
-					</ul>
-				</div>
-			</section>
+
 			<section className="about">
 				<div className="about__container">
 					<div className="about__text">
@@ -71,6 +46,7 @@ function Main() {
 							Más..
 						</Link>
 					</div>
+
 					<ul className="cards">
 						{medicos.map((medico) => (
 							<li key={medico._id}>
@@ -88,6 +64,55 @@ function Main() {
 					</ul>
 				</div>
 			</section>
+			<section className="services">
+				<div id="services" className="services__container">
+					<h1>NUESTROS SERVICIOS</h1>
+					<p>
+						En Laboratorio de Patología Contreras Robledo, nos comprometemos a
+						brindarle servicios de patología clínica de la más alta calidad,
+						utilizando tecnología de vanguardia y un enfoque centrado en el
+						paciente. Nuestros servicios incluyen:
+					</p>
+					<div className="services__list-container">
+						<ul className="services__list">
+							<li className="services__item">
+								<p>BIOPSIAS INCISIONALES Y EXCISIONALES</p>
+							</li>
+							<li className="services__item">
+								<p>PUNCION ASPIRACIÓN CON AGUJA FINA</p>
+							</li>
+							<li className="services__item">
+								<p>CITOLOGÍA DE LÍQUIDO Y SECRECIONES</p>
+							</li>
+							<li className="services__item">
+								<p>CITOLOGÍA CERVICO-VAGINAL</p>
+							</li>
+							<li className="services__item">
+								<p>BIOPSIAS INTRAOPERATORIAS POR CONGELACIÓN</p>
+							</li>
+							<li className="services__item">
+								<p>HISTOQUÍMICA</p>
+							</li>
+							<li className="services__item">
+								<p>INMUNOHISTOQUÍMICA</p>
+							</li>
+							<li className="services__item">
+								<p>HIBRIDATION In Situ (FISH Y SISH)</p>
+							</li>
+							<li className="services__item">
+								<p>rt-PCR</p>
+							</li>
+							<li className="services__item">
+								<p>CITOMETRÍA DE FLUJO</p>
+							</li>
+						</ul>
+						<div className="services__image">
+
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<section className="seguros">
 				<div className="seguros__container">
 					<h2>ACEPTAMOS TODOS LOS SEGUROS</h2>
