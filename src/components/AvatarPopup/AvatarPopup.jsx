@@ -2,8 +2,12 @@
 import './AvatarPopup.css';
 import url from '../../utils/constants';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
+
 
 function AvatarPopup({ onClose, isOpen, setIsOpen, setAvatarUrl }) {
+
+
 	const handleSubirImagen = async (event) => {
 		event.preventDefault();
 		event.stopPropagation();

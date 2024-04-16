@@ -2,13 +2,15 @@ import { Form, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import AvatarPopup from '../../../components/AvatarPopup/AvatarPopup';
 import avatarDoctor from '../../../images/avatarDoctor.svg';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../contexts/MyContext';
 import './EditMedico.css';
 import { editMedico } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
+import { uploadAvatar } from '../../../utils/api';
+
+import Swal from 'sweetalert2';
 
 const schema = z.object({
 	nombre: z.string().min(3).max(50),
@@ -20,9 +22,9 @@ const schema = z.object({
 });
 
 function EditMedico() {
+
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [isOpen, setIsOpen] = useState(false);
 	const data = useLoaderData();
 	const [medicoData, setMedicoData] = useState(data.medico || {});
 
@@ -35,7 +37,7 @@ function EditMedico() {
 		setMedicos,
 		medicos,
 	} = useAppContext();
-	console.log(avatarUrl);
+
 
 	const {
 		register,
@@ -54,17 +56,70 @@ function EditMedico() {
 		resolver: zodResolver(schema),
 		mode: 'onChange',
 	});
-	
+
 	useEffect(() => {
 		// Actualiza el estado si data.medico cambia
 		setMedicoData(data.medico || {});
 	}, [data.medico]);
 
-	const handleCLosePopup = () => {
-		setIsOpen(false);
-	};
+
+		// Suponiendo que esta acción es llamada cuando quieres abrir el popup
+		const handleOpenPopup = async () => {
+			const { value: file } = await Swal.fire({
+				title: "Selecciona tu imagen de perfil",
+				input: "file",
+				inputAttributes: {
+					"accept": "image/*",
+					"aria-label": "Upload your profile picture"
+				},
+				showCancelButton: true,
+				confirmButtonText: 'Cargar',
+				cancelButtonText: 'Cancelar',
+				preConfirm: (file) => {
+					if (file) {
+						const reader = new FileReader();
+						reader.readAsDataURL(file);
+						return new Promise((resolve) => {
+							reader.onload = async () => {
+
+								const formData = new FormData();
+								formData.append("image", file);
+								try {
+									const response = await uploadAvatar(formData);
+									if (response.url) { // Asume que la respuesta tiene una propiedad `url`
+										setAvatarUrl(response.url); // Actualiza el estado con la URL de la imagen
+										resolve();
+									} else {
+										Swal.showValidationMessage("No se pudo cargar la imagen");
+										resolve();
+									}
+								} catch (error) {
+									console.error("Error al cargar la imagen:", error);
+									Swal.showValidationMessage(`Error al cargar: ${error.message}`);
+									resolve();
+								}
+							};
+						});
+					}
+				}
+			});
+		
+			if (file) {
+				Swal.fire({
+						title: "Imagen cargada",
+						imageUrl: URL.createObjectURL(file),
+						imageAlt: "Imagen cargada",
+						timer: 2000, // El popup se cerrará después de 3000 milisegundos (3 segundos)
+						timerProgressBar: true, // Muestra una barra de progreso que indica el tiempo restante
+						willClose: () => {
+								// Aquí puedes colocar cualquier código que quieras ejecutar justo antes de que el popup se cierre.
+						}
+				});
+		}
+		};
 
 	const handleForm = async (data) => {
+		console.log('data', data);
 		try {
 			data.url = avatarUrl;
 			const response = await editMedico(id, data);
@@ -222,15 +277,15 @@ function EditMedico() {
 					{errors.root && <p className="error">{errors.root.message}</p>}
 				</div>
 			</Form>
-			{isOpen && (
+			{/* {isOpen && (
 				<AvatarPopup
 					onClose={handleCLosePopup}
 					setIsOpen={setIsOpen}
 					isOpen={isOpen}
 					setAvatarUrl={setAvatarUrl}
 				/>
-			)}
-			<div className="editMedico__avatar" onClick={() => setIsOpen(true)}>
+			)} */}
+			<div className="editMedico__avatar" onClick={handleOpenPopup}>
 				<img src={avatarUrl ? avatarUrl : avatarDoctor} alt="Avatar" />
 				<p>Subir Foto</p>
 			</div>

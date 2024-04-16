@@ -113,3 +113,15 @@ export async function contact(email, subject, message) {
 
 	return response.json();
 }
+
+export async function uploadAvatar(data) {
+	const response = await fetch(`${API_URL}/upload`, {
+		method: 'POST',
+		body: data,
+	});
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	const result = await response.json();
+	return result;
+}
