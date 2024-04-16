@@ -23,12 +23,12 @@ function NuevoMedico() {
 		formState: { errors, isSubmitting, isValid },
 	} = useForm({
 		defaultValues: {
-			nombre: 'David',
-			apellido: 'Rodriguez',
-			email: 'david@gmail.com',
-			telefono: '1234567890',
-			celular: '1234567890',
-			especialidad: 'Cardiologo',
+			nombre: '',
+			apellido: '',
+			email: '',
+			telefono: '',
+			celular: '',
+			especialidad: '',
 		},
 		resolver: zodResolver(schema),
 		mode: 'onChange',
