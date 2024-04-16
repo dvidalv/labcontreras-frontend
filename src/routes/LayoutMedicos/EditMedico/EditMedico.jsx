@@ -117,7 +117,6 @@ function EditMedico() {
 		};
 
 	const handleForm = async (data) => {
-		console.log('data', data);
 		try {
 			data.url = avatarUrl;
 			const response = await editMedico(id, data);
