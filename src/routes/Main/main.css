@@ -65,13 +65,22 @@
 }
 
 .services__item {
-list-style: initial;
+	
 
 p{
 	margin: 0;
 	font-size: .9rem;
 	font-weight: 100;
 	font-family: 'Inter', sans-serif;
+}
+
+&::before {
+	content: '✅';
+	margin-right: 10px;
+	/* font-size: 1.2rem; */
+	position: relative;
+	top: 21px;
+	left: -184px;
 }
 }
 
