@@ -22,17 +22,27 @@ export async function createUser(email, password) {
 	return response.json();
 }
 
+export async function updateUser(data) {
+	// console.log(data);
+	const response = await fetch(`${API_URL}/users/update`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
+	return response.json();
+}
+
 export async function getMedicos() {
 	const response = await fetch(`${API_URL}/medicos`);
 	return response.json();
 }
 
-
 export async function getMedico(id) {
 	const response = await fetch(`${API_URL}/medicos/${id}`);
 	return response.json();
 }
-
 
 export async function createMedico(data) {
 	const response = await fetch(`${API_URL}/medicos`, {
@@ -45,9 +55,7 @@ export async function createMedico(data) {
 	return response.json();
 }
 
-
 export async function editMedico(id, data) {
-
 	const response = await fetch(`${API_URL}/medicos/${id}/edit`, {
 		method: 'PUT',
 		headers: {
@@ -55,20 +63,19 @@ export async function editMedico(id, data) {
 		},
 		body: JSON.stringify(data),
 	});
-	if(response.ok){
+	if (response.ok) {
 		const responseData = await response.json();
 		return {
 			success: true,
 			medico: responseData.medico,
-		}
-
-	}else{
+		};
+	} else {
 		const errorData = await response.json();
-		return{
+		return {
 			success: false,
 			error: errorData.message,
 			status: errorData.status,
-		}
+		};
 	}
 }
 
@@ -83,7 +90,6 @@ export async function medicosWhitelist() {
 	const response = await fetch(`${API_URL}/medicos/whitelist`);
 	return response.json();
 }
-
 
 export async function loader() {
 	const medicos = await getMedicos();
@@ -100,7 +106,6 @@ export async function getMedicoById({ params }) {
 	}
 	return { medico };
 }
-
 
 export async function contact(email, subject, message) {
 	const response = await fetch(`${API_URL}/api/contact`, {

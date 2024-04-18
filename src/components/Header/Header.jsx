@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
@@ -20,6 +20,12 @@ Header.propTypes = {
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const { token, setToken, setShowTooltip, user } = useAppContext();
+
+// 	useEffect(() => {
+// 		console.log("Usuario actualizado:", user);
+// 		// Aquí puedes hacer más lógica si necesitas reaccionar a cambios en `user`
+// }, [user]); // Dependencia de `user` para reaccionar a sus cambios
+
 	const [isMenuFixed] = useState(false);
 
 	const handleLogout = () => {
@@ -63,7 +69,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								<Link to="/user-dashboard">
 									<div className="header__user_info--user--img">
 										<img
-											src="https://res.cloudinary.com/dv44uehlk/image/upload/v1711241008/avatars/hgfhnlga1veno63mm0cs.png"
+											src={user.url}
 											alt="user"
 											className="header__user_info--user--img"
 										/>

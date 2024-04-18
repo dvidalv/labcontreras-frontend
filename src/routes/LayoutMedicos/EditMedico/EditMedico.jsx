@@ -22,7 +22,6 @@ const schema = z.object({
 });
 
 function EditMedico() {
-
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const data = useLoaderData();
@@ -37,7 +36,6 @@ function EditMedico() {
 		setMedicos,
 		medicos,
 	} = useAppContext();
-
 
 	const {
 		register,
@@ -62,59 +60,56 @@ function EditMedico() {
 		setMedicoData(data.medico || {});
 	}, [data.medico]);
 
-		const handleOpenPopup = async () => {
-			const { value: file } = await Swal.fire({
-				title: "Selecciona tu imagen de perfil",
-				input: "file",
-				inputAttributes: {
-					"accept": "image/*",
-					"aria-label": "Upload your profile picture"
-				},
-				showCancelButton: true,
-				confirmButtonText: 'Cargar',
-				cancelButtonText: 'Cancelar',
-				preConfirm: (file) => {
-					if (file) {
-						const reader = new FileReader();
-						reader.readAsDataURL(file);
-						return new Promise((resolve) => {
-							reader.onload = async () => {
-
-								const formData = new FormData();
-								formData.append("image", file);
-								try {
-									const response = await uploadAvatar(formData);
-									if (response.url) { 
-										setAvatarUrl(response.url); 
-										resolve();
-									} else {
-										Swal.showValidationMessage("No se pudo cargar la imagen");
-										resolve();
-									}
-								} catch (error) {
-									console.error("Error al cargar la imagen:", error);
-									Swal.showValidationMessage(`Error al cargar: ${error.message}`);
+	const handleOpenPopup = async () => {
+		const { value: file } = await Swal.fire({
+			title: 'Selecciona tu imagen de perfil',
+			input: 'file',
+			inputAttributes: {
+				accept: 'image/*',
+				'aria-label': 'Upload your profile picture',
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Cargar',
+			cancelButtonText: 'Cancelar',
+			preConfirm: (file) => {
+				if (file) {
+					const reader = new FileReader();
+					reader.readAsDataURL(file);
+					return new Promise((resolve) => {
+						reader.onload = async () => {
+							const formData = new FormData();
+							formData.append('image', file);
+							try {
+								const response = await uploadAvatar(formData);
+								if (response.url) {
+									setAvatarUrl(response.url);
+									resolve();
+								} else {
+									Swal.showValidationMessage('No se pudo cargar la imagen');
 									resolve();
 								}
-							};
-						});
-					}
+							} catch (error) {
+								console.error('Error al cargar la imagen:', error);
+								Swal.showValidationMessage(`Error al cargar: ${error.message}`);
+								resolve();
+							}
+						};
+					});
 				}
-			});
+			},
+		});
 		
-			if (file) {
-				Swal.fire({
-						title: "Imagen cargada",
-						imageUrl: URL.createObjectURL(file),
-						imageAlt: "Imagen cargada",
-						timer: 2000, // El popup se cerrará después de 3000 milisegundos (3 segundos)
-						timerProgressBar: true, // Muestra una barra de progreso que indica el tiempo restante
-						willClose: () => {
-							// Código que se ejecutará cuando el popup se cierre
-						}
-				});
-		}
-		};
+		Swal.fire({
+			title: 'Imagen cargada',
+			imageUrl: URL.createObjectURL(file),
+			imageAlt: 'Imagen cargada',
+			timer: 2000, // El popup se cerrará después de 3000 milisegundos (3 segundos)
+			timerProgressBar: true, // Muestra una barra de progreso que indica el tiempo restante
+			willClose: () => {
+				// Código que se ejecutará cuando el popup se cierre
+			},
+		});
+	};
 
 	const handleForm = async (data) => {
 		try {
