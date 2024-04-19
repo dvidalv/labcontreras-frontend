@@ -16,7 +16,8 @@ const schema = z.object({
 });
 
 function UserDashBoard() {
-	const { setUser, user, avatarUrl, setAvatarUrl } = useAppContext();
+	const { setUser, user, avatarUrl, setAvatarUrl, token } = useAppContext();
+	// console.log(token);
 
 	const {
 		register,
@@ -37,9 +38,9 @@ function UserDashBoard() {
 
 	async function handleForm(data) {
 		data = { ...data, _id: user._id, url: avatarUrl };
-		const { name, email, tel, role, _id, url } = data;
+		// const { name, email, tel, role, _id, url } = data;
 		try {
-			const response = await updateUser({ name, email, tel, role, _id, url });
+			const response = await updateUser({ data, token});
 			setUser({ ...user, ...response.user });
 			if (!response.user) {
 				setError('root', {

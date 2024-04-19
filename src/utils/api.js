@@ -1,4 +1,5 @@
 import API_URL from './constants';
+import {checkToken} from './auth';
 
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {
@@ -22,12 +23,13 @@ export async function createUser(email, password) {
 	return response.json();
 }
 
-export async function updateUser(data) {
-	// console.log(data);
+export async function updateUser({ data, token }) {
 	const response = await fetch(`${API_URL}/users/update`, {
 		method: 'PUT',
 		headers: {
+			Accept: 'application/json',
 			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
 		},
 		body: JSON.stringify(data),
 	});

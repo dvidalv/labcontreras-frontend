@@ -1,27 +1,26 @@
 import API_URL from './constants';
 
-
 export const registerAction = async (data) => {
 	const { name, email, password } = data;
 
 	try {
-			const response = await fetch(`${API_URL}/users/signup`, {
-					method: 'POST',
-					headers: {
-							'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ name, email, password }),
-			});
+		const response = await fetch(`${API_URL}/users/signup`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ name, email, password }),
+		});
 
-			if (response.ok === false) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-			}
+		if (response.ok === false) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
 
-			const res = await response.json();
-			return res;
+		const res = await response.json();
+		return res;
 	} catch (error) {
-			console.error('Error during registration:', error);
-			throw error; // Rethrow the error so it can be caught by the caller
+		console.error('Error during registration:', error);
+		throw error; // Rethrow the error so it can be caught by the caller
 	}
 };
 
@@ -37,10 +36,9 @@ export const authorize = (email, password) => {
 	});
 };
 
-
-
 // comprueba el token la validez del token
 export const checkToken = async (token) => {
+	// console.log(token);
 	try {
 		const response = await fetch(`${API_URL}/users/verifyToken`, {
 			method: 'GET', // GET es común para verificar tokens

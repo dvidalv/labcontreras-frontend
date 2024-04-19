@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import { checkToken } from '../utils/auth';
 const AppContext = createContext();
 
@@ -15,7 +15,7 @@ export const AppProvider = ({ children }) => {
 	const [type, setType] = useState('');
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [token, setToken] = useState(localStorage.getItem('token') || null);
-	const {toollTipIsLocated, setToollTipIsLocated} = useState('');
+	const { toollTipIsLocated, setToollTipIsLocated } = useState('');
 	const [isLoading, setIsLoading] = useState(true);
 	const [medicos, setMedicos] = useState([]);
 	const [medico, setMedico] = useState({});
@@ -23,6 +23,7 @@ export const AppProvider = ({ children }) => {
 	const [avatarUrl, setAvatarUrl] = useState('');
 	const [location, setLocation] = useState('');
 	const [user, setUser] = useState({});
+	// console.log(token);
 
 	// console.log(user);
 
@@ -31,25 +32,25 @@ export const AppProvider = ({ children }) => {
 	//   setSharedState(newState);
 	// };
 
-  useEffect(() => {
-    const verifyToken = async () => {
-      setIsLoading(true);
-      const response = await checkToken(token);
-      if (response.status === 'success') {
-      setToken(token);
-			setUser(response.user);
-      } else {
-      setToken(null);
-      }
-      setIsLoading(false);
-    };
+	useEffect(() => {
+		const verifyToken = async () => {
+			setIsLoading(true);
+			const response = await checkToken(token);
+			if (response.status === 'success') {
+				setToken(token);
+				setUser(response.user);
+			} else {
+				setToken(null);
+			}
+			setIsLoading(false);
+		};
 
-    if (token) {
-      verifyToken();
-    } else {
-      setIsLoading(false);
-    }
-  }, [token]);
+		if (token) {
+			verifyToken();
+		} else {
+			setIsLoading(false);
+		}
+	}, [token]);
 
 	return (
 		<AppContext.Provider
