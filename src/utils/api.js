@@ -1,5 +1,4 @@
 import API_URL from './constants';
-import {checkToken} from './auth';
 
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {

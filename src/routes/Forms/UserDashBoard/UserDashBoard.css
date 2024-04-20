@@ -181,6 +181,7 @@
 }
 
 .medicos__white-list-container {
+	position: relative;
 	h2 {
 		text-align: center;
 	}
@@ -227,6 +228,30 @@
 	}
 }
 
-.contenido-tabla {
-	/* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+.medicos__white-list-add {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 68px;
+	left: 15px;
+	display: flex;
+	width: 100%;
+	gap: .5rem;
+	/* align-items: center; */
+
+	@media (min-width: 768px){
+		top: 83px;
+	}
+
+	img {
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+	}
+
+	span {
+		font-size: 1rem;
+		font-weight: 200;
+		color: var(--color-primary);
+	}
 }

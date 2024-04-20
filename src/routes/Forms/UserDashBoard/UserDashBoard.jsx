@@ -4,9 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppContext } from '../../../contexts/MyContext';
 import './UserDashBoard.css';
 import avatar from '../../../images/avatar.svg';
+import plus from '../../../images/plus.svg';
 import { uploadAvatar } from '../../../utils/api';
 import Swal from 'sweetalert2';
 import { updateUser } from '../../../utils/api';
+import { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 
 const schema = z.object({
 	name: z.string().min(3).max(30),
@@ -16,8 +19,20 @@ const schema = z.object({
 });
 
 function UserDashBoard() {
+	const [medicosWhiteList, setMedicosWhiteList] = useState([]);
 	const { setUser, user, avatarUrl, setAvatarUrl, token } = useAppContext();
-	// console.log(token);
+
+	const medicos = useLoaderData();
+
+	useEffect(() => {
+		if (medicos.length > 0) {
+			setMedicosWhiteList(medicos);
+		}
+	}, [medicos]);
+
+	useEffect(() => {
+		setAvatarUrl('');
+	}, [setAvatarUrl]);
 
 	const {
 		register,
@@ -38,9 +53,8 @@ function UserDashBoard() {
 
 	async function handleForm(data) {
 		data = { ...data, _id: user._id, url: avatarUrl };
-		// const { name, email, tel, role, _id, url } = data;
 		try {
-			const response = await updateUser({ data, token});
+			const response = await updateUser({ data, token });
 			setUser({ ...user, ...response.user });
 			if (!response.user) {
 				setError('root', {
@@ -123,6 +137,41 @@ function UserDashBoard() {
 		});
 	};
 
+	const handleAddMedico = () => {
+		Swal.fire({
+			title: 'Agregar médico',
+			html:
+				'<input id="swal-input1" class="swal2-input" placeholder="Nombre">' +
+				'<input id="swal-input2" class="swal2-input" placeholder="Email" type="email">' +
+				'<input id="swal-input3" class="swal2-input" placeholder="Teléfono" type="tel">',
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'Agregar',
+			cancelButtonText: 'Cancelar',
+			preConfirm: () => {
+				return [
+					document.getElementById('swal-input1').value,
+					document.getElementById('swal-input2').value,
+					document.getElementById('swal-input3').value
+				]
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const [name, email, tel] = result.value;
+				if (!name || !email || !tel) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Todos los campos son obligatorios',
+					});
+					return;
+				}
+				const newMedico = { name, email, tel };
+				console.log(newMedico);
+			}
+		});
+	};
+
 	return (
 		<div className="dashboard-container">
 			<div className="user_dashboard">
@@ -136,6 +185,8 @@ function UserDashBoard() {
 					>
 						{avatarUrl ? (
 							<img src={avatarUrl} alt="avatar" />
+						) : user.url ? (
+							<img src={user.url} alt="avatar" />
 						) : (
 							<img src={avatar} alt="avatar" />
 						)}
@@ -183,6 +234,15 @@ function UserDashBoard() {
 				</div>
 
 				<div className="section medicos__white-list-container">
+				<div className="medicos__white-list-add">
+							<img
+								
+								src={plus}
+								alt="Agregar médico"
+								onClick={handleAddMedico}
+							/>
+							<span>Agregar médico</span>
+						</div>
 					<h2>Médicos con acceso</h2>
 					<table className="medicos__white-list">
 						<thead>
@@ -193,18 +253,21 @@ function UserDashBoard() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr className="columnas contenido-tabla">
-								<td className="columna columna-1">Dr. Juan J. Bloise</td>
-								<td className="columna columna-2">123-456-7890</td>
-								<td className="columna columna-3">juan.perez@example.com</td>
-							</tr>
-							<tr className="columnas contenido-tabla">
-								<td className="columna columna-1">Dr. Juan J. Bloise</td>
-								<td className="columna columna-2">123-456-7890</td>
-								<td className="columna columna-3">juan.perez@example.com</td>
-							</tr>
+							{medicosWhiteList.map((medico, index) => (
+								<tr
+									key={index}
+									className="columnas contenido-tabla"
+									data-medico-id={medico._id}
+								>
+									<td className="columna columna-1">{medico.name}</td>
+									<td className="columna columna-2">{medico.tel}</td>
+									<td className="columna columna-3">{medico.email}</td>
+								</tr>
+							))}
 						</tbody>
+						
 					</table>
+
 				</div>
 			</div>
 		</div>

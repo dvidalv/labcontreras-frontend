@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
@@ -21,10 +21,6 @@ Header.propTypes = {
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const { token, setToken, setShowTooltip, user } = useAppContext();
 
-// 	useEffect(() => {
-// 		console.log("Usuario actualizado:", user);
-// 		// Aquí puedes hacer más lógica si necesitas reaccionar a cambios en `user`
-// }, [user]); // Dependencia de `user` para reaccionar a sus cambios
 
 	const [isMenuFixed] = useState(false);
 
