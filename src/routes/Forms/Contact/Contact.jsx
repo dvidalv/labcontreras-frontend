@@ -7,6 +7,7 @@ import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import Map from '../../../components/Map/Map';
 import './contact.css';
+import { useEffect } from 'react';
 
 function Contact() {
 	const location = 'contact';
@@ -31,13 +32,16 @@ function Contact() {
 		resolver: zodResolver(schema),
 	});
 
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	const navigation = useNavigate();
 
 	const { showTooltip, setShowTooltip, message, setMessage, type, setType } =
 		useAppContext();
 
-		const onSubmit = async (data) => {
+	const onSubmit = async (data) => {
 		const { email, subject, message } = data;
 		try {
 			const res = await contact(email, subject, message);
@@ -93,7 +97,11 @@ function Contact() {
 						{errors.message && errors.message.message}
 					</p>
 
-					<button disabled={isSubmitting} type="submit" className="form__button">
+					<button
+						disabled={isSubmitting}
+						type="submit"
+						className="form__button"
+					>
 						{isSubmitting ? 'Enviando...' : 'Enviar'}
 					</button>
 					{errors.root && <p className="form__error">{errors.root.message}</p>}

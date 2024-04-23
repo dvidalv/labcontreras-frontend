@@ -59,9 +59,9 @@ function NuevoMedico() {
 					setShowTooltip(true);
 					setMessage('El correo ya existe');
 					setType('error');
-	
+
 					setLocation('nuevoMedico');
-					return
+					return;
 				}
 				if (response.message === 'Validation failed') {
 					setShowTooltip(true);
@@ -104,7 +104,9 @@ function NuevoMedico() {
 							name="apellido"
 							placeholder="Apellido"
 						/>
-						<p className="error">{errors.apellido && errors.apellido.message}</p>
+						<p className="error">
+							{errors.apellido && errors.apellido.message}
+						</p>
 					</div>
 				</div>
 

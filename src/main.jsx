@@ -21,7 +21,6 @@ import { getMedicoById as loaderMedico } from './utils/api';
 
 import Medico from './routes/LayoutMedicos/Medico/Medico.jsx';
 import { action as actionMedico } from './routes/LayoutMedicos/Medico/actionMedico.jsx';
-import { action as destroyMedico } from './routes/LayoutMedicos/Medico/destroyMedico.jsx';
 
 import NuevoMedico from './routes/LayoutMedicos/nuevoMedico/NuevoMedico.jsx';
 
@@ -31,8 +30,7 @@ import { loader as editMedicoLoader } from './routes/LayoutMedicos/EditMedico/ed
 import Nosotros from './routes/Nosotros/Nosotros.jsx';
 
 import UserDashBoard from './routes/Forms/UserDashBoard/UserDashBoard.jsx';
-import {loader as userDashBoardLoader} from './routes/Forms/UserDashBoard/UserDashBoardLoader.jsx';
-
+import { loader as userDashBoardLoader } from './routes/Forms/UserDashBoard/UserDashBoardLoader.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -84,7 +82,6 @@ const router = createBrowserRouter([
 					},
 					{
 						path: ':id/destroy',
-						action: destroyMedico,
 						element: <h1>Eliminando...</h1>,
 						errorElement: <h1>Hubo un error al eliminar el medico</h1>,
 					},

@@ -1,9 +1,5 @@
 import './main.css';
 import Card from '../../components/Cards/Card';
-import microscopio from '../../images/microscopio.svg';
-import reportes from '../../images/reportes.svg';
-import mensajeria from '../../images/mensajeria.svg';
-import inmunohistoquimica from '../../images/inmuno.svg';
 import reservas from '../../images/reservas.png';
 import universal from '../../images/universal.png';
 import senasa from '../../images/senasa.png';
@@ -106,9 +102,7 @@ function Main() {
 								<p>CITOMETRÍA DE FLUJO</p>
 							</li>
 						</ul>
-						<div className="services__image">
-
-						</div>
+						<div className="services__image"></div>
 					</div>
 				</div>
 			</section>
