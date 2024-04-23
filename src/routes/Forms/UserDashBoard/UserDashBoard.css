@@ -181,7 +181,12 @@
 }
 
 .medicos__white-list-container {
-	position: relative;
+
+	tbody {
+		display: block;
+		overflow-y: auto;
+		max-height: 400px;
+	}
 	h2 {
 		text-align: center;
 	}
@@ -225,6 +230,25 @@
 		@media (max-width: 768px) {
 			margin-top: 0;
 		}
+	}
+
+	.columna-1 {
+		width: 200px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.columna-2 {
+		width: 150px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.columna-3 {
+		width: 150px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 

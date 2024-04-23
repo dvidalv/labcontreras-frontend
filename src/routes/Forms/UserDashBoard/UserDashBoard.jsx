@@ -259,7 +259,7 @@ function UserDashBoard() {
 									className="columnas contenido-tabla"
 									data-medico-id={medico._id}
 								>
-									<td className="columna columna-1">{medico.name}</td>
+									<td className="columna columna-1">{medico.nombre}</td>
 									<td className="columna columna-2">{medico.tel}</td>
 									<td className="columna columna-3">{medico.email}</td>
 								</tr>
