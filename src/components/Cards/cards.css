@@ -68,12 +68,17 @@
 
 .card__face--front {
 	box-sizing: border-box;
-
+	
 	transition: all 1s ease;
 	-webkit-transition: all 1s ease;
 	-moz-transition: all 1s ease;
 	-ms-transition: all 1s ease;
 	-o-transition: all 1s ease;
+	
+	p{
+		font-size: 16px;
+		margin-top: 10px;
+	}
 }
 
 .card__face--back {
