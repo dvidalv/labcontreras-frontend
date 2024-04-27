@@ -1,8 +1,10 @@
 .nosotros {
+	background-color: var(--color-white);
 	margin-top: var(--header-height-mobil);
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: calc(100vh - var(--header-height) - var(--footer-height)) 1fr;
+	gap: 20px;
 
 	grid-template-areas:
 		'ed'
@@ -17,15 +19,23 @@
 }
 
 .nosotros__img {
+	/* padding: 2rem; */
+	width: 100%;
+	height: 100%;
 	grid-area: ed;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
 	img {
-		width: 100%;
-		height: 100%;
 		object-fit: cover;
+		@media (min-width: 768px){
+			margin-bottom: 140px;
+			width: 60%;
+			height: 60%;
+			
+
+		}
 	}
 }
 
