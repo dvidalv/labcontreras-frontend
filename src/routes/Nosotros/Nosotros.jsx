@@ -15,17 +15,7 @@ function Nosotros() {
 			<div className="nosotros__info">
 				<h2>Nosotros</h2>
 				<p className="nosotros__info-text">
-					Lorem simply dummy text of the printing and typesetting industry.
-					Lorem Ipsum has been the standard dummy text ever since the 1500s,
-					when an unknown printer took a galley of type and scrambled it to make
-					a type specimen book. It has survived not only five centuries, but
-					also the leap into electronic typesetting, remaining essentially
-					unchanged. It was popularised in the 1960s with the release of
-					Letraset sheets containing Lorem Ipsum passages, and more recently
-					with desktop publishing software like Aldus PageMaker including
-					versions of Lorem Ipsum. of Letraset sheets containing Lorem Ipsum
-					passages, and more recently with desktop publishing software like
-					Aldus PageMaker including versions of Lorem Ipsum.
+				En nuestro laboratorio, estamos comprometidos con la excelencia en el servicio y la calidad de los resultados. Nuestro equipo de patólogos, técnicos y personal administrativo está dedicado a proporcionar resultados precisos y oportunos para ayudar a los médicos a tomar decisiones informadas.
 				</p>
 				<div className="nosotros__foto-group">
 					<div className="nosotros__foto">
