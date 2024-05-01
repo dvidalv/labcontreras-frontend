@@ -94,9 +94,9 @@ function Signin() {
 					>
 						¿Olvidaste tu contraseña?
 					</Link> */}
-					<Link to="/signup" >
+					{/* <Link to="/signup" >
 						Crear cuenta
-					</Link>
+					</Link> */}
 				</div>
 
 				<button disabled={!isValid || isSubmitting} type="submit" className={`form__button ${!isValid || isSubmitting ? 'disabled' : ''}`}>
