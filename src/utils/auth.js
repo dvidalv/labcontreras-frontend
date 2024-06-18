@@ -61,3 +61,4 @@ export const checkToken = async (token) => {
 		throw error;
 	}
 };
+

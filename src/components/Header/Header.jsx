@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
 import logo from '../../images/logo.svg';
@@ -19,8 +19,8 @@ Header.propTypes = {
 };
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
+	const location = useLocation();
 	const { token, setToken, setShowTooltip, user } = useAppContext();
-
 
 	const [isMenuFixed] = useState(false);
 
@@ -117,13 +117,13 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					isMenuFixed && !isMenuOpen ? 'headerFixed' : ''
 				}`}
 			>
-				{
+				{location.pathname !== '/resultados' && (
 					<Navbar
 						bgColor="var(--color-gris)"
 						isMenuOpen={isMenuOpen}
 						setIsMenuOpen={setIsMenuOpen}
 					/>
-				}
+				)}
 			</div>
 			<div className={`menu-lateral ${isMenuOpen ? 'open' : ''}`}>
 				{

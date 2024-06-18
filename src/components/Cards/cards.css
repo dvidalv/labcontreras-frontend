@@ -150,3 +150,22 @@
 		justify-content: center;
 	}
 }
+
+.card__mas {
+	width: 100%;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding: 0 10px;
+	color: lightblue;
+	font-weight: bolder;
+
+	&:hover {
+		color: blue;
+	}
+
+	a{
+		text-decoration: none;
+		cursor: pointer;
+	}
+}

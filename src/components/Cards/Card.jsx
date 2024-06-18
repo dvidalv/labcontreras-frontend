@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './cards.css';
 import mail2 from '../../images/mail2.svg';
 import phoneOffice from '../../images/phone-office.svg';
@@ -12,7 +13,10 @@ function Cards({
 	correo,
 	telefono,
 	celular,
+	curriculumUrl,
+	id,
 }) {
+	const navigate = useNavigate();
 	const [isFlipped, setIsFlipped] = useState(false);
 
 	const handleClick = () => {
@@ -45,6 +49,11 @@ function Cards({
 							<img src={phone} alt="celular" />
 							<span className="card__text celular">{celular}</span>
 						</div>
+					</div>
+					<div className="card__mas">
+						<a onClick={() => navigate(curriculumUrl)}>
+							<p>Mas...</p>
+						</a>
 					</div>
 				</div>
 			</div>

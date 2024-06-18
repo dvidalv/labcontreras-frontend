@@ -13,6 +13,7 @@ import NotFound from './routes/NotFound/NotFound.jsx';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
 import Signup from './routes/Forms/Signup/Signup.jsx';
 import Contact from './routes/Forms/Contact/Contact.jsx';
+import Curriculum from './routes/Curriculum/Curriculum.jsx';
 
 import LayoutMedicos from './routes/LayoutMedicos/LayoutMedico.jsx';
 import { loader as loaderMedicos } from './routes/LayoutMedicos/layoutMedicoLoader.jsx';
@@ -31,6 +32,8 @@ import Nosotros from './routes/Nosotros/Nosotros.jsx';
 
 import UserDashBoard from './routes/Forms/UserDashBoard/UserDashBoard.jsx';
 import { loader as userDashBoardLoader } from './routes/Forms/UserDashBoard/UserDashBoardLoader.jsx';
+
+import Resultados from './routes/Resultados/Resultados.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -107,6 +110,18 @@ const router = createBrowserRouter([
 				path: 'user-dashboard/',
 				element: <UserDashBoard />,
 				loader: userDashBoardLoader,
+			},
+			{
+				path: 'curriculum/',
+				element: <Curriculum />,
+			},
+			{
+				path: 'resultados/',
+				element: (
+					<RequireAuth>
+						<Resultados />
+					</RequireAuth>
+				),
 			},
 		],
 		errorElement: <NotFound />,

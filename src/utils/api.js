@@ -1,4 +1,6 @@
 import API_URL from './constants';
+import {} from './constants';
+// console.log(API_URL);
 
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {
@@ -131,3 +133,26 @@ export async function uploadAvatar(data) {
 	const result = await response.json();
 	return result;
 }
+
+// FILEMAKER
+export const getFileMakerToken = async () => {
+	const response = await fetch(`${API_URL}/resultados`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	return response.json();
+};
+
+export const getResultados = async (token) => {
+	console.log(token);
+	const response = await fetch(`${API_URL}/resultados/records`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ token }),
+	});
+	return response.json();
+};

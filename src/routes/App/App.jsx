@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/Footer';
 import { useAppContext } from '../../contexts/MyContext';
 import { Outlet } from 'react-router-dom';
 
+
 function App() {
 	const { isMenuOpen, setIsMenuOpen, loggedIn, setLoggedIn } = useAppContext();
 

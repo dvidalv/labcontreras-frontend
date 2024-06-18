@@ -6,4 +6,10 @@ if (window.location.hostname === 'localhost') {
 	API_URL = 'https://labcontreras-backend.vercel.app';
 }
 
+export const FILEMAKER_URL = 'https://www.server-lpcr.com.do';
+export const FILEMAKER_DATABASE = 'lpcr';
+export const FILEMAKER_LAYOUT = 'pacientes_web';
+
+
+
 export default API_URL;

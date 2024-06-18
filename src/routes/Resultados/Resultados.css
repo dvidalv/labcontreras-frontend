@@ -1,0 +1,141 @@
+.resultados {
+	padding-top: calc(var(--header-height) - var(--footer-height) + 54px);
+	width: 100%;
+	/* height: calc(100vh - var(--header-height) - var(--footer-height)); */
+	display: flex;
+	justify-content: center;
+
+	.resultados__title {
+		font-size: 24px;
+		font-weight: 600;
+		color: var(--color-white);
+		padding-top: 20px;
+		text-align: center;
+		margin-bottom: 10px;
+	}
+}
+
+.resultados {
+	max-width: 70%;
+	margin: 0 auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.resultados__form {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 20px;
+	gap: 10px;
+
+	.resultados__form__button {
+		font-size: 10px;
+
+		&:disabled {
+			background-color: #ccc;
+			color: gray;
+		}
+	}
+}
+
+.resultados__table {
+	width: 100%;
+	border-collapse: collapse;
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.resultados__table th,
+.resultados__table td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+	height: 50px;
+
+	&.debe {
+		color: #d3d3d3;
+	}
+
+	&.w-small {
+		width: 100px;
+	}
+
+	&.w-medium {
+		width: 200px;
+	}
+
+	&.w-large {
+		width: 500px;
+	}
+}
+
+.resultados__table th {
+	background-color: #7b4b8a;
+	color: white;
+
+	&.centrado {
+		text-align: center;
+	}
+}
+
+.resultados__table td {
+	background-color: #f9f9f9;
+	color: #7b4b8a;
+
+	&.centrado {
+		width: 100px;
+		text-align: center;
+	}
+}
+
+.resultados__table td a img {
+	width: 20px;
+	height: 20px;
+}
+
+.resultados__table__pagos {
+	width: 100px;
+}
+
+.resultados__table__descargar_th {
+	width: 100px;
+	text-align: center;
+}
+
+.resultados__table__descargar__link {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+.resultados__table__container {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.resultados__table__no_records {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	h2 {
+		font-size: 24px;
+		font-weight: 600;
+		color: var(--color-white);
+		color: #c73a3a;
+
+		p {
+			font-size: 16px;
+			font-weight: 400;
+			color: var(--color-white);
+			margin: 0;
+			margin-top: 0;
+		}
+	}
+}

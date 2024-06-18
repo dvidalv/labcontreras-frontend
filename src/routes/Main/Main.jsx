@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { useAppContext } from '../../contexts/MyContext';
 import { getMedicos } from '../../utils/api';
 import { useEffect } from 'react';
+import 'animate.css';
 
 function Main() {
 	const { setMedicos, medicos } = useAppContext();
@@ -30,7 +31,7 @@ function Main() {
 			<section className="about">
 				<div className="about__container">
 					<div className="about__text">
-						<h1>SOBRE NOSOTROS</h1>
+						<h1 className="about__title animate__animated animate__backInLeft">SOBRE NOSOTROS</h1>
 						<p>
 							En nuestro laboratorio, estamos comprometidos con la excelencia en
 							el servicio y la calidad de los resultados. Nuestro equipo de
@@ -54,6 +55,8 @@ function Main() {
 									telefono={medico.telefono}
 									extension={medico.extension}
 									celular={medico.celular}
+									curriculumUrl={`curriculum/`}
+									id={medico._id}
 								/>
 							</li>
 						))}
