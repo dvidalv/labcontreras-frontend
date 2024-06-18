@@ -7,7 +7,7 @@ export const registerAction = async (data) => {
 		const response = await fetch(`${API_URL}/users/signup`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json', // Asegrate de que la capitalización de 'Content-Type' sea aceptada por tu servidor
 			},
 			body: JSON.stringify({ name, email, password }),
 		});

@@ -13,17 +13,19 @@ const schema = z.object({
 	password: z.string().min(6).max(12),
 });
 
-
 function Signin() {
-	
-	const { register, handleSubmit, formState: { errors, isSubmitting, isValid } } = useForm({
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting, isValid },
+	} = useForm({
 		resolver: zodResolver(schema),
 		mode: 'onChange',
 	});
-	
+
 	const locationState = useLocation();
 	const navigate = useNavigate();
-	const { from } = locationState.state || { from: { pathname: '/' } };
+	const { from } = locationState.state || { from: { pathname: '/' } }; // Si no hay estado, redirecciona al inicio
 	const {
 		showTooltip,
 		setShowTooltip,
@@ -48,7 +50,7 @@ function Signin() {
 				return;
 			}
 			const res = await response.json();
-			navigate(from.pathname, { replace: true });
+			navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior
 			if (res.token) {
 				setToken(res.token);
 				localStorage.setItem('token', res.token);
@@ -99,7 +101,13 @@ function Signin() {
 					</Link> */}
 				</div>
 
-				<button disabled={!isValid || isSubmitting} type="submit" className={`form__button ${!isValid || isSubmitting ? 'disabled' : ''}`}>
+				<button
+					disabled={!isValid || isSubmitting}
+					type="submit"
+					className={`form__button ${
+						!isValid || isSubmitting ? 'disabled' : ''
+					}`}
+				>
 					{isSubmitting ? 'Enviando...' : 'Ingresar'}
 				</button>
 				<p className="form__error">{errors.root && errors.root.message}</p>

@@ -49,6 +49,15 @@
 	overflow-y: auto;
 }
 
+.resultados__table__thead {
+	background-color: #7b4b8a;
+	color: white;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .resultados__table th,
 .resultados__table td {
 	border: 1px solid #ccc;

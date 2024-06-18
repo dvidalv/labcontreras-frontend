@@ -10,7 +10,6 @@ function Resultados() {
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
 
-
 	// console.log(records);
 
 	// console.log(token)
@@ -39,9 +38,9 @@ function Resultados() {
 	const searchRef = useRef();
 	const formRef = useRef();
 	const handleSubmit = (e) => {
-		// if(records.length > 0){
-		// 	setRecords([]);
-		// }
+		if (records.length > 0) {
+			setRecords([]);
+		}
 		e.preventDefault();
 
 		if (token && searchRef.current.value === '') {
@@ -92,7 +91,7 @@ function Resultados() {
 				{records.length > 0 ? (
 					<div className="resultados__table__container">
 						<table className="resultados__table">
-							<thead>
+							<thead className="resultados__table__thead">
 								<tr>
 									<th className="centrado w-small">FECHA</th>
 									<th className="centrado w-medium">NO. ESTUDIO</th>
@@ -138,7 +137,7 @@ function Resultados() {
 				) : (
 					<div className="resultados__table__no_records">
 						<h2 className="resultados__table__no_records__title">
-							No hay resultados
+							{loading ? 'Buscando...' : 'No hay resultados'}
 						</h2>
 						<p className="resultados__table__no_records__subtitle">
 							Solo presiona buscar para ver los resultados o escribe un nombre y
