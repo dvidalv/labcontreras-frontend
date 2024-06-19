@@ -1,6 +1,8 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
-import pdfIcon from '../../images/pdf.svg';
 import pdfIconGris from '../../images/pdf_gray.svg';
 import { getFileMakerToken, getResultados } from '../../utils/api';
 import Preloader from '../../components/Preloader/Preloader';
@@ -9,6 +11,15 @@ function Resultados() {
 	const [token, setToken] = useState(null);
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
+
+	const schema = z.object({
+		search: z.string().optional(), //
+	});
+
+	const { register, handleSubmit: handleSubmitForm } = useForm({
+		defaultValues: { search: '' },
+		resolver: zodResolver(schema),
+	});
 
 	// console.log(records);
 
@@ -24,7 +35,7 @@ function Resultados() {
 					response: { token },
 				} = tokenData;
 				setToken(token);
-				// console.log(token);
+				// console.log(messages);
 			} catch (error) {
 				console.error('Error al obtener el token:', error);
 			} finally {
@@ -35,15 +46,13 @@ function Resultados() {
 		fetchToken();
 	}, []);
 
-	const searchRef = useRef();
-	const formRef = useRef();
-	const handleSubmit = (e) => {
+	const onSubmit = async (data) => {
+		console.log(data);
 		if (records.length > 0) {
 			setRecords([]);
 		}
-		e.preventDefault();
 
-		if (token && searchRef.current.value === '') {
+		if (token && data.search === '') {
 			const records = async () => {
 				try {
 					setLoading(true);
@@ -51,7 +60,7 @@ function Resultados() {
 					const {
 						response: { data },
 					} = resultados;
-					console.log(data);
+					// console.log(data);
 					data.map((record) => {
 						setRecords((prev) => [...prev, record.fieldData]);
 					});
@@ -62,11 +71,9 @@ function Resultados() {
 				}
 			};
 			records();
-		} else if (token && searchRef.current.value !== '') {
+		} else {
 			console.log('Buscando resultados por nombre');
 		}
-
-		formRef.current.reset();
 	};
 
 	return (
@@ -76,10 +83,9 @@ function Resultados() {
 				<h1 className="resultados__title">Resultados</h1>
 				<form
 					className="resultados__form"
-					onSubmit={handleSubmit}
-					ref={formRef}
+					onSubmit={handleSubmitForm(onSubmit)}
 				>
-					<input type="text" placeholder="Buscar" ref={searchRef} />
+					<input type="text" placeholder="Buscar" {...register('search')} />
 					<button
 						className="resultados__form__button"
 						type="submit"
@@ -88,6 +94,7 @@ function Resultados() {
 						Buscar
 					</button>
 				</form>
+				{token ? null : <p>{token?.messages}</p>}
 				{records.length > 0 ? (
 					<div className="resultados__table__container">
 						<table className="resultados__table">
@@ -137,7 +144,9 @@ function Resultados() {
 				) : (
 					<div className="resultados__table__no_records">
 						<h2 className="resultados__table__no_records__title">
-							{loading ? 'Buscando...' : 'No hay resultados'}
+							{records.length === 0
+								? `${loading ? 'Buscando...' : 'Presione Buscar'}`
+								: 'No hay resultados'}
 						</h2>
 						<p className="resultados__table__no_records__subtitle">
 							Solo presiona buscar para ver los resultados o escribe un nombre y
