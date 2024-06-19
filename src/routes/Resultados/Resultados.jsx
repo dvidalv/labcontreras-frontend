@@ -4,7 +4,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
 import pdfIconGris from '../../images/pdf_gray.svg';
-import { getFileMakerToken, getResultados } from '../../utils/api';
+import {
+	getFileMakerToken,
+	getResultados,
+	getResultadosByName,
+} from '../../utils/api';
 import Preloader from '../../components/Preloader/Preloader';
 
 function Resultados() {
@@ -31,11 +35,9 @@ function Resultados() {
 				const tokenData = await getFileMakerToken();
 
 				const {
-					messages,
 					response: { token },
 				} = tokenData;
 				setToken(token);
-				// console.log(messages);
 			} catch (error) {
 				console.error('Error al obtener el token:', error);
 			} finally {
@@ -47,7 +49,6 @@ function Resultados() {
 	}, []);
 
 	const onSubmit = async (data) => {
-		console.log(data);
 		if (records.length > 0) {
 			setRecords([]);
 		}
@@ -72,7 +73,21 @@ function Resultados() {
 			};
 			records();
 		} else {
-			console.log('Buscando resultados por nombre');
+			const record = async () => {
+				try {
+					setLoading(true);
+					const resultados = await getResultadosByName(token, data.search);
+					resultados.response.data.map((record) => {
+						setRecords((prev) => [...prev, record.fieldData]);
+					});
+					// console.log(resultados.response.data);
+				} catch (error) {
+					console.error('Error al obtener los resultados:', error);
+				} finally {
+					setLoading(false);
+				}
+			};
+			record();
 		}
 	};
 

@@ -156,3 +156,14 @@ export const getResultados = async (token) => {
 	});
 	return response.json();
 };
+
+export const getResultadosByName = async (token, name) => {
+	const response = await fetch(`${API_URL}/resultados/record/`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ token, name }),
+	});
+	return response.json();
+};
