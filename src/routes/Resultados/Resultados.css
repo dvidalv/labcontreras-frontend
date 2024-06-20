@@ -18,14 +18,15 @@
 .resultados {
 	max-width: 70%;
 	margin: 0 auto;
-	padding: 20px;
+	/* padding: 20px; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
 .resultados__form {
-	width: 50%;
+	min-width: 50%;
+	max-width: 80%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
