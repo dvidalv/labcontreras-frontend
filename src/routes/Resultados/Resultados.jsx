@@ -53,6 +53,34 @@ function Resultados() {
 			setRecords([]);
 		}
 
+		// Verificar si el token ha expirado
+		const isTokenExpired = () => {
+			const now = new Date();
+			const tokenTimestamp = localStorage.getItem('tokenTimestamp');
+			return now.getTime() - tokenTimestamp > 900000; // 15 minutos en milisegundos
+		};
+
+		// Función para obtener un nuevo token si ha expirado
+		const refreshTokenIfNeeded = async () => {
+			if (!token || isTokenExpired()) {
+				try {
+					setLoading(true);
+					const tokenData = await getFileMakerToken();
+					const {
+						response: { token: newToken },
+					} = tokenData;
+					setToken(newToken);
+					localStorage.setItem('tokenTimestamp', new Date().getTime());
+				} catch (error) {
+					console.error('Error al obtener el token:', error);
+				} finally {
+					setLoading(false);
+				}
+			}
+		};
+
+		await refreshTokenIfNeeded();
+
 		if (token && data.search === '') {
 			const records = async () => {
 				try {
@@ -61,7 +89,6 @@ function Resultados() {
 					const {
 						response: { data },
 					} = resultados;
-					// console.log(data);
 					data.map((record) => {
 						setRecords((prev) => [...prev, record.fieldData]);
 					});
@@ -80,7 +107,6 @@ function Resultados() {
 					resultados.response.data.map((record) => {
 						setRecords((prev) => [...prev, record.fieldData]);
 					});
-					// console.log(resultados.response.data);
 				} catch (error) {
 					console.error('Error al obtener los resultados:', error);
 				} finally {
