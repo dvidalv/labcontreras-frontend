@@ -86,6 +86,7 @@ function Resultados() {
 				try {
 					setLoading(true);
 					const resultados = await getResultados(token);
+					console.log(resultados);
 					const {
 						response: { data },
 					} = resultados;
@@ -104,6 +105,7 @@ function Resultados() {
 				try {
 					setLoading(true);
 					const resultados = await getResultadosByName(token, data.search);
+					// console.log(resultados);
 					resultados.response.data.map((record) => {
 						setRecords((prev) => [...prev, record.fieldData]);
 					});
@@ -153,12 +155,14 @@ function Resultados() {
 							</thead>
 							<tbody>
 								{records.map((record) => {
+									console.log(record);
 									const {
 										NUMERO_ESTUDIO_FK,
 										ESTADO_ESTUDIO,
 										PAGO_ESTADO,
 										FECHA_ENTRADA,
 										Nombre_Completo,
+										ID,
 									} = record;
 									return (
 										<tr key={record.ID}>
@@ -169,6 +173,7 @@ function Resultados() {
 											<td className="centrado">{PAGO_ESTADO}</td>
 											<td className="resultados__table__descargar">
 												<a
+													data-id={ID}
 													href="#"
 													className="resultados__table__descargar__link debe"
 												>
