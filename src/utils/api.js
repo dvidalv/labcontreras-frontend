@@ -146,7 +146,7 @@ export const getFileMakerToken = async () => {
 };
 
 export const getResultados = async (token) => {
-	console.log(token);
+	// console.log(token);
 	const response = await fetch(`${API_URL}/resultados/records`, {
 		method: 'POST',
 		headers: {
@@ -164,6 +164,17 @@ export const getResultadosByName = async (token, name) => {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({ token, name }),
+	});
+	return response.json();
+};
+
+export const downloadPdf = async (token, id) => {
+	const response = await fetch(`${API_URL}/resultados/download/`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ token, id }),
 	});
 	return response.json();
 };

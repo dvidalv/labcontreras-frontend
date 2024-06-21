@@ -8,6 +8,7 @@ import {
 	getFileMakerToken,
 	getResultados,
 	getResultadosByName,
+	downloadPdf,
 } from '../../utils/api';
 import Preloader from '../../components/Preloader/Preloader';
 
@@ -15,6 +16,8 @@ function Resultados() {
 	const [token, setToken] = useState(null);
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
+
+	console.log(records);
 
 	const schema = z.object({
 		search: z.string().optional(), //
@@ -49,8 +52,9 @@ function Resultados() {
 	}, []);
 
 	const onSubmit = async (data) => {
+		
 		if (records.length > 0) {
-			setRecords([]);
+			setRecords(() => []);
 		}
 
 		// Verificar si el token ha expirado
@@ -59,6 +63,7 @@ function Resultados() {
 			const tokenTimestamp = localStorage.getItem('tokenTimestamp');
 			return now.getTime() - tokenTimestamp > 900000; // 15 minutos en milisegundos
 		};
+
 
 		// Función para obtener un nuevo token si ha expirado
 		const refreshTokenIfNeeded = async () => {
@@ -69,7 +74,7 @@ function Resultados() {
 					const {
 						response: { token: newToken },
 					} = tokenData;
-					setToken(newToken);
+					setToken(() => newToken);
 					localStorage.setItem('tokenTimestamp', new Date().getTime());
 				} catch (error) {
 					console.error('Error al obtener el token:', error);
@@ -81,43 +86,36 @@ function Resultados() {
 
 		await refreshTokenIfNeeded();
 
-		if (token && data.search === '') {
-			const records = async () => {
-				try {
+    if (token && data.search === '') {
+			try {
 					setLoading(true);
 					const resultados = await getResultados(token);
-					console.log(resultados);
 					const {
-						response: { data },
+							response: { data },
 					} = resultados;
 					data.map((record) => {
-						setRecords((prev) => [...prev, record.fieldData]);
+							setRecords((prev) => [...prev, record.fieldData]);
 					});
-				} catch (error) {
+			} catch (error) {
 					console.error('Error al obtener los resultados:', error);
-				} finally {
+			} finally {
 					setLoading(false);
-				}
-			};
-			records();
-		} else {
-			const record = async () => {
-				try {
+			}
+	} else {
+			try {
 					setLoading(true);
 					const resultados = await getResultadosByName(token, data.search);
-					// console.log(resultados);
 					resultados.response.data.map((record) => {
-						setRecords((prev) => [...prev, record.fieldData]);
+							setRecords((prev) => [...prev, record.fieldData]);
 					});
-				} catch (error) {
+			} catch (error) {
 					console.error('Error al obtener los resultados:', error);
-				} finally {
+			} finally {
 					setLoading(false);
-				}
-			};
-			record();
-		}
+			}
+	}
 	};
+	
 
 	return (
 		<>
@@ -155,7 +153,7 @@ function Resultados() {
 							</thead>
 							<tbody>
 								{records.map((record) => {
-									console.log(record);
+									// console.log(record);
 									const {
 										NUMERO_ESTUDIO_FK,
 										ESTADO_ESTUDIO,
@@ -163,6 +161,7 @@ function Resultados() {
 										FECHA_ENTRADA,
 										Nombre_Completo,
 										ID,
+										Url_Resultado,
 									} = record;
 									return (
 										<tr key={record.ID}>
@@ -174,11 +173,15 @@ function Resultados() {
 											<td className="resultados__table__descargar">
 												<a
 													data-id={ID}
-													href="#"
+													href={Url_Resultado}
 													className="resultados__table__descargar__link debe"
+													target="_blank"
 												>
 													Descargar
-													<img src={pdfIconGris} alt="PDF Icon" />
+													<img
+														src={pdfIconGris}
+														alt="PDF Icon"
+													/>
 												</a>
 											</td>
 										</tr>
