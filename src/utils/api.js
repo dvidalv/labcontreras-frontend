@@ -178,3 +178,10 @@ export const downloadPdf = async (token, id) => {
 	});
 	return response.json();
 };
+		// Verificar si el token ha expirado
+export const isTokenExpired = () => {
+			const now = new Date();
+			const tokenTimestamp = localStorage.getItem('tokenTimestamp');
+			return now.getTime() - tokenTimestamp > 900000; // 15 minutos en milisegundos
+		};
+		

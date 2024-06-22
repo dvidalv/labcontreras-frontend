@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
@@ -8,42 +9,56 @@ import {
 	getFileMakerToken,
 	getResultados,
 	getResultadosByName,
-	downloadPdf,
+	isTokenExpired,
 } from '../../utils/api';
 import Preloader from '../../components/Preloader/Preloader';
 
 function Resultados() {
-	const [token, setToken] = useState(null);
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
 
-	console.log(records);
+	const filemakerToken = useRef(localStorage.getItem('fileMakerToken'));
+	// console.log(filemakerToken);
 
 	const schema = z.object({
 		search: z.string().optional(), //
 	});
 
-	const { register, handleSubmit: handleSubmitForm } = useForm({
+	const {
+		register,
+		handleSubmit: handleSubmitForm,
+		setError,
+		formState: { errors, isSubmitting },
+	} = useForm({
 		defaultValues: { search: '' },
 		resolver: zodResolver(schema),
 	});
 
-	// console.log(records);
-
-	// console.log(token)
 	useEffect(() => {
 		setLoading(true);
 		const fetchToken = async () => {
 			try {
-				const tokenData = await getFileMakerToken();
-
-				const {
-					response: { token },
-				} = tokenData;
-				setToken(token);
+				if (isTokenExpired()) {
+					console.log('Token expirado');
+					const tokenData = await getFileMakerToken();
+					const {
+						response: { token },
+					} = tokenData;
+					filemakerToken.current = token;
+					localStorage.setItem('tokenTimestamp', new Date().getTime());
+					localStorage.setItem('fileMakerToken', token);
+				}
 			} catch (error) {
 				console.error('Error al obtener el token:', error);
 			} finally {
+				const tokenTimestamp = localStorage.getItem('tokenTimestamp');
+				if (tokenTimestamp) {
+					const now = new Date().getTime();
+					const timeElapsed = now - tokenTimestamp;
+					const timeRemaining = 900000 - timeElapsed; // 15 minutes in milliseconds
+					const minutesRemaining = Math.floor(timeRemaining / 60000);
+					console.log(`Tiempo restante: ${minutesRemaining} minutos`);
+				}
 				setLoading(false);
 			}
 		};
@@ -52,30 +67,23 @@ function Resultados() {
 	}, []);
 
 	const onSubmit = async (data) => {
-		
 		if (records.length > 0) {
 			setRecords(() => []);
 		}
 
-		// Verificar si el token ha expirado
-		const isTokenExpired = () => {
-			const now = new Date();
-			const tokenTimestamp = localStorage.getItem('tokenTimestamp');
-			return now.getTime() - tokenTimestamp > 900000; // 15 minutos en milisegundos
-		};
-
-
 		// Función para obtener un nuevo token si ha expirado
 		const refreshTokenIfNeeded = async () => {
-			if (!token || isTokenExpired()) {
+			if (!filemakerToken.current || isTokenExpired()) {
+				console.log('Refresco el token');
 				try {
 					setLoading(true);
 					const tokenData = await getFileMakerToken();
 					const {
 						response: { token: newToken },
 					} = tokenData;
-					setToken(() => newToken);
+					filemakerToken.current = newToken;
 					localStorage.setItem('tokenTimestamp', new Date().getTime());
+					localStorage.setItem('fileMakerToken', newToken);
 				} catch (error) {
 					console.error('Error al obtener el token:', error);
 				} finally {
@@ -84,38 +92,55 @@ function Resultados() {
 			}
 		};
 
-		await refreshTokenIfNeeded();
+		const refreshToken = await refreshTokenIfNeeded();
+		console.log(refreshToken);
 
-    if (token && data.search === '') {
+		if (filemakerToken && data.search === '') {
 			try {
-					setLoading(true);
-					const resultados = await getResultados(token);
-					const {
-							response: { data },
-					} = resultados;
-					data.map((record) => {
-							setRecords((prev) => [...prev, record.fieldData]);
-					});
+				console.log('Buscando todos los registros');
+				setLoading(true);
+				// console.log(data)
+				const resultados = await getResultados(filemakerToken.current);
+				const {
+					response: { data },
+				} = resultados;
+				data.map((record) => {
+					setRecords((prev) => [...prev, record.fieldData]);
+				});
 			} catch (error) {
-					console.error('Error al obtener los resultados:', error);
+				setError('root', {
+					type: 'manual',
+					message: 'Error al obtener los resultados',
+				});
 			} finally {
-					setLoading(false);
+				setLoading(false);
 			}
-	} else {
+		} else {
 			try {
-					setLoading(true);
-					const resultados = await getResultadosByName(token, data.search);
-					resultados.response.data.map((record) => {
-							setRecords((prev) => [...prev, record.fieldData]);
-					});
+				console.log('Busco por nombre');
+
+				setLoading(true);
+				const token = filemakerToken.current;
+				const name = data.search;
+				const resultados = await getResultadosByName(token, name);
+				console.log(resultados);
+				const {
+					response: { data: responseData },
+				} = resultados;
+				console.log(responseData);
+				responseData.map((record) => {
+					setRecords((prev) => [...prev, record.fieldData]);
+				});
 			} catch (error) {
-					console.error('Error al obtener los resultados:', error);
+				setError('root', {
+					type: 'manual',
+					message: 'Error al obtener los resultados',
+				});
 			} finally {
-					setLoading(false);
+				setLoading(false);
 			}
-	}
+		}
 	};
-	
 
 	return (
 		<>
@@ -126,16 +151,28 @@ function Resultados() {
 					className="resultados__form"
 					onSubmit={handleSubmitForm(onSubmit)}
 				>
-					<input type="text" placeholder="Buscar" {...register('search')} />
-					<button
-						className="resultados__form__button"
-						type="submit"
-						disabled={!token}
-					>
-						Buscar
-					</button>
+					<div className="resultados__form__container">
+						<div className="resultados__form__input">
+							<input type="text" placeholder="Buscar" {...register('search')} />
+							{errors.search && (
+								<p className="resultados__form__error">
+									{errors.search.message}
+								</p>
+							)}
+						</div>
+						<button
+							className="resultados__form__button"
+							type="submit"
+							disabled={isTokenExpired() || isSubmitting}
+						>
+							{isSubmitting ? 'Buscando Estudios...' : 'Buscar'}
+						</button>
+					</div>
+					{errors.root && (
+						<p className="resultados__form__error">{errors.root.message}</p>
+					)}
 				</form>
-				{token ? null : <p>{token?.messages}</p>}
+				{filemakerToken ? null : <p>{filemakerToken?.messages}</p>}
 				{records.length > 0 ? (
 					<div className="resultados__table__container">
 						<table className="resultados__table">
@@ -178,10 +215,7 @@ function Resultados() {
 													target="_blank"
 												>
 													Descargar
-													<img
-														src={pdfIconGris}
-														alt="PDF Icon"
-													/>
+													<img src={pdfIconGris} alt="PDF Icon" />
 												</a>
 											</td>
 										</tr>

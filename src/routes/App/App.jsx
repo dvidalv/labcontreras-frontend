@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom';
 import background1 from '../../images/background-1.jpg';
 import background2 from '../../images/background-2.jpg';
 
+
 function getRandomNumber() {
 	return Math.floor(Math.random() * 2) + 1;
 }
