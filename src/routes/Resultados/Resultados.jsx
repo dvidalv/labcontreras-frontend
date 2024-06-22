@@ -39,7 +39,7 @@ function Resultados() {
 		const fetchToken = async () => {
 			try {
 				if (isTokenExpired()) {
-					console.log('Token expirado');
+					// console.log('Token expirado');
 					const tokenData = await getFileMakerToken();
 					const {
 						response: { token },
@@ -57,7 +57,7 @@ function Resultados() {
 					const timeElapsed = now - tokenTimestamp;
 					const timeRemaining = 900000 - timeElapsed; // 15 minutes in milliseconds
 					const minutesRemaining = Math.floor(timeRemaining / 60000);
-					console.log(`Tiempo restante: ${minutesRemaining} minutos`);
+					// console.log(`Tiempo restante: ${minutesRemaining} minutos`);
 				}
 				setLoading(false);
 			}
@@ -74,7 +74,7 @@ function Resultados() {
 		// Función para obtener un nuevo token si ha expirado
 		const refreshTokenIfNeeded = async () => {
 			if (!filemakerToken.current || isTokenExpired()) {
-				console.log('Refresco el token');
+				// console.log('Refresco el token');
 				try {
 					setLoading(true);
 					const tokenData = await getFileMakerToken();
@@ -93,11 +93,11 @@ function Resultados() {
 		};
 
 		const refreshToken = await refreshTokenIfNeeded();
-		console.log(refreshToken);
+		// console.log(refreshToken);
 
 		if (filemakerToken && data.search === '') {
 			try {
-				console.log('Buscando todos los registros');
+				// console.log('Buscando todos los registros');
 				setLoading(true);
 				// console.log(data)
 				const resultados = await getResultados(filemakerToken.current);
@@ -117,17 +117,17 @@ function Resultados() {
 			}
 		} else {
 			try {
-				console.log('Busco por nombre');
+				// console.log('Busco por nombre');
 
 				setLoading(true);
 				const token = filemakerToken.current;
 				const name = data.search;
 				const resultados = await getResultadosByName(token, name);
-				console.log(resultados);
+				// console.log(resultados);
 				const {
 					response: { data: responseData },
 				} = resultados;
-				console.log(responseData);
+				// console.log(responseData);
 				responseData.map((record) => {
 					setRecords((prev) => [...prev, record.fieldData]);
 				});
