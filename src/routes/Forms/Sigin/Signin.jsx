@@ -72,6 +72,8 @@ function Signin() {
 				</label>
 				<input
 					{...register('email')}
+					autoComplete="off"
+					name="email"
 					id="email"
 					className="form__input"
 					placeholder="Ingresa tu correo electrónico"
@@ -83,6 +85,8 @@ function Signin() {
 				</label>
 				<input
 					{...register('password')}
+					autoComplete="off"
+					name="password"
 					type="password"
 					id="password"
 					className="form__input"

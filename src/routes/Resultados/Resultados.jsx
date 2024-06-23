@@ -104,6 +104,7 @@ function Resultados() {
 				const {
 					response: { data },
 				} = resultados;
+				// console.log(data);
 				data.map((record) => {
 					setRecords((prev) => [...prev, record.fieldData]);
 				});
@@ -127,7 +128,7 @@ function Resultados() {
 				const {
 					response: { data: responseData },
 				} = resultados;
-				// console.log(responseData);
+				console.log(responseData);
 				responseData.map((record) => {
 					setRecords((prev) => [...prev, record.fieldData]);
 				});

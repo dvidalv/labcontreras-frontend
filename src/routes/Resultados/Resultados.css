@@ -25,13 +25,12 @@
 }
 
 .resultados__form {
-	width: 100%;
+	width: 500px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding-bottom: 20px;
-
 
 	.resultados__form__container {
 		width: 100%;
@@ -47,7 +46,6 @@
 		justify-content: center;
 		align-items: center;
 		width: 80%;
-
 	}
 	.resultados__form__error {
 		color: red;
@@ -66,6 +64,11 @@
 			color: gray;
 		}
 	}
+}
+.resultados__table__container {
+	width: 100%;
+	max-height: 500px;
+	overflow-y: auto;
 }
 
 .resultados__table {
@@ -148,10 +151,7 @@
 	align-items: center;
 	gap: 5px;
 }
-.resultados__table__container {
-	max-height: 500px;
-	overflow-y: auto;
-}
+
 
 .resultados__table__no_records {
 	display: flex;

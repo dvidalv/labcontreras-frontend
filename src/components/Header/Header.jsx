@@ -122,6 +122,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						bgColor="var(--color-gris)"
 						isMenuOpen={isMenuOpen}
 						setIsMenuOpen={setIsMenuOpen}
+						user={user}
 					/>
 				)}
 			</div>
@@ -133,6 +134,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						isMenuOpen={isMenuOpen}
 						display={true}
 						setIsMenuOpen={setIsMenuOpen}
+						user={user}
 					/>
 				}
 				<div
