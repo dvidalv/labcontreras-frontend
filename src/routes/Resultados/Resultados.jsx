@@ -182,8 +182,8 @@ function Resultados() {
 									<th className="centrado w-small">FECHA</th>
 									<th className="centrado w-medium">NO. ESTUDIO</th>
 									<th className="centrado w-large">NOMBRE DEL PACIENTE</th>
-									{/* <th className="centrado w-small">ESTADO</th> */}
-									<th className="centrado w-small">PAGADO</th>
+									<th className="centrado w-small">ESTADO</th>
+									{/* <th className="centrado w-small">PAGADO</th> */}
 									<th className="resultados__table__descargar_th centrado">
 										DESCARGAR
 									</th>
