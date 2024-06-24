@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
 import pdfIconGris from '../../images/pdf_gray.svg';
+import pdfIcon from '../../images/pdf.svg';
 import {
 	getFileMakerToken,
 	getResultados,
@@ -191,7 +192,7 @@ function Resultados() {
 							</thead>
 							<tbody>
 								{records.map((record) => {
-									// console.log(record);
+									console.log(record);
 									const {
 										NUMERO_ESTUDIO_FK,
 										ESTADO_ESTUDIO,
@@ -211,12 +212,18 @@ function Resultados() {
 											<td className="resultados__table__descargar">
 												<a
 													data-id={ID}
-													href={Url_Resultado}
+													href={Url_Resultado === '' ? '#' : Url_Resultado}
 													className="resultados__table__descargar__link debe"
-													target="_blank"
+													target={Url_Resultado === '' ? '_self' : '_blank'}
+													style={{
+														pointerEvents: Url_Resultado === '' ? 'none' : 'auto',
+													}}
 												>
 													Descargar
-													<img src={pdfIconGris} alt="PDF Icon" />
+													<img
+														src={`${Url_Resultado === '' ? pdfIconGris : pdfIcon}`}
+														alt="PDF Icon"
+													/>
 												</a>
 											</td>
 										</tr>
