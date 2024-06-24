@@ -120,10 +120,14 @@
 	background-color: #7b4b8a;
 	color: white;
 
-	&.centrado {
-		text-align: center;
+		&.centrado {
+			text-align: center;
+
+		}
 	}
-}
+	.centrado.deuda {
+		color: #d2caca;
+	}
 
 .resultados__table td {
 	background-color: #f9f9f9;

@@ -102,6 +102,7 @@ function Resultados() {
 				setLoading(true);
 				// console.log(data)
 				const resultados = await getResultados(filemakerToken.current);
+				// console.log(resultados);
 				const {
 					response: { data },
 				} = resultados;
@@ -129,7 +130,7 @@ function Resultados() {
 				const {
 					response: { data: responseData },
 				} = resultados;
-				console.log(responseData);
+				// console.log(responseData);
 				responseData.map((record) => {
 					setRecords((prev) => [...prev, record.fieldData]);
 				});
@@ -192,36 +193,42 @@ function Resultados() {
 							</thead>
 							<tbody>
 								{records.map((record) => {
-									console.log(record);
+									// console.log(record.DEUDA);
 									const {
 										NUMERO_ESTUDIO_FK,
 										ESTADO_ESTUDIO,
 										PAGO_ESTADO,
+										DEUDA,
 										FECHA_ENTRADA,
 										Nombre_Completo,
 										ID,
 										Url_Resultado,
 									} = record;
+
 									return (
 										<tr key={record.ID}>
-											<td className="centrado">{FECHA_ENTRADA}</td>
-											<td className="centrado">{NUMERO_ESTUDIO_FK}</td>
-											<td className="centrado">{Nombre_Completo}</td>
-											<td className="centrado">{ESTADO_ESTUDIO}</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{FECHA_ENTRADA}</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{NUMERO_ESTUDIO_FK}</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{Nombre_Completo}</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{ESTADO_ESTUDIO !== 'Listo' ? 'En Proceso' : 'Listo'}</td>
 											{/* <td className="centrado">{PAGO_ESTADO}</td> */}
 											<td className="resultados__table__descargar">
 												<a
 													data-id={ID}
 													href={Url_Resultado === '' ? '#' : Url_Resultado}
-													className="resultados__table__descargar__link debe"
+													className={`resultados__table__descargar__link ${DEUDA > 0 ? 'deuda' : ''}`}
 													target={Url_Resultado === '' ? '_self' : '_blank'}
 													style={{
-														pointerEvents: Url_Resultado === '' ? 'none' : 'auto',
+														pointerEvents:
+															Url_Resultado === '' ? 'none' : 'auto',
+															color: DEUDA > 0 ? '#d2caca' : 'auto',
 													}}
 												>
-													Descargar
+													{DEUDA > 0 ? '' : Url_Resultado ? 'Descargar' : ''}
 													<img
-														src={`${Url_Resultado === '' ? pdfIconGris : pdfIcon}`}
+														src={`${
+															Url_Resultado === '' ? pdfIconGris : pdfIcon
+														}`}
 														alt="PDF Icon"
 													/>
 												</a>
