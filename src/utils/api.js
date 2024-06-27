@@ -1,6 +1,6 @@
 import API_URL from './constants';
 import {} from './constants';
-// console.log(API_URL);
+console.log(API_URL);
 
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {

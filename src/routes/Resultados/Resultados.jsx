@@ -50,7 +50,10 @@ function Resultados() {
 					localStorage.setItem('fileMakerToken', token);
 				}
 			} catch (error) {
-				console.error('Error al obtener el token:', error);
+				setError('root', {
+						type: 'manual',
+					message: error.message || 'Error al obtener el token',
+				});
 			} finally {
 				const tokenTimestamp = localStorage.getItem('tokenTimestamp');
 				if (tokenTimestamp) {
@@ -86,7 +89,10 @@ function Resultados() {
 					localStorage.setItem('tokenTimestamp', new Date().getTime());
 					localStorage.setItem('fileMakerToken', newToken);
 				} catch (error) {
-					console.error('Error al obtener el token:', error);
+					setError('root', {
+						type: 'manual',
+						message: 'Error al obtener el token',
+					});
 				} finally {
 					setLoading(false);
 				}
@@ -207,21 +213,32 @@ function Resultados() {
 
 									return (
 										<tr key={record.ID}>
-											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{FECHA_ENTRADA}</td>
-											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{NUMERO_ESTUDIO_FK}</td>
-											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{Nombre_Completo}</td>
-											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>{ESTADO_ESTUDIO !== 'Listo' ? 'En Proceso' : 'Listo'}</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
+												{FECHA_ENTRADA}
+											</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
+												{NUMERO_ESTUDIO_FK}
+											</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
+												{Nombre_Completo}
+											</td>
+											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
+												{ESTADO_ESTUDIO !== 'Listo' ? 'En Proceso' : 'Listo'}
+											</td>
 											{/* <td className="centrado">{PAGO_ESTADO}</td> */}
 											<td className="resultados__table__descargar">
 												<a
 													data-id={ID}
+													download
 													href={Url_Resultado === '' ? '#' : Url_Resultado}
-													className={`resultados__table__descargar__link ${DEUDA > 0 ? 'deuda' : ''}`}
+													className={`resultados__table__descargar__link ${
+														DEUDA > 0 ? 'deuda' : ''
+													}`}
 													target={Url_Resultado === '' ? '_self' : '_blank'}
 													style={{
 														pointerEvents:
 															Url_Resultado === '' ? 'none' : 'auto',
-															color: DEUDA > 0 ? '#d2caca' : 'auto',
+														color: DEUDA > 0 ? '#d2caca' : 'auto',
 													}}
 												>
 													{DEUDA > 0 ? '' : Url_Resultado ? 'Descargar' : ''}
