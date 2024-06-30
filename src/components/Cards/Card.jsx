@@ -52,7 +52,7 @@ function Cards({
 					</div>
 					<div className="card__mas">
 						<a onClick={() => navigate(curriculumUrl)}>
-							<p>Mas...</p>
+							{/* <p>Mas...</p> */}
 						</a>
 					</div>
 				</div>
