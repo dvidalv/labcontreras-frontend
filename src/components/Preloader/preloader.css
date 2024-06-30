@@ -3,6 +3,12 @@ body {
 	min-height: 100vh;
 	background-color: #333;
 }
+.preloader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
 
 .circle-preloader {
 	display: block;
@@ -27,4 +33,30 @@ body {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+.loading-dots {
+	font-size: 24px;
+	font-family: Arial, sans-serif;
+}
+
+@keyframes blink {
+	0%, 20% {
+			opacity: 0;
+	}
+	50%, 100% {
+			opacity: 1;
+	}
+}
+
+.dot1 {
+	animation: blink 1.5s infinite;
+}
+
+.dot2 {
+	animation: blink 1.5s infinite 0.3s;
+}
+
+.dot3 {
+	animation: blink 1.5s infinite 0.6s;
 }

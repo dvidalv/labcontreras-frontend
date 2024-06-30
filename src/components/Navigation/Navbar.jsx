@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
+import { useAppContext } from '../../contexts/MyContext';
 // eslint-disable-next-line react/prop-types
 function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
+	// console.log(user);
 	return (
 		<nav className={`navbar ${isMenuOpen ? 'open' : ''}`}  style={{ backgroundColor: bgColor }}>
 			<ul className={`navbar__menu ${display ? 'display' : ''}`} style={{ backgroundColor: bgColor }}>
@@ -16,17 +18,19 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
 					</NavLink>
 				</li>
 
-				<li className="navbar__item">
-					<NavLink to="/medicos" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
-						Médicos
-					</NavLink>
-				</li>
+				{user && user.role === 'admin' && (
+					<li className="navbar__item">
+						<NavLink to="/medicos" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
+							Médicos
+						</NavLink>
+					</li>
+				)}
 		
-				{user.role === 'admin' && <li className="navbar__item">
+				<li className="navbar__item">
 					<NavLink to="/resultados" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 						Resultados
 					</NavLink>
-				</li>}
+				</li>
 
 				<li className="navbar__item">
 					<NavLink to="/contact" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>

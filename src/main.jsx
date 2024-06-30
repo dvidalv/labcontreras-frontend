@@ -5,6 +5,8 @@ import './vendor/normalize.css';
 import './index.css';
 import { AppProvider } from './contexts/MyContext';
 import RequireAuth from './components/ProtectedRoute/RequireAuth.jsx';
+import RequireAuthMedicos from './components/ProtectedRoute/RequireAuthMedicos.jsx';
+
 import App from './routes/App/App.jsx';
 import Main from './routes/Main/Main.jsx';
 import LayoutPacientes from './routes/LayoutPacientes/LayoutPacientes.jsx';
@@ -12,6 +14,7 @@ import Paciente from './routes/LayoutPacientes/Paciente/Paciente.jsx';
 import NotFound from './routes/NotFound/NotFound.jsx';
 import Signin from './routes/Forms/Sigin/Signin.jsx';
 import Signup from './routes/Forms/Signup/Signup.jsx';
+import MedicoSignin from './routes/Forms/MedicoSignin/MedicoSignin.jsx';
 import Contact from './routes/Forms/Contact/Contact.jsx';
 import Curriculum from './routes/Curriculum/Curriculum.jsx';
 
@@ -103,6 +106,10 @@ const router = createBrowserRouter([
 				element: <Signin />,
 			},
 			{
+				path: 'medico-signin/',
+				element: <MedicoSignin />,
+			},
+			{
 				path: 'contact/',
 				element: <Contact />,
 			},
@@ -118,9 +125,9 @@ const router = createBrowserRouter([
 			{
 				path: 'resultados/',
 				element: (
-					<RequireAuth>
+					<RequireAuthMedicos>
 						<Resultados />
-					</RequireAuth>
+					</RequireAuthMedicos>
 				),
 			},
 		],

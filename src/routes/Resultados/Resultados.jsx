@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { z } from 'zod';
@@ -13,13 +13,15 @@ import {
 	isTokenExpired,
 } from '../../utils/api';
 import Preloader from '../../components/Preloader/Preloader';
+import { useAppContext } from '../../contexts/MyContext';
 
 function Resultados() {
+	// console.log(isTokenExpired())
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
 
-	const filemakerToken = useRef(localStorage.getItem('fileMakerToken'));
-	// console.log(filemakerToken);
+	const { fileMakerToken, setFileMakerToken, medicoUser } = useAppContext();
+	// console.log(medicoUser);
 
 	const schema = z.object({
 		search: z.string().optional(), //
@@ -39,36 +41,49 @@ function Resultados() {
 		setLoading(true);
 		const fetchToken = async () => {
 			try {
-				if (isTokenExpired()) {
-					// console.log('Token expirado');
-					const tokenData = await getFileMakerToken();
-					const {
-						response: { token },
-					} = tokenData;
-					filemakerToken.current = token;
+				// console.log(fileMakerToken);
+				// console.log(isTokenExpired());
+				if (!fileMakerToken || isTokenExpired()) {
+					// console.log('No hay token');
+					// console.log(isTokenExpired());
+					const response = await getFileMakerToken();
+					// console.log(response);
+					const res = await response;
+					// console.log(res.error);
+					// console.log(response.messages[0].message);
+					// console.log(response);
+
+					if (response.error === 'Service Unavailable') {
+						throw new Error(
+							'El servicio no esta disponible, por favor intente mas tarde'
+						);
+					}
 					localStorage.setItem('tokenTimestamp', new Date().getTime());
-					localStorage.setItem('fileMakerToken', token);
+					localStorage.setItem('fileMakerToken', res.response.token);
+					setFileMakerToken(res.response.token);
 				}
 			} catch (error) {
 				setError('root', {
-						type: 'manual',
+					type: 'manual',
 					message: error.message || 'Error al obtener el token',
 				});
 			} finally {
+				// console.log('Entra en finally');
 				const tokenTimestamp = localStorage.getItem('tokenTimestamp');
 				if (tokenTimestamp) {
 					const now = new Date().getTime();
 					const timeElapsed = now - tokenTimestamp;
 					const timeRemaining = 900000 - timeElapsed; // 15 minutes in milliseconds
 					const minutesRemaining = Math.floor(timeRemaining / 60000);
-					// console.log(`Tiempo restante: ${minutesRemaining} minutos`);
+					console.log(`Tiempo restante: ${minutesRemaining} minutos`);
 				}
 				setLoading(false);
 			}
 		};
 
 		fetchToken();
-	}, []);
+	}, [fileMakerToken, setError, setFileMakerToken]);
+	// console.log(fileMakerToken);
 
 	const onSubmit = async (data) => {
 		if (records.length > 0) {
@@ -77,37 +92,44 @@ function Resultados() {
 
 		// Función para obtener un nuevo token si ha expirado
 		const refreshTokenIfNeeded = async () => {
-			if (!filemakerToken.current || isTokenExpired()) {
-				// console.log('Refresco el token');
+			// console.log(isTokenExpired());
+			if (!fileMakerToken || isTokenExpired()) {
+				console.log('Entra en refreshTokenIfNeeded');
+				console.log('Refresco el token');
 				try {
 					setLoading(true);
-					const tokenData = await getFileMakerToken();
+					const fileMakerToken = await getFileMakerToken();
 					const {
 						response: { token: newToken },
-					} = tokenData;
-					filemakerToken.current = newToken;
+					} = fileMakerToken;
+					setFileMakerToken(newToken);
 					localStorage.setItem('tokenTimestamp', new Date().getTime());
 					localStorage.setItem('fileMakerToken', newToken);
 				} catch (error) {
+					console.log(1);
 					setError('root', {
 						type: 'manual',
 						message: 'Error al obtener el token',
 					});
 				} finally {
+					console.log(2);
 					setLoading(false);
 				}
 			}
 		};
 
 		const refreshToken = await refreshTokenIfNeeded();
-		// console.log(refreshToken);
+		console.log(refreshToken);
 
-		if (filemakerToken && data.search === '') {
+		if (fileMakerToken && data.search === '') {
+			// console.log(4);
+			// console.log(fileMakerToken);
+			// console.log(data.search);
 			try {
 				// console.log('Buscando todos los registros');
 				setLoading(true);
 				// console.log(data)
-				const resultados = await getResultados(filemakerToken.current);
+				const resultados = await getResultados(fileMakerToken);
 				// console.log(resultados);
 				const {
 					response: { data },
@@ -117,6 +139,7 @@ function Resultados() {
 					setRecords((prev) => [...prev, record.fieldData]);
 				});
 			} catch (error) {
+				console.log(3);
 				setError('root', {
 					type: 'manual',
 					message: 'Error al obtener los resultados',
@@ -129,7 +152,7 @@ function Resultados() {
 				// console.log('Busco por nombre');
 
 				setLoading(true);
-				const token = filemakerToken.current;
+				const token = fileMakerToken;
 				const name = data.search;
 				const resultados = await getResultadosByName(token, name);
 				// console.log(resultados);
@@ -168,20 +191,20 @@ function Resultados() {
 									{errors.search.message}
 								</p>
 							)}
+							{errors.root && (
+								<p className="resultados__form__error">{errors.root.message}</p>
+							)}
 						</div>
 						<button
 							className="resultados__form__button"
 							type="submit"
-							disabled={isTokenExpired() || isSubmitting}
+							disabled={!fileMakerToken || isSubmitting}
 						>
 							{isSubmitting ? 'Buscando Estudios...' : 'Buscar'}
 						</button>
 					</div>
-					{errors.root && (
-						<p className="resultados__form__error">{errors.root.message}</p>
-					)}
 				</form>
-				{filemakerToken ? null : <p>{filemakerToken?.messages}</p>}
+				{fileMakerToken ? null : <p>{fileMakerToken?.messages}</p>}
 				{records.length > 0 ? (
 					<div className="resultados__table__container">
 						<table className="resultados__table">
@@ -267,6 +290,12 @@ function Resultados() {
 							Solo presiona buscar para ver los resultados o escribe un nombre y
 							preciona buscar
 						</p>
+					</div>
+				)}
+				{medicoUser.user && (
+					<div className="medico-user">
+						{/* <p>{medicoUser.nombre}</p>
+						<p>{medicoUser.apellido}</p> */}
 					</div>
 				)}
 			</div>

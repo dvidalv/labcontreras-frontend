@@ -1,6 +1,6 @@
 import API_URL from './constants';
 import {} from './constants';
-console.log(API_URL);
+// console.log(API_URL);
 
 export async function signinUser(email, password) {
 	const response = await fetch(`${API_URL}/signin`, {
@@ -136,13 +136,27 @@ export async function uploadAvatar(data) {
 
 // FILEMAKER
 export const getFileMakerToken = async () => {
-	const response = await fetch(`${API_URL}/resultados`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
-	return response.json();
+	try {
+		// console.log('Starting fetch request to getFileMakerToken');
+		const response = await fetch(`${API_URL}/resultados`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		// console.log('Fetch request completed', response);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await response.json(); // Convertir la respuesta a JSON
+		// console.log('Response data:', data); // Mostrar los datos en la consola
+		return data; // Devolver los datos
+	} catch (error) {
+		console.error('Error fetching data:', error);
+	}
 };
 
 export const getResultados = async (token) => {
@@ -180,8 +194,12 @@ export const downloadPdf = async (token, id) => {
 };
 		// Verificar si el token ha expirado
 export const isTokenExpired = () => {
-			const now = new Date();
-			const tokenTimestamp = localStorage.getItem('tokenTimestamp');
-			return now.getTime() - tokenTimestamp > 900000; // 15 minutos en milisegundos
-		};
+	const now = new Date();
+	const tokenTimestamp = localStorage.getItem('tokenTimestamp');
+	const timeElapsed = now.getTime() - tokenTimestamp;
+	const timeRemaining = 900000 - timeElapsed; // 15 minutos en milisegundos
+	const minutesRemaining = Math.floor(timeRemaining / 60000);
+	console.log(`Tiempo restante: ${minutesRemaining} minutos`);
+	return timeElapsed > 900000;
+};
 		

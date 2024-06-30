@@ -9,7 +9,6 @@ import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
 import login2 from '../../images/login-2.svg';
 import logout from '../../images/logout.svg';
-import logout2 from '../../images/logout-2.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
 
@@ -20,21 +19,24 @@ Header.propTypes = {
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const location = useLocation();
-	const { token, setToken, setShowTooltip, user } = useAppContext();
+	const { token, setToken, setShowTooltip, user, fileMakerToken, setFileMakerToken, setUser } = useAppContext();
 
 	const [isMenuFixed] = useState(false);
 
+	const navigate = useNavigate();
+
+
 	const handleLogout = () => {
 		localStorage.removeItem('token');
+		localStorage.removeItem('FileMakerToken');
+		localStorage.removeItem('tokenTimestamp');
 		setToken(null);
+		setFileMakerToken(null);
 		setShowTooltip(false);
-		navigate('/signin/');
+		setUser({});
+		navigate('/');
 	};
 
-	const navigate = useNavigate();
-	const navigae = (url) => {
-		navigate(url);
-	};
 	return (
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
@@ -89,17 +91,27 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								<div className={`bar3 ${isMenuOpen ? 'change' : ''}`}></div>
 							</div>
 						</div>
-						{!token && (
+						{!token && !fileMakerToken && (
 							<a href="#">
 								<img
-									onClick={() => navigae('/signin/')}
+									onClick={() => navigate('/signin/')}
 									src={login}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
 							</a>
 						)}
-						{token && (
+						{token && !fileMakerToken && (
+							<a href="#">
+								<img
+									onClick={() => handleLogout()}
+									src={logout}
+									alt="login"
+									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+								/>
+							</a>
+						)}
+						{fileMakerToken && (
 							<a href="#">
 								<img
 									onClick={() => handleLogout()}
@@ -141,21 +153,31 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					className="header__login"
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
 				>
-					{!token && (
+					{!token && !fileMakerToken && (
 						<a href="#">
 							<img
-								onClick={() => navigae('/signin/')}
+								onClick={() => navigate('/signin/')}
 								src={login2}
 								alt="login"
 								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 							/>
 						</a>
 					)}
-					{token && (
+					{token && !fileMakerToken && (
 						<a href="#">
 							<img
 								onClick={() => handleLogout()}
-								src={logout2}
+								src={logout}
+								alt="login"
+								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+							/>
+						</a>
+					)}
+					{token && fileMakerToken && (
+						<a href="#">
+							<img
+								onClick={() => handleLogout()}
+								src={logout}
 								alt="login"
 								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 							/>

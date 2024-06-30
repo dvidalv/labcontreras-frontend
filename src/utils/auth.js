@@ -36,6 +36,27 @@ export const authorize = (email, password) => {
 	});
 };
 
+export const refreshToken = () => {
+	return fetch(`${API_URL}/medicos/refreshToken`, {
+		method: 'GET',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+	});
+};
+
+export const authorizeMedico = (username, password) => {
+	return fetch(`${API_URL}/medicos/signin`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ username, password }),
+	});
+};
+
 // comprueba el token la validez del token
 export const checkToken = async (token) => {
 	// console.log(token);

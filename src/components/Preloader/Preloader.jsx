@@ -2,7 +2,9 @@ import './preloader.css';
 
 function Preloader() {
 	return (
-		<i className="circle-preloader"></i>
+		
+				<i className="circle-preloader"></i>
+
 	)
 }
 

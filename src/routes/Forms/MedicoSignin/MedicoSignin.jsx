@@ -4,16 +4,16 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
-import { authorize } from '../../../utils/auth';
+import { authorizeMedico } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const schema = z.object({
-	email: z.string().email(),
+	username: z.string(),
 	password: z.string().min(6).max(12),
 });
 
 function Signin() {
-
 	//hook form
 	const {
 		register,
@@ -34,28 +34,40 @@ function Signin() {
 		setMessage,
 		type,
 		setType,
-		setToken,
 		location,
 		setLocation,
+		setFileMakerToken,
 	} = useAppContext();
+	// console.log(fileMakerToken);
 
 	async function handleForm(data) {
-		const { email, password } = data;
+		const { username, password } = data;
 		try {
-			const response = await authorize(email, password);
-			if (!response.ok) {
+			const response = await authorizeMedico(username, password);
+			const res = await response.json();
+			// console.log(response);
+			// console.log(res);
+			if (!res.token) {
 				setShowTooltip(true);
 				setType('error');
-				setMessage('Password o Email incorrectos');
+				setMessage('Usuario o contraseña incorrectos');
 				setLocation('signin');
 				return;
 			}
-			const res = await response.json();
-			navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior
-			if (res.token) {
-				setToken(res.token);
-				localStorage.setItem('token', res.token);
+			// console.log(res.response.token);
+			if (res.messages[0].code === '401') {
+				setShowTooltip(true);
+				setType('error');
+				setMessage('Usuario o contraseña incorrectos');
+				setLocation('signin');
+				return;
 			}
+
+			localStorage.setItem('FileMakerToken', res.token);
+			localStorage.setItem('tokenTimestamp', new Date().getTime());
+			setFileMakerToken(() => res.token);
+			navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior
+			// navigate('/resultados');
 		} catch (err) {
 			console.error(err);
 			setType('error');
@@ -69,20 +81,20 @@ function Signin() {
 			<h1 className="form-container__title">Ingresar</h1>
 			<Form className="form" onSubmit={handleSubmit(handleForm)}>
 				<label className="form__label" htmlFor="email">
-					Correo electrónico
+					Usuario
 				</label>
 				<input
-					{...register('email')}
+					{...register('username')}
 					autoComplete="off"
-					name="email"
-					id="email"
+					name="username"
+					id="username"
 					className="form__input"
-					placeholder="Ingresa tu correo electrónico"
+					placeholder="Ingresa tu nombre de usuario"
 				/>
-				<p className="form__error">{errors.email?.message}</p>
+				<p className="form__error">{errors.username?.message}</p>
 
 				<label className="form__label" htmlFor="password">
-					Clave
+					Contraseña
 				</label>
 				<input
 					{...register('password')}

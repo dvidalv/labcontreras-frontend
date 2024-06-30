@@ -15,6 +15,9 @@ export const AppProvider = ({ children }) => {
 	const [type, setType] = useState('');
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [token, setToken] = useState(localStorage.getItem('token') || null);
+	const [fileMakerToken, setFileMakerToken] = useState(
+		localStorage.getItem('FileMakerToken') || null
+	);
 	const { toollTipIsLocated, setToollTipIsLocated } = useState('');
 	const [isLoading, setIsLoading] = useState(true);
 	const [medicos, setMedicos] = useState([]);
@@ -23,7 +26,9 @@ export const AppProvider = ({ children }) => {
 	const [avatarUrl, setAvatarUrl] = useState('');
 	const [location, setLocation] = useState('');
 	const [user, setUser] = useState({});
+	const [medicoUser, setMedicoUser] = useState({});
 	// console.log(token);
+	// console.log(fileMakerToken);
 
 	// console.log(user);
 
@@ -83,6 +88,10 @@ export const AppProvider = ({ children }) => {
 				setLocation,
 				user,
 				setUser,
+				fileMakerToken,
+				setFileMakerToken,
+				medicoUser,
+				setMedicoUser,
 			}}
 		>
 			{children}
