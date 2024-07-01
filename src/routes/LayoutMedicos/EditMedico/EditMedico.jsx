@@ -27,6 +27,8 @@ function EditMedico() {
 	const data = useLoaderData();
 	const [medicoData, setMedicoData] = useState(data.medico || {});
 
+	console.log(medicoData);
+
 	const {
 		message,
 		setMessage,
@@ -50,6 +52,7 @@ function EditMedico() {
 			telefono: medicoData.telefono || '',
 			celular: medicoData.celular || '',
 			especialidad: medicoData.especialidad || '',
+			url: medicoData.url || '',
 		},
 		resolver: zodResolver(schema),
 		mode: 'onChange',
@@ -113,7 +116,7 @@ function EditMedico() {
 
 	const handleForm = async (data) => {
 		try {
-			data.url = avatarUrl;
+			data.url = avatarUrl? avatarUrl : data.url;
 			const response = await editMedico(id, data);
 			setMedicos(
 				medicos.map((medico) => {
@@ -187,21 +190,21 @@ function EditMedico() {
 					</div>
 				</div>
 
-				{/* <div className="form-group">
+				<div className="form-group">
 					<p className="label">Link de la imagen</p>
 					<div className="input-group">
 						<input
-							{...register('url_v')}
+							{...register('url')}
 							type="url"
 							id="imagen"
-							name="url_v"
+							name="url"
 							placeholder="Link de la imagen"
-							disabled
+							// disabled
 						/>
 						<p className="error">{errors.url && errors.url.message}</p>
 						<input {...register('url')} type="hidden" name="url" />
 					</div>
-				</div> */}
+				</div>
 
 				<div className="form-group">
 					<p className="label">Teléfono</p>

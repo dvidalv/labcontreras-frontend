@@ -44,7 +44,7 @@ function Main() {
 						</Link>
 					</div>
 
-					<h2 className="about__title">Nuestros médicos</h2>
+					<h2 className="about__title">NUESTROS MÉDICOS</h2>
 
 					<ul className="cards">
 						{medicos.map((medico) => (
