@@ -12,19 +12,39 @@ import logout from '../../images/logout.svg';
 import logout2 from '../../images/logout-2.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
+import styled from 'styled-components';
 
 Header.propTypes = {
 	isMenuOpen: PropTypes.bool.isRequired,
 	setIsMenuOpen: PropTypes.func.isRequired,
 };
 
+const Login = styled.a`
+color: black;
+@media (max-width: 768px) {
+	display: none;
+}
+`;
+
+const Logout = styled.a`
+color: black;
+@media (max-width: 768px) {
+	display: none;
+}
+`;
+
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const location = useLocation();
-	const { token, setToken, setShowTooltip, user, fileMakerToken, setFileMakerToken, setUser } = useAppContext();
+	const { token, setToken, setShowTooltip, user, fileMakerToken, setFileMakerToken, setUser, medicoUser } = useAppContext();
 
 	const [isMenuFixed] = useState(false);
 
 	const navigate = useNavigate();
+
+	let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
+	if (medicoImage === '') {
+		medicoImage = medicoAvatar;
+	}
 
 
 	const handleLogout = () => {
@@ -38,6 +58,8 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		setUser({});
 		navigate('/');
 	};
+
+
 
 	return (
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
@@ -82,6 +104,18 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						</div>
 					</div>
 
+					{medicoImage && (
+					<div
+						className="medico-user"
+						style={{
+							backgroundImage: `url(${medicoImage})`,
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+						}}
+					></div>
+				)}
+
 					<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
 						<div
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -94,34 +128,37 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 							</div>
 						</div>
 						{!token && !fileMakerToken && (
-							<a href="#">
+							<Login href="#">
 								<img
 									onClick={() => navigate('/signin/')}
 									src={login}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-							</a>
+								Login
+							</Login>
 						)}
 						{token && !fileMakerToken && (
-							<a href="#">
+							<Logout href="#">
 								<img
 									onClick={() => handleLogout()}
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-							</a>
+								Logout
+							</Logout>
 						)}
 						{fileMakerToken && (
-							<a href="#">
+							<Logout href="#">
 								<img
 									onClick={() => handleLogout()}
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-							</a>
+								Logout
+							</Logout>
 						)}
 					</div>
 				</div>

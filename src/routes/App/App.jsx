@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header';
 
 import Footer from '../../components/Footer/Footer';
 import { useAppContext } from '../../contexts/MyContext';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import background1 from '../../images/background-1.jpg';
 import background2 from '../../images/background-2.jpg';
 
@@ -16,19 +16,36 @@ const number = getRandomNumber();
 
 function App() {
 	const { isMenuOpen, setIsMenuOpen, loggedIn, setLoggedIn } = useAppContext();
+	const location = useLocation();
+	// console.log(location.pathname);
+	let style = {
+		backgroundImage: `url(${number === 1 ? background1 : background2})`,
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
+		backgroundRepeat: 'no-repeat',
+	};
 
+	if (location.pathname === '/resultados') {
+		style = {
+			maxWidth: '1400px',
+			backgroundImage: `url(${background1})`,
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+			backgroundRepeat: 'no-repeat',
+		};
+	} else if (location.pathname === '/') {
+		style = {
+			
+		};
+	}
+	
 	return (
 		<div className="page__content">
 			<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
 			<div
 				className="content"
-				style={{
-					backgroundImage: `url(${number === 1 ? background1 : background2})`,
-					backgroundSize: 'cover',
-					backgroundPosition: 'center',
-					backgroundRepeat: 'no-repeat',
-				}}
+				style={style}
 			>
 				<Outlet loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 			</div>

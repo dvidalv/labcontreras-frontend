@@ -36,10 +36,6 @@ function Resultados() {
 		resolver: zodResolver(schema),
 	});
 
-	let medicoImage = JSON.parse(localStorage.getItem('medicoUser')).foto;
-	if (medicoImage === '') {
-		medicoImage = medicoAvatar;
-	}
 	const medicoId = JSON.parse(localStorage.getItem('medicoUser')).ID;
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -308,17 +304,7 @@ function Resultados() {
 						</p>
 					</div>
 				)}
-				{medicoUser && (
-					<div
-						className="medico-user"
-						style={{
-							backgroundImage: `url(${medicoImage})`,
-							backgroundSize: 'cover',
-							backgroundPosition: 'center',
-							backgroundRepeat: 'no-repeat',
-						}}
-					></div>
-				)}
+			
 			</div>
 		</>
 	);
