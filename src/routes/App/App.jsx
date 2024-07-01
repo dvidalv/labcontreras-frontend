@@ -33,7 +33,7 @@ function App() {
 			backgroundPosition: 'center',
 			backgroundRepeat: 'no-repeat',
 		};
-	} else if (location.pathname === '/') {
+	} else  {
 		style = {
 			
 		};

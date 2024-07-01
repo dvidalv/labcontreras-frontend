@@ -44,6 +44,8 @@ function Main() {
 						</Link>
 					</div>
 
+					<h2 className="about__title">Nuestros médicos</h2>
+
 					<ul className="cards">
 						{medicos.map((medico) => (
 							<li key={medico._id}>

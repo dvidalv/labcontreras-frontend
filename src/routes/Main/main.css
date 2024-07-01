@@ -93,6 +93,7 @@
 }
 
 .about {
+	/* width: 100%; */
 	transition: all 0.5s;
 	background-color: var(--color-gris);
 	color: var(--color-dark);
@@ -102,6 +103,12 @@
 	background-repeat: no-repeat;
 	overflow: hidden;
 	position: relative;
+
+	.about__title{
+		text-align: center;
+		font-size: 2rem;
+		margin-bottom: 40px;
+	}
 }
 
 .about__text {

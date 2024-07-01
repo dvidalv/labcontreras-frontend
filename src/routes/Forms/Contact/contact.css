@@ -8,6 +8,8 @@
 }
 
 .contact-container {
+	max-width: 1400px;
+	margin: 0 auto;
 	height: 100%;
 	@media (min-width: 768px) {
 		display: grid;

@@ -1,4 +1,6 @@
 .nosotros {
+	max-width: 1400px;
+	margin: 0 auto;
 	background-color: var(--color-white);
 	margin-top: var(--header-height-mobil);
 	display: grid;
