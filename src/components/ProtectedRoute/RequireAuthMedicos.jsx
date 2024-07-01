@@ -4,7 +4,7 @@ import { useAppContext } from '../../contexts/MyContext';
 
 function RequireAuthMedicos({ children }) {
 	const { fileMakerToken } = useAppContext();
-	// console.log(fileMakerToken);
+	console.log(fileMakerToken);
 	let location = useLocation();
 	let loginPath = location.pathname;
 

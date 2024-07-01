@@ -199,7 +199,7 @@ export const isTokenExpired = () => {
 	const timeElapsed = now.getTime() - tokenTimestamp;
 	const timeRemaining = 900000 - timeElapsed; // 15 minutos en milisegundos
 	const minutesRemaining = Math.floor(timeRemaining / 60000);
-	console.log(`Tiempo restante: ${minutesRemaining} minutos`);
+	// console.log(`Tiempo restante: ${minutesRemaining} minutos`);
 	return timeElapsed > 900000;
 };
 		

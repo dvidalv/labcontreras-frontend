@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
 import pdfIconGris from '../../images/pdf_gray.svg';
 import pdfIcon from '../../images/pdf.svg';
+import medicoAvatar from '../../images/medico-avatar.svg';
 import {
 	getFileMakerToken,
 	getResultados,
@@ -21,7 +22,7 @@ function Resultados() {
 	const [loading, setLoading] = useState(false);
 
 	const { fileMakerToken, setFileMakerToken, medicoUser } = useAppContext();
-	// console.log(medicoUser);
+	console.log(medicoUser.nombre);
 
 	const schema = z.object({
 		search: z.string().optional(), //
@@ -36,6 +37,11 @@ function Resultados() {
 		defaultValues: { search: '' },
 		resolver: zodResolver(schema),
 	});
+
+	let medicoImage = JSON.parse(localStorage.getItem('medicoUser')).foto;
+	if(medicoImage === '') {
+		medicoImage = medicoAvatar;
+	}
 
 	useEffect(() => {
 		setLoading(true);
@@ -75,7 +81,7 @@ function Resultados() {
 					const timeElapsed = now - tokenTimestamp;
 					const timeRemaining = 900000 - timeElapsed; // 15 minutes in milliseconds
 					const minutesRemaining = Math.floor(timeRemaining / 60000);
-					console.log(`Tiempo restante: ${minutesRemaining} minutos`);
+					// console.log(`Tiempo restante: ${minutesRemaining} minutos`);
 				}
 				setLoading(false);
 			}
@@ -174,6 +180,8 @@ function Resultados() {
 		}
 	};
 
+	// console.log(localStorage.getItem('medicoUser'));
+
 	return (
 		<>
 			{loading && <Preloader />}
@@ -185,7 +193,11 @@ function Resultados() {
 				>
 					<div className="resultados__form__container">
 						<div className="resultados__form__input">
-							<input type="text" placeholder="Buscar" {...register('search')} />
+							<input
+								type="text"
+								placeholder="Presione ENTER o escriba el nombre del paciente"
+								{...register('search')}
+							/>
 							{errors.search && (
 								<p className="resultados__form__error">
 									{errors.search.message}
@@ -292,11 +304,16 @@ function Resultados() {
 						</p>
 					</div>
 				)}
-				{medicoUser.user && (
-					<div className="medico-user">
-						{/* <p>{medicoUser.nombre}</p>
-						<p>{medicoUser.apellido}</p> */}
-					</div>
+				{medicoUser && (
+					<div
+						className="medico-user"
+						style={{
+							backgroundImage: `url(${medicoImage})`,
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+						}}
+					></div>
 				)}
 			</div>
 		</>

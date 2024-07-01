@@ -9,6 +9,7 @@ import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
 import login2 from '../../images/login-2.svg';
 import logout from '../../images/logout.svg';
+import logout2 from '../../images/logout-2.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
 
@@ -28,8 +29,9 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
-		localStorage.removeItem('FileMakerToken');
+		localStorage.removeItem('fileMakerToken');
 		localStorage.removeItem('tokenTimestamp');
+		localStorage.removeItem('medicoUser');
 		setToken(null);
 		setFileMakerToken(null);
 		setShowTooltip(false);
@@ -153,7 +155,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					className="header__login"
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
 				>
-					{!token && !fileMakerToken && (
+					{(!token && !fileMakerToken) && (
 						<a href="#">
 							<img
 								onClick={() => navigate('/signin/')}
@@ -163,21 +165,11 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 							/>
 						</a>
 					)}
-					{token && !fileMakerToken && (
+					{(token || fileMakerToken) && (
 						<a href="#">
 							<img
 								onClick={() => handleLogout()}
-								src={logout}
-								alt="login"
-								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-							/>
-						</a>
-					)}
-					{token && fileMakerToken && (
-						<a href="#">
-							<img
-								onClick={() => handleLogout()}
-								src={logout}
+								src={logout2}
 								alt="login"
 								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 							/>

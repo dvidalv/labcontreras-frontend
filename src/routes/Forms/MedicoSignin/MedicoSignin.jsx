@@ -6,7 +6,6 @@ import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import { authorizeMedico } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const schema = z.object({
 	username: z.string(),
@@ -37,6 +36,7 @@ function Signin() {
 		location,
 		setLocation,
 		setFileMakerToken,
+		setMedicoUser,
 	} = useAppContext();
 	// console.log(fileMakerToken);
 
@@ -45,8 +45,10 @@ function Signin() {
 		try {
 			const response = await authorizeMedico(username, password);
 			const res = await response.json();
-			// console.log(response);
-			// console.log(res);
+			const dataMedico = res.response.data[0].fieldData;
+			const { nombre, apellido, email, foto } = dataMedico;
+			localStorage.setItem('medicoUser', JSON.stringify({ nombre, apellido, email, foto }));
+			setMedicoUser((prev) => ({ ...prev, nombre, apellido, email, foto }));
 			if (!res.token) {
 				setShowTooltip(true);
 				setType('error');
@@ -63,7 +65,7 @@ function Signin() {
 				return;
 			}
 
-			localStorage.setItem('FileMakerToken', res.token);
+			localStorage.setItem('fileMakerToken', res.token);
 			localStorage.setItem('tokenTimestamp', new Date().getTime());
 			setFileMakerToken(() => res.token);
 			navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior

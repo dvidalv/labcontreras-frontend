@@ -16,7 +16,7 @@ export const AppProvider = ({ children }) => {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [token, setToken] = useState(localStorage.getItem('token') || null);
 	const [fileMakerToken, setFileMakerToken] = useState(
-		localStorage.getItem('FileMakerToken') || null
+		localStorage.getItem('fileMakerToken') || null
 	);
 	const { toollTipIsLocated, setToollTipIsLocated } = useState('');
 	const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +27,8 @@ export const AppProvider = ({ children }) => {
 	const [location, setLocation] = useState('');
 	const [user, setUser] = useState({});
 	const [medicoUser, setMedicoUser] = useState({});
+
+	// console.log(medicoUser);
 	// console.log(token);
 	// console.log(fileMakerToken);
 
