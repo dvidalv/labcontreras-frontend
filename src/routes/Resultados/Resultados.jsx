@@ -42,6 +42,9 @@ function Resultados() {
 	if(medicoImage === '') {
 		medicoImage = medicoAvatar;
 	}
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	useEffect(() => {
 		setLoading(true);
