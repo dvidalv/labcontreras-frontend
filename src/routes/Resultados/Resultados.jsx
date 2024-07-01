@@ -17,10 +17,11 @@ import Preloader from '../../components/Preloader/Preloader';
 import { useAppContext } from '../../contexts/MyContext';
 
 function Resultados() {
-
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const { fileMakerToken, setFileMakerToken, medicoUser } = useAppContext();
+
+	// console.log(records);
 	const schema = z.object({
 		search: z.string().optional(), //
 	});
@@ -36,7 +37,7 @@ function Resultados() {
 	});
 
 	let medicoImage = JSON.parse(localStorage.getItem('medicoUser')).foto;
-	if(medicoImage === '') {
+	if (medicoImage === '') {
 		medicoImage = medicoAvatar;
 	}
 	const medicoId = JSON.parse(localStorage.getItem('medicoUser')).ID;
@@ -143,7 +144,8 @@ function Resultados() {
 				} = resultados;
 				// console.log(data);
 				data.map((record) => {
-					setRecords((prev) => [...prev, record.fieldData]);
+					const { fieldData } = record;
+					setRecords((prev) => [...prev, fieldData]);
 				});
 			} catch (error) {
 				console.log(3);
@@ -168,7 +170,8 @@ function Resultados() {
 				} = resultados;
 				// console.log(responseData);
 				responseData.map((record) => {
-					setRecords((prev) => [...prev, record.fieldData]);
+					const { fieldData } = record;
+					setRecords((prev) => [...prev, fieldData]);
 				});
 			} catch (error) {
 				setError('root', {
@@ -246,6 +249,8 @@ function Resultados() {
 										ID,
 										Url_Resultado,
 									} = record;
+									// console.log(DEUDA);
+							
 
 									return (
 										<tr key={record.ID}>
@@ -266,7 +271,7 @@ function Resultados() {
 												<a
 													data-id={ID}
 													download
-													href={Url_Resultado === '' ? '#' : Url_Resultado}
+													href={Url_Resultado === '' ? '#' : DEUDA > 0 ? '' : Url_Resultado}
 													className={`resultados__table__descargar__link ${
 														DEUDA > 0 ? 'deuda' : ''
 													}`}
@@ -277,11 +282,9 @@ function Resultados() {
 														color: DEUDA > 0 ? '#d2caca' : 'auto',
 													}}
 												>
-													{DEUDA > 0 ? '' : Url_Resultado ? 'Descargar' : ''}
+													{/* {DEUDA > 0 ? '' : Url_Resultado ? 'Descargar' : ''} */}
 													<img
-														src={`${
-															Url_Resultado === '' ? pdfIconGris : pdfIcon
-														}`}
+														src={DEUDA > 0 ? pdfIconGris : Url_Resultado === '' ? pdfIconGris : pdfIcon}
 														alt="PDF Icon"
 													/>
 												</a>
