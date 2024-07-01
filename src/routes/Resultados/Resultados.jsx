@@ -17,13 +17,10 @@ import Preloader from '../../components/Preloader/Preloader';
 import { useAppContext } from '../../contexts/MyContext';
 
 function Resultados() {
-	// console.log(isTokenExpired())
+
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
-
 	const { fileMakerToken, setFileMakerToken, medicoUser } = useAppContext();
-	console.log(medicoUser.nombre);
-
 	const schema = z.object({
 		search: z.string().optional(), //
 	});
@@ -42,6 +39,7 @@ function Resultados() {
 	if(medicoImage === '') {
 		medicoImage = medicoAvatar;
 	}
+	const medicoId = JSON.parse(localStorage.getItem('medicoUser')).ID;
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
@@ -128,7 +126,7 @@ function Resultados() {
 		};
 
 		const refreshToken = await refreshTokenIfNeeded();
-		console.log(refreshToken);
+		// console.log(refreshToken);
 
 		if (fileMakerToken && data.search === '') {
 			// console.log(4);
@@ -138,7 +136,7 @@ function Resultados() {
 				// console.log('Buscando todos los registros');
 				setLoading(true);
 				// console.log(data)
-				const resultados = await getResultados(fileMakerToken);
+				const resultados = await getResultados(fileMakerToken, medicoId);
 				// console.log(resultados);
 				const {
 					response: { data },
@@ -163,8 +161,8 @@ function Resultados() {
 				setLoading(true);
 				const token = fileMakerToken;
 				const name = data.search;
-				const resultados = await getResultadosByName(token, name);
-				// console.log(resultados);
+				const resultados = await getResultadosByName(token, name, medicoId);
+				// console.log(resultados.messages[0].code);
 				const {
 					response: { data: responseData },
 				} = resultados;
@@ -175,7 +173,7 @@ function Resultados() {
 			} catch (error) {
 				setError('root', {
 					type: 'manual',
-					message: 'Error al obtener los resultados',
+					message: 'No se encontraron resultados',
 				});
 			} finally {
 				setLoading(false);

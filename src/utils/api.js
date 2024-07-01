@@ -159,25 +159,25 @@ export const getFileMakerToken = async () => {
 	}
 };
 
-export const getResultados = async (token) => {
+export const getResultados = async (token, medicoId) => {
 	// console.log(token);
 	const response = await fetch(`${API_URL}/resultados/records`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ token }),
+		body: JSON.stringify({ token, medicoId }),
 	});
 	return response.json();
 };
 
-export const getResultadosByName = async (token, name) => {
+export const getResultadosByName = async (token, name, medicoId) => {
 	const response = await fetch(`${API_URL}/resultados/record/`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ token, name }),
+		body: JSON.stringify({ token, name, medicoId }),
 	});
 	return response.json();
 };
