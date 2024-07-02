@@ -42,9 +42,9 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 	const navigate = useNavigate();
 
 	let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
-	if (medicoImage === '') {
-		medicoImage = medicoAvatar;
-	}
+	// if (medicoImage === '') {
+	// 	medicoImage = medicoUser?.foto;
+	// }
 
 
 	const handleLogout = () => {
