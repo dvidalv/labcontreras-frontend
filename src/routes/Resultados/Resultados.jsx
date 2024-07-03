@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
 import pdfIconGris from '../../images/pdf_gray.svg';
 import pdfIcon from '../../images/pdf.svg';
-import medicoAvatar from '../../images/medico-avatar.svg';
 import {
 	getFileMakerToken,
 	getResultados,

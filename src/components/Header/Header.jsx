@@ -10,6 +10,7 @@ import login from '../../images/login.svg';
 import login2 from '../../images/login-2.svg';
 import logout from '../../images/logout.svg';
 import logout2 from '../../images/logout-2.svg';
+import medicoAvatar from '../../images/medico-avatar.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
 import styled from 'styled-components';
@@ -20,32 +21,44 @@ Header.propTypes = {
 };
 
 const Login = styled.a`
-color: black;
-@media (max-width: 768px) {
-	display: none;
-}
+	color: black;
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 const Logout = styled.a`
-color: black;
-@media (max-width: 768px) {
-	display: none;
-}
+	color: black;
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const location = useLocation();
-	const { token, setToken, setShowTooltip, user, fileMakerToken, setFileMakerToken, setUser, medicoUser } = useAppContext();
+	const {
+		token,
+		setToken,
+		setShowTooltip,
+		user,
+		fileMakerToken,
+		setFileMakerToken,
+		setUser,
+		medicoUser,
+		setMedicoUser,
+	} = useAppContext();
 
 	const [isMenuFixed] = useState(false);
 
 	const navigate = useNavigate();
 
 	let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
-	// if (medicoImage === '') {
-	// 	medicoImage = medicoUser?.foto;
-	// }
-
+	// console.log(medicoImage);
+	if (medicoImage === '') {
+		medicoImage = medicoAvatar;
+		// console.log(medicoImage);
+	}
+	// console.log(medicoUser);
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
@@ -56,11 +69,11 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		setFileMakerToken(null);
 		setShowTooltip(false);
 		setUser({});
+		setMedicoUser({});
 		navigate('/');
 	};
 
-
-
+	// console.log(medicoUser);
 	return (
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
@@ -104,17 +117,17 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						</div>
 					</div>
 
-					{medicoImage && (
-					<div
-						className="medico-user"
-						style={{
-							backgroundImage: `url(${medicoImage})`,
-							backgroundSize: 'cover',
-							backgroundPosition: 'center',
-							backgroundRepeat: 'no-repeat',
-						}}
-					></div>
-				)}
+					{medicoUser?.usuario && (
+						<div
+							className="medico-user"
+							style={{
+								backgroundImage: `url(${medicoImage})`,
+								backgroundSize: 'cover',
+								backgroundPosition: 'center',
+								backgroundRepeat: 'no-repeat',
+							}}
+						></div>
+					)}
 
 					<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
 						<div
@@ -192,7 +205,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					className="header__login"
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
 				>
-					{(!token && !fileMakerToken) && (
+					{!token && !fileMakerToken && (
 						<a href="#">
 							<img
 								onClick={() => navigate('/signin/')}

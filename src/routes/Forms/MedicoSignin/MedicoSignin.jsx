@@ -46,12 +46,14 @@ function Signin() {
 			const response = await authorizeMedico(username, password);
 			const res = await response.json();
 			const dataMedico = res.response.data[0].fieldData;
-			const { nombre, apellido, email, ID, foto } = dataMedico;
+			// console.log(dataMedico);
+			const { nombre, apellido, email, ID, foto, usuario } = dataMedico;
+			// console.log(nombre, apellido, email, ID, foto, usuario);
 			localStorage.setItem(
 				'medicoUser',
-				JSON.stringify({ nombre, apellido, email, ID, foto })
+				JSON.stringify({ nombre, apellido, email, ID, foto, usuario })
 			);
-			setMedicoUser((prev) => ({ ...prev, nombre, apellido, email, ID, foto }));
+			setMedicoUser((prev) => ({ ...prev, nombre, apellido, email, ID, foto, usuario }));
 			if (!res.token) {
 				setShowTooltip(true);
 				setType('error');
