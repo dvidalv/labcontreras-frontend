@@ -18,7 +18,7 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
 					</NavLink>
 				</li>
 
-				{user && user.role === 'admin' && (
+				{user && user?.role === 'admin' && (
 					<li className="navbar__item">
 						<NavLink to="/medicos" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 							Médicos
@@ -29,6 +29,12 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
 				<li className="navbar__item">
 					<NavLink to="/resultados" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
 						Resultados
+					</NavLink>
+				</li>
+
+				<li className="navbar__item">
+					<NavLink to="/publicaciones" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
+						Publicaciones
 					</NavLink>
 				</li>
 

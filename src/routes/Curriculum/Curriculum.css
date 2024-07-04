@@ -68,9 +68,7 @@
 	transition: transform .5s ease-in-out;
 }
 
-.about .about__title{
-	color: var(--color-primary);
-}
+
 
 
 .curriculum-section__image{

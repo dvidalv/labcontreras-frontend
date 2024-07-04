@@ -143,6 +143,9 @@ function Main() {
 					</ul>
 				</div>
 			</section>
+			<section className="publicaciones">
+				<h2>PUBLICACIONES</h2>
+			</section>
 		</main>
 	);
 }
