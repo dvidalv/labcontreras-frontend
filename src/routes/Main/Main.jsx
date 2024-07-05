@@ -1,4 +1,5 @@
 import './main.css';
+import { useState } from 'react';
 import Card from '../../components/Cards/Card';
 import reservas from '../../images/reservas.png';
 import universal from '../../images/universal.png';
@@ -10,11 +11,18 @@ import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../contexts/MyContext';
-import { getMedicos } from '../../utils/api';
+import {
+	getMedicos,
+	getFileMakerToken,
+	getPublicaciones,
+} from '../../utils/api';
 import { useEffect } from 'react';
 import 'animate.css';
+import Publicaciones from '../Publicaciones/Publicaciones';
 
 function Main() {
+	const [publicaciones, setPublicaciones] = useState([]);
+// console.log(publicaciones)
 	const { setMedicos, medicos } = useAppContext();
 	useEffect(() => {
 		const fetchMedicos = async () => {
@@ -24,6 +32,16 @@ function Main() {
 		fetchMedicos();
 	}, [setMedicos]);
 
+	useEffect(() => {
+		const fetchToken = async () => {
+			const dataPublicaciones = await getPublicaciones();
+			const { response: { data } } = dataPublicaciones;
+			// console.log(data)
+			setPublicaciones(data);
+		};
+		fetchToken();
+	}, []);
+
 	return (
 		<main className="page">
 			<section className="hero"></section>
@@ -31,7 +49,9 @@ function Main() {
 			<section className="about">
 				<div className="about__container">
 					<div className="about__text">
-						<h1 className="about__title animate__animated animate__backInLeft">SOBRE NOSOTROS</h1>
+						<h1 className="about__title animate__animated animate__backInLeft">
+							SOBRE NOSOTROS
+						</h1>
 						<p>
 							En nuestro laboratorio, estamos comprometidos con la excelencia en
 							el servicio y la calidad de los resultados. Nuestro equipo de
@@ -144,7 +164,7 @@ function Main() {
 				</div>
 			</section>
 			<section className="publicaciones">
-				<h2>PUBLICACIONES</h2>
+				<Publicaciones publicaciones={publicaciones} />
 			</section>
 		</main>
 	);

@@ -195,8 +195,17 @@
 	}
 }
 
-.publicaciones {
-	padding: 20px 0;
+.publicaciones{
+	background-color: #080808;
+	padding-bottom: 20px;
 	max-width: 1400px;
 	margin: 0 auto;
+	font-family: 'Poppins', sans-serif;
+
+	h2{
+		color: white;
+		background-color: #911db987;
+		padding: 20px;
+	}
 }
+

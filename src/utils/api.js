@@ -182,14 +182,16 @@ export const getResultadosByName = async (token, name, medicoId) => {
 	return response.json();
 };
 
-export const downloadPdf = async (token, id) => {
-	const response = await fetch(`${API_URL}/resultados/download/`, {
+export const getPublicaciones = async () => {
+	// console.log(token);
+	const response = await fetch(`${API_URL}/publicaciones`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ token, id }),
+		// body: JSON.stringify({ }),
 	});
+	// console.log(response);
 	return response.json();
 };
 		// Verificar si el token ha expirado
@@ -203,3 +205,19 @@ export const isTokenExpired = () => {
 	return timeElapsed > 900000;
 };
 		
+export const getPdf = async (url) => {
+	const response = await fetch(`${API_URL}/api/pdf`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ url }),
+	});
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+	const pdfBlob = await response.blob()
+	const pdf = URL.createObjectURL(pdfBlob)
+	// console.log(pdfUrl)
+	return pdf
+}
