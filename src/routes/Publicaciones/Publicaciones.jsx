@@ -27,7 +27,7 @@ function Publicaciones({ publicaciones = [] }) {
 	}, [publicaciones]);
 
 	return (
-		<div className="publicaciones">
+		<>
 			<h1>PUBLICACIONES</h1>
 			<div className="publicaciones__container">
 				{pdfUrls.length > 0 ? (
@@ -36,7 +36,7 @@ function Publicaciones({ publicaciones = [] }) {
 					<p>{loading ? 'Cargando PDF...' : 'No hay publicaciones'}</p>
 				)}
 			</div>
-		</div>
+		</>
 	);
 }
 
