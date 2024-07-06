@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Publicaciones.css';
-import PdfCard from '../../components/PdfCard/PdfCard.jsx';
 import PropTypes from 'prop-types';
 import { getPdf } from '../../utils/api.js';
-import RenderPdf from '../../components/PdfViewer/RenderPdf.jsx';
+import RenderPdf from '../../components/RenderPdf/RenderPdf.jsx';
 
 function Publicaciones({ publicaciones = [] }) {
+	// console.log('publicaciones')
 	const [pdfUrls, setPdfUrls] = useState([]);
+	const [loading, setLoading] = useState(false);
+	// console.log(pdfUrls);
 
 	useEffect(() => {
 		const fetchPdf = async (PDF) => {
+			setLoading(true);
 			const pdf = await getPdf(PDF);
 			setPdfUrls((prevUrls) => [...prevUrls, pdf]);
+			setLoading(false);
 		};
 		publicaciones.forEach((publicacion) => {
+			// console.log('publicacion', publicacion)
 			const {
 				fieldData: { PDF },
 			} = publicacion;
@@ -22,15 +27,17 @@ function Publicaciones({ publicaciones = [] }) {
 	}, [publicaciones]);
 
 	return (
-    <div>
-      <h1>Visor de PDF</h1>
-      {pdfUrls.length > 0 ? (
-        pdfUrls.map((url, index) => <RenderPdf key={index} pdfUrl={url} />)
-      ) : (
-        <p>Cargando PDF...</p>
-      )}
-    </div>
-  );
+		<div className="publicaciones">
+			<h1>PUBLICACIONES</h1>
+			<div className="publicaciones__container">
+				{pdfUrls.length > 0 ? (
+					pdfUrls.map((url, index) => <RenderPdf key={index} pdfUrl={url} />)
+				) : (
+					<p>{loading ? 'Cargando PDF...' : 'No hay publicaciones'}</p>
+				)}
+			</div>
+		</div>
+	);
 }
 
 Publicaciones.propTypes = {

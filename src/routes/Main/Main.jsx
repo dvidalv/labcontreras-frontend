@@ -22,24 +22,35 @@ import Publicaciones from '../Publicaciones/Publicaciones';
 
 function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
-// console.log(publicaciones)
+
 	const { setMedicos, medicos } = useAppContext();
-	useEffect(() => {
-		const fetchMedicos = async () => {
-			const data = await getMedicos();
-			setMedicos(data);
-		};
-		fetchMedicos();
-	}, [setMedicos]);
+
+	console.log('Main component rendered');
 
 	useEffect(() => {
-		const fetchToken = async () => {
-			const dataPublicaciones = await getPublicaciones();
-			const { response: { data } } = dataPublicaciones;
-			// console.log(data)
-			setPublicaciones(data);
+		const fetchMedicos = async () => {
+			try {
+				const data = await getMedicos();
+				setMedicos(data);
+			} catch (error) {
+				console.error('Error fetching medicos:', error);
+			}
 		};
-		fetchToken();
+
+		const fetchPublicaciones = async () => {
+			try {
+				const dataPublicaciones = await getPublicaciones();
+				const {
+					response: { data },
+				} = dataPublicaciones;
+				setPublicaciones(data);
+			} catch (error) {
+				console.error('Error fetching publicaciones:', error);
+			}
+		};
+
+		fetchMedicos();
+		fetchPublicaciones();
 	}, []);
 
 	return (

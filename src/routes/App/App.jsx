@@ -15,6 +15,7 @@ function getRandomNumber() {
 const number = getRandomNumber();
 
 function App() {
+	// console.log('App component rendered');
 	const { isMenuOpen, setIsMenuOpen, loggedIn, setLoggedIn } = useAppContext();
 	const location = useLocation();
 	// console.log(location.pathname);
