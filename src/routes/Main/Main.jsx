@@ -25,6 +25,8 @@ function Main() {
 
 	const { setMedicos, medicos } = useAppContext();
 
+	// console.log(publicaciones);
+
 	console.log('Main component rendered');
 
 	useEffect(() => {

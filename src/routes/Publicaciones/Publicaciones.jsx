@@ -8,32 +8,32 @@ function Publicaciones({ publicaciones = [] }) {
 	// console.log('publicaciones')
 	const [pdfUrls, setPdfUrls] = useState([]);
 	const [loading, setLoading] = useState(false);
-	// console.log(pdfUrls);
+	console.log(pdfUrls);
 
 	useEffect(() => {
-		const fetchPdf = async (PDF) => {
+		const fetchPdf = async (PDF, titulo, descripcion) => {
 			setLoading(true);
 			const pdf = await getPdf(PDF);
-			setPdfUrls((prevUrls) => [...prevUrls, pdf]);
+			setPdfUrls((prevUrls) => [{ pdf, titulo, descripcion }, ...prevUrls]);
 			setLoading(false);
 		};
 		publicaciones.forEach((publicacion) => {
-			// console.log('publicacion', publicacion)
+			console.log('publicacion', publicacion);
 			const {
-				fieldData: { PDF },
+				fieldData: { PDF, titulo, descripcion },
 			} = publicacion;
-			fetchPdf(PDF);
+			fetchPdf(PDF, titulo, descripcion);
 		});
 	}, [publicaciones]);
 
 	return (
 		<>
-			<h1>PUBLICACIONES</h1>
+			<h1 className="publicaciones__title">PUBLICACIONES</h1>
 			<div className="publicaciones__container">
 				{pdfUrls.length > 0 ? (
-					pdfUrls.map((url, index) => <RenderPdf key={index} pdfUrl={url} />)
+					pdfUrls.map(({ pdf, titulo, descripcion }, index) => <RenderPdf key={index} pdfUrl={pdf} titulo={titulo} descripcion={descripcion} />)
 				) : (
-					<p>{loading ? 'Cargando PDF...' : 'No hay publicaciones'}</p>
+					<p>{loading ? 'Cargando publicaciones...' : 'No hay publicaciones'}</p>
 				)}
 			</div>
 		</>
