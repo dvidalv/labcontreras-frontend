@@ -38,7 +38,7 @@ function Footer() {
 				</a>
 			</div>
 			<div className="derechos">
-				<p>
+				<p className="animate__animated animate__backInLeft">
 					Desarrollado por Giganet Services SRL
 				</p>
 				<span>
