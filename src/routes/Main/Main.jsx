@@ -23,7 +23,7 @@ import Publicaciones from '../Publicaciones/Publicaciones';
 function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
 
-	const { setMedicos, medicos } = useAppContext();
+	const { setMedicos, medicos, user } = useAppContext();
 
 	// console.log(publicaciones);
 
@@ -176,9 +176,11 @@ function Main() {
 					</ul>
 				</div>
 			</section>
-			<section className="publicaciones">
-				<Publicaciones publicaciones={publicaciones} />
-			</section>
+			{user && user?.role === 'admin' && (
+				<section className="publicaciones">
+					<Publicaciones publicaciones={publicaciones} />
+				</section>
+			)}
 		</main>
 	);
 }

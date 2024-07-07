@@ -32,13 +32,13 @@ function RenderPdf({ pdfUrl, titulo, descripcion }) {
 						wordWrap: 'break-word',
 						textAlign: 'left',
 						fontSize: '10px',
-						textTransform: 'uppercase',
+						// textTransform: 'uppercase',
 						textOverflow: 'ellipsis',
 						overflow: 'hidden',
 						whiteSpace: 'nowrap',
 					}}
 				>
-					{titulo}
+					Fecha Publicación:
 				</div>
 				<div
 					style={{

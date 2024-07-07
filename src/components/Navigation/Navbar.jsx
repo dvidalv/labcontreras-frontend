@@ -32,11 +32,13 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
 					</NavLink>
 				</li>
 
-				<li className="navbar__item">
-					<NavLink to="/publicaciones" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
-						Publicaciones
+				{user && user?.role === 'admin' && (
+					<li className="navbar__item">
+						<NavLink to="/publicaciones" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
+							Publicaciones
 					</NavLink>
 				</li>
+				)}
 
 				<li className="navbar__item">
 					<NavLink to="/contact" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
