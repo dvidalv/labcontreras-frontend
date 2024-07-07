@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom';
 import { useAppContext } from '../../contexts/MyContext';
 import {
 	getMedicos,
-	getFileMakerToken,
 	getPublicaciones,
 } from '../../utils/api';
 import { useEffect } from 'react';
