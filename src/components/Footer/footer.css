@@ -21,7 +21,7 @@
 		gap: 5px;
 		width: 100%;
 		justify-content: space-evenly;
-		align-items: center;
+		align-items: flex-start;
 
 		.info {
 			display: flex;

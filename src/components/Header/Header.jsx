@@ -84,11 +84,11 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					<div className="datos">
 						<div className="info">
 							<img src={pin} alt="pin" className="header-icons" />
-							<span>Calle Juan Bautista Pérez No. 2</span>
+							<span>Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</span>
 						</div>
 						<div className="info">
 							<img src={phone} alt="phone" className="header-icons" />
-							<span>Tel. 809-580-1429</span>
+							<span>Tel. (809)-580-1429</span>
 						</div>
 						<div className="info">
 							<img src={mail} alt="mail" className="header-icons" />
