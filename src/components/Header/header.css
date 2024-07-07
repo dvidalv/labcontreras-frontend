@@ -45,6 +45,7 @@
 	}
 }
 
+
 .header__info-compania {
 	display: flex;
 	align-items: center;
@@ -57,14 +58,19 @@
 			height: 100%;
 			width: 120px;
 			padding: 10px;
+
+				width: 150px;
+
 		}
 	}
 
 	.datos {
 		display: none;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: center;
 		height: 100%;
+		width: 160px;
+		gap: 8px;
 
 		.info {
 			display: flex;

@@ -4,6 +4,12 @@ import mail from '../../images/mail.svg';
 import facebook from '../../images/facebook.svg';
 import instagram from '../../images/instagram.svg';
 import './footer.css';
+
+function getCurrentYear() {
+	const currentYear = new Date().getFullYear();
+	return currentYear;
+}
+
 function Footer() {
 	return (
 		<footer className="footer">
@@ -32,8 +38,11 @@ function Footer() {
 				</a>
 			</div>
 			<div className="derechos">
+				<p>
+					Desarrollado por Giganet Services SRL
+				</p>
 				<span>
-					© 2021 Laboratorio de Patología Contreras Robledo. Todos los derechos
+					© {getCurrentYear()} Laboratorio de Patología Contreras Robledo. Todos los derechos
 					reservados.
 				</span>
 			</div>
