@@ -22,12 +22,13 @@ function RenderPdf({ pdfUrl, titulo, descripcion }) {
 				<div
 					style={{
 						position: 'absolute',
-						top: 0,
-						left: 0,
+						top: 18,
+						left: 15,
 						width: '100%',
-						// backgroundColor: 'rgba(0, 0, 0, 0.7)',
+						// backgroundColor: 'red',
 						color: 'white',
-						padding: '8px 10px',
+						// padding: '8px 10px',
+						// height: '36px',
 						zIndex: 1,
 						wordWrap: 'break-word',
 						textAlign: 'left',
@@ -73,8 +74,8 @@ function RenderPdf({ pdfUrl, titulo, descripcion }) {
 				<div
 					style={{
 						position: 'absolute',
-						bottom: 0,
-						left: 0,
+						bottom:5,
+						left: 5,
 						width: '100%',
 						// backgroundColor: 'rgba(0, 0, 0, 0.7)',
 						color: 'white',
