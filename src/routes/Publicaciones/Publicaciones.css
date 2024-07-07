@@ -1,5 +1,5 @@
 .publicaciones__title{
-	background-color: #080808;
+	background-color: #7f4d8c;
 	color: white;
 	padding: 10px;
 	/* margin: 10px; */
@@ -15,6 +15,7 @@
 	justify-content: center;
 	gap: 15px;
 	padding-top: 20px;
+	background-color: #000;
 	
 	@media (min-width: 768px) {
 		gap: 50px;

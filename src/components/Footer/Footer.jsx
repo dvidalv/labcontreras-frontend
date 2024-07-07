@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import pin from '../../images/pin.svg';
 import phone from '../../images/telefono.svg';
 import mail from '../../images/mail.svg';
@@ -11,6 +13,34 @@ function getCurrentYear() {
 }
 
 function Footer() {
+	const derechosRef = useRef(null);
+	const controls = useAnimation();
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						controls.start({ x: 0, opacity: 1 });
+					} else {
+						controls.start({ x: '-100%', opacity: 0 });
+					}
+				});
+			},
+			{ threshold: 0.1 }
+		);
+
+		if (derechosRef.current) {
+			observer.observe(derechosRef.current);
+		}
+
+		return () => {
+			if (derechosRef.current) {
+				observer.unobserve(derechosRef.current);
+			}
+		};
+	}, [controls]);
+
 	return (
 		<footer className="footer">
 			<div className="info-compania">
@@ -37,10 +67,14 @@ function Footer() {
 					<img src={instagram} alt="instagram" />
 				</a>
 			</div>
-			<div className="derechos">
-				<p className="animate__animated animate__backInLeft">
+			<div className="derechos" ref={derechosRef}>
+				<motion.p
+					initial={{ x: '-100%', opacity: 0 }}
+					animate={controls}
+					transition={{ type: 'spring', stiffness: 100, damping: 10 }}
+				>
 					Desarrollado por Giganet Services SRL
-				</p>
+				</motion.p>
 				<span>
 					© {getCurrentYear()} Laboratorio de Patología Contreras Robledo. Todos los derechos
 					reservados.
