@@ -11,10 +11,7 @@ import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../contexts/MyContext';
-import {
-	getMedicos,
-	getPublicaciones,
-} from '../../utils/api';
+import { getMedicos, getPublicaciones } from '../../utils/api';
 import { useEffect } from 'react';
 import 'animate.css';
 import Publicaciones from '../Publicaciones/Publicaciones';
@@ -178,7 +175,13 @@ function Main() {
 			</section>
 			{user && user?.role === 'admin' && (
 				<section className="publicaciones">
-					{errorFetchPublicaciones ? <p style={{ color: 'red', textAlign: 'center', fontSize: '1rem' }}>Error al cargar las publicaciones</p> : <Publicaciones publicaciones={publicaciones} />}
+					{errorFetchPublicaciones ? (
+						<p style={{ color: 'red', textAlign: 'center', fontSize: '1rem' }}>
+							Error al cargar las publicaciones
+						</p>
+					) : (
+						<Publicaciones publicaciones={publicaciones} />
+					)}
 				</section>
 			)}
 		</main>
