@@ -8,21 +8,28 @@ function Publicaciones({ publicaciones = [] }) {
 	// console.log('publicaciones')
 	const [pdfUrls, setPdfUrls] = useState([]);
 	const [loading, setLoading] = useState(false);
-	console.log(pdfUrls);
+	// console.log(pdfUrls);
 
 	useEffect(() => {
-		const fetchPdf = async (PDF, titulo, descripcion) => {
+		const fetchPdf = async (PDF, titulo, descripcion, primaryKey) => {
 			setLoading(true);
 			const pdf = await getPdf(PDF);
-			setPdfUrls((prevUrls) => [{ pdf, titulo, descripcion }, ...prevUrls]);
+			
+			if(!pdf) {
+				setLoading(false);
+				console.log('No hay pdf');
+				return;
+			}
+
+			setPdfUrls((prevUrls) => [{ pdf, titulo, descripcion, primaryKey }, ...prevUrls]);
 			setLoading(false);
 		};
 		publicaciones.forEach((publicacion) => {
-			console.log('publicacion', publicacion);
+			// console.log('publicacion', publicacion);
 			const {
-				fieldData: { PDF, titulo, descripcion },
+				fieldData: { PDF, titulo, descripcion, primaryKey},
 			} = publicacion;
-			fetchPdf(PDF, titulo, descripcion);
+			fetchPdf(PDF, titulo, descripcion, primaryKey);
 		});
 	}, [publicaciones]);
 
@@ -31,7 +38,7 @@ function Publicaciones({ publicaciones = [] }) {
 			<h1 className="publicaciones__title">PUBLICACIONES</h1>
 			<div className="publicaciones__container">
 				{pdfUrls.length > 0 ? (
-					pdfUrls.map(({ pdf, titulo, descripcion }, index) => <RenderPdf key={index} pdfUrl={pdf} titulo={titulo} descripcion={descripcion} />)
+					pdfUrls.map(({ pdf, titulo, descripcion, primaryKey }, index) => <RenderPdf key={index} pdfUrl={pdf} titulo={titulo} descripcion={descripcion} primaryKey={primaryKey} />)
 				) : (
 					<p>{loading ? 'Cargando publicaciones...' : 'No hay publicaciones'}</p>
 				)}

@@ -21,12 +21,12 @@ import Publicaciones from '../Publicaciones/Publicaciones';
 
 function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
-
+	const [errorFetchPublicaciones, setErrorFetchPublicaciones] = useState(false);
 	const { setMedicos, medicos, user } = useAppContext();
 
 	// console.log(publicaciones);
 
-	console.log('Main component rendered');
+	// console.log('Main component rendered');
 
 	useEffect(() => {
 		const fetchMedicos = async () => {
@@ -46,6 +46,7 @@ function Main() {
 				} = dataPublicaciones;
 				setPublicaciones(data);
 			} catch (error) {
+				setErrorFetchPublicaciones(true);
 				console.error('Error fetching publicaciones:', error);
 			}
 		};
@@ -177,7 +178,7 @@ function Main() {
 			</section>
 			{user && user?.role === 'admin' && (
 				<section className="publicaciones">
-					<Publicaciones publicaciones={publicaciones} />
+					{errorFetchPublicaciones ? <p style={{ color: 'red', textAlign: 'center', fontSize: '1rem' }}>Error al cargar las publicaciones</p> : <Publicaciones publicaciones={publicaciones} />}
 				</section>
 			)}
 		</main>

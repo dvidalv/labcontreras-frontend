@@ -1,13 +1,19 @@
-import { Worker, Viewer, Position } from '@react-pdf-viewer/core';
+import { useNavigate } from 'react-router-dom';
+import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import PropTypes from 'prop-types';
 
-function RenderPdf({ pdfUrl, titulo, descripcion }) {
+function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey }) {
+	const navigate = useNavigate();
+	function handleClick(primaryKey) {
+		navigate(`/publicaciones/${primaryKey}`);
+	}
 	return (
 		<Worker
 			style={{ position: 'relative' }}
 			workerUrl={`https://unpkg.com/pdfjs-dist@3.11/build/pdf.worker.min.js`}
+
 		>
 			<div
 				style={{
@@ -17,6 +23,8 @@ function RenderPdf({ pdfUrl, titulo, descripcion }) {
 					border: '1px solid rgba(0, 0, 0, 0.3)',
 					padding: '10px', // padding alrededor del Viewer
 					boxSizing: 'border-box', // incluye el padding en el tamaño total
+					backgroundColor: 'rgba(0, 0, 0, 0.8)',
+					cursor: 'pointer',
 				}}
 			>
 				<div
@@ -27,13 +35,10 @@ function RenderPdf({ pdfUrl, titulo, descripcion }) {
 						width: '100%',
 						// backgroundColor: 'red',
 						color: 'white',
-						// padding: '8px 10px',
-						// height: '36px',
 						zIndex: 1,
 						wordWrap: 'break-word',
 						textAlign: 'left',
 						fontSize: '10px',
-						// textTransform: 'uppercase',
 						textOverflow: 'ellipsis',
 						overflow: 'hidden',
 						whiteSpace: 'nowrap',
@@ -68,6 +73,10 @@ function RenderPdf({ pdfUrl, titulo, descripcion }) {
 							height: '100%',
 							backgroundColor: 'transparent',
 							zIndex: 2,
+							cursor: 'pointer',
+						}}
+						onClick={() => {
+							handleClick(primaryKey);
 						}}
 					></div>
 				</div>

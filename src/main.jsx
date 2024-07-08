@@ -38,6 +38,7 @@ import { loader as userDashBoardLoader } from './routes/Forms/UserDashBoard/User
 
 import Resultados from './routes/Resultados/Resultados.jsx';
 import Publicaciones from './routes/Publicaciones/Publicaciones.jsx';
+import Publicacion from './routes/Publicaciones/Publicacion.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
 			{
 				path: 'publicaciones/',
 				element: <Publicaciones />,
+			},
+			{
+				path: 'publicaciones/:id',
+				element: <Publicacion />,
 			},
 			{
 				path: 'medicos/',
