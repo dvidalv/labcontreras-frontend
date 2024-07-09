@@ -88,11 +88,11 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						</div>
 						<div className="info">
 							<img src={phone} alt="phone" className="header-icons" />
-							<span>Tel. (809)-580-1429</span>
+							<span>Tel. (809) 580-1429</span>
 						</div>
 						<div className="info">
 							<img src={mail} alt="mail" className="header-icons" />
-							<span>labcontreras@gmail.com</span>
+							<span>info@contrerasrobledo.com.do</span>
 						</div>
 					</div>
 				</div>

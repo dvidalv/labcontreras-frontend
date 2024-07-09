@@ -194,7 +194,7 @@ export const getPublicaciones = async () => {
 	// console.log(response);
 	return response.json();
 };
-		// Verificar si el token ha expirado
+// Verificar si el token ha expirado
 export const isTokenExpired = () => {
 	const now = new Date();
 	const tokenTimestamp = localStorage.getItem('tokenTimestamp');
@@ -204,9 +204,9 @@ export const isTokenExpired = () => {
 	// console.log(`Tiempo restante: ${minutesRemaining} minutos`);
 	return timeElapsed > 900000;
 };
-		
+
 export const getPdf = async (url) => {
-	const response = await fetch(`${API_URL}/api/pdf`, {
+	const response = await fetch(`${API_URL}/publicaciones/pdf`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -216,8 +216,8 @@ export const getPdf = async (url) => {
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
-	const pdfBlob = await response.blob()
-	const pdf = URL.createObjectURL(pdfBlob)
+	const pdfBlob = await response.blob();
+	const pdf = URL.createObjectURL(pdfBlob);
 	// console.log(pdfUrl)
-	return pdf
-}
+	return pdf;
+};

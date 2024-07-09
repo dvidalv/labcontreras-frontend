@@ -51,7 +51,7 @@ function Footer() {
 					</div>
 					<div className="info">
 						<img src={phone} alt="phone" className="icons-footer" />
-						<span>Tel. (809)-580-1429</span>
+						<span>Tel. (809) 580-1429</span>
 					</div>
 					<div className="info">
 						<img src={mail} alt="mail" className="icons-footer" />

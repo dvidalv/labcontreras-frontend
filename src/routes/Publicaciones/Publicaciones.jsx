@@ -24,7 +24,7 @@ function Publicaciones({ publicaciones = [] }) {
 			setPdfUrls((prevUrls) => [{ pdf, titulo, descripcion, primaryKey }, ...prevUrls]);
 			setLoading(false);
 		};
-		publicaciones.forEach((publicacion) => {
+		publicaciones.map((publicacion) => {
 			// console.log('publicacion', publicacion);
 			const {
 				fieldData: { PDF, titulo, descripcion, primaryKey},

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
 import { useAppContext } from '../../contexts/MyContext';
@@ -32,13 +33,11 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
 					</NavLink>
 				</li>
 
-				{user && user?.role === 'admin' && (
-					<li className="navbar__item">
-						<NavLink to="/publicaciones" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
-							Publicaciones
+				{/* <li className="navbar__item">
+					<NavLink to="/publicaciones" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
+						Publicaciones
 					</NavLink>
-				</li>
-				)}
+				</li> */}
 
 				<li className="navbar__item">
 					<NavLink to="/contact" className="navbar__link" style={{ color: color }} onClick={() => setIsMenuOpen(false)}>
