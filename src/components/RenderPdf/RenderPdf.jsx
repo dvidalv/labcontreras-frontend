@@ -52,7 +52,7 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 				<div
 					style={{
 						position: 'relative',
-						height: 'calc(100% - 50px)', // ajusta la altura para el padding y el espacio del header y footer
+						height: wf ? '100%' : 'calc(100% - 50px)', // ajusta la altura para el padding y el espacio del header y footer
 						width: '100%',
 						marginTop: wf ? '0px' : '25px', // espacio para el header
 						marginBottom: wf ? '0px' : '25px', // espacio para el footer
@@ -83,7 +83,7 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 						}}
 					></div>}
 				</div>
-				<div
+				{<div
 					style={{
 						position: 'absolute',
 						bottom: 5,
@@ -92,7 +92,7 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 						// backgroundColor: 'rgba(0, 0, 0, 0.7)',
 						color: 'white',
 						textAlign: 'left',
-						padding: '10px 10px 10px 10px',
+						padding: wf ? '0px' : '10px 10px 10px 10px',
 						zIndex: 1,
 						fontSize: '10px',
 						textTransform: 'uppercase',
@@ -102,7 +102,7 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 					}}
 				>
 					{titulo}
-				</div>
+				</div>}
 				<div
 					style={{
 						position: 'absolute',
