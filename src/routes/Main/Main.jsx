@@ -173,17 +173,16 @@ function Main() {
 					</ul>
 				</div>
 			</section>
-			{user && user?.role === 'admin' && (
-				<section id="publicaciones" className="publicaciones">
-					{errorFetchPublicaciones ? (
-						<p style={{ color: 'red', textAlign: 'center', fontSize: '1rem' }}>
-							Error al cargar las publicaciones
-						</p>
-					) : (
-						<Publicaciones publicaciones={publicaciones} />
-					)}
-				</section>
-			)}
+
+			<section id="publicaciones" className="publicaciones">
+				{errorFetchPublicaciones ? (
+					<p style={{ color: 'red', textAlign: 'center', fontSize: '1rem' }}>
+						Error al cargar las publicaciones
+					</p>
+				) : (
+					<Publicaciones publicaciones={publicaciones} />
+				)}
+			</section>
 		</main>
 	);
 }
