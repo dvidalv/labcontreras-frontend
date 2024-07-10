@@ -189,9 +189,19 @@ export const getPublicaciones = async () => {
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		// body: JSON.stringify({ }),
+
 	});
 	// console.log(response);
+	return response.json();
+};
+
+export const getPublicacion = async (id) => {
+	const response = await fetch(`${API_URL}/publicaciones/${id}`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
 	return response.json();
 };
 // Verificar si el token ha expirado

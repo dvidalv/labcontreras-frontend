@@ -1,7 +1,7 @@
 .publicacion {
 	margin-top: var(--header-height-mobil);
 	width: 100%;
-	height: calc(100vh - var(--header-height-mobile) - var(--footer-height));
+	/* height: calc(100vh - var(--header-height-mobile) - var(--footer-height)); */
 	background-color: #000;
 
 

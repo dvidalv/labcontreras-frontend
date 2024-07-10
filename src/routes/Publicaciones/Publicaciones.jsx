@@ -14,6 +14,7 @@ function Publicaciones({ publicaciones = [] }) {
 		const fetchPdf = async (PDF, titulo, descripcion, primaryKey) => {
 			setLoading(true);
 			const pdf = await getPdf(PDF);
+			// console.log(pdf);
 			
 			if(!pdf) {
 				setLoading(false);
@@ -51,7 +52,7 @@ Publicaciones.propTypes = {
 	publicaciones: PropTypes.arrayOf(
 		PropTypes.shape({
 			fieldData: PropTypes.shape({
-				primaryKey: PropTypes.string.isRequired,
+				primaryKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 				titulo: PropTypes.string.isRequired,
 				PDF: PropTypes.string.isRequired,
 			}).isRequired,
