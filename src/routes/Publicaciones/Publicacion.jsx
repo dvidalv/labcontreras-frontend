@@ -41,7 +41,6 @@ console.log(publicacion);
 
 	return (
 		<div className="publicacion">
-			<h1>Publicacion</h1>
 			{publicacion ? (
 				<RenderPdf pdfUrl={publicacion.pdf} description={publicacion.descripcion} title={publicacion.titulo} fecha={publicacion.fecha} wf={true} />
 			) : (

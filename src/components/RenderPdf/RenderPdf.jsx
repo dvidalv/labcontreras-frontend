@@ -19,10 +19,10 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 			<div
 				style={{
 					position: 'relative',
-					height: wf ? '92%' : '350px',
+					height: wf ? '100%' : '350px',
 					width: wf ? '' : '250px',
 					border: '1px solid rgba(0, 0, 0, 0.3)',
-					padding: '10px', // padding alrededor del Viewer
+					padding: wf ? '0px' : '10px', // padding alrededor del Viewer
 					boxSizing: 'border-box', // incluye el padding en el tamaño total
 					backgroundColor: 'rgba(0, 0, 0, 0.8)',
 					cursor: wf ? 'default' : 'pointer',
@@ -54,8 +54,8 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 						position: 'relative',
 						height: 'calc(100% - 50px)', // ajusta la altura para el padding y el espacio del header y footer
 						width: '100%',
-						marginTop: '25px', // espacio para el header
-						marginBottom: '25px', // espacio para el footer
+						marginTop: wf ? '0px' : '25px', // espacio para el header
+						marginBottom: wf ? '0px' : '25px', // espacio para el footer
 						zIndex: 1,
 						border: '1px solid rgba(0, 0, 0, 0.3)',
 						borderRadius: '10px',
@@ -103,7 +103,7 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 				>
 					{titulo}
 				</div>
-				{/* <div
+				<div
 					style={{
 						position: 'absolute',
 						top: 0,
@@ -112,7 +112,7 @@ function RenderPdf({ pdfUrl, titulo, descripcion, primaryKey, fecha, wf }) {
 						height: '100%',
 						backgroundColor: 'rgba(0, 0, 0, 0.5)', // tono opaco
 					}}
-				></div> */}
+				></div>
 			</div>
 		</Worker>
 	);
