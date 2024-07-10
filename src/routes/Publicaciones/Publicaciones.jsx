@@ -11,7 +11,7 @@ function Publicaciones({ publicaciones = [] }) {
 	// console.log(pdfUrls);
 
 	useEffect(() => {
-		const fetchPdf = async (PDF, titulo, descripcion, primaryKey) => {
+		const fetchPdf = async (PDF, titulo, descripcion, primaryKey, fecha) => {
 			setLoading(true);
 			const pdf = await getPdf(PDF);
 			// console.log(pdf);
@@ -22,15 +22,15 @@ function Publicaciones({ publicaciones = [] }) {
 				return;
 			}
 
-			setPdfUrls((prevUrls) => [{ pdf, titulo, descripcion, primaryKey }, ...prevUrls]);
+			setPdfUrls((prevUrls) => [{ pdf, titulo, descripcion, primaryKey, fecha }, ...prevUrls]);
 			setLoading(false);
 		};
 		publicaciones.map((publicacion) => {
 			// console.log('publicacion', publicacion);
 			const {
-				fieldData: { PDF, titulo, descripcion, primaryKey},
+				fieldData: { PDF, titulo, descripcion, primaryKey, fecha },
 			} = publicacion;
-			fetchPdf(PDF, titulo, descripcion, primaryKey);
+			fetchPdf(PDF, titulo, descripcion, primaryKey, fecha);
 		});
 	}, [publicaciones]);
 
@@ -39,7 +39,7 @@ function Publicaciones({ publicaciones = [] }) {
 			<h1 className="publicaciones__title">PUBLICACIONES</h1>
 			<div className="publicaciones__container">
 				{pdfUrls.length > 0 ? (
-					pdfUrls.map(({ pdf, titulo, descripcion, primaryKey }, index) => <RenderPdf key={index} pdfUrl={pdf} titulo={titulo} descripcion={descripcion} primaryKey={primaryKey} />)
+					pdfUrls.map(({ pdf, titulo, descripcion, primaryKey, fecha }, index) => <RenderPdf key={index} pdfUrl={pdf} titulo={titulo} descripcion={descripcion} primaryKey={primaryKey} fecha={fecha} />)
 				) : (
 					<p>{loading ? 'Cargando publicaciones...' : 'No hay publicaciones'}</p>
 				)}
