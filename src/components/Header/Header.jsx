@@ -34,6 +34,8 @@ const Logout = styled.a`
 	}
 `;
 
+// const medicoFoto = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
+
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const location = useLocation();
 	const {
@@ -53,7 +55,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 	const navigate = useNavigate();
 
 	let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
-	// console.log(medicoImage);
+	console.log(medicoImage);
 	if (medicoImage === '') {
 		medicoImage = medicoAvatar;
 		// console.log(medicoImage);
@@ -117,7 +119,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						</div>
 					</div>
 
-					{medicoUser?.usuario && (
+					{medicoImage && (
 						<div
 							className="medico-user"
 							style={{
