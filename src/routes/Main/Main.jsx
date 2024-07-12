@@ -21,11 +21,16 @@ function Main() {
 	const [errorFetchPublicaciones, setErrorFetchPublicaciones] = useState(false);
 	const { setMedicos, medicos, user } = useAppContext();
 
+	const gotoTop = () => {
+		window.scrollTo(0, 0);
+	};
+
 	// console.log(publicaciones);
 
 	// console.log('Main component rendered');
 
 	useEffect(() => {
+		gotoTop();
 		const fetchMedicos = async () => {
 			try {
 				const data = await getMedicos();

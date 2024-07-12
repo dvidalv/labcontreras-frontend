@@ -80,7 +80,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
 				<div className="header__info-compania">
-					<Link to="/">
+					<Link to="/" onClick={() => window.scrollTo(0, 0)}>
 						<img src={logo} alt="logo LPCR" className="header-logo" />
 					</Link>
 					<div className="datos">
