@@ -14,7 +14,7 @@ function Cards({
 	telefono,
 	celular,
 	curriculumUrl,
-	id,
+	especialidad,
 }) {
 	const navigate = useNavigate();
 	const [isFlipped, setIsFlipped] = useState(false);
@@ -29,7 +29,8 @@ function Cards({
 			<div className={`card ${isFlipped ? 'is-flipped' : ''}`}>
 				<div className="card__face card__face--front">
 					<img src={imagen} alt={nombre} />
-					<p>{nombre}</p>
+					<p className="card__face__front__name">{nombre}</p>
+					<p className="card__face__front__specialty">{especialidad}</p>
 				</div>
 				<div className="card__face card__face--back">
 					<div className="card__back__info">

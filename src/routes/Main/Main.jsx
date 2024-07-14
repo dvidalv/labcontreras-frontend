@@ -20,6 +20,7 @@ function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
 	const [errorFetchPublicaciones, setErrorFetchPublicaciones] = useState(false);
 	const { setMedicos, medicos, user } = useAppContext();
+	console.log(medicos);
 
 	const gotoTop = () => {
 		window.scrollTo(0, 0);
@@ -94,6 +95,7 @@ function Main() {
 									celular={medico.celular}
 									curriculumUrl={`curriculum/`}
 									id={medico._id}
+									especialidad={medico.especialidad}
 								/>
 							</li>
 						))}
