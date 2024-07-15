@@ -84,12 +84,12 @@ function Publicaciones({ publicaciones = [] }) {
 								>
 									<p
 										style={{
-											fontSize: '12px',
+											fontSize: '16px',
 											fontWeight: 'normal',
 											textAlign: 'center',
-											textOverflow: 'ellipsis',
+											whitespace: 'nowrap',
 											overflow: 'hidden',
-											whiteSpace: 'wrap',
+											textOverflow: 'ellipsis',
 										}}
 									>
 										{titulo}
