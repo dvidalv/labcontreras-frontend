@@ -18,9 +18,16 @@
 	background-color: #000;
 	gap: 50px;
 
-	@media (max-width: 768px) {
+	@media (max-width: 512px) {
 		grid-template-columns: repeat(1, minmax(0, 250px));
 		padding: 40px;
 		gap: 40px;
 	}
+
+	@media (min-width: 512px) and (max-width: 1024px) {
+		grid-template-columns: repeat(2, minmax(0, 250px));
+		padding: 40px;
+		gap: 40px;
+	}
+
 }
