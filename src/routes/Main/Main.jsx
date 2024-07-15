@@ -20,7 +20,7 @@ function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
 	const [errorFetchPublicaciones, setErrorFetchPublicaciones] = useState(false);
 	const { setMedicos, medicos, user } = useAppContext();
-	console.log(medicos);
+	// console.log(medicos);
 
 	const gotoTop = () => {
 		window.scrollTo(0, 0);

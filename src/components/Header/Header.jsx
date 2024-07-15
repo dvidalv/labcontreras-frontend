@@ -55,7 +55,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 	const navigate = useNavigate();
 
 	let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
-	console.log(medicoImage);
+	// console.log(medicoImage);
 	if (medicoImage === '') {
 		medicoImage = medicoAvatar;
 		// console.log(medicoImage);
