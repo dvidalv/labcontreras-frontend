@@ -2,7 +2,7 @@ import './PdfCard.css';
 import PropTypes from 'prop-types';
 import PdfWiewer from '../RenderPdf/PdfWiewer.jsx';
 
-const PdfCard = (pdf) => {
+const PdfCard = ({ pdf, title, description, date, primaryKey }) => {
 	// console.log(pdf)
 	// const data = { url: pdf }
 	// console.log(data)
@@ -18,6 +18,9 @@ const PdfCard = (pdf) => {
 PdfCard.propTypes = {
 	pdf: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	date: PropTypes.string.isRequired,
+	primaryKey: PropTypes.string.isRequired,
 };
 
 export default PdfCard;

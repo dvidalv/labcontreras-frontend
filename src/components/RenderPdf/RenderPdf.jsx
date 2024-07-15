@@ -40,7 +40,7 @@ RenderPdf.propTypes = {
 	pdfUrl: PropTypes.string.isRequired,
 	titulo: PropTypes.string, // Add this if 'titulo' is also a prop
 	descripcion: PropTypes.string, // Add this if 'descripcion' is also a prop
-	primaryKey: PropTypes.string, // Add this if 'primaryKey' is also a prop
+	primaryKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Accept both string and number
 	fecha: PropTypes.string.isRequired, // Add 'fecha' to propTypes
 };
 
