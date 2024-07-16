@@ -36,7 +36,9 @@ function Publicaciones({ publicaciones = [] }) {
 			const {
 				fieldData: { PDF, titulo, descripcion, primaryKey, fecha },
 			} = publicacion;
-			fetchPdf(PDF, titulo, descripcion, primaryKey, fecha);
+			if (PDF !== '') {
+				fetchPdf(PDF, titulo, descripcion, primaryKey, fecha);
+			}
 		});
 	}, [publicaciones]);
 

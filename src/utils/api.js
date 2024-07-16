@@ -183,7 +183,7 @@ export const getResultadosByName = async (token, name, medicoId) => {
 };
 
 export const getPublicaciones = async () => {
-	// console.log(token);
+
 	const response = await fetch(`${API_URL}/publicaciones`, {
 		method: 'POST',
 		headers: {
