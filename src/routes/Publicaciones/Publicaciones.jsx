@@ -89,9 +89,10 @@ function Publicaciones({ publicaciones = [] }) {
 											fontSize: '16px',
 											fontWeight: 'normal',
 											textAlign: 'center',
-											whitespace: 'nowrap',
+											whiteSpace: 'nowrap',
 											overflow: 'hidden',
 											textOverflow: 'ellipsis',
+											width: '100%', // Asegrate de que el contenedor tenga un ancho definido
 										}}
 									>
 										{titulo}
