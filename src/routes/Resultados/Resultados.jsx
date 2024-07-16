@@ -273,7 +273,7 @@ function Resultados() {
 													target={Url_Resultado === '' ? '_self' : '_blank'}
 													style={{
 														pointerEvents:
-															Url_Resultado === '' ? 'none' : 'auto',
+															Url_Resultado === '' ? 'none' : DEUDA > 0 ? 'none' : 'auto',
 														color: DEUDA > 0 ? '#d2caca' : 'auto',
 													}}
 												>
