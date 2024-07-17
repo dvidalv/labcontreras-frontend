@@ -1,7 +1,6 @@
-import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
-import { useAppContext } from '../../contexts/MyContext';
+
 // eslint-disable-next-line react/prop-types
 function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user}) {
 	// console.log(user);

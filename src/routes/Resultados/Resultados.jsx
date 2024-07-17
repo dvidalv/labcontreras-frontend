@@ -243,8 +243,9 @@ function Resultados() {
 										Nombre_Completo,
 										ID,
 										Url_Resultado,
+										webReady
 									} = record;
-									// console.log(DEUDA);
+									// console.log(webReady);
 							
 
 									return (
@@ -252,7 +253,7 @@ function Resultados() {
 											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
 												{FECHA_ENTRADA}
 											</td>
-											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
+											<td className={`estudio centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
 												{NUMERO_ESTUDIO_FK}
 											</td>
 											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
@@ -266,20 +267,20 @@ function Resultados() {
 												<a
 													data-id={ID}
 													download
-													href={Url_Resultado === '' ? '#' : DEUDA > 0 ? '' : Url_Resultado}
+													href={Url_Resultado === '' ? '#' : DEUDA > 0 ? '' : webReady ? Url_Resultado : '#'}
 													className={`resultados__table__descargar__link ${
 														DEUDA > 0 ? 'deuda' : ''
 													}`}
 													target={Url_Resultado === '' ? '_self' : '_blank'}
 													style={{
 														pointerEvents:
-															Url_Resultado === '' ? 'none' : DEUDA > 0 ? 'none' : 'auto',
-														color: DEUDA > 0 ? '#d2caca' : 'auto',
+															Url_Resultado === '' ? 'none' : DEUDA > 0 || !webReady ? 'none' : 'auto',
+														color: DEUDA > 0 || !webReady ? '#d2caca' : 'auto',
 													}}
 												>
 													{/* {DEUDA > 0 ? '' : Url_Resultado ? 'Descargar' : ''} */}
 													<img
-														src={DEUDA > 0 ? pdfIconGris : Url_Resultado === '' ? pdfIconGris : pdfIcon}
+														src={DEUDA > 0 || !webReady ? pdfIconGris : Url_Resultado === '' ? pdfIconGris : pdfIcon}
 														alt="PDF Icon"
 													/>
 												</a>

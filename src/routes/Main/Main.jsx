@@ -56,7 +56,7 @@ function Main() {
 
 		fetchMedicos();
 		fetchPublicaciones();
-	}, []);
+	}, [setMedicos]);
 
 	return (
 		<main className="page">
