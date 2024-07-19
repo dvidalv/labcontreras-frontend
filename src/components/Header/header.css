@@ -69,8 +69,8 @@
 		flex-direction: column;
 		justify-content: center;
 		height: 100%;
-		width: 250px;
-		gap: 8px;
+		width: 325px;
+		gap: 5px;
 
 		.info {
 			display: flex;
@@ -78,16 +78,24 @@
 			align-items: center;
 			span {
 				color: var(--color-black);
-				font-size: 0.5rem;
+				font-size: 12px;
 				font-weight: 400;
 			}
 		}
 
 		img {
-			width: 12px;
-			height: 12px;
+			width: 15px;
+			height: 15px;
 			margin-right: 10px;
 			color: var(--color-primary);
+
+			&:hover {
+				transform: scale(1.1);
+				color: var(--color-primary);
+				transition: all 0.3s;
+				cursor: pointer;
+				color: red;
+			}
 		}
 	}
 
