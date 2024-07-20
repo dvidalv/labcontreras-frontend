@@ -300,7 +300,7 @@ function Resultados() {
 						</h2>
 						<p className="resultados__table__no_records__subtitle">
 							Solo presiona buscar para ver los resultados o escribe un nombre y
-							preciona buscar
+							presiona buscar
 						</p>
 					</div>
 				)}
