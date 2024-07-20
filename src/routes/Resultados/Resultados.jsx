@@ -194,7 +194,7 @@ function Resultados() {
 						<div className="resultados__form__input">
 							<input
 								type="text"
-								placeholder="Presione ENTER o escriba el nombre del paciente"
+								placeholder="Presione ENTER o escriba el nombre del paciente aqui"
 								{...register('search')}
 							/>
 							{errors.search && (
