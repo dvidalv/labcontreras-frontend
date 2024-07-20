@@ -299,8 +299,8 @@ function Resultados() {
 								: 'No hay resultados'}
 						</h2>
 						<p className="resultados__table__no_records__subtitle">
-							Solo presiona buscar para ver los resultados o escribe un nombre y
-							presiona buscar
+							Solo presione buscar para ver los resultados o escriba un nombre y
+							presione buscar
 						</p>
 					</div>
 				)}
