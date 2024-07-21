@@ -3,7 +3,7 @@
 	margin: 0 auto;
 
 	@media (min-width: 768px) {
-		padding-top: var(--header-height);
+		padding-top: calc(var(--header-height) - 16px);
 	}
 }
 .hero {

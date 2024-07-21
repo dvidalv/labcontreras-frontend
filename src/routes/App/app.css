@@ -6,12 +6,17 @@
 
 	.header{
 		grid-row: 1/2;
-		height: var(--header-height-mobile);
+		height: var(--header-height);
+
+		@media (max-width: 768px){
+			height: var(--header-height-mobile);
+		}
 	}
 	.content{
 		grid-row: 2/3;
 		margin: 0 auto;
 		width: 100%;
+		height: 100%;
 	}
 	.footer--container{
 		grid-row: 3/4;
@@ -19,6 +24,7 @@
 		width: 100%;
 		max-width: 1400px;
 		margin: 0 auto;
+		height: 100%;
 	}
 
 }

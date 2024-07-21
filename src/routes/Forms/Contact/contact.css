@@ -10,11 +10,11 @@
 .contact-container {
 	max-width: 1400px;
 	margin: 0 auto;
-	height: 100%;
 	@media (min-width: 768px) {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		padding-top: var(--header-height);
+		padding-top: calc(var(--header-height) - 16px);
 	}
 }
 

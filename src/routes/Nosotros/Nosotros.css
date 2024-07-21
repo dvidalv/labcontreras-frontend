@@ -13,7 +13,7 @@
 		'noinfo';
 
 	@media (min-width: 768px) {
-		margin-top: var(--header-height);
+		padding-top: calc(var(--header-height) - 16px);
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr;
 		grid-template-areas: 'ed noinfo';
