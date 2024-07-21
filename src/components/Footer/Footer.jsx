@@ -55,7 +55,7 @@ function Footer() {
 					</div>
 					<div className="info">
 						<img src={mail} alt="mail" className="icons-footer" />
-						<span>labcontreras@gmail.com</span>
+						<span>info@contrerasrobledo.com.do</span>
 					</div>
 				</div>
 			</div>
