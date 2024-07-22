@@ -83,11 +83,12 @@
 			}
 		}
 
-		img {
+		.header-icons {
 			width: 15px;
 			height: 15px;
 			margin-right: 10px;
-			color: var(--color-primary);
+			/* color: var(--color-primary); */
+			color: #a64a9d;
 
 			&:hover {
 				transform: scale(1.1);

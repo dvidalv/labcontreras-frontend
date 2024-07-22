@@ -14,6 +14,8 @@ import medicoAvatar from '../../images/medico-avatar.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
 import styled from 'styled-components';
+import { FaLocationDot, FaPhone } from "react-icons/fa6";
+import { IoMailOpen } from "react-icons/io5";
 
 Header.propTypes = {
 	isMenuOpen: PropTypes.bool.isRequired,
@@ -85,15 +87,15 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					</Link>
 					<div className="datos">
 						<div className="info">
-							<img src={pin} alt="pin" className="header-icons" />
+							<FaLocationDot className="header-icons" />
 							<span>Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</span>
 						</div>
 						<div className="info">
-							<img src={phone} alt="phone" className="header-icons" />
+							<FaPhone className="header-icons" />
 							<span>Tel. (809) 580-1429</span>
 						</div>
 						<div className="info">
-							<img src={mail} alt="mail" className="header-icons" />
+							<IoMailOpen className="header-icons" />
 							<span>info@contrerasrobledo.com.do</span>
 						</div>
 					</div>

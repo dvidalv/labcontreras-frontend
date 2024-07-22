@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import pin from '../../images/pin.svg';
-import phone from '../../images/telefono.svg';
-import mail from '../../images/mail.svg';
 import facebook from '../../images/facebook.svg';
 import instagram from '../../images/instagram.svg';
 import './footer.css';
+import { FaLocationDot, FaPhone } from "react-icons/fa6";
+import { IoMailOpen } from "react-icons/io5";
 
 function getCurrentYear() {
 	const currentYear = new Date().getFullYear();
@@ -46,15 +45,18 @@ function Footer() {
 			<div className="info-compania">
 				<div className="datos">
 					<div className="info">
-						<img src={pin} alt="pin" className="icons-footer" />
+						<FaLocationDot 
+							
+							className="icons"
+						/>
 						<span>Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</span>
 					</div>
 					<div className="info">
-						<img src={phone} alt="phone" className="icons-footer" />
+						<FaPhone className="icons" />
 						<span>Tel. (809) 580-1429</span>
 					</div>
 					<div className="info">
-						<img src={mail} alt="mail" className="icons-footer" />
+						<IoMailOpen className="icons" />
 						<span>info@contrerasrobledo.com.do</span>
 					</div>
 				</div>
