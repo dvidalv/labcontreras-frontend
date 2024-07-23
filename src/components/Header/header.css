@@ -48,7 +48,7 @@
 
 .header__info-compania {
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	height: 100%;
 	
 	.header-logo {
@@ -125,7 +125,7 @@
 		justify-content: center;
 		gap: 10px;
 	}
-	
+
 	.header__user_info--medico{
 		display: flex;
 		align-items: center;
