@@ -14,8 +14,8 @@ import medicoAvatar from '../../images/medico-avatar.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
 import styled from 'styled-components';
-import { FaLocationDot, FaPhone } from "react-icons/fa6";
-import { IoMailOpen } from "react-icons/io5";
+import { FaLocationDot, FaPhone } from 'react-icons/fa6';
+import { IoMailOpen } from 'react-icons/io5';
 
 Header.propTypes = {
 	isMenuOpen: PropTypes.bool.isRequired,
@@ -51,6 +51,8 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		medicoUser,
 		setMedicoUser,
 	} = useAppContext();
+
+	console.log(medicoUser);
 
 	const [isMenuFixed] = useState(false);
 
@@ -119,19 +121,21 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								</Link>
 							)}
 						</div>
+						{medicoImage && (
+							<div className="header__user_info--medico">
+								<div
+									className="medico-user"
+									style={{
+										backgroundImage: `url(${medicoImage})`,
+										backgroundSize: 'cover',
+										backgroundPosition: 'center',
+										backgroundRepeat: 'no-repeat',
+									}}
+								></div>
+								<span style={{ fontSize: '8px', color: 'black' }}>{`${medicoUser.nombre} ${medicoUser.apellido}`}</span>
+							</div>
+						)}
 					</div>
-
-					{medicoImage && (
-						<div
-							className="medico-user"
-							style={{
-								backgroundImage: `url(${medicoImage})`,
-								backgroundSize: 'cover',
-								backgroundPosition: 'center',
-								backgroundRepeat: 'no-repeat',
-							}}
-						></div>
-					)}
 
 					<div className={`header__login ${isMenuOpen ? 'open' : ''}`}>
 						<div

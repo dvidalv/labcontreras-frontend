@@ -118,6 +118,44 @@
 		gap: 20px;
 	
 	}
+
+	.header__user_info{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+	
+	.header__user_info--medico{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.medico-user{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		/* position:absolute;
+		top: 18px;
+		right: 50px; */
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background-color: #7f7a817a;
+		border: 1px solid #7f7a81;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media (max-width: 768px) {
+			top: 16px;
+			right: 70px;
+			width: 35px;
+			height: 35px;
+		}
+	}
 }
 .header__user_info--user a {
 	display: flex;
