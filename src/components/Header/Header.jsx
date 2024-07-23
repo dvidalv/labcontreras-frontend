@@ -52,7 +52,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		setMedicoUser,
 	} = useAppContext();
 
-	console.log(medicoUser);
+	// console.log(medicoUser);
 
 	const [isMenuFixed] = useState(false);
 
