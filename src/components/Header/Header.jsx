@@ -3,9 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
 import logo from '../../images/logo.svg';
-import pin from '../../images/pin.svg';
-import phone from '../../images/telefono.svg';
-import mail from '../../images/mail.svg';
 import login from '../../images/login.svg';
 import login2 from '../../images/login-2.svg';
 import logout from '../../images/logout.svg';
@@ -48,7 +45,6 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		fileMakerToken,
 		setFileMakerToken,
 		setUser,
-		medicoUser,
 		setMedicoUser,
 	} = useAppContext();
 
@@ -58,10 +54,16 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 
 	const navigate = useNavigate();
 
-	let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
+	// let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
+
+	const medicodata = {
+		nombre: JSON.parse(localStorage.getItem('medicoUser'))?.nombre,
+		apellido: JSON.parse(localStorage.getItem('medicoUser'))?.apellido,
+		foto: JSON.parse(localStorage.getItem('medicoUser'))?.foto,
+	}
 	// console.log(medicoImage);
-	if (medicoImage === '') {
-		medicoImage = medicoAvatar;
+	if (medicodata.foto === '') {
+		medicodata.foto = medicoAvatar;
 		// console.log(medicoImage);
 	}
 	// console.log(medicoUser);
@@ -121,18 +123,18 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								</Link>
 							)}
 						</div>
-						{medicoImage && (
+						{medicodata.foto && (
 							<div className="header__user_info--medico">
 								<div
 									className="medico-user"
 									style={{
-										backgroundImage: `url(${medicoImage})`,
+										backgroundImage: `url(${medicodata.foto})`,
 										backgroundSize: 'cover',
 										backgroundPosition: 'center',
 										backgroundRepeat: 'no-repeat',
 									}}
 								></div>
-								<span style={{ fontSize: '8px', color: 'black' }}>{`${medicoUser.nombre} ${medicoUser.apellido}`}</span>
+								<span style={{ fontSize: '8px', color: 'black' }}>{`${medicodata.nombre} ${medicodata.apellido}`}</span>
 							</div>
 						)}
 					</div>
