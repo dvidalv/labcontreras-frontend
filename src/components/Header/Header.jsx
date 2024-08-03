@@ -33,8 +33,6 @@ const Logout = styled.a`
 	}
 `;
 
-// const medicoFoto = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
-
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const location = useLocation();
 	const {
@@ -53,8 +51,6 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 	const [isMenuFixed] = useState(false);
 
 	const navigate = useNavigate();
-
-	// let medicoImage = JSON.parse(localStorage.getItem('medicoUser'))?.foto;
 
 	const medicodata = {
 		nombre: JSON.parse(localStorage.getItem('medicoUser'))?.nombre,

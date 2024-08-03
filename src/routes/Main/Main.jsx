@@ -42,8 +42,16 @@ function Main() {
 		};
 
 		const fetchPublicaciones = async () => {
+			const tiempoTranscurridoEnMinutos =
+				(Date.now() - localStorage.getItem('tokenTimestamp')) / 60000;
+			console.log(tiempoTranscurridoEnMinutos);
 			try {
 				const dataPublicaciones = await getPublicaciones();
+				// console.log(dataPublicaciones.messages[0].message);
+				if (dataPublicaciones.messages[0].message === 'OK') {
+					localStorage.setItem('tokenTimestamp', Date.now());
+				}
+				// console.log(localStorage.getItem('tokenTimestamp'));
 				const {
 					response: { data },
 				} = dataPublicaciones;

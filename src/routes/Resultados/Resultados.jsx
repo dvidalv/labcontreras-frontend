@@ -19,6 +19,7 @@ function Resultados() {
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const { fileMakerToken, setFileMakerToken, medicoUser } = useAppContext();
+	// console.log(medicoUser);
 
 	// console.log(records);
 	const schema = z.object({
@@ -44,17 +45,12 @@ function Resultados() {
 		setLoading(true);
 		const fetchToken = async () => {
 			try {
-				// console.log(fileMakerToken);
-				// console.log(isTokenExpired());
+
 				if (!fileMakerToken || isTokenExpired()) {
-					// console.log('No hay token');
-					// console.log(isTokenExpired());
+
 					const response = await getFileMakerToken();
-					// console.log(response);
+
 					const res = await response;
-					// console.log(res.error);
-					// console.log(response.messages[0].message);
-					// console.log(response);
 
 					if (response.error === 'Service Unavailable') {
 						throw new Error(
@@ -132,7 +128,7 @@ function Resultados() {
 				// console.log('Buscando todos los registros');
 				setLoading(true);
 				// console.log(data)
-				const resultados = await getResultados(fileMakerToken, medicoId);
+				const resultados = await getResultados(fileMakerToken, medicoId, medicoUser.centroExterno);
 				// console.log(resultados);
 				const {
 					response: { data },
@@ -158,7 +154,7 @@ function Resultados() {
 				setLoading(true);
 				const token = fileMakerToken;
 				const name = data.search;
-				const resultados = await getResultadosByName(token, name, medicoId);
+				const resultados = await getResultadosByName(token, name, medicoId, medicoUser.centroExterno);
 				// console.log(resultados.messages[0].code);
 				const {
 					response: { data: responseData },

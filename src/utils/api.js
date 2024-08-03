@@ -159,25 +159,25 @@ export const getFileMakerToken = async () => {
 	}
 };
 
-export const getResultados = async (token, medicoId) => {
-	// console.log(token);
+export const getResultados = async (token, medicoId, centroExterno) => {
+	// console.log(medicoId, centroExterno);
 	const response = await fetch(`${API_URL}/resultados/records`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ token, medicoId }),
+		body: JSON.stringify({ token, medicoId, centroExterno }),
 	});
 	return response.json();
 };
 
-export const getResultadosByName = async (token, name, medicoId) => {
+export const getResultadosByName = async (token, name, medicoId, centroExterno) => {
 	const response = await fetch(`${API_URL}/resultados/record/`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ token, name, medicoId }),
+		body: JSON.stringify({ token, name, medicoId, centroExterno }),
 	});
 	return response.json();
 };
@@ -191,7 +191,7 @@ export const getPublicaciones = async () => {
 		},
 
 	});
-	// console.log(response);
+
 	return response.json();
 };
 
@@ -206,9 +206,9 @@ export const getPublicacion = async (id) => {
 };
 // Verificar si el token ha expirado
 export const isTokenExpired = () => {
-	const now = new Date();
-	const tokenTimestamp = localStorage.getItem('tokenTimestamp');
-	const timeElapsed = now.getTime() - tokenTimestamp;
+	const now = new Date(); // Obtener la fecha actual
+	const tokenTimestamp = localStorage.getItem('tokenTimestamp'); // Obtener el timestamp del token
+	const timeElapsed = now.getTime() - tokenTimestamp; // Calcular el tiempo transcurrido desde el ltimo token
 	const timeRemaining = 900000 - timeElapsed; // 15 minutos en milisegundos
 	const minutesRemaining = Math.floor(timeRemaining / 60000);
 	// console.log(`Tiempo restante: ${minutesRemaining} minutos`);
