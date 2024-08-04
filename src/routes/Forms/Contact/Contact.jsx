@@ -4,12 +4,24 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contact } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
+import lpcrPic from '../../../images/nosotros-edificio.png';
 import { useAppContext } from '../../../contexts/MyContext';
-import Map from '../../../components/Map/Map';
 import './contact.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import {
+	APIProvider,
+	Map as GoogleMap,
+	AdvancedMarker,
+	Pin,
+	InfoWindow,
+} from '@vis.gl/react-google-maps';
 
 function Contact() {
+	const [isOpen, setIsOpen] = useState(false);
+	const position = {
+		lat: 19.460539803163936,
+		lng: -70.68068279789057,
+	};
 	const location = 'contact';
 	const schema = z.object({
 		email: z.string().email(),
@@ -63,7 +75,65 @@ function Contact() {
 
 	return (
 		<div className="contact-container">
-			<Map />
+			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+				<div className="map-container">
+					<GoogleMap
+						id="map"
+						zoom={18}
+						center={position}
+						mapId={import.meta.env.VITE_MAP_ID}
+						options={{
+							gestureHandling: 'greedy',
+						}}
+					>
+						<AdvancedMarker position={position} onClick={() => setIsOpen(true)}>
+							<Pin
+								background={'purple'}
+								borderColor={'black'}
+								glyphColor={'red'}
+							/>
+						</AdvancedMarker>
+						{isOpen && (
+							<InfoWindow
+								position={position}
+								onClose={() => setIsOpen(false)}
+								options={{
+									opacity: 0.5,
+								}}
+								style={{
+									backgroundColor: 'white',
+									borderRadius: '10px',
+									padding: '10px',
+									color: 'black',
+									width: '150px',
+									height: '180px',
+								}}
+							>
+								<a
+									href="https://maps.app.goo.gl/rTL6Gqw5wddR9xNK8"
+									target="_blank"
+									rel="noopener noreferrer"
+									title="Laboratorio de Patología Contreras Robledo"
+								>
+									<div
+										style={{
+											width: '100%',
+											height: '100px',
+											color: 'black',
+											backgroundImage: `url(${lpcrPic})`,
+											backgroundSize: 'cover',
+											backgroundPosition: 'center',
+											backgroundRepeat: 'no-repeat',
+											borderRadius: '10px',
+										}}
+									></div>
+								</a>
+								<p>Laboratorio de Patología Contreras Robledo</p>
+							</InfoWindow>
+						)}
+					</GoogleMap>
+				</div>
+			</APIProvider>
 			<div className="form-container">
 				<h1>Contáctanos</h1>
 				<p>Si tienes alguna duda o necesitas ayuda, no dudes en contactarnos</p>
