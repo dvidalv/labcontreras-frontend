@@ -75,7 +75,7 @@ function Contact() {
 
 	return (
 		<div className="contact-container">
-			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API}>
 				<div className="map-container">
 					<GoogleMap
 						id="map"
