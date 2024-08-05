@@ -19,8 +19,8 @@ import {
 function Contact() {
 	const [isOpen, setIsOpen] = useState(false);
 	const position = {
-		lat: 19.460539803163936,
-		lng: -70.68068279789057,
+		lat: 19.46041468707586,
+		lng: -70.68062997202419,
 	};
 	const location = 'contact';
 	const schema = z.object({
@@ -78,8 +78,7 @@ function Contact() {
 			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API}>
 				<div className="map-container">
 					<GoogleMap
-						id="map"
-						zoom={18}
+						zoom={20}
 						center={position}
 						mapId={import.meta.env.VITE_MAP_ID}
 						options={{
@@ -90,7 +89,7 @@ function Contact() {
 							<Pin
 								background={'purple'}
 								borderColor={'black'}
-								glyphColor={'red'}
+								glyphColor={'white'}
 							/>
 						</AdvancedMarker>
 						{isOpen && (
