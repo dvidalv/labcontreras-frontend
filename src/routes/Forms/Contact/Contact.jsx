@@ -81,8 +81,11 @@ function Contact() {
 						zoom={20}
 						center={position}
 						mapId={import.meta.env.VITE_MAP_ID}
+						gestureHandling="greedy"
 						options={{
-							gestureHandling: 'greedy',
+							zoomControl: false,
+							scrollwheel: false,
+							disableDoubleClickZoom: false,
 						}}
 					>
 						<AdvancedMarker position={position} onClick={() => setIsOpen(true)}>
