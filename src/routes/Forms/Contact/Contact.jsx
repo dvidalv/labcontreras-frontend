@@ -135,7 +135,7 @@ function Contact() {
 				</div>
 			</APIProvider>
 			<div className="form-container">
-				<h1>CONTCTANOS</h1>
+				<h1>CONTACTANOS</h1>
 				<p>Si tienes alguna duda o necesitas ayuda, no dudes en contactarnos</p>
 				<Form
 					id="contact-form"
