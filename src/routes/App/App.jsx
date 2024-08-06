@@ -26,7 +26,7 @@ function App() {
 
 	if (location.pathname === '/resultados') {
 		style = {
-			maxWidth: '1400px',
+			// maxWidth: '1400px',
 			backgroundImage: `url(${number === 1 ? background1 : background2})`,
 			backgroundSize: 'cover',
 			backgroundPosition: 'center',
@@ -34,12 +34,12 @@ function App() {
 		};
 	} else  {
 		style = {
-			maxWidth: '1400px',
+			// maxWidth: '1400px',
 		};
 	}
 	
 	return (
-		<div className="page__content">
+		<div className="page__content contenedor">
 			<Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
 			<div

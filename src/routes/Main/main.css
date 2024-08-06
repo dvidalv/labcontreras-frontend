@@ -1,5 +1,5 @@
 .page {
-	max-width: 1400px;
+	/* max-width: 1400px; */
 	margin: 0 auto;
 
 	@media (min-width: 768px) {
@@ -196,16 +196,5 @@
 	}
 }
 
-.publicaciones{
-	/* padding-bottom: 20px; */
-	max-width: 1400px;
-	margin: 0 auto;
-	font-family: 'Poppins', sans-serif;
 
-	h2{
-		color: white;
-		background-color: #911db987;
-		padding: 20px;
-	}
-}
 

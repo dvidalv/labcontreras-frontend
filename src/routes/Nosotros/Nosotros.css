@@ -1,6 +1,7 @@
 .nosotros {
-	max-width: 1400px;
+	/* max-width: 1400px; */
 	margin: 0 auto;
+	height: 100%;
 	background-color: var(--color-white);
 	margin-top: var(--header-height-mobil);
 	display: grid;
@@ -35,8 +36,8 @@
 		object-fit: cover;
 		@media (min-width: 768px){
 			/* margin-bottom: 140px; */
-			width: 60%;
-			height: 60%;
+			/* width: 60%;
+			height: 60%; */
 			
 
 		}

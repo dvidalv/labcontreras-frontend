@@ -79,7 +79,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 
 	// console.log(medicoUser);
 	return (
-		<header className={`header ${isMenuOpen ? 'open' : ''}`}>
+		<header className={`contenedor header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
 				<div className="header__info-compania">
 					<Link to="/" onClick={() => window.scrollTo(0, 0)}>
