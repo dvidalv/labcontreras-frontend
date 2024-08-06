@@ -10,7 +10,7 @@
 }
 .publicaciones__title{
 	background-color: var(--color-secondary);
-	color: #cdcbcb;
+	color: var(--color-white);
 	padding: 10px;
 	/* margin: 10px; */
 	/* border-radius: 10px; */
