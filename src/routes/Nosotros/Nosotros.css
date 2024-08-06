@@ -36,8 +36,8 @@
 		object-fit: cover;
 		@media (min-width: 768px){
 			/* margin-bottom: 140px; */
-			/* width: 60%;
-			height: 60%; */
+			width: 70%;
+			height: 70%;
 			
 
 		}
@@ -55,7 +55,6 @@
 	align-items: center;
 
 	h2 {
-		color: var(--color-primary);
 		font-size: 2rem;
 		margin-bottom: 1rem;
 	}

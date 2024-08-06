@@ -24,7 +24,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		color: var(--color-black);
+		color: var(--font-color);
 		font-size: 16px;
 		padding: 5px;
 		border-radius: 5px;

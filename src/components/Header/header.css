@@ -8,7 +8,6 @@
 	-moz-transition: all 0.5s;
 	-ms-transition: all 0.5s;
 	-o-transition: all 0.5s;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	margin: 0 auto;
 	left: 50%;
 	transform: translateX(-50%);
@@ -75,7 +74,6 @@
 			justify-content: flex-start;
 			align-items: center;
 			span {
-				color: var(--color-black);
 				font-size: 12px;
 				font-weight: 400;
 			}

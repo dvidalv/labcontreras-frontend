@@ -14,8 +14,8 @@
 	background-repeat: no-repeat;
 }
 .services {
-	background-color: var(--color-dark);
-	color: var(--color-light);
+	/* background-color: var(--color-dark); */
+	color: var(--color-black);
 	padding: 20px 0;
 
 	p {
@@ -55,6 +55,7 @@
 
 	.services__list {
 		padding: 0 20px;
+		color: var(--color-black);
 	}
 
 	.services__item {
@@ -91,10 +92,10 @@
 .about {
 	/* width: 100%; */
 	transition: all 0.5s;
-	background-color: var(--color-gris);
-	color: var(--color-dark);
+	/* background-color: var(--color-gris); */
+
 	padding: 20px 10px;
-	background-image: url('../../images/background-_aboutUs.svg');
+	/* background-image: url('../../images/background-_aboutUs.svg'); */
 	background-position: bottom;
 	background-repeat: no-repeat;
 	overflow: hidden;
@@ -175,7 +176,7 @@
 
 .seguros {
 	padding-top: 20px;
-	background-color: var(--color-gris);
+	/* background-color: var(--color-gris); */
 	color: var(--color-dark);
 	text-align: center;
 
