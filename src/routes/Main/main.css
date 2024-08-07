@@ -138,8 +138,8 @@
 	}
 	.about__link {
 		text-decoration: none;
-		color: var(--color-dark);
-		background-color: var(--color-light);
+		color: var(--color-white);
+		/* background-color: var(--color-light); */
 		padding: 10px 20px;
 		border-radius: 8px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -147,11 +147,12 @@
 		position: absolute;
 		top: 80px;
 		right: 10px;
+		background-color: var(--color-primary-light);
 
 		&:hover {
 			transform: scale(1.05);
 			transform: translateY(-10px);
-			background-color: var(--color-secondary);
+			background-color: var(--color-primary);
 			box-shadow: 3px 3px 20px 2px rgba(255, 255, 255, 0.2);
 			color: var(--color-light);
 		}
@@ -179,13 +180,15 @@
 	/* background-color: var(--color-gris); */
 	color: var(--color-dark);
 	text-align: center;
+	max-width: 60%;
+	margin: 0 auto;
 
 
 	ul {
 		padding: 20px;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: space-evenly;
 		gap: 10px;
 	}
 

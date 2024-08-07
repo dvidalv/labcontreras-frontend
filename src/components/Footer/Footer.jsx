@@ -44,20 +44,26 @@ function Footer() {
 		<footer className="footer">
 			<div className="info-compania">
 				<div className="datos">
-					<div className="info">
-						<FaLocationDot 
+					<div>
+						<a className="info" href="https://maps.app.goo.gl/Ehop7VTXqgbqtkbn8" target="_blank" rel="noreferrer">
+							<FaLocationDot 
 							
 							className="icons"
 						/>
 						<span>Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</span>
+						</a>
 					</div>
 					<div className="info">
+						<a className="info" href="tel:8095801429">
 						<FaPhone className="icons" />
 						<span>Tel. (809) 580-1429</span>
+						</a>
 					</div>
 					<div className="info">
+						<a className="info" href="mailto:info@contrerasrobledo.com.do">
 						<IoMailOpen className="icons" />
 						<span>info@contrerasrobledo.com.do</span>
+						</a>
 					</div>
 				</div>
 			</div>
