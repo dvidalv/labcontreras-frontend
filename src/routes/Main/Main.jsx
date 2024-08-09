@@ -15,6 +15,7 @@ import { getMedicos, getPublicaciones } from '../../utils/api';
 import { useEffect } from 'react';
 import 'animate.css';
 import Publicaciones from '../Publicaciones/Publicaciones';
+import { FaWhatsapp } from "react-icons/fa";
 
 function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
@@ -197,6 +198,11 @@ function Main() {
 				) : (
 					<Publicaciones publicaciones={publicaciones} />
 				)}
+			</section>
+			<section className="whatsapp">
+				<a href="https://wa.me/6825602093" target="_blank" rel="noreferrer">
+					<FaWhatsapp className="icons" />
+				</a>
 			</section>
 		</main>
 	);
