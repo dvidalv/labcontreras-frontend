@@ -88,15 +88,15 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					<div className="datos">
 						<div className="info">
 							<FaLocationDot className="header-icons" />
-							<span>Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</span>
+							<a href="https://maps.app.goo.gl/Ehop7VTXqgbqtkbn8" target="_blank" rel="noreferrer">Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</a>
 						</div>
 						<div className="info">
 							<FaPhone className="header-icons" />
-							<span>Tel. (809) 580-1429</span>
+							<a href="tel:8095801429">Tel. (809) 580-1429</a>
 						</div>
 						<div className="info">
 							<IoMailOpen className="header-icons" />
-							<span>info@contrerasrobledo.com.do</span>
+							<a href="mailto:info@contrerasrobledo.com.do">informacion@contrerasrobledo.com.do</a>
 						</div>
 					</div>
 				</div>
