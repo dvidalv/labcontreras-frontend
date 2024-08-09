@@ -201,8 +201,8 @@
 }
 .whatsapp {
 	position: fixed;
-	bottom: 20px;
-	right: 20px;
+	bottom: 15px;
+	right: 10px;
 	background-color: #25D366;
 	padding: 10px;
 	border-radius: 50%;
@@ -213,11 +213,14 @@
 		transform: scale(1.05);
 		transform: translateY(-10px);
 		background-color: #25D366;
+
+
 	}
 
 	.icons {
-		font-size: 2rem;
+		font-size: 1.2rem;
 		color: white;
+		
 	}
 }
 
