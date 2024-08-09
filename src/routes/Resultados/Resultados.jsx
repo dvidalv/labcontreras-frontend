@@ -15,6 +15,8 @@ import {
 import Preloader from '../../components/Preloader/Preloader';
 import { useAppContext } from '../../contexts/MyContext';
 
+import WhatsApp from '../../components/WhatsApp/WhatsApp';
+
 function Resultados() {
 	const [records, setRecords] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -301,6 +303,7 @@ function Resultados() {
 					</div>
 				)}
 			
+			<WhatsApp />
 			</div>
 		</>
 	);

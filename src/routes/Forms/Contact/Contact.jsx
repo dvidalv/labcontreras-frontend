@@ -6,6 +6,7 @@ import { contact } from '../../../utils/api';
 import Tooltip from '../../../components/ToolTip/Tooltip';
 import lpcrPic from '../../../images/nosotros-edificio.png';
 import { useAppContext } from '../../../contexts/MyContext';
+import WhatsApp from '../../../components/WhatsApp/WhatsApp';
 import './contact.css';
 import { useEffect, useState } from 'react';
 import {
@@ -199,6 +200,7 @@ function Contact() {
 					</div>
 				)}
 			</div>
+			<WhatsApp />
 		</div>
 	);
 }

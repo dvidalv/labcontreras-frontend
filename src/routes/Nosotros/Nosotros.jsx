@@ -2,6 +2,8 @@ import './Nosotros.css';
 import nosotrosGroup from '../../images/nosotros1-group.png';
 import edificioPrinciapal from '../../images/nosotros-edificio.png';
 import { useEffect } from 'react';
+import WhatsApp from '../../components/WhatsApp/WhatsApp';
+
 function Nosotros() {
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -23,6 +25,7 @@ function Nosotros() {
 					</div>
 				</div>
 			</div>
+			<WhatsApp />
 		</div>
 	);
 }
