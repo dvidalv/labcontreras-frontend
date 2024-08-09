@@ -200,7 +200,7 @@ function Main() {
 				)}
 			</section>
 			<section className="whatsapp">
-				<a href="https://wa.me/8097135665" target="_blank" rel="noreferrer">
+				<a href="https://wa.me/18097135665" target="_blank" rel="noreferrer">
 					<FaWhatsapp className="icons" />
 				</a>
 			</section>
