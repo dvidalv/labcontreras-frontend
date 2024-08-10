@@ -21,7 +21,7 @@ function Publicaciones({ publicaciones = [] }) {
 
 			if (!pdf) {
 				setLoading(false);
-				console.log('No hay pdf');
+				// console.log('No hay pdf');
 				return;
 			}
 
@@ -46,89 +46,129 @@ function Publicaciones({ publicaciones = [] }) {
 		<>
 			<h1 className="publicaciones__title">PUBLICACIONES</h1>
 			<div className="publicaciones__container">
-				{pdfUrls.length > 0 ? (
-					pdfUrls.map(
-						({ pdf, titulo, descripcion, primaryKey, fecha }, index) => (
-							<div
-								key={index}
-								style={{
-									margin: '0 auto',
-									border: '1px solid #ccc',
-									width: '100%',
-									height: '400px',
-									overflow: 'hidden',
-									// margin: '10px',
-									borderRadius: '10px',
-									backgroundColor: '#f0f0f0',
-									// padding: '10px',
-								}}
-							>
-								<RenderPdf
-									pdfUrl={pdf}
-									titulo={titulo}
-									descripcion={descripcion}
-									primaryKey={primaryKey}
-									fecha={fecha}
-								/>
-								<footer
+				<h2>Más recientes</h2>
+				<div className="publicaciones__pdf">
+					{pdfUrls.length > 0 ? (
+						pdfUrls.map(
+							({ pdf, titulo, descripcion, primaryKey, fecha }, index) => (
+								<div
+									key={index}
 									style={{
-										display: 'flex',
-										flexDirection: 'column',
-										justifyContent: 'center',
-										alignItems: 'center',
-										backgroundColor: '#ccc',
-										width: '100%',
-										height: '100px',
-										padding: '10px',
-										color: '#000',
 										margin: '0 auto',
+										border: '1px solid #cccccc3d',
+										width: '100%',
+										height: '400px',
+										overflow: 'hidden',
+										// margin: '10px',
+										borderRadius: '10px',
+										// backgroundColor: '#f0f0f0',
+										// padding: '10px',
+										boxShadow: 'rgb(0 0 0 / 32%) 5px 5px 4px 1px',
 									}}
 								>
-									<p
+									<RenderPdf
+										pdfUrl={pdf}
+										titulo={titulo}
+										descripcion={descripcion}
+										primaryKey={primaryKey}
+										fecha={fecha}
+									/>
+									<footer
 										style={{
-											fontSize: '16px',
-											fontWeight: 'normal',
-											textAlign: 'center',
-											whiteSpace: 'nowrap',
-											overflow: 'hidden',
-											textOverflow: 'ellipsis',
-											width: '100%', // Asegrate de que el contenedor tenga un ancho definido
-										}}
-									>
-										{titulo}
-									</p>
-									<span
-										style={{
-											fontSize: '12px',
-											fontWeight: 'bold',
-											cursor: 'pointer',
-											alignSelf: 'center',
 											display: 'flex',
-											alignItems: 'center',
+											flexDirection: 'column',
 											justifyContent: 'center',
-											gap: '5px',
-										}}
-										onClick={() => {
-											navigate(`/publicaciones/${primaryKey}`);
+											alignItems: 'center',
+											backgroundColor: '#f6f6f6',
+											width: '100%',
+											height: '100px',
+											padding: '10px',
+											color: '#000',
+											margin: '0 auto',
 										}}
 									>
-										Leer mas{' '}
-										<img
-											src={arrowRight}
-											alt="arrow-right"
-											style={{ width: '15px', height: '15px' }}
-										/>
-										
-									</span>
-								</footer>
-							</div>
+										<p
+											style={{
+												fontSize: '16px',
+												fontWeight: 'normal',
+												textAlign: 'center',
+												whiteSpace: 'nowrap',
+												overflow: 'hidden',
+												textOverflow: 'ellipsis',
+												width: '100%', // Asegrate de que el contenedor tenga un ancho definido
+											}}
+										>
+											{titulo}
+										</p>
+										<span
+											style={{
+												fontSize: '12px',
+												fontWeight: 'bold',
+												cursor: 'pointer',
+												alignSelf: 'center',
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+												gap: '5px',
+											}}
+											onClick={() => {
+												navigate(`/publicaciones/${primaryKey}`);
+											}}
+										>
+											Leer mas{' '}
+											<img
+												src={arrowRight}
+												alt="arrow-right"
+												style={{ width: '15px', height: '15px' }}
+											/>
+										</span>
+									</footer>
+								</div>
+							)
 						)
-					)
-				) : (
-					<p>
-						{loading ? 'Cargando publicaciones...' : 'No hay publicaciones'}
-					</p>
-				)}
+					) : (
+						<p>
+							{loading ? 'Cargando publicaciones...' : 'No hay publicaciones'}
+						</p>
+					)}
+				</div>
+				<div className="publicaciones__sidebar">
+					<div className="publicaciones__sidebar__title">
+						<h2>Publicaciones Anteriores</h2>
+						<form className="publicaciones__sidebar__form">
+							<input
+								type="text"
+								placeholder="Buscar"
+								className="publicaciones__sidebar__form__input"
+							/>
+							<button
+								type="submit"
+								className="publicaciones__sidebar__form__button"
+							>
+								Buscar
+							</button>
+						</form>
+					</div>
+					<div className="publicaciones__sidebar__list">
+						<ul>
+							<a href="/publicaciones/1">
+								<li>Placas Neurógenas Subgemales Hiperplásicas</li>
+							</a>
+							<a href="/publicaciones/2">
+								<li>
+									Transformación de Micosis Fungoide a Linfoma de Células Grandes
+									T.
+								</li>
+							</a>
+							<a href="/publicaciones/3">
+								<li>
+									Citometría de Flujo con estandarización de EuroFlow para el
+									diagnóstico de Mieloma Múltiple en pacientes jóvenes
+								</li>
+							</a>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</>
 	);

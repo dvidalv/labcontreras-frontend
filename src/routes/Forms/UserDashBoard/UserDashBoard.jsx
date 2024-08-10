@@ -167,7 +167,7 @@ function UserDashBoard() {
 					return;
 				}
 				const newMedico = { name, email, tel };
-				console.log(newMedico);
+				// console.log(newMedico);
 			}
 		});
 	};

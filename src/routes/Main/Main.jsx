@@ -45,7 +45,7 @@ function Main() {
 		const fetchPublicaciones = async () => {
 			const tiempoTranscurridoEnMinutos =
 				(Date.now() - localStorage.getItem('tokenTimestamp')) / 60000;
-			console.log(tiempoTranscurridoEnMinutos);
+			// console.log(tiempoTranscurridoEnMinutos);
 			try {
 				const dataPublicaciones = await getPublicaciones();
 				// console.log(dataPublicaciones.messages[0].message);

@@ -27,7 +27,7 @@ function EditMedico() {
 	const data = useLoaderData();
 	const [medicoData, setMedicoData] = useState(data.medico || {});
 
-	console.log(medicoData);
+	// console.log(medicoData);
 
 	const {
 		message,

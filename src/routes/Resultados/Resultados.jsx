@@ -95,8 +95,8 @@ function Resultados() {
 		const refreshTokenIfNeeded = async () => {
 			// console.log(isTokenExpired());
 			if (!fileMakerToken || isTokenExpired()) {
-				console.log('Entra en refreshTokenIfNeeded');
-				console.log('Refresco el token');
+				// console.log('Entra en refreshTokenIfNeeded');
+				// console.log('Refresco el token');
 				try {
 					setLoading(true);
 					const fileMakerToken = await getFileMakerToken();
@@ -107,13 +107,13 @@ function Resultados() {
 					localStorage.setItem('tokenTimestamp', new Date().getTime());
 					localStorage.setItem('fileMakerToken', newToken);
 				} catch (error) {
-					console.log(1);
+					// console.log(1);
 					setError('root', {
 						type: 'manual',
 						message: 'Error al obtener el token',
 					});
 				} finally {
-					console.log(2);
+					// console.log(2);
 					setLoading(false);
 				}
 			}

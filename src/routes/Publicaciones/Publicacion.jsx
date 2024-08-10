@@ -9,7 +9,7 @@ function Publicacion() {
 	const [publicacion, setPublicacion] = useState(null);
 	const [pdf, setPdf] = useState(null);
 
-console.log(publicacion);
+// console.log(publicacion);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
