@@ -1,12 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import './Publicaciones.css';
 import PropTypes from 'prop-types';
 import { getPdf } from '../../utils/api.js';
 import RenderPdf from '../../components/RenderPdf/RenderPdf.jsx';
 import arrowRight from '../../images/arrow-right.svg';
 
+const searchSchema = z.object({
+	search: z.string().optional(),
+});
+
 function Publicaciones({ publicaciones = [] }) {
+	// console.log('publicaciones', publicaciones);
+	const lastThree = publicaciones.slice(0, 3);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting, isSubmitted, isValid },
+	} = useForm({
+		resolver: zodResolver(searchSchema),
+		mode: 'onChange',
+		defaultValues: {
+			search: '',
+		},
+	});
+
+	const handleSearch = async (data) => {
+
+
+	};
 	// console.log('publicaciones')
 	const navigate = useNavigate();
 	const [pdfUrls, setPdfUrls] = useState([]);
@@ -31,7 +56,7 @@ function Publicaciones({ publicaciones = [] }) {
 			]);
 			setLoading(false);
 		};
-		publicaciones.map((publicacion) => {
+		lastThree.map((publicacion) => {
 			// console.log('publicacion', publicacion);
 			const {
 				fieldData: { PDF, titulo, descripcion, primaryKey, fecha },
@@ -135,37 +160,30 @@ function Publicaciones({ publicaciones = [] }) {
 				<div className="publicaciones__sidebar">
 					<div className="publicaciones__sidebar__title">
 						<h2>Publicaciones Anteriores</h2>
-						<form className="publicaciones__sidebar__form">
+						<form className="publicaciones__sidebar__form" onSubmit={handleSubmit(handleSearch)}>
 							<input
+								{...register('search')}
+								name="search"
 								type="text"
 								placeholder="Buscar"
 								className="publicaciones__sidebar__form__input"
 							/>
 							<button
+								disabled={isSubmitting}
 								type="submit"
 								className="publicaciones__sidebar__form__button"
 							>
-								Buscar
+								{isSubmitting ? 'Buscando...' : 'Buscar'}
 							</button>
 						</form>
 					</div>
 					<div className="publicaciones__sidebar__list">
 						<ul>
-							<a href="/publicaciones/1">
-								<li>Placas Neurógenas Subgemales Hiperplásicas</li>
-							</a>
-							<a href="/publicaciones/2">
-								<li>
-									Transformación de Micosis Fungoide a Linfoma de Células Grandes
-									T.
-								</li>
-							</a>
-							<a href="/publicaciones/3">
-								<li>
-									Citometría de Flujo con estandarización de EuroFlow para el
-									diagnóstico de Mieloma Múltiple en pacientes jóvenes
-								</li>
-							</a>
+							{publicaciones.slice(3).map((publicacion) => (
+								<a href={`/publicaciones/${publicacion.fieldData.primaryKey}`} key={publicacion.fieldData.primaryKey}>
+									<li>{publicacion.fieldData.titulo}</li>
+								</a>
+							))}
 						</ul>
 					</div>
 				</div>

@@ -57,6 +57,7 @@ function Main() {
 					response: { data },
 				} = dataPublicaciones;
 				setPublicaciones(data);
+				// console.log(data);
 			} catch (error) {
 				setErrorFetchPublicaciones(true);
 				console.error('Error fetching publicaciones:', error);
