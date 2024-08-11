@@ -19,6 +19,7 @@ function Publicaciones({ publicaciones = [] }) {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors, isSubmitting, isSubmitted, isValid },
 	} = useForm({
 		resolver: zodResolver(searchSchema),
@@ -29,8 +30,8 @@ function Publicaciones({ publicaciones = [] }) {
 	});
 
 	const handleSearch = async (data) => {
-
-
+		console.log(data);
+		reset();
 	};
 	// console.log('publicaciones')
 	const navigate = useNavigate();
