@@ -89,7 +89,6 @@ PublicacionesSideBar.propTypes = {
       }).isRequired,
     })
   ),
-  setPublicaciones: PropTypes.func.isRequired,
 };
 
 export default PublicacionesSideBar;
