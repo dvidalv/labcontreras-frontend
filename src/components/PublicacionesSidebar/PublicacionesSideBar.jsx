@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -65,12 +66,12 @@ function PublicacionesSideBar({ publicaciones = [] }) {
       <div className="publicaciones__sidebar__list">
         <ul>
           {displayPublicaciones.map((publicacion) => (
-            <a
-              href={`/publicaciones/${publicacion.fieldData.primaryKey}`}
+            <Link
+              to={`/publicaciones/${publicacion.fieldData.primaryKey}`}
               key={publicacion.fieldData.primaryKey}
             >
               <li>{publicacion.fieldData.titulo}</li>
-            </a>
+            </Link>
           ))}
         </ul>
       </div>
