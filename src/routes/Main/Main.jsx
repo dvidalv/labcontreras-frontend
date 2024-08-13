@@ -27,7 +27,7 @@ function Main() {
 		window.scrollTo(0, 0);
 	};
 
-	// console.log(publicaciones);
+	console.log(publicaciones);
 
 	// console.log('Main component rendered');
 
@@ -197,7 +197,7 @@ function Main() {
 						Error al cargar las publicaciones
 					</p>
 				) : (
-					<Publicaciones publicaciones={publicaciones} />
+					<Publicaciones publicaciones={publicaciones} setPublicaciones={setPublicaciones} />
 				)}
 			</section>
 			<WhatsApp />

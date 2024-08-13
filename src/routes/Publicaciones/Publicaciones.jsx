@@ -1,53 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import './Publicaciones.css';
 import PropTypes from 'prop-types';
 import { getPdf } from '../../utils/api.js';
 import RenderPdf from '../../components/RenderPdf/RenderPdf.jsx';
 import arrowRight from '../../images/arrow-right.svg';
 
-const searchSchema = z.object({
-	search: z.string().optional(),
-});
-
+import PublicacionesSideBar from '../../components/PublicacionesSidebar/PublicacionesSideBar.jsx';
+	
 function Publicaciones({ publicaciones = [] }) {
-	// console.log('publicaciones', publicaciones);
-	const lastThree = publicaciones.slice(0, 3);
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors, isSubmitting, isSubmitted, isValid },
-	} = useForm({
-		resolver: zodResolver(searchSchema),
-		mode: 'onChange',
-		defaultValues: {
-			search: '',
-		},
-	});
 
-	const handleSearch = async (data) => {
-		console.log(data);
-		reset();
-	};
-	// console.log('publicaciones')
+	const lastThree = publicaciones.slice(0, 3);
+
 	const navigate = useNavigate();
 	const [pdfUrls, setPdfUrls] = useState([]);
 	const [loading, setLoading] = useState(false);
-	// console.log(pdfUrls);
 
 	useEffect(() => {
 		const fetchPdf = async (PDF, titulo, descripcion, primaryKey, fecha) => {
 			setLoading(true);
 			const pdf = await getPdf(PDF);
-			// console.log(pdf);
 
 			if (!pdf) {
 				setLoading(false);
-				// console.log('No hay pdf');
 				return;
 			}
 
@@ -58,7 +33,6 @@ function Publicaciones({ publicaciones = [] }) {
 			setLoading(false);
 		};
 		lastThree.map((publicacion) => {
-			// console.log('publicacion', publicacion);
 			const {
 				fieldData: { PDF, titulo, descripcion, primaryKey, fecha },
 			} = publicacion;
@@ -158,36 +132,7 @@ function Publicaciones({ publicaciones = [] }) {
 						</p>
 					)}
 				</div>
-				<div className="publicaciones__sidebar">
-					<div className="publicaciones__sidebar__title">
-						<h2>Publicaciones Anteriores</h2>
-						<form className="publicaciones__sidebar__form" onSubmit={handleSubmit(handleSearch)}>
-							<input
-								{...register('search')}
-								name="search"
-								type="text"
-								placeholder="Buscar"
-								className="publicaciones__sidebar__form__input"
-							/>
-							<button
-								disabled={isSubmitting}
-								type="submit"
-								className="publicaciones__sidebar__form__button"
-							>
-								{isSubmitting ? 'Buscando...' : 'Buscar'}
-							</button>
-						</form>
-					</div>
-					<div className="publicaciones__sidebar__list">
-						<ul>
-							{publicaciones.slice(3).map((publicacion) => (
-								<a href={`/publicaciones/${publicacion.fieldData.primaryKey}`} key={publicacion.fieldData.primaryKey}>
-									<li>{publicacion.fieldData.titulo}</li>
-								</a>
-							))}
-						</ul>
-					</div>
-				</div>
+				<PublicacionesSideBar publicaciones={publicaciones} />
 			</div>
 		</>
 	);

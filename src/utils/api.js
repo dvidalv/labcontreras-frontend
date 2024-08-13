@@ -182,14 +182,14 @@ export const getResultadosByName = async (token, name, medicoId, centroExterno) 
 	return response.json();
 };
 
-export const getPublicaciones = async () => {
+export const getPublicaciones = async (data) => {
 
 	const response = await fetch(`${API_URL}/publicaciones`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-
+		body: JSON.stringify(data),
 	});
 
 	return response.json();
