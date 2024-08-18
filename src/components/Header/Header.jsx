@@ -207,7 +207,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						user={user}
 					/>
 				}
-				<div
+				{/* <div
 					className="header__login"
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
 				>
@@ -231,7 +231,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 							/>
 						</a>
 					)}
-				</div>
+				</div> */}
 			</div>
 		</header>
 	);

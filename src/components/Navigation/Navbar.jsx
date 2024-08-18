@@ -4,10 +4,25 @@ import MenuLink from '../DropDown/MenuLink';
 import PropTypes from 'prop-types';
 import './navbar.css';
 import DropDown from '../DropDown/DropDown';
+import { useAppContext } from '../../contexts/MyContext';
 
-function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user }) {
+
+const menuLinks = [
+	{ to: '/', text: 'Inicio' },
+	{ to: '#', text: 'Nosotros', submenu: true, submenuItems: [
+		{ to: '/nosotros', text: 'Historia' },
+		{ to: '/nosotros', text: 'Quienes somos' },
+		{ to: '/nosotros', text: 'Mision, vision y valores' },
+	] },
+	{ to: '/medicos', text: 'Médicos' },
+	{ to: '/resultados', text: 'Resultados' },
+	{ to: '/contact', text: 'Contacto' },
+];
+
+function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
 	const location = useLocation();
 	const [openSubmenu, setOpenSubmenu] = useState(null);
+	const { user } = useAppContext();
 
 	const handleMenuClick = (menuName) => {
 		if (openSubmenu === menuName) {
@@ -15,7 +30,6 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user }) {
 		} else {
 			setOpenSubmenu(menuName);
 		}
-		setIsMenuOpen(false);
 	};
 
 	const isActive = (path) => {
@@ -32,64 +46,50 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen, user }) {
 				className={`navbar__menu ${display ? 'display' : ''}`}
 				style={{ backgroundColor: bgColor }}
 			>
-				<MenuLink
-					isActive={isActive('/')}
-					color={color}
-					onClick={() => handleMenuClick(null)}
-					to="/"
-					text="Inicio"
-				/>
-
-				<MenuLink
-					setOpenSubmenu={setOpenSubmenu}
-					isActive={isActive('/nosotros')}
-					color={color}
-					onClick={() => handleMenuClick('nosotros')}
-					text="Nosotros"
-					isOpen={openSubmenu === 'nosotros'}
-					// to="/nosotros"
-				>
-					<DropDown
-						to="/nosotros"
-						text="Historia"
-						setOpenSubmenu={setOpenSubmenu}
-					/>
-					<DropDown
-						to="/nosotros"
-						text="Quienes somos"
-						setOpenSubmenu={setOpenSubmenu}
-					/>
-					<DropDown
-						to="/nosotros"
-						text="Mision, vision y valores"
-						setOpenSubmenu={setOpenSubmenu}
-					/>
-				</MenuLink>
-
-				{user && user?.role === 'admin' && (
-					<MenuLink
-						color={color}
-						onClick={() => handleMenuClick(null)}
-						to="/medicos"
-						text="Médicos"
-					/>
-				)}
-
-				<MenuLink
-					isActive={isActive('/resultados')}
-					color={color}
-					onClick={() => handleMenuClick(null)}
-					text="Resultados"
-					to="/resultados"
-				/>
-
-				<MenuLink
-					isActive={isActive('/contact')}
-					color={color}
-					onClick={() => handleMenuClick(null)}
-					to="/contact"
-					text="Contacto"
-				/>
+				{menuLinks.map((link) => {
+					if (!user || (user.role !== 'admin' && link.to !== '/medicos')) {
+						return (
+							<MenuLink 
+								key={link.to} 
+								{...link} 
+								isActive={isActive(link.to)}
+								isOpen={openSubmenu === link.text}
+								onClick={() => handleMenuClick(link.text)}
+								setOpenSubmenu={setOpenSubmenu}
+							>
+								{link.submenu && link.submenuItems.map((subItem) => (
+									<DropDown
+										key={subItem.to}
+										to={subItem.to}
+										text={subItem.text}
+										setOpenSubmenu={setOpenSubmenu}
+									/>
+								))}
+							</MenuLink>
+						);
+					} else if (user.role === 'admin') {
+						return (
+							<MenuLink 
+								key={link.to} 
+								{...link} 
+								isActive={isActive(link.to)}
+								isOpen={openSubmenu === link.text}
+								onClick={() => handleMenuClick(link.text)}
+								setOpenSubmenu={setOpenSubmenu}
+							>
+								{link.submenu && link.submenuItems.map((subItem) => (
+									<DropDown
+										key={subItem.to}
+										to={subItem.to}
+										text={subItem.text}
+										setOpenSubmenu={setOpenSubmenu}
+									/>
+								))}
+							</MenuLink>
+						);
+					}
+					return null;
+				})}
 			</ul>
 		</nav>
 	);
