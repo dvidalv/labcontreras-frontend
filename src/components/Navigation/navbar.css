@@ -108,5 +108,52 @@
 
 .navbar__item {
 	height: 100%;
-	/* position: relative; */
+	position: relative;
+}
+
+.dropdown {
+
+	
+	width: 180px;
+	position: absolute;
+	top: 131%;
+	left: 0;
+	background-color: var(--color-gris);
+	/* width: 150px; */
+	border-radius: 5px;
+	
+	.dropdown__item {
+		padding: 0;
+		background-color: var(--color-gris);
+		
+		li {
+			
+			width: 100%;
+			padding: 0;
+			
+			:hover {
+				transition: all .3s;
+				background-color: #b1b1b1;
+				display: block;
+				padding: 5px;
+				color: var(--color-white);
+				border-radius: 0 5px 5px 0;
+				border-left: 5px solid var(--color-secondary);
+				width: 100%;
+			}
+			
+			
+			a {
+				font-weight: 400;
+				font-size: 12px;
+				text-decoration: none;
+				color: var(--color-secondary);
+
+				:hover {
+					color: var(--color-white);
+				}
+			}
+
+		}
+	}
 }

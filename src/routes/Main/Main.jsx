@@ -27,7 +27,7 @@ function Main() {
 		window.scrollTo(0, 0);
 	};
 
-	console.log(publicaciones);
+	// console.log(publicaciones);
 
 	// console.log('Main component rendered');
 
