@@ -6,6 +6,18 @@ if (window.location.hostname === 'localhost') {
 	API_URL = 'https://labcontreras-backend.vercel.app';
 }
 
+export const menuLinks = [
+	{ to: '/', text: 'Inicio' },
+	{ to: '#', text: 'Nosotros', submenu: true, submenuItems: [
+		{ to: '/nosotros/historia', text: 'Historia' },
+		{ to: '/nosotros/quienes-somos', text: 'Quienes somos' },
+		{ to: '/nosotros/mision-vision-valores', text: 'Mision, vision y valores' },
+	] },
+	{ to: '/medicos', text: 'Médicos' },
+	{ to: '/resultados', text: 'Resultados' },
+	{ to: '/contact', text: 'Contacto' },
+];
+
 // export const FILEMAKER_URL = 'https://www.server-lpcr.com.doo';
 // export const FILEMAKER_DATABASE = 'lpcr';
 // export const FILEMAKER_LAYOUT = 'pacientes_web';

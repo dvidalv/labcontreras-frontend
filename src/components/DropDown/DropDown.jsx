@@ -1,10 +1,21 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-function DropDown({to, text, setOpenSubmenu}) {
+import './MenuLinkMobile.css';
+
+const styles = {
+	dropdown: {
+		// color: '#c0bfbf',
+		// fontSize: '14px',
+	}
+}
+
+
+function DropDown({to, text}) {
 	return (
-		<ul className="dropdown__item">
+		
+		<ul style={styles.dropdown}>
 			<li>
-				<Link to={to} className="dropdown__link" onClick={() => setOpenSubmenu(null)}>{text}</Link>
+				<Link to={to} className="dropdown__link" style={styles.dropdown}>{text}</Link>
 			</li>
 		</ul>
 	)
@@ -13,7 +24,6 @@ function DropDown({to, text, setOpenSubmenu}) {
 DropDown.propTypes = {
 	to: PropTypes.string,
 	text: PropTypes.string,
-	setOpenSubmenu: PropTypes.func.isRequired
 };
 
 export default DropDown

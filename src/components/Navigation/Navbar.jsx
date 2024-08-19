@@ -5,19 +5,8 @@ import PropTypes from 'prop-types';
 import './navbar.css';
 import DropDown from '../DropDown/DropDown';
 import { useAppContext } from '../../contexts/MyContext';
+import { menuLinks } from '../../utils/constants';
 
-
-const menuLinks = [
-	{ to: '/', text: 'Inicio' },
-	{ to: '#', text: 'Nosotros', submenu: true, submenuItems: [
-		{ to: '/nosotros', text: 'Historia' },
-		{ to: '/nosotros', text: 'Quienes somos' },
-		{ to: '/nosotros', text: 'Mision, vision y valores' },
-	] },
-	{ to: '/medicos', text: 'Médicos' },
-	{ to: '/resultados', text: 'Resultados' },
-	{ to: '/contact', text: 'Contacto' },
-];
 
 function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
 	const location = useLocation();
@@ -47,6 +36,7 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
 				style={{ backgroundColor: bgColor }}
 			>
 				{menuLinks.map((link) => {
+					// console.log(link);
 					if (!user || (user.role !== 'admin' && link.to !== '/medicos')) {
 						return (
 							<MenuLink 

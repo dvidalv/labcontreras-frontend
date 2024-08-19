@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function MenuLink({ color, onClick, to, text, children, isOpen, isActive, setOpenSubmenu }) {
+function MenuLink({
+	color,
+	onClick,
+	to,
+	text,
+	children,
+	isOpen,
+	isActive,
+	setOpenSubmenu,
+}) {
 	const onMouseLeave = () => {
 		setOpenSubmenu(null);
 	};
@@ -32,7 +41,7 @@ MenuLink.propTypes = {
 	children: PropTypes.node,
 	isOpen: PropTypes.bool,
 	isActive: PropTypes.bool,
-	setOpenSubmenu: PropTypes.func
+	setOpenSubmenu: PropTypes.func,
 };
 
 export default MenuLink;

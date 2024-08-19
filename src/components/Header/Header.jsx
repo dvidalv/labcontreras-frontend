@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './header.css';
 import logo from '../../images/logo.svg';
 import login from '../../images/login.svg';
-import login2 from '../../images/login-2.svg';
 import logout from '../../images/logout.svg';
-import logout2 from '../../images/logout-2.svg';
 import medicoAvatar from '../../images/medico-avatar.svg';
 import Navbar from '../Navigation/Navbar';
 import { useAppContext } from '../../contexts/MyContext';
@@ -14,9 +12,15 @@ import styled from 'styled-components';
 import { FaLocationDot, FaPhone } from 'react-icons/fa6';
 import { IoMailOpen } from 'react-icons/io5';
 
-Header.propTypes = {
-	isMenuOpen: PropTypes.bool.isRequired,
-	setIsMenuOpen: PropTypes.func.isRequired,
+import MenuLinkMobile from '../DropDown/MenuLinkMobile';
+import { menuLinks } from '../../utils/constants';
+import DropDown from '../DropDown/DropDown';
+
+const getViewportWidth = () => {
+	return Math.max(
+		document.documentElement.clientWidth || 0,
+		window.innerWidth || 0
+	);
 };
 
 const Login = styled.a`
@@ -34,6 +38,26 @@ const Logout = styled.a`
 `;
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
+	const [viewportWidth, setViewportWidth] = useState(getViewportWidth());
+
+	useEffect(() => {
+		const handleResize = () => {
+			setViewportWidth(getViewportWidth());
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+	
+  useEffect(() => {
+    if (viewportWidth > 768) {
+      setIsMenuOpen(false);
+    }
+	}, [viewportWidth, setIsMenuOpen]);
+	
 	const location = useLocation();
 	const {
 		token,
@@ -46,20 +70,21 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		setMedicoUser,
 	} = useAppContext();
 
+
 	// console.log(medicoUser);
 
 	const [isMenuFixed] = useState(false);
 
 	const navigate = useNavigate();
 
-	const medicodata = {
+	const medicoData = {
 		nombre: JSON.parse(localStorage.getItem('medicoUser'))?.nombre,
 		apellido: JSON.parse(localStorage.getItem('medicoUser'))?.apellido,
 		foto: JSON.parse(localStorage.getItem('medicoUser'))?.foto,
-	}
+	};
 	// console.log(medicoImage);
-	if (medicodata.foto === '') {
-		medicodata.foto = medicoAvatar;
+	if (medicoData.foto === '') {
+		medicoData.foto = medicoAvatar;
 		// console.log(medicoImage);
 	}
 	// console.log(medicoUser);
@@ -88,7 +113,13 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 					<div className="datos">
 						<div className="info">
 							<FaLocationDot className="header-icons" />
-							<a href="https://maps.app.goo.gl/Ehop7VTXqgbqtkbn8" target="_blank" rel="noreferrer">Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</a>
+							<a
+								href="https://maps.app.goo.gl/Ehop7VTXqgbqtkbn8"
+								target="_blank"
+								rel="noreferrer"
+							>
+								Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.
+							</a>
 						</div>
 						<div className="info">
 							<FaPhone className="header-icons" />
@@ -96,7 +127,9 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						</div>
 						<div className="info">
 							<IoMailOpen className="header-icons" />
-							<a href="mailto:info@contrerasrobledo.com.do">informacion@contrerasrobledo.com.do</a>
+							<a href="mailto:info@contrerasrobledo.com.do">
+								informacion@contrerasrobledo.com.do
+							</a>
 						</div>
 					</div>
 				</div>
@@ -119,18 +152,20 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								</Link>
 							)}
 						</div>
-						{medicodata.foto && (
+						{medicoData.foto && (
 							<div className="header__user_info--medico">
 								<div
 									className="medico-user"
 									style={{
-										backgroundImage: `url(${medicodata.foto})`,
+										backgroundImage: `url(${medicoData.foto})`,
 										backgroundSize: 'cover',
 										backgroundPosition: 'center',
 										backgroundRepeat: 'no-repeat',
 									}}
 								></div>
-								<span style={{ fontSize: '8px', color: 'black' }}>{`${medicodata.nombre} ${medicodata.apellido}`}</span>
+								<span
+									style={{ fontSize: '8px', color: 'black' }}
+								>{`${medicoData.nombre} ${medicoData.apellido}`}</span>
 							</div>
 						)}
 					</div>
@@ -197,44 +232,55 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 				)}
 			</div>
 			<div className={`menu-lateral ${isMenuOpen ? 'open' : ''}`}>
-				{
-					<Navbar
-						color="var(--color-white)"
-						bgColor="var(--color-trasparente)"
-						isMenuOpen={isMenuOpen}
-						display={true}
-						setIsMenuOpen={setIsMenuOpen}
-						user={user}
-					/>
-				}
-				{/* <div
-					className="header__login"
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
-				>
-					{!token && !fileMakerToken && (
-						<a href="#">
-							<img
-								onClick={() => navigate('/signin/')}
-								src={login2}
-								alt="login"
-								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+				{menuLinks.map((link) => {
+					if (link.submenu) {
+						// console.log(link.submenu);
+					}
+					if (!user || (user.role !== 'admin' && link.to !== '/medicos')) {
+						return (
+							<MenuLinkMobile
+								key={link.to}
+								to={link.to}
+								text={link.text}
+								isSubmenu={link.submenu ? true : false}
+							>
+								{link.submenu &&
+									link.submenuItems.map((subItem) => {
+										// console.log(subItem);
+										return (
+											<div
+												key={subItem.to}
+												className="container-dropdown__link"
+											>
+												<DropDown
+													// setOpenSubmenu={() => {}}
+													to={subItem.to}
+													text={subItem.text}
+												/>
+											</div>
+										);
+									})}
+							</MenuLinkMobile>
+						);
+					} else if (user.role === 'admin') {
+						return (
+							<MenuLinkMobile
+								key={link.to}
+								to={link.to}
+								text={link.text}
+								isSubmenu={link.submenu ? true : false}
 							/>
-						</a>
-					)}
-					{(token || fileMakerToken) && (
-						<a href="#">
-							<img
-								onClick={() => handleLogout()}
-								src={logout2}
-								alt="login"
-								className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-							/>
-						</a>
-					)}
-				</div> */}
+						);
+					}
+				})}
 			</div>
 		</header>
 	);
 }
+
+Header.propTypes = {
+	isMenuOpen: PropTypes.bool.isRequired,
+	setIsMenuOpen: PropTypes.func.isRequired,
+};
 
 export default Header;
