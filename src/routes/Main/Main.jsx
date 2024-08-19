@@ -85,9 +85,9 @@ function Main() {
 							proporcionar resultados precisos y oportunos para ayudar a los
 							médicos a tomar decisiones informadas.
 						</p>
-						<Link className="about__link" to="/nosotros">
+						{/* <Link className="about__link" to="/nosotros">
 							Más..
-						</Link>
+						</Link> */}
 					</div>
 
 					<h2 className="about__title">NUESTROS MÉDICOS</h2>
