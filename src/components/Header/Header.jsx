@@ -39,7 +39,7 @@ const Logout = styled.a`
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const [viewportWidth, setViewportWidth] = useState(getViewportWidth());
-
+console.log(isMenuOpen);
 	useEffect(() => {
 		const handleResize = () => {
 			setViewportWidth(getViewportWidth());

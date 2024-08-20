@@ -40,6 +40,8 @@ import Resultados from './routes/Resultados/Resultados.jsx';
 import Publicaciones from './routes/Publicaciones/Publicaciones.jsx';
 import Publicacion from './routes/Publicaciones/Publicacion.jsx';
 
+import Historia from './routes/Historia/Historia.jsx';
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -67,6 +69,10 @@ const router = createBrowserRouter([
 			{
 				path: 'nosotros/',
 				element: <Nosotros />,
+			},
+			{
+				path: 'nosotros/historia/',
+				element: <Historia />,
 			},
 			{
 				path: 'publicaciones/',
