@@ -201,7 +201,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								Logout
+								{viewportWidth > 768 ? 'Logout' : ''}
 							</Logout>
 						)}
 						{fileMakerToken && (
