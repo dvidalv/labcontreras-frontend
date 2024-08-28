@@ -39,7 +39,7 @@ const Logout = styled.a`
 
 function Header({ isMenuOpen, setIsMenuOpen }) {
 	const [viewportWidth, setViewportWidth] = useState(getViewportWidth());
-console.log(isMenuOpen);
+	console.log(isMenuOpen);
 	useEffect(() => {
 		const handleResize = () => {
 			setViewportWidth(getViewportWidth());
@@ -51,13 +51,13 @@ console.log(isMenuOpen);
 			window.removeEventListener('resize', handleResize);
 		};
 	}, []);
-	
-  useEffect(() => {
-    if (viewportWidth > 768) {
-      setIsMenuOpen(false);
-    }
+
+	useEffect(() => {
+		if (viewportWidth > 768) {
+			setIsMenuOpen(false);
+		}
 	}, [viewportWidth, setIsMenuOpen]);
-	
+
 	const location = useLocation();
 	const {
 		token,
@@ -70,8 +70,7 @@ console.log(isMenuOpen);
 		setMedicoUser,
 	} = useAppContext();
 	console.log(user);
-
-
+	console.log(isMenuOpen);
 
 	// console.log(medicoUser);
 
@@ -191,7 +190,7 @@ console.log(isMenuOpen);
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								{!isMenuOpen ? "Login" : ""}
+								{!isMenuOpen || isMenuOpen === false ? 'Login' : ''}
 							</Login>
 						)}
 						{token && !fileMakerToken && (
