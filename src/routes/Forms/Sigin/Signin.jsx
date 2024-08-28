@@ -13,7 +13,6 @@ const schema = z.object({
 });
 
 function Signin() {
-
 	//hook form
 	const {
 		register,
@@ -65,7 +64,32 @@ function Signin() {
 	}
 
 	return (
-		<div className="form-container">
+		<div className="form-container" style={{ paddingTop: '40px' }}>
+			<p
+				style={{
+					textAlign: 'center',
+					color: 'red',
+					fontSize: '14px',
+					padding: '0',
+					width: '400px',
+					margin: '0 auto',
+				}}
+			>
+				Si estas tratando de acceder a los resultados del pacientes, por favor
+				usa el siguiente enlace:
+				<a href="https://contrerasrobledo.com/medico-signin">
+					<p
+						style={{
+							color: 'blue',
+							textDecoration: 'underline',
+							margin: '0',
+							padding: '0 0 10px 0',
+						}}
+					>
+						Resultado
+					</p>
+				</a>
+			</p>
 			<h1 className="form-container__title">Ingresar</h1>
 			<Form className="form" onSubmit={handleSubmit(handleForm)}>
 				<label className="form__label" htmlFor="email">

@@ -315,7 +315,30 @@
 		}
 	}
 }
+.sc-aYaIB.cImPol{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	img{
+		margin: 0;
+	}
+}
+.sc-gEvDqW.iwUhzt{
+	margin-right: 10px;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 
+	img{
+		margin: 0;
+	}
+}
+.sc-aYaIB.cImPol{
+	margin-right: 10px;
+}
 .header__menu.open {
 	display: none;
 }

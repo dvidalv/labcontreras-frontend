@@ -46,10 +46,10 @@ function Cards({
 							<img src={phoneOffice} alt="phone" />
 							<span className="card__text telefono">{telefono}</span>
 						</div>
-						<div className="card__text__item">
+						{/* <div className="card__text__item">
 							<img src={phone} alt="celular" />
 							<span className="card__text celular">{celular}</span>
-						</div>
+						</div> */}
 					</div>
 					<div className="card__mas">
 						<a onClick={() => navigate(curriculumUrl)}>

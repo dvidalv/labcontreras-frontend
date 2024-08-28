@@ -3,11 +3,11 @@
 	margin: 0 auto;
 
 	@media (min-width: 768px) {
-		padding-top: calc(var(--header-height) - 16px);
+		/* padding-top: calc(var(--header-height) - 16px); */
 	}
 }
 .hero {
-	height: 300px;
+	height: 480px;
 	background-image: url('../../images/hero.png');
 	background-size: cover;
 	background-position: center;

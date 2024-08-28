@@ -69,6 +69,8 @@ console.log(isMenuOpen);
 		setUser,
 		setMedicoUser,
 	} = useAppContext();
+	console.log(user);
+
 
 
 	// console.log(medicoUser);
@@ -189,7 +191,7 @@ console.log(isMenuOpen);
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								Login
+								{!isMenuOpen ? "Login" : ""}
 							</Login>
 						)}
 						{token && !fileMakerToken && (

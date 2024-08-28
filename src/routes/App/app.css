@@ -17,6 +17,9 @@
 	.content{
 		grid-row: 2/3;
 		/* margin: 0 auto; */
+		@media (min-width: 768px){
+			/* padding-top: 74px; */
+		}
 		width: 100%;
 		min-height: calc(100vh - var(--header-height) - var(--footer-height) + 20px);
 	}
