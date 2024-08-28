@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAppContext } from '../../contexts/MyContext';
-import './Historia.css';
+import './MisionVisionValores.css';
 // import letyTrabajando from '../../images/lety-trabajando.jpg';
 import { FaHeart } from 'react-icons/fa';
 import { FaEye } from 'react-icons/fa6';
@@ -13,7 +13,7 @@ const getViewportWidth = () => {
 	);
 };
 
-function Historia() {
+function MisionVisionValores() {
 	const { setIsMenuOpen } = useAppContext();
 	const [viewportWidth, setViewportWidth] = useState(getViewportWidth());
 	useEffect(() => {
@@ -98,4 +98,4 @@ function Historia() {
 	);
 }
 
-export default Historia;
+export default MisionVisionValores;

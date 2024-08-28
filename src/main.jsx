@@ -40,7 +40,7 @@ import Resultados from './routes/Resultados/Resultados.jsx';
 import Publicaciones from './routes/Publicaciones/Publicaciones.jsx';
 import Publicacion from './routes/Publicaciones/Publicacion.jsx';
 
-import Historia from './routes/Historia/Historia.jsx';
+import MisionVisionValores from './routes/MisionVisionValores/MisionVisionValores.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -67,12 +67,12 @@ const router = createBrowserRouter([
 				],
 			},
 			{
-				path: 'nosotros/',
+				path: 'historia/',
 				element: <Nosotros />,
 			},
 			{
-				path: 'nosotros/historia/',
-				element: <Historia />,
+				path: 'nosotros/mision-vision-valores/',
+				element: <MisionVisionValores />,
 			},
 			{
 				path: 'publicaciones/',

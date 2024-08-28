@@ -9,8 +9,7 @@ if (window.location.hostname === 'localhost') {
 export const menuLinks = [
 	{ to: '/', text: 'Inicio' },
 	{ to: '#', text: 'Nosotros', submenu: true, submenuItems: [
-		{ to: '/nosotros/historia', text: 'Historia' },
-		{ to: '/nosotros/quienes-somos', text: 'Quienes somos' },
+		{ to: '/historia', text: 'Historia' },
 		{ to: '/nosotros/mision-vision-valores', text: 'Mision, vision y valores' },
 	] },
 	{ to: '/medicos', text: 'Médicos' },
