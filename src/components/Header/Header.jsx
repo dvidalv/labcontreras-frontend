@@ -190,7 +190,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								{!isMenuOpen || isMenuOpen === false ? 'Login' : ''}
+								{viewportWidth > 768 ? 'Login' : ''}
 							</Login>
 						)}
 						{token && !fileMakerToken && (

@@ -78,7 +78,7 @@ function Signin() {
 				Si estas tratando de acceder a los resultados del pacientes, por favor
 				usa el siguiente enlace:
 				<a href="https://contrerasrobledo.com/medico-signin">
-					<p
+					<span
 						style={{
 							color: 'blue',
 							textDecoration: 'underline',
@@ -87,7 +87,7 @@ function Signin() {
 						}}
 					>
 						Resultado
-					</p>
+					</span>
 				</a>
 			</p>
 			<h1 className="form-container__title">Ingresar</h1>
