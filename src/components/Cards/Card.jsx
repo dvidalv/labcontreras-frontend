@@ -40,11 +40,11 @@ function Cards({
 					<div className="card__text">
 						<div className="card__text__item">
 							<img src={mail2} alt="mail" />
-							<span className="card__text correo">{correo}</span>
+							<a href={`mailto:${correo}`}>{correo}</a>
 						</div>
 						<div className="card__text__item">
 							<img src={phoneOffice} alt="phone" />
-							<span className="card__text telefono">{telefono}</span>
+							<a href={`tel:${telefono}`}>{telefono}</a>
 						</div>
 						{/* <div className="card__text__item">
 							<img src={phone} alt="celular" />
