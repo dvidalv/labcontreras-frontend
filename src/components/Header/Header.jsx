@@ -190,7 +190,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								{viewportWidth > 768 ? 'Login' : ''}
+								{!isMenuOpen && viewportWidth > 768 ? 'Login' : ''}
 							</Login>
 						)}
 						{token && !fileMakerToken && (
@@ -201,7 +201,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								{isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
+								{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
 							</Logout>
 						)}
 						{fileMakerToken && (
@@ -212,7 +212,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
 								/>
-								Logout
+								{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
 							</Logout>
 						)}
 					</div>
