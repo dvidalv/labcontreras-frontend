@@ -75,7 +75,7 @@ function Signin() {
 					margin: '0 auto',
 				}}
 			>
-				Si estas tratando de acceder a los resultados del pacientes, por favor
+				Si estas tratando de acceder a los resultados de pacientes, por favor
 				usa el siguiente enlace:
 				<a href="https://contrerasrobledo.com/medico-signin">
 					<span
