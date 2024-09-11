@@ -138,7 +138,7 @@ function Contact() {
 				</div>
 			</APIProvider>
 			<div className="form-container">
-				<h1>CONTACTANOS</h1>
+				<h1>CONTÁCTANOS</h1>
 				<p>
 					Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.
 				</p>
@@ -150,7 +150,7 @@ function Contact() {
 					<input
 						{...register('email')}
 						className="form__input"
-						placeholder="Direccion de correo electronico"
+						placeholder="Dirección de correo electrónico"
 					/>
 					<p className="form__error">{errors.email && errors.email.message}</p>
 
@@ -170,7 +170,7 @@ function Contact() {
 						}}
 						{...register('message')}
 						className="form__input"
-						placeholder="Escribe tu mensaje aqui..."
+						placeholder="Escribe tu mensaje aquí..."
 					/>
 					<p className="form__error">
 						{errors.message && errors.message.message}
@@ -181,7 +181,7 @@ function Contact() {
 						type="submit"
 						className="form__button"
 					>
-						{isSubmitting ? 'Enviando...' : 'Enviar'}
+						{isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
 					</button>
 					{errors.root && <p className="form__error">{errors.root.message}</p>}
 				</Form>
