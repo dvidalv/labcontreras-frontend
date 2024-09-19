@@ -141,7 +141,7 @@ function Resultados() {
 					setRecords((prev) => [...prev, fieldData]);
 				});
 			} catch (error) {
-				console.log(3);
+				// console.log(3);
 				setError('root', {
 					type: 'manual',
 					message: 'Error al obtener los resultados',
@@ -155,7 +155,7 @@ function Resultados() {
 
 				setLoading(true);
 				const token = fileMakerToken;
-				const name = data.search;
+				const name = data.search; // Nombre del paciente
 				const resultados = await getResultadosByName(token, name, medicoId, medicoUser.centroExterno);
 				// console.log(resultados.messages[0].code);
 				const {
@@ -231,7 +231,7 @@ function Resultados() {
 							</thead>
 							<tbody>
 								{records.map((record) => {
-									// console.log(record.DEUDA);
+									// console.log(record);
 									const {
 										NUMERO_ESTUDIO_FK,
 										ESTADO_ESTUDIO,
@@ -258,7 +258,8 @@ function Resultados() {
 												{Nombre_Completo}
 											</td>
 											<td className={`centrado ${DEUDA > 0 ? 'deuda' : ''}`}>
-												{ESTADO_ESTUDIO !== 'Listo' ? 'En Proceso' : 'Listo'}
+												{/* {ESTADO_ESTUDIO !== 'Listo' ? 'En Proceso' : 'Listo'} */}
+												{ESTADO_ESTUDIO}
 											</td>
 											{/* <td className="centrado">{PAGO_ESTADO}</td> */}
 											<td className="resultados__table__descargar">

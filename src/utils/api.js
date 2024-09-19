@@ -82,6 +82,8 @@ export async function editMedico(id, data) {
 	}
 }
 
+
+
 export async function destroyMedico(id) {
 	const response = await fetch(`${API_URL}/medicos/${id}`, {
 		method: 'DELETE',
