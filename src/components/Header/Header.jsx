@@ -15,6 +15,7 @@ import { IoMailOpen } from 'react-icons/io5';
 import MenuLinkMobile from '../DropDown/MenuLinkMobile';
 import { menuLinks } from '../../utils/constants';
 import DropDown from '../DropDown/DropDown';
+import { IoMdLogOut } from "react-icons/io";
 
 const getViewportWidth = () => {
 	return Math.max(
@@ -95,6 +96,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		localStorage.removeItem('fileMakerToken');
 		localStorage.removeItem('tokenTimestamp');
 		localStorage.removeItem('medicoUser');
+		setIsMenuOpen(false);
 		setToken(null);
 		setFileMakerToken(null);
 		setShowTooltip(false);
@@ -233,6 +235,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 				)}
 			</div>
 			<div className={`menu-lateral ${isMenuOpen ? 'open' : ''}`}>
+	
 				{menuLinks.map((link) => {
 					if (link.submenu) {
 						// console.log(link.submenu);
@@ -244,6 +247,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								to={link.to}
 								text={link.text}
 								isSubmenu={link.submenu ? true : false}
+								onClick={() => setIsMenuOpen(false)}
 							>
 								{link.submenu &&
 									link.submenuItems.map((subItem) => {
@@ -257,6 +261,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 													// setOpenSubmenu={() => {}}
 													to={subItem.to}
 													text={subItem.text}
+													onClick={() => setIsMenuOpen(false)}
 												/>
 											</div>
 										);
@@ -274,6 +279,12 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 						);
 					}
 				})}
+				{localStorage.getItem('medicoUser') && (
+					<div className='menu-lateral__logout' style={{padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', cursor: 'pointer'}} onClick={handleLogout} >
+					<IoMdLogOut size={48} color='white' />
+					<span style={{fontSize: '1rem', color: 'white'}}>Cerrar Sesión</span>
+			</div>
+				)}
 			</div>
 		</header>
 	);

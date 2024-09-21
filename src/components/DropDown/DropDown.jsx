@@ -10,12 +10,12 @@ const styles = {
 }
 
 
-function DropDown({to, text}) {
+function DropDown({to, text, onClick}) {
 	return (
 		
 		<ul style={styles.dropdown}>
 			<li>
-				<Link to={to} className="dropdown__link" style={styles.dropdown}>{text}</Link>
+				<Link to={to} className="dropdown__link" style={styles.dropdown} onClick={onClick}>{text}</Link>
 			</li>
 		</ul>
 	)
@@ -24,6 +24,7 @@ function DropDown({to, text}) {
 DropDown.propTypes = {
 	to: PropTypes.string,
 	text: PropTypes.string,
+	onClick: PropTypes.func,
 };
 
 export default DropDown

@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
 import pdfIconGris from '../../images/pdf_gray.svg';
 import pdfIcon from '../../images/pdf.svg';
+import { IoMdLogOut } from "react-icons/io";
 import {
 	getFileMakerToken,
 	getResultados,

@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import './MenuLinkMobile.css';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-function MenuLinkMobile({ to, text, isSubmenu, children }) {
+function MenuLinkMobile({ to, text, isSubmenu, children, onClick }) {
 	const [isOpen, setIsOpen] = useState(false);
 	// console.log(isOpen)
 
 	return (
 		<div className="menu-link-mobile">
 			<div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
-				<Link to={to}>{text}</Link>
+				<Link to={to} onClick={onClick}>{text}</Link>
 				{isSubmenu && <IoIosArrowUp className={isOpen ? 'arrow-icon open' : 'arrow-icon'} onClick={() => setIsOpen(!isOpen)} />}
 			</div>
 			{isOpen && children}
