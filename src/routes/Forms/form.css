@@ -1,5 +1,6 @@
 .form {
 	/* height: 50vh; */
+	margin-top: 20px;
 	box-sizing: border-box;
 	color: var(--color-black);
 	width: 100%;
