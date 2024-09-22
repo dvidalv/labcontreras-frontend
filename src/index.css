@@ -4,8 +4,8 @@
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-  --header-height: 90px;  
-  --header-height-mobile: 70px;
+	--header-height: 130px;  
+	--header-height-mobile: 70px;
 	--footer-height: 190px;
 	--footer-height-mobile: 160px;
 

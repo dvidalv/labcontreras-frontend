@@ -145,7 +145,7 @@ function Resultados() {
 				// console.log(3);
 				setError('root', {
 					type: 'manual',
-					message: 'Error al obtener los resultados',
+					message: 'Error al obtener los resultados, por favor salga y vuelva a entrar al sistema',
 				});
 			} finally {
 				setLoading(false);

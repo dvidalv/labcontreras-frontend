@@ -167,7 +167,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									}}
 								></div>
 								<span
-									style={{ fontSize: '8px', color: 'black' }}
+									style={{ fontSize: '12px', color: 'black' }}
 								>{`${medicoData.nombre} ${medicoData.apellido}`}</span>
 							</div>
 						)}
@@ -191,8 +191,16 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={login}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+									style={{width: '40px', height: '40px'}}
 								/>
-								{!isMenuOpen && viewportWidth > 768 ? 'Login' : ''}
+								<span style={{
+									color: 'var(--color-primary)',
+									fontSize: '14px',
+									marginLeft: '5px',
+									textDecoration: 'none'
+								}}>
+									{!isMenuOpen && viewportWidth > 768 ? 'Login' : ''}
+								</span>
 							</Login>
 						)}
 						{token && !fileMakerToken && (
@@ -202,8 +210,16 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+									style={{width: '40px', height: '40px'}}
 								/>
-								{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
+								<span style={{
+									color: 'var(--color-primary)',
+									fontSize: '14px',
+									marginLeft: '5px',
+									textDecoration: 'none'
+								}}>
+									{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
+								</span>
 							</Logout>
 						)}
 						{fileMakerToken && (
@@ -213,8 +229,16 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
+									style={{width: '40px', height: '40px'}}
 								/>
-								{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
+								<span style={{
+									color: 'var(--color-primary)',
+									fontSize: '14px',
+									marginLeft: '5px',
+									textDecoration: 'none'
+								}}>
+									{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
+								</span>
 							</Logout>
 						)}
 					</div>
