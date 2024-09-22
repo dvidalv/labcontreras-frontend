@@ -17,6 +17,10 @@ import {
 	InfoWindow,
 } from '@vis.gl/react-google-maps';
 
+import { MdOutlineAccessTimeFilled } from "react-icons/md";
+import { MdOutlineAccessTime } from "react-icons/md";
+import { BsFillTelephoneFill } from "react-icons/bs";
+
 function Contact() {
 	const [isOpen, setIsOpen] = useState(false);
 	const position = {
@@ -146,6 +150,9 @@ function Contact() {
 					id="contact-form"
 					className="form"
 					onSubmit={handleSubmit(onSubmit)}
+					style={{
+						marginBottom: '20px',
+					}}
 				>
 					<input
 						{...register('email')}
@@ -201,6 +208,21 @@ function Contact() {
 						<p>Detalles</p>
 					</div>
 				)}
+				<div className="horarios">
+					<h2 className="horarios__title">Horarios de atención</h2>
+					<div className="horarios__container">
+						<MdOutlineAccessTimeFilled size={20} className="horarios__icon" />
+						<p className="horarios__text">Lunes a Viernes: 8:00 am - 6:00 pm</p>
+					</div>
+					<div className="horarios__container">
+						<MdOutlineAccessTime size={20} className="horarios__icon" />
+						<p className="horarios__text">Sábado: 9:00 am - 12:00 pm</p>
+					</div>
+					<div className="horarios__container">
+						<MdOutlineAccessTimeFilled size={20} className="horarios__icon" />
+						<p className="horarios__text">Domingo: Cerrado</p>
+					</div>
+				</div>
 			</div>
 			<WhatsApp />
 		</div>
