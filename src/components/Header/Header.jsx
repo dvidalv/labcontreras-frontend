@@ -191,7 +191,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={login}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-									style={{width: '40px', height: '40px'}}
+									style={{width: '50px', height: '50px'}}
 								/>
 								<span style={{
 									color: 'var(--color-primary)',
@@ -210,7 +210,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-									style={{width: '40px', height: '40px'}}
+									style={{width: '50px', height: '50px'}}
 								/>
 								<span style={{
 									color: 'var(--color-primary)',
@@ -229,7 +229,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-									style={{width: '40px', height: '40px'}}
+									style={{width: '50px', height: '50px'}}
 								/>
 								<span style={{
 									color: 'var(--color-primary)',
