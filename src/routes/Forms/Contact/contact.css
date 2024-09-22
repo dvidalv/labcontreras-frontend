@@ -10,7 +10,7 @@
 .contact-container {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 1fr 1fr;
+	grid-template-rows: 1fr 125px 1fr;
 
 	.map-container {
 		width: 100%;
@@ -20,6 +20,14 @@
 
 	.form-container {
 		grid-row: 1 / 2;
+	}
+
+	.horarios {
+		grid-row: 2 / 3;
+	}
+
+	.map-container {
+		grid-row: 3 / 4;
 	}
 	@media (min-width: 768px) {
 		height: 100%;
