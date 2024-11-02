@@ -5,7 +5,14 @@
 	color: var(--color-black);
 	width: 100%;
 	max-width: 400px;
-	padding: 20px;
+	
+	
+	padding: 15px;
+
+	@media (min-width: 768px) {
+		padding: 20px;
+	}
+
 	background-color: var(--color-white);
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -67,6 +74,29 @@
 
 .form__link_create-account,
 .form__link_create-account {
-	padding: 10px 0;
+
+	@media (min-width: 768px) {
+		padding: 10px 0;
+	}
 	margin-left: 0;
+}
+
+.form-container__power-by-giganet {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* margin-top: 20px; */
+	width: 30%;
+
+	@media (min-width: 768px) {
+		width: 20%;
+	}
+
+	@media (min-width: 1024px) {
+		width: 10%;
+	}
+
+	.form-container__power-by-giganet-img {
+		width: 100%;
+	}
 }

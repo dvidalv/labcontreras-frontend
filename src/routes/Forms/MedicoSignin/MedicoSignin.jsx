@@ -6,6 +6,7 @@ import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import { authorizeMedico } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import powerByGiganet from '../../../images/powerbyGiganet.png'
 
 const schema = z.object({
 	username: z.string(),
@@ -144,6 +145,11 @@ function Signin() {
 					className="tooltip--visible"
 				/>
 			)}
+			<div className="form-container__power-by-giganet">
+				<a href="https://wa.me/+6825602093" target="_blank" rel="noopener noreferrer" title="Contacta a Giganet">
+					<img src={powerByGiganet} alt="power by giganet" className="form-container__power-by-giganet-img" />
+				</a>
+			</div>
 		</div>
 	);
 }
