@@ -85,7 +85,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* margin-top: 20px; */
+	margin-top: 20px;
 	width: 30%;
 
 	@media (min-width: 768px) {
