@@ -146,7 +146,7 @@ function Signin() {
 				/>
 			)}
 			<div className="form-container__power-by-giganet">
-				<a href="https://wa.me/+6825602093" target="_blank" rel="noopener noreferrer" title="Contacta a Giganet">
+				<a href="https://www.giganet-srl.com/contact" target="_blank" rel="noopener noreferrer" title="Contacta a Giganet">
 					<img src={powerByGiganet} alt="power by giganet" className="form-container__power-by-giganet-img" />
 				</a>
 			</div>
