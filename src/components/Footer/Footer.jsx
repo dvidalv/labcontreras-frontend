@@ -76,6 +76,7 @@ function Footer() {
 				</a>
 			</div>
 			<div className="derechos" ref={derechosRef}>
+				<a href="https://www.giganet-srl.com/" target="_blank" rel="noreferrer">
 				<motion.p
 					initial={{ x: '-100%', opacity: 0 }}
 					animate={controls}
@@ -83,6 +84,7 @@ function Footer() {
 				>
 					Desarrollado por Giganet Services SRL
 				</motion.p>
+				</a>
 				<span>
 					© {getCurrentYear()} Laboratorio de Patología Contreras Robledo. Todos los derechos
 					reservados.
