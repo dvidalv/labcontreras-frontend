@@ -42,6 +42,8 @@ import Publicacion from './routes/Publicaciones/Publicacion.jsx';
 
 import MisionVisionValores from './routes/MisionVisionValores/MisionVisionValores.jsx';
 
+import Sugerencias from './routes/Sugerencias/Sugerencias.jsx';
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -145,6 +147,10 @@ const router = createBrowserRouter([
 						<Resultados />
 					</RequireAuthMedicos>
 				),
+			},
+			{
+				path: 'sugerencias/',
+				element: <Sugerencias />,
 			},
 		],
 		errorElement: <NotFound />,
