@@ -19,6 +19,7 @@ const sugerenciaSchema = z.object({
 function Sugerencias() {
   const navigate = useNavigate();
   const [showBanner, setShowBanner] = useState(false);
+  const [message, setMessage] = useState('');
   const {
     register,
     handleSubmit,
@@ -28,10 +29,12 @@ function Sugerencias() {
   });
 
   const onSubmit = async (data) => {
-		console.log(data)
+		// console.log(data)
     try {
       const res = await sugerencias(data);
-      console.log(res);
+			const { mensaje } = res;
+      setMessage(mensaje);
+      // console.log(res);
       setShowBanner(true);
       setTimeout(() => {
         setShowBanner(false);
@@ -47,7 +50,7 @@ function Sugerencias() {
       {showBanner && (
         <div className="success-banner">
           <p style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
-            ¡Tu mensaje fue enviado correctamente!
+            {message}
           </p>
         </div>
       )}
