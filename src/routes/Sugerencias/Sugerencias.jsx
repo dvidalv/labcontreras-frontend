@@ -55,7 +55,7 @@ function Sugerencias() {
         </div>
       )}
       <h2>Envíanos tus sugerencias</h2>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} className="form">
         <div className="form-group">
           <textarea
             {...register('mensaje')}

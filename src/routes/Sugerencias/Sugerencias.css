@@ -1,11 +1,34 @@
 .sugerencias-container {
-  max-width: 600px;
-  margin: 2rem auto;
-	min-height: calc(100vh - var(--header-height) - var(--footer-height));
-  padding-top: calc(var(--header-height) + 4rem);
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-	h2 {
-		margin-bottom: 2rem;
+  @media (min-width: 768px) {
+    padding-top: calc(var(--header-height) + 2rem);
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+		font-size: 2rem;
+  }
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	@media (min-width: 768px) {
+		max-width: 600px;
 	}
 }
 
@@ -14,6 +37,9 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
+
+
 }
 
 .form-group label {
@@ -26,10 +52,9 @@
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-	max-width: 100%;
-	min-width: 100%;
-	min-height: 100px;
-	max-height: 200px;
+  min-height: 150px;
+  max-height: 300px;
+  resize: vertical;
 }
 
 .button {
@@ -68,7 +93,7 @@
 
 .form-group textarea.error {
   border-color: var(--color-error, #dc3545);
-
+  border-width: 2px;
 }
 
 .success-banner {
