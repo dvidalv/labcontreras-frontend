@@ -124,6 +124,17 @@ export async function contact(email, subject, message) {
 	return response.json();
 }
 
+export async function sugerencias(data) {
+	const response = await fetch(`${API_URL}/api/sugerencias`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
+	return response.json();
+}
+
 export async function uploadAvatar(data) {
 	const response = await fetch(`${API_URL}/upload`, {
 		method: 'POST',

@@ -3,10 +3,17 @@
   margin: 2rem auto;
 	min-height: calc(100vh - var(--header-height) - var(--footer-height));
   padding-top: calc(var(--header-height) + 4rem);
+
+	h2 {
+		margin-bottom: 2rem;
+	}
 }
 
 .form-group {
   margin-bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .form-group label {
@@ -19,17 +26,69 @@
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+	max-width: 100%;
+	min-width: 100%;
+	min-height: 100px;
+	max-height: 200px;
 }
 
-button {
-  background-color: #007bff;
+.button {
+  background-color: var(--color-secondary);
   color: white;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 100%;
+	max-width: 200px;
+	transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
-} 
+.button:hover {
+  background-color: var(--color-secondary-light);
+}
+
+.button:disabled {
+  background-color: var(--color-secondary-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error-message {
+  color: var(--color-error, #dc3545);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.form-group textarea.error {
+  border-color: var(--color-error, #dc3545);
+
+}
+
+.success-banner {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background-color: #2eb821;
+  color: white;
+  text-align: center;
+  padding: .1rem;
+  z-index: 1000;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

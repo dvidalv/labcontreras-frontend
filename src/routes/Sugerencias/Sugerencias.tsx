@@ -4,17 +4,21 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './Sugerencias.css';
-import { sugerencias } from '../../utils/api';
 
+// Definimos el esquema de validación con Zod
 const sugerenciaSchema = z.object({
   mensaje: z
-    .string({
-      required_error: 'El mensaje es requerido',
-    })
+    .string()
     .min(10, 'El mensaje debe tener al menos 10 caracteres')
     .max(500, 'El mensaje no puede exceder los 500 caracteres')
+    .nonempty('El mensaje es requerido')
     .trim(),
 });
+
+// Definimos el tipo usando interface en lugar de type
+interface SugerenciaFormData {
+  mensaje: string;
+}
 
 function Sugerencias() {
   const navigate = useNavigate();
@@ -22,16 +26,17 @@ function Sugerencias() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
+    formState: { errors },
+  } = useForm<SugerenciaFormData>({
     resolver: zodResolver(sugerenciaSchema),
   });
 
-  const onSubmit = async (data) => {
-		console.log(data)
+  const onSubmit = async (data: SugerenciaFormData) => {
     try {
-      const res = await sugerencias(data);
-      console.log(res);
+      // Aquí puedes agregar la lógica para enviar la sugerencia
+      // Por ejemplo, hacer una llamada a la API
+      console.log(data);
+      
       setShowBanner(true);
       setTimeout(() => {
         setShowBanner(false);
@@ -64,8 +69,8 @@ function Sugerencias() {
             <span className="error-message">{errors.mensaje.message}</span>
           )}
         </div>
-        <button className="button" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Enviando...' : 'Enviar sugerencia'}
+        <button className="button" type="submit">
+          Enviar sugerencia
         </button>
       </Form>
     </div>

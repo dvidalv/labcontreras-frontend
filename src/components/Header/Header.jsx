@@ -191,11 +191,11 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 									src={login}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-									style={{width: '50px', height: '50px'}}
+									style={{width: '30px', height: '30px'}}
 								/>
 								<span style={{
 									color: 'var(--color-primary)',
-									fontSize: '14px',
+									fontSize: '10px',
 									marginLeft: '5px',
 									textDecoration: 'none'
 								}}>
