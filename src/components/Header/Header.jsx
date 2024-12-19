@@ -208,13 +208,13 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								<img
 									onClick={() => handleLogout()}
 									src={logout}
-									alt="login"
+									alt="logout"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-									style={{width: '50px', height: '50px'}}
+									style={{width: '30px', height: '30px'}}
 								/>
 								<span style={{
 									color: 'var(--color-primary)',
-									fontSize: '14px',
+									fontSize: '10px',
 									marginLeft: '5px',
 									textDecoration: 'none'
 								}}>
@@ -223,18 +223,17 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 							</Logout>
 						)}
 						{fileMakerToken && (
-							<Logout href="#">
+							<Logout href="#" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', justifyContent: 'center'}}>
 								<img
 									onClick={() => handleLogout()}
 									src={logout}
 									alt="login"
 									className={`header__login-icon ${isMenuOpen ? 'open' : ''}`}
-									style={{width: '50px', height: '50px'}}
+									style={{width: '30px', height: '30px'}}
 								/>
 								<span style={{
 									color: 'var(--color-primary)',
-									fontSize: '14px',
-									marginLeft: '5px',
+									fontSize: '10px',
 									textDecoration: 'none'
 								}}>
 									{!isMenuOpen && viewportWidth > 768 ? 'Logout' : ''}
