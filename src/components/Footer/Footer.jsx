@@ -47,7 +47,6 @@ function Footer() {
 					<div>
 						<a className="info" href="https://maps.app.goo.gl/Ehop7VTXqgbqtkbn8" target="_blank" rel="noreferrer">
 							<FaLocationDot 
-							
 							className="icons"
 						/>
 						<span>Calle Juan Bautista Pérez No. 2, Santiago, Rep. Dom.</span>
