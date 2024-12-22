@@ -7,9 +7,8 @@ import RenderPdf from '../../components/RenderPdf/RenderPdf.jsx';
 import arrowRight from '../../images/arrow-right.svg';
 
 import PublicacionesSideBar from '../../components/PublicacionesSidebar/PublicacionesSideBar.jsx';
-	
-function Publicaciones({ publicaciones = [] }) {
 
+function Publicaciones({ publicaciones = [] }) {
 	const lastThree = publicaciones.slice(0, 3);
 
 	const navigate = useNavigate();
