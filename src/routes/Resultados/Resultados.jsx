@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import './Resultados.css';
 import pdfIconGris from '../../images/pdf_gray.svg';
 import pdfIcon from '../../images/pdf.svg';
-import { IoMdLogOut } from "react-icons/io";
 import {
 	getFileMakerToken,
 	getResultados,
@@ -293,15 +292,12 @@ function Resultados() {
 					</div>
 				) : (
 					<div className="resultados__table__no_records">
-						<h2 className="resultados__table__no_records__title">
+						{/* <h2 style={{fontSize: '16px', textAlign: 'center', fontWeight: 'lighter'}}>
 							{records.length === 0
 								? `${loading ? 'Buscando...' : 'Presione Buscar'}`
 								: 'No hay resultados'}
-						</h2>
-						<p className="resultados__table__no_records__subtitle">
-							Solo presione buscar para ver los resultados o escriba un nombre y
-							presione buscar
-						</p>
+						</h2> */}
+					
 					</div>
 				)}
 			

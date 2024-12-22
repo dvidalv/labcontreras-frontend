@@ -86,12 +86,19 @@ function Contact() {
 						zoom={20}
 						center={position}
 						mapId={import.meta.env.VITE_MAP_ID}
-						gestureHandling="greedy"
+						gestureHandling="auto"
 						options={{
-							zoomControl: false,
-							scrollwheel: false,
+							zoomControl: true,
+							scrollwheel: true,
 							disableDoubleClickZoom: false,
+							draggable: true,
+							keyboardShortcuts: true,
+							mapTypeControl: true,
+							fullscreenControl: true,
+							streetViewControl: true,
+							gestureHandling: 'auto'
 						}}
+						style={{ width: '100%', height: '100%' }}
 					>
 						<AdvancedMarker position={position} onClick={() => setIsOpen(true)}>
 							<Pin

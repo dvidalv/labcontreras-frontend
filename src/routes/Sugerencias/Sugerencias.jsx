@@ -5,8 +5,20 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './Sugerencias.css';
 import { sugerencias } from '../../utils/api';
+import background1 from '../../images/background-1.jpg';
+import background2 from '../../images/background-2.jpg';
+import background3 from '../../images/background-3.jpg';
+import background4 from '../../images/background-4.jpg';
+import background5 from '../../images/background-5.jpg';
 
 import 'animate.css';
+
+function getRandomNumber() {
+	return Math.floor(Math.random() * 5) + 1;
+}
+const number = getRandomNumber();
+
+console.log(number);
 
 const sugerenciaSchema = z.object({
 	mensaje: z
@@ -42,7 +54,7 @@ function Sugerencias() {
 			const { mensaje } = res;
 			setMessage(mensaje);
 			setShowBanner(true);
-			
+
 			timeoutRef.current = setTimeout(() => {
 				setShowBanner(false);
 				navigate('/');
@@ -52,8 +64,25 @@ function Sugerencias() {
 		}
 	};
 
+	let style = {
+		backgroundImage: `url(${
+			number === 1
+				? background1
+				: number === 2
+				? background2
+				: number === 3
+				? background3
+				: number === 4
+				? background4
+				: background5
+		})`,
+		backgroundSize: 'cover',
+		backgroundPosition: 'top',
+		backgroundRepeat: 'no-repeat',
+	};
+
 	return (
-		<div className="sugerencias-container">
+		<div className="sugerencias-container" style={style}>
 			{showBanner && (
 				<div className="success-banner">
 					<p style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
@@ -61,7 +90,9 @@ function Sugerencias() {
 					</p>
 				</div>
 			)}
-			<h2 className="animate__animated animate__backInDown">Envíanos tus sugerencias</h2>
+			<h2 className="animate__animated animate__backInDown">
+				Envíanos tus sugerencias
+			</h2>
 			<Form onSubmit={handleSubmit(onSubmit)} className="form">
 				<div className="form-group">
 					<textarea
