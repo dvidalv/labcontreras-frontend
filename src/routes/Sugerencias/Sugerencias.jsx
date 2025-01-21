@@ -18,7 +18,7 @@ function getRandomNumber() {
 }
 const number = getRandomNumber();
 
-console.log(number);
+// console.log(number);
 
 const sugerenciaSchema = z.object({
 	mensaje: z

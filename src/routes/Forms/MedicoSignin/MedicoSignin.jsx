@@ -47,7 +47,7 @@ function Signin() {
 			const response = await authorizeMedico(username, password);
 			const res = await response.json();
 			const dataMedico = res.response.data[0].fieldData;
-			console.log(dataMedico);
+			// console.log(dataMedico);
 			const { nombre, apellido, email, ID, foto, usuario, centroExterno } = dataMedico;
 			// console.log(nombre, apellido, email, ID, foto, usuario);
 			localStorage.setItem(

@@ -39,6 +39,7 @@ function Resultados() {
 	});
 
 	const medicoId = JSON.parse(localStorage.getItem('medicoUser')).ID;
+	// console.log(medicoId);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
@@ -92,34 +93,34 @@ function Resultados() {
 		}
 
 		// Función para obtener un nuevo token si ha expirado
-		const refreshTokenIfNeeded = async () => {
-			// console.log(isTokenExpired());
-			if (!fileMakerToken || isTokenExpired()) {
-				// console.log('Entra en refreshTokenIfNeeded');
-				// console.log('Refresco el token');
-				try {
-					setLoading(true);
-					const fileMakerToken = await getFileMakerToken();
-					const {
-						response: { token: newToken },
-					} = fileMakerToken;
-					setFileMakerToken(newToken);
-					localStorage.setItem('tokenTimestamp', new Date().getTime());
-					localStorage.setItem('fileMakerToken', newToken);
-				} catch (error) {
-					// console.log(1);
-					setError('root', {
-						type: 'manual',
-						message: 'Error al obtener el token',
-					});
-				} finally {
-					// console.log(2);
-					setLoading(false);
-				}
-			}
-		};
+		// const refreshTokenIfNeeded = async () => {
+		// 	// console.log(isTokenExpired());
+		// 	if (!fileMakerToken || isTokenExpired()) {
+		// 		// console.log('Entra en refreshTokenIfNeeded');
+		// 		// console.log('Refresco el token');
+		// 		try {
+		// 			setLoading(true);
+		// 			const fileMakerToken = await getFileMakerToken();
+		// 			const {
+		// 				response: { token: newToken },
+		// 			} = fileMakerToken;
+		// 			setFileMakerToken(newToken);
+		// 			localStorage.setItem('tokenTimestamp', new Date().getTime());
+		// 			localStorage.setItem('fileMakerToken', newToken);
+		// 		} catch (error) {
+		// 			// console.log(1);
+		// 			setError('root', {
+		// 				type: 'manual',
+		// 				message: 'Error al obtener el token',
+		// 			});
+		// 		} finally {
+		// 			// console.log(2);
+		// 			setLoading(false);
+		// 		}
+		// 	}
+		// };
 
-		const refreshToken = await refreshTokenIfNeeded();
+		// const refreshToken = await refreshTokenIfNeeded();
 		// console.log(refreshToken);
 
 		if (fileMakerToken && data.search === '') {
@@ -139,6 +140,7 @@ function Resultados() {
 				data.map((record) => {
 					const { fieldData } = record;
 					setRecords((prev) => [...prev, fieldData]);
+					localStorage.setItem('resultados', JSON.stringify(data));
 				});
 			} catch (error) {
 				// console.log(3);
@@ -165,6 +167,7 @@ function Resultados() {
 				responseData.map((record) => {
 					const { fieldData } = record;
 					setRecords((prev) => [...prev, fieldData]);
+					localStorage.setItem('resultados', JSON.stringify(responseData));
 				});
 			} catch (error) {
 				setError('root', {

@@ -21,7 +21,7 @@ export const menuLinks = [
 		],
 	},
 	{ to: '/medicos', text: 'Médicos' },
-	{ to: '/resultados', text: 'Resultados' },
+	{ to: '/resultados', text: 'Resultados Médicos' },
 	{ to: '/contact', text: 'Contacto' },
 ];
 

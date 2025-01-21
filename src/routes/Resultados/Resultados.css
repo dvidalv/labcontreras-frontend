@@ -75,6 +75,10 @@
 			background-color: #ccc;
 			color: gray;
 		}
+		
+		&:not(:disabled) {
+			animation: pulsate 1s infinite;
+		}
 	}
 }
 
@@ -199,4 +203,24 @@
 			margin-top: 0;
 		}
 	}
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1.05);
+    box-shadow: none;
+		/* font-size: 13px; */
+		color: var(--color-primary-light);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 1rem var(--color-primary);
+		/* font-size: 14px; */
+		color: var(--color-primary-light);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: none;
+		color: var(--color-primary-light);
+  }
 }
