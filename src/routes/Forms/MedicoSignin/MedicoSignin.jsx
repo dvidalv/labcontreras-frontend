@@ -87,7 +87,7 @@ function Signin() {
 	return (
 		<div className="form-container">
 			<h1 className="form-container__title">Ingresar</h1>
-			<Form className="form" onSubmit={handleSubmit(handleForm)}>
+			<Form className="form medicos-signin" onSubmit={handleSubmit(handleForm)}>
 				<label className="form__label" htmlFor="email">
 					Usuario
 				</label>

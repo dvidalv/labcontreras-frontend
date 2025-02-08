@@ -98,5 +98,37 @@
 
 	.form-container__power-by-giganet-img {
 		width: 100%;
+		animation: fade-in 1s ease-in-out 1.5s; /* Changed delay to 1.5s for visibility after form appears */
+			animation-delay: 1s;
+	animation-fill-mode:backwards;
+	}
+}
+
+.form.medicos-signin,
+.form-container__title{
+	animation: slide-up-fade-in 0.5s ease-in-out ;
+
+}
+
+@keyframes slide-up-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
