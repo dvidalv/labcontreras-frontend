@@ -1,5 +1,5 @@
 import './main.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../../components/Cards/Card';
 import reservas from '../../images/reservas.png';
 import universal from '../../images/universal.png';
@@ -9,27 +9,35 @@ import palic from '../../images/palic.png';
 import humano from '../../images/humano.png';
 import primera from '../../images/primera.png';
 import meta from '../../images/meta.png';
-import { Link } from 'react-router-dom';
 import { useAppContext } from '../../contexts/MyContext';
 import { getMedicos, getPublicaciones } from '../../utils/api';
-import { useEffect } from 'react';
 import 'animate.css';
 import Publicaciones from '../Publicaciones/Publicaciones';
 import WhatsApp from '../../components/WhatsApp/WhatsApp';
+import { motion } from 'framer-motion';
 
 function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
 	const [errorFetchPublicaciones, setErrorFetchPublicaciones] = useState(false);
-	const { setMedicos, medicos, user } = useAppContext();
-	// console.log(medicos);
+	const { setMedicos, medicos } = useAppContext();
+	const [isVisible, setIsVisible] = useState(false);
 
 	const gotoTop = () => {
 		window.scrollTo(0, 0);
 	};
 
-	// console.log(publicaciones);
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 100) {
+				setIsVisible(true);
+			}
+		};
 
-	// console.log('Main component rendered');
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
 	useEffect(() => {
 		gotoTop();
@@ -45,19 +53,15 @@ function Main() {
 		const fetchPublicaciones = async () => {
 			const tiempoTranscurridoEnMinutos =
 				(Date.now() - localStorage.getItem('tokenTimestamp')) / 60000;
-			// console.log(tiempoTranscurridoEnMinutos);
 			try {
 				const dataPublicaciones = await getPublicaciones();
-				// console.log(dataPublicaciones.messages[0].message);
 				if (dataPublicaciones.messages[0].message === 'OK') {
 					localStorage.setItem('tokenTimestamp', Date.now());
 				}
-				// console.log(localStorage.getItem('tokenTimestamp'));
 				const {
 					response: { data },
 				} = dataPublicaciones;
 				setPublicaciones(data);
-				// console.log(data);
 			} catch (error) {
 				setErrorFetchPublicaciones(true);
 				console.error('Error fetching publicaciones:', error);
@@ -92,9 +96,27 @@ function Main() {
 
 					<h2 className="about__title">NUESTROS MÉDICOS</h2>
 
-					<ul className="cards">
-						{medicos.map((medico) => (
-							<li key={medico._id}>
+					<motion.ul
+						className="cards"
+						variants={{
+							hidden: { opacity: 0, scale: 0.5 },
+							visible: { opacity: 1, scale: 1 },
+						}}
+						initial="hidden"
+						animate={isVisible ? 'visible' : 'hidden'}
+						transition={{ duration: 0.5 }}
+					>
+						{medicos.map((medico, index) => (
+							<motion.li
+								key={medico._id}
+								variants={{
+									hidden: { opacity: 0, scale: 0.5 },
+									visible: { opacity: 1, scale: 1 },
+								}}
+								initial="hidden"
+								animate={isVisible ? 'visible' : 'hidden'}
+								transition={{ duration: 0.5, delay: index * 0.2 }} // Ajusta el delay según el índice
+							>
 								<Card
 									cargo={medico.cargo}
 									nombre={`${medico.nombre} ${medico.apellido}`}
@@ -107,9 +129,9 @@ function Main() {
 									id={medico._id}
 									especialidad={medico.especialidad}
 								/>
-							</li>
+							</motion.li>
 						))}
-					</ul>
+					</motion.ul>
 				</div>
 			</section>
 			<section className="services">
@@ -197,7 +219,10 @@ function Main() {
 						Error al cargar las publicaciones
 					</p>
 				) : (
-					<Publicaciones publicaciones={publicaciones} setPublicaciones={setPublicaciones} />
+					<Publicaciones
+						publicaciones={publicaciones}
+						setPublicaciones={setPublicaciones}
+					/>
 				)}
 			</section>
 			<WhatsApp />
