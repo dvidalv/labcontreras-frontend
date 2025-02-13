@@ -74,7 +74,12 @@ function Main() {
 
 	return (
 		<main className="page">
-			<section className="hero"></section>
+			<motion.section
+				className="hero"
+				initial={{ opacity: 0, y: 100 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 1 }}
+			></motion.section>
 
 			<section className="about">
 				<div className="about__container">
@@ -115,7 +120,8 @@ function Main() {
 								}}
 								initial="hidden"
 								animate={isVisible ? 'visible' : 'hidden'}
-								transition={{ duration: 0.5, delay: index * 0.2 }} // Ajusta el delay según el índice
+								transition={{ duration: 1, delay: index * 0.2 }}
+								
 							>
 								<Card
 									cargo={medico.cargo}
