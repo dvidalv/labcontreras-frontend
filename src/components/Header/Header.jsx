@@ -16,7 +16,7 @@ import MenuLinkMobile from '../DropDown/MenuLinkMobile';
 import { menuLinks } from '../../utils/constants';
 import DropDown from '../DropDown/DropDown';
 import { IoMdLogOut } from "react-icons/io";
-
+import { motion } from 'framer-motion';
 const getViewportWidth = () => {
 	return Math.max(
 		document.documentElement.clientWidth || 0,
@@ -111,9 +111,20 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 			<div className="header__info">
 				<div className="header__info-compania">
 					<Link to="/" onClick={() => window.scrollTo(0, 0)}>
-						<img src={logo} alt="logo LPCR" className="header-logo" />
+						<motion.img
+							src={logo}
+							alt="logo LPCR"
+							className="header-logo"
+							initial={{ opacity: 0, y: 100 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 1 }}
+						/>
 					</Link>
-					<div className="datos">
+					<motion.div className="datos"
+						initial={{ opacity: 0, x: 100 }}
+						animate={{ opacity: 1, x: 0 }}
+						transition={{ duration: 1 }}
+					>
 						<div className="info">
 							<FaLocationDot className="header-icons" />
 							<a
@@ -134,7 +145,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 								informacion@contrerasrobledo.com.do
 							</a>
 						</div>
-					</div>
+					</motion.div>
 				</div>
 
 				<div className="header__user">
