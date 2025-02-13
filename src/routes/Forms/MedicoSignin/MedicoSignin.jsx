@@ -7,7 +7,7 @@ import { useAppContext } from '../../../contexts/MyContext';
 import { authorizeMedico } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import powerByGiganet from '../../../images/powerbyGiganet.png'
-
+import { motion } from 'framer-motion';
 const schema = z.object({
 	username: z.string(),
 	password: z.string().min(6).max(12),
@@ -85,8 +85,19 @@ function Signin() {
 	}
 
 	return (
-		<div className="form-container">
-			<h1 className="form-container__title">Ingresar</h1>
+		<motion.div className="form-container"
+			initial={{ opacity: 0, y: -100 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 1, type: 'spring', stiffness: 100, delay: .5 }}
+		>
+			<motion.h1 className="form-container__title"
+				style={{ fontSize: '2rem', marginBottom: '1rem' }}
+				initial={{ opacity: 0, y: -100 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 1, type: 'spring', stiffness: 100, delay: 1.3 }}
+			>
+				Ingresar
+			</motion.h1>
 			<Form className="form medicos-signin" onSubmit={handleSubmit(handleForm)}>
 				<label className="form__label" htmlFor="email">
 					Usuario
@@ -145,12 +156,16 @@ function Signin() {
 					className="tooltip--visible"
 				/>
 			)}
-			<div className="form-container__power-by-giganet">
+			<motion.div className="form-container__power-by-giganet"
+				initial={{ opacity: 0, y: 100 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 1, type: 'spring', stiffness: 100, delay: 1.5 }}
+			>
 				<a href="https://www.giganet-srl.com/contact" target="_blank" rel="noopener noreferrer" title="Contacta a Giganet">
 					<img src={powerByGiganet} alt="power by giganet" className="form-container__power-by-giganet-img" />
 				</a>
-			</div>
-		</div>
+			</motion.div>
+		</motion.div>
 	);
 }
 
