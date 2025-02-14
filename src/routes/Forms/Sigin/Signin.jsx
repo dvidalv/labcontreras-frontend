@@ -6,13 +6,23 @@ import Tooltip from '../../../components/ToolTip/Tooltip';
 import { useAppContext } from '../../../contexts/MyContext';
 import { authorize } from '../../../utils/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useEffect } from 'react';
 const schema = z.object({
 	email: z.string().email(),
 	password: z.string().min(6).max(12),
 });
 
+const gotoTop = () => {
+	window.scrollTo(0, 0);
+};
+
+
 function Signin() {
+	
+	useEffect(() => {
+		gotoTop();
+	}, []);
+	
 	//hook form
 	const {
 		register,

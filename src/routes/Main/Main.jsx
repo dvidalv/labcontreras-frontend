@@ -22,9 +22,11 @@ function Main() {
 	const { setMedicos, medicos } = useAppContext();
 	const cardsRef = useRef(null);
 	const isInView = useInView(cardsRef, { once: false, margin: '0px 0px -100px 0px' });
+	
 	const gotoTop = () => {
 		window.scrollTo(0, 0);
 	};
+
 
 	useEffect(() => {
 		gotoTop();
