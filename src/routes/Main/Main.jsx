@@ -1,5 +1,5 @@
 import './main.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Card from '../../components/Cards/Card';
 import reservas from '../../images/reservas.png';
 import universal from '../../images/universal.png';
@@ -14,30 +14,17 @@ import { getMedicos, getPublicaciones } from '../../utils/api';
 import 'animate.css';
 import Publicaciones from '../Publicaciones/Publicaciones';
 import WhatsApp from '../../components/WhatsApp/WhatsApp';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 
 function Main() {
 	const [publicaciones, setPublicaciones] = useState([]);
 	const [errorFetchPublicaciones, setErrorFetchPublicaciones] = useState(false);
 	const { setMedicos, medicos } = useAppContext();
-	const [isVisible, setIsVisible] = useState(false);
-
+	const cardsRef = useRef(null);
+	const isInView = useInView(cardsRef, { once: false, margin: '0px 0px -100px 0px' });
 	const gotoTop = () => {
 		window.scrollTo(0, 0);
 	};
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 100) {
-				setIsVisible(true);
-			}
-		};
-
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, []);
 
 	useEffect(() => {
 		gotoTop();
@@ -107,8 +94,9 @@ function Main() {
 							hidden: { opacity: 0, scale: 0.5 },
 							visible: { opacity: 1, scale: 1 },
 						}}
+						ref={cardsRef}
 						initial="hidden"
-						animate={isVisible ? 'visible' : 'hidden'}
+						animate={isInView ? 'visible' : 'hidden'}
 						transition={{ duration: 0.5 }}
 					>
 						{medicos.map((medico, index) => (
@@ -119,7 +107,7 @@ function Main() {
 									visible: { opacity: 1, scale: 1 },
 								}}
 								initial="hidden"
-								animate={isVisible ? 'visible' : 'hidden'}
+								animate={isInView ? 'visible' : 'hidden'}
 								transition={{ duration: 1, delay: index * 0.2 }}
 								
 							>
