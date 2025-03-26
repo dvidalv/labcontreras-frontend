@@ -120,8 +120,25 @@ function Sugerencias() {
         return (
           <>
             <div className="form-group">
+              <label>¿Nombre?</label>
+              <input
+                {...register("nombre")}
+                className={errors.nombre ? "error" : ""}
+              />
+              {errors.nombre && (
+                <span className="error-message">{errors.nombre.message}</span>
+              )}
+            </div>
+            <div className="form-group">
+              {errors.satisfaccion && (
+                <span className="error-message">
+                  {errors.satisfaccion.message}
+                </span>
+              )}
+            </div>
+            <div className="form-group">
               <label>
-                ¿Qué tan satisfactorio está con el servicio ofrecido?
+                ¿Qué tan satisfecho está con el servicio ofrecido?
               </label>
               <select
                 {...register("satisfaccion")}
@@ -155,6 +172,16 @@ function Sugerencias() {
       case "medicos":
         return (
           <>
+            <div className="form-group">
+              <label>¿Nombre?</label>
+              <input
+                {...register("nombre")}
+                className={errors.nombre ? "error" : ""}
+              />
+              {errors.nombre && (
+                <span className="error-message">{errors.nombre.message}</span>
+              )}
+            </div>
             <div className="form-group">
               <label>¿Qué tan satisfecho está con el servicio?</label>
               <select
@@ -194,6 +221,16 @@ function Sugerencias() {
       case "empresas":
         return (
           <>
+            <div className="form-group">
+              <label>¿Empresa?</label>
+              <input
+                {...register("empresa")}
+                className={errors.empresa ? "error" : ""}
+              />
+              {errors.nombre && (
+                <span className="error-message">{errors.nombre.message}</span>
+              )}
+            </div>
             <div className="form-group">
               <label>¿Qué tan satisfecho está con el servicio ofrecido?</label>
               <select
