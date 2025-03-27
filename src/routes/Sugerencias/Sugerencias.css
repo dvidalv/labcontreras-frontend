@@ -7,55 +7,64 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
-  text-align: center;
+  background: linear-gradient(135deg, #3b5998 0%, #1e3c72 100%);
 
   @media (min-width: 768px) {
     padding-top: calc(var(--header-height) + 2rem);
   }
-
-  h2 {
-    margin-bottom: 2rem;
-    text-align: center;
-    font-size: 2rem;
-  }
 }
 
 .form {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 2rem;
-  border-radius: 10px;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
   width: 100%;
   max-width: 600px;
-  /* margin-top: 2rem; */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #1a1a1a;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: left;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  /* font-weight: bold; */
+  color: #666;
   font-size: 1rem;
-  color: white;
-  font-weight: 100;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
+.form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b5998;
+}
+
+.form-group input.error,
 .form-group textarea.error,
 .form-group select.error {
   border-color: #ff4444;
@@ -63,24 +72,25 @@
 
 .error-message {
   color: #ff4444;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-top: 0.3rem;
-  display: block;
 }
 
 .button {
-  background-color: #4caf50;
+  width: 100%;
+  background-color: #3b5998;
   color: white;
-  padding: 1rem 2rem;
+  padding: 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
 .button:hover {
-  background-color: #45a049;
+  background-color: #1e3c72;
 }
 
 .button:disabled {
@@ -90,8 +100,9 @@
 
 .success-banner {
   background-color: #4caf50;
+  color: white;
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 2rem;
   animation: fadeIn 0.5s ease-in;
 }
@@ -107,7 +118,7 @@
   border: 2px solid white;
   color: white;
   padding: 0.8rem 1.5rem;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -119,7 +130,31 @@
 
 .area-button.active {
   background: white;
-  color: black;
+  color: #3b5998;
+  border-color: #3b5998;
+}
+
+/* Required field indicator */
+label span {
+  color: #ff4444;
+  margin-left: 4px;
+}
+
+/* Privacy policy text */
+.privacy-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.privacy-text a {
+  color: #3b5998;
+  text-decoration: none;
+}
+
+.privacy-text a:hover {
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {

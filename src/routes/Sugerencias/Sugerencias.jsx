@@ -18,8 +18,6 @@ function getRandomNumber() {
 }
 const number = getRandomNumber();
 
-// console.log(number);
-
 const pacienteSchema = z.object({
   satisfaccion: z.string({
     required_error: "Debe seleccionar un nivel de satisfacción",
@@ -137,9 +135,7 @@ function Sugerencias() {
               )}
             </div>
             <div className="form-group">
-              <label>
-                ¿Qué tan satisfecho está con el servicio ofrecido?
-              </label>
+              <label>¿Qué tan satisfecho está con el servicio ofrecido?</label>
               <select
                 {...register("satisfaccion")}
                 className={errors.satisfaccion ? "error" : ""}>
