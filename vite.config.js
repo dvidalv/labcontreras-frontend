@@ -18,7 +18,7 @@ export default defineConfig({
   // Configuración de build para producción
   build: {
     outDir: "dist",
-    minify: "terser", // Mejor minificación
+    minify: "esbuild", // Cambiado de 'terser' a 'esbuild'
     sourcemap: false, // Deshabilita sourcemaps en producción
     chunkSizeWarningLimit: 1000, // Aumenta el límite de advertencia de tamaño de chunk
     rollupOptions: {
