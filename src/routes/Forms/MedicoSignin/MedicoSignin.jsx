@@ -109,6 +109,7 @@ function Signin() {
       initial={{ opacity: 0, y: -100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, type: "spring", stiffness: 100, delay: 0.5 }}>
+      <Form className="form medicos-signin" onSubmit={handleSubmit(handleForm)}>
       <motion.h1
         className="form-container__title"
         style={{ fontSize: "2rem", marginBottom: "1rem" }}
@@ -120,14 +121,13 @@ function Signin() {
           stiffness: 100,
           delay: 1.3,
         }}>
-        Ingresar
+        INGRESAR
       </motion.h1>
-      <Form className="form medicos-signin" onSubmit={handleSubmit(handleForm)}>
         <label
           htmlFor="email"
           style={{
-            color: "white",
-            fontWeight: "lighter",
+            color: "grey",
+            fontWeight: "bold",
             fontSize: "1.2rem",
             marginBottom: ".3rem",
             display: "block",
@@ -147,8 +147,8 @@ function Signin() {
         <label
           htmlFor="password"
           style={{
-            color: "white",
-            fontWeight: "lighter",
+            color: "grey",
+            fontWeight: "bold",
             fontSize: "1.2rem",
             marginBottom: ".3rem",
             display: "block",
