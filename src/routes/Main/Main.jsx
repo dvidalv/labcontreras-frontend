@@ -101,7 +101,7 @@ function Main() {
 						animate={isInView ? 'visible' : 'hidden'}
 						transition={{ duration: 0.5 }}
 					>
-						{medicos.map((medico, index) => (
+						{Array.isArray(medicos) && medicos.map((medico, index) => (
 							<motion.li
 								key={medico._id}
 								variants={{
@@ -119,7 +119,7 @@ function Main() {
 									imagen={medico.url}
 									correo={medico.email}
 									telefono={medico.telefono}
-									extension={medico.extension}
+									extension={medico.extension || ''}
 									celular={medico.celular}
 									curriculumUrl={`curriculum/`}
 									id={medico._id}

@@ -38,8 +38,16 @@ export async function updateUser({ data, token }) {
 }
 
 export async function getMedicos() {
-	const response = await fetch(`${API_URL}/medicos`);
-	return response.json();
+	try {
+		const response = await fetch(`${API_URL}/medicos`);
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		return await response.json();
+	} catch (error) {
+		console.error('Error en getMedicos:', error);
+		throw error; // re-lanzamos el error para que el componente lo maneje
+	}
 }
 
 export async function getMedico(id) {
