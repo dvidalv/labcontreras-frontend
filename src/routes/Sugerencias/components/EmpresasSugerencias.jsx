@@ -2,9 +2,13 @@ import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sugerenciasEmpresas } from "../../../utils/api";
 
 const empresaSchema = z.object({
+  empresa: z
+    .string({
+      required_error: "El nombre de la empresa es requerido",
+    })
+    .min(2, "El nombre de la empresa debe tener al menos 2 caracteres"),
   satisfaccion: z.string({
     required_error: "Debe seleccionar un nivel de satisfacción",
   }),
@@ -18,28 +22,65 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
+    clearErrors,
   } = useForm({
     resolver: zodResolver(empresaSchema),
+    defaultValues: {
+      empresa: "",
+      satisfaccion: "",
+      oportuno: "",
+    },
   });
 
   const onSubmit = async (data) => {
     try {
-      const res = await sugerenciasEmpresas(data);
-      if (onSubmitSuccess) {
+      clearErrors("root"); // Limpiar errores generales antes de enviar
+      const response = await fetch(
+        "https://labcontreras-backend.vercel.app/api/sugerencias/empresas",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const res = await response.json();
+
+      if (!response.ok) {
+        setError("root", {
+          type: "manual",
+          message:
+            res.message ||
+            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
+        });
+        return;
+      }
+
+      if (onSubmitSuccess && res.mensaje) {
         onSubmitSuccess(res.mensaje);
       }
     } catch (error) {
       console.error("Error al enviar sugerencia:", error);
+      setError("root", {
+        type: "manual",
+        message:
+          "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
+      });
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="form-group">
-        <label>¿Empresa?</label>
+        <label>Nombre de la Empresa</label>
         <input
+          name="empresa"
           {...register("empresa")}
           className={errors.empresa ? "error" : ""}
+          placeholder="Ingrese el nombre de la empresa"
         />
         {errors.empresa && (
           <span className="error-message">{errors.empresa.message}</span>
@@ -48,6 +89,7 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
       <div className="form-group">
         <label>¿Qué tan satisfecho está con el servicio ofrecido?</label>
         <select
+          name="satisfaccion"
           {...register("satisfaccion")}
           className={errors.satisfaccion ? "error" : ""}>
           <option value="">Seleccione una opción</option>
@@ -63,6 +105,7 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
       <div className="form-group">
         <label>¿Sus resultados han llegado oportunamente?</label>
         <select
+          name="oportuno"
           {...register("oportuno")}
           className={errors.oportuno ? "error" : ""}>
           <option value="">Seleccione una opción</option>
@@ -76,6 +119,9 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
       <button className="button" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Enviando..." : "Enviar encuesta"}
       </button>
+      {errors.root && (
+        <div className="general-error-message">{errors.root.message}</div>
+      )}
     </Form>
   );
 }

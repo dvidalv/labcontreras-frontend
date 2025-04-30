@@ -22,6 +22,7 @@ function PacientesSugerenciasPage() {
   const timeoutRef = useRef(null);
 
   const handleSubmitSuccess = (mensaje) => {
+    console.log(mensaje);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }

@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sugerenciasPacientes } from "../../../utils/api";
 
 const pacienteSchema = z.object({
+  nombre: z.string().optional(),
   satisfaccion: z.string({
     required_error: "Debe seleccionar un nivel de satisfacción",
   }),
@@ -22,28 +22,65 @@ function PacientesSugerencias({ onSubmitSuccess }) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
+    clearErrors,
   } = useForm({
     resolver: zodResolver(pacienteSchema),
+    defaultValues: {
+      nombre: "",
+      satisfaccion: "",
+      mejora: "",
+    },
   });
 
   const onSubmit = async (data) => {
     try {
-      const res = await sugerenciasPacientes(data);
-      if (onSubmitSuccess) {
+      clearErrors("root"); // Limpiar errores generales antes de enviar
+      const response = await fetch(
+        "https://labcontreras-backend.vercel.app/api/sugerencias/pacientes",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const res = await response.json();
+
+      if (!response.ok) {
+        setError("root", {
+          type: "manual",
+          message:
+            res.message ||
+            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
+        });
+        return;
+      }
+
+      if (onSubmitSuccess && res.mensaje) {
         onSubmitSuccess(res.mensaje);
       }
     } catch (error) {
       console.error("Error al enviar sugerencia:", error);
+      setError("root", {
+        type: "manual",
+        message:
+          "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
+      });
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="form-group">
-        <label>¿Nombre?</label>
+        <label>¿Nombre? (Opcional)</label>
         <input
+          name="nombre"
           {...register("nombre")}
           className={errors.nombre ? "error" : ""}
+          placeholder="Ingrese su nombre (opcional)"
         />
         {errors.nombre && (
           <span className="error-message">{errors.nombre.message}</span>
@@ -52,6 +89,7 @@ function PacientesSugerencias({ onSubmitSuccess }) {
       <div className="form-group">
         <label>¿Qué tan satisfecho está con el servicio ofrecido?</label>
         <select
+          name="satisfaccion"
           {...register("satisfaccion")}
           className={errors.satisfaccion ? "error" : ""}>
           <option value="">Seleccione una opción</option>
@@ -67,6 +105,7 @@ function PacientesSugerencias({ onSubmitSuccess }) {
       <div className="form-group">
         <label>¿Qué podemos mejorar?</label>
         <textarea
+          name="mejora"
           {...register("mejora")}
           placeholder="Escribe tu sugerencia aquí..."
           rows={6}
@@ -79,6 +118,9 @@ function PacientesSugerencias({ onSubmitSuccess }) {
       <button className="button" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Enviando..." : "Enviar encuesta"}
       </button>
+      {errors.root && (
+        <div className="general-error-message">{errors.root.message}</div>
+      )}
     </Form>
   );
 }

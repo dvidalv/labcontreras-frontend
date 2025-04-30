@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sugerenciasMedicos } from "../../../utils/api";
 
 const medicoSchema = z.object({
+  nombre: z.string().optional(),
   satisfaccion: z.string({
     required_error: "Debe seleccionar un nivel de satisfacción",
   }),
@@ -22,28 +22,63 @@ function MedicosSugerencias({ onSubmitSuccess }) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
   } = useForm({
     resolver: zodResolver(medicoSchema),
+    defaultValues: {
+      nombre: "",
+      satisfaccion: "",
+      discrepancias: "",
+    },
   });
 
   const onSubmit = async (data) => {
     try {
-      const res = await sugerenciasMedicos(data);
-      if (onSubmitSuccess) {
+      const response = await fetch(
+        "https://labcontreras-backend.vercel.app/api/sugerencias/medicos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const res = await response.json();
+
+      if (!response.ok) {
+        setError("discrepancias", {
+          type: "manual",
+          message:
+            res.message ||
+            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
+        });
+        return;
+      }
+
+      if (onSubmitSuccess && res.mensaje) {
         onSubmitSuccess(res.mensaje);
       }
     } catch (error) {
       console.error("Error al enviar sugerencia:", error);
+      setError("discrepancias", {
+        type: "manual",
+        message:
+          "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
+      });
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="form-group">
-        <label>¿Nombre?</label>
+        <label>¿Nombre? (Opcional)</label>
         <input
+          name="nombre"
           {...register("nombre")}
           className={errors.nombre ? "error" : ""}
+          placeholder="Ingrese su nombre (opcional)"
         />
         {errors.nombre && (
           <span className="error-message">{errors.nombre.message}</span>
@@ -52,6 +87,7 @@ function MedicosSugerencias({ onSubmitSuccess }) {
       <div className="form-group">
         <label>¿Qué tan satisfecho está con el servicio?</label>
         <select
+          name="satisfaccion"
           {...register("satisfaccion")}
           className={errors.satisfaccion ? "error" : ""}>
           <option value="">Seleccione una opción</option>
@@ -69,6 +105,7 @@ function MedicosSugerencias({ onSubmitSuccess }) {
           ¿Ha tenido algún resultado que no coincida con los datos clínicos?
         </label>
         <textarea
+          name="discrepancias"
           {...register("discrepancias")}
           placeholder="Describa la situación..."
           rows={6}
