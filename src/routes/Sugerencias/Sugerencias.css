@@ -1,7 +1,7 @@
 .sugerencias-container {
   max-width: 100%;
   margin: 0 auto;
-  min-height: 100vh;
+  /* height: calc(100vh - var(--header-height-mobile) - var(--footer-height-mobile) - var(--navbar-height)); */
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,6 @@ h2 {
   margin-bottom: 2.5rem;
   font-weight: 700;
   text-align: center;
-  color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 

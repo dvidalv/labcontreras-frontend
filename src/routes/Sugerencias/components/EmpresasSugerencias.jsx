@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
 const empresaSchema = z.object({
   empresa: z
@@ -18,6 +19,10 @@ const empresaSchema = z.object({
 });
 
 function EmpresasSugerencias({ onSubmitSuccess }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const {
     register,
     handleSubmit,

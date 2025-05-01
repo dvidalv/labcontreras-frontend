@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+
 
 const medicoSchema = z.object({
   nombre: z.string().optional(),
@@ -18,6 +20,10 @@ const medicoSchema = z.object({
 });
 
 function MedicosSugerencias({ onSubmitSuccess }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const {
     register,
     handleSubmit,

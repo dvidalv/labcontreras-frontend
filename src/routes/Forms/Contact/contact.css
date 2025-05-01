@@ -32,10 +32,11 @@
 		grid-row: 3 / 4;
 	}
 	@media (min-width: 768px) {
-		height: 100%;
+		
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 1fr;
+		grid-template-rows: auto;
+		margin-top: var(--navbar-height);
 		
 		.map-container {
 			grid-row: 1 / 2;
@@ -51,11 +52,11 @@
 
 .form-container {
 	margin-top: 20px;
-	height: calc(100vh - var(--header-height) - var(--footer-height) + 125px);
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
 	align-items: center;
+	padding: 30px;
 	
 
 	.form {

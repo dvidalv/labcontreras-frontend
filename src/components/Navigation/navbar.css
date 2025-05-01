@@ -1,4 +1,5 @@
 .header .navbar {
+	height: var(--navbar-height);
 	transition: all 0.5s;
 	align-items: center;
 	display: none;

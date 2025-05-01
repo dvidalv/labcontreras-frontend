@@ -1,15 +1,13 @@
 .resultados {
 	position: relative;
-
-	/* padding-top: calc(var(--header-height) - var(--footer-height) + 54px); */
 	width: 100%;
+	padding-top: 30px;
 	max-width: 100%;
-	/* height: calc(100vh - var(--header-height) - var(--footer-height)); */
 	display: flex;
-	/* justify-content: center; */
-	margin: 60px auto;
+	min-height: calc(100vh - var(--header-height) - var(--footer-height));
 	flex-direction: column;
 	align-items: center;
+
 
 	.resultados__title {
 		font-size: 24px;
@@ -21,7 +19,7 @@
 	}
 	@media (min-width: 768px) {
 		max-width: 100%;
-		padding-top: 30px;
+		/* padding-top: 30px; */
 	}
 }
 
