@@ -51,12 +51,19 @@
 }
 
 .form-container {
-	margin-top: 20px;
+
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
 	align-items: center;
 	padding: 30px;
+	min-height: calc(100vh - var(--header-height-mobile) - var(--navbar-height) - var(--footer-height-mobile));
+
+	@media (min-width: 768px) {
+		min-height: calc(100vh - var(--header-height) - var(--navbar-height) - var(--footer-height));
+		margin-top: 50px;
+	}
+
 	
 
 	.form {
@@ -101,10 +108,7 @@
 		margin-bottom: 40px;
 	}
 
-	@media (min-width: 768px) {
-		justify-content: center;
-		margin-top: 130px;
-	}
+
 }
 .horarios {
 	/* margin-top: 20px; */
