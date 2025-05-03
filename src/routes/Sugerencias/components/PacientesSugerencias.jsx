@@ -3,6 +3,8 @@ import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import API_URL from "../../../utils/constants";
+import { Toaster, toast } from "react-hot-toast";
 
 const pacienteSchema = z.object({
   nombre: z.string().optional(),
@@ -18,6 +20,31 @@ const pacienteSchema = z.object({
     .trim(),
 });
 
+const toasterConfig = {
+  style: {
+    padding: "16px",
+    fontSize: "1.1rem",
+    borderRadius: "8px",
+    maxWidth: "500px",
+    fontWeight: "500",
+  },
+  success: {
+    style: {
+      background: "#10B981",
+      color: "white",
+    },
+    duration: 3000,
+  },
+  error: {
+    style: {
+      background: "#EF4444",
+      color: "white",
+    },
+    duration: 4000,
+  },
+};
+
+// eslint-disable-next-line react/prop-types
 function PacientesSugerencias({ onSubmitSuccess }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,6 +56,7 @@ function PacientesSugerencias({ onSubmitSuccess }) {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
+    reset,
   } = useForm({
     resolver: zodResolver(pacienteSchema),
     defaultValues: {
@@ -40,20 +68,18 @@ function PacientesSugerencias({ onSubmitSuccess }) {
 
   const onSubmit = async (data) => {
     try {
-      clearErrors("root"); // Limpiar errores generales antes de enviar
-      const response = await fetch(
-        "https://labcontreras-backend.vercel.app/api/sugerencias/pacientes",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      clearErrors("root");
+      const response = await fetch(`${API_URL}/api/sugerencias/pacientes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      });
 
       const res = await response.json();
-
+      console.log(res);
       if (!response.ok) {
         setError("root", {
           type: "manual",
@@ -61,8 +87,25 @@ function PacientesSugerencias({ onSubmitSuccess }) {
             res.message ||
             "Error al enviar la sugerencia. Por favor, intente nuevamente.",
         });
+        toast.error(
+          res.message ||
+            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
+          toasterConfig.error
+        );
         return;
       }
+
+      // Resetear el formulario y mostrar mensaje de éxito
+      reset({
+        nombre: "",
+        satisfaccion: "",
+        mejora: "",
+      });
+
+      toast.success(
+        res.mensaje || "¡Sugerencia enviada con éxito!",
+        toasterConfig.success
+      );
 
       if (onSubmitSuccess && res.mensaje) {
         onSubmitSuccess(res.mensaje);
@@ -74,6 +117,10 @@ function PacientesSugerencias({ onSubmitSuccess }) {
         message:
           "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
       });
+      toast.error(
+        "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
+        toasterConfig.error
+      );
     }
   };
 
@@ -126,6 +173,19 @@ function PacientesSugerencias({ onSubmitSuccess }) {
       {errors.root && (
         <div className="general-error-message">{errors.root.message}</div>
       )}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={12}
+        containerStyle={{
+          top: 20,
+        }}
+        toastOptions={{
+          ...toasterConfig.style,
+          success: toasterConfig.success,
+          error: toasterConfig.error,
+        }}
+      />
     </Form>
   );
 }
