@@ -47,7 +47,7 @@ export const refreshToken = () => {
 };
 
 export const authorizeMedico = (username, password) => {
-	return fetch(`${API_URL}/medicos/signin`, {
+	const response = fetch(`${API_URL}/medicos/signin`, {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
@@ -55,6 +55,7 @@ export const authorizeMedico = (username, password) => {
 		},
 		body: JSON.stringify({ username, password }),
 	});
+	return response;
 };
 
 // comprueba el token la validez del token

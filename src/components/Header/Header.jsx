@@ -105,7 +105,6 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 		navigate('/');
 	};
 
-	// console.log(medicoUser);
 	return (
 		<header className={`contenedor header ${isMenuOpen ? 'open' : ''}`}>
 			<div className="header__info">
@@ -315,7 +314,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 				})}
 				{localStorage.getItem('medicoUser') && (
 					<div className='menu-lateral__logout' style={{padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', cursor: 'pointer'}} onClick={handleLogout} >
-					<IoMdLogOut size={48} color='white' />
+					<IoMdLogOut size={32} color='white' />
 					<span style={{fontSize: '1rem', color: 'white'}}>Cerrar Sesión</span>
 			</div>
 				)}
