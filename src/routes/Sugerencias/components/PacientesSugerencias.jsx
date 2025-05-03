@@ -79,7 +79,6 @@ function PacientesSugerencias({ onSubmitSuccess }) {
       });
 
       const res = await response.json();
-      console.log(res);
       if (!response.ok) {
         setError("root", {
           type: "manual",
