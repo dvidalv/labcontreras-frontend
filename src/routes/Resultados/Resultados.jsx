@@ -16,6 +16,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import { useAppContext } from '../../contexts/MyContext';
 
 import WhatsApp from '../../components/WhatsApp/WhatsApp';
+import { Toaster, toast } from "react-hot-toast";
 
 function Resultados() {
 	const [records, setRecords] = useState([]);
@@ -69,6 +70,9 @@ function Resultados() {
 					type: 'manual',
 					message: error.message || 'Error al obtener el token',
 				});
+				toast.error('Error al obtener el token', {
+					duration: 3000,
+				});
 			} finally {
 				// console.log('Entra en finally');
 				const tokenTimestamp = localStorage.getItem('tokenTimestamp');
@@ -92,41 +96,8 @@ function Resultados() {
 			setRecords(() => []);
 		}
 
-		// Función para obtener un nuevo token si ha expirado
-		// const refreshTokenIfNeeded = async () => {
-		// 	// console.log(isTokenExpired());
-		// 	if (!fileMakerToken || isTokenExpired()) {
-		// 		// console.log('Entra en refreshTokenIfNeeded');
-		// 		// console.log('Refresco el token');
-		// 		try {
-		// 			setLoading(true);
-		// 			const fileMakerToken = await getFileMakerToken();
-		// 			const {
-		// 				response: { token: newToken },
-		// 			} = fileMakerToken;
-		// 			setFileMakerToken(newToken);
-		// 			localStorage.setItem('tokenTimestamp', new Date().getTime());
-		// 			localStorage.setItem('fileMakerToken', newToken);
-		// 		} catch (error) {
-		// 			// console.log(1);
-		// 			setError('root', {
-		// 				type: 'manual',
-		// 				message: 'Error al obtener el token',
-		// 			});
-		// 		} finally {
-		// 			// console.log(2);
-		// 			setLoading(false);
-		// 		}
-		// 	}
-		// };
-
-		// const refreshToken = await refreshTokenIfNeeded();
-		// console.log(refreshToken);
-
 		if (fileMakerToken && data.search === '') {
-			// console.log(4);
-			// console.log(fileMakerToken);
-			// console.log(data.search);
+
 			try {
 				// console.log('Buscando todos los registros');
 				setLoading(true);
@@ -143,13 +114,18 @@ function Resultados() {
 					localStorage.setItem('resultados', JSON.stringify(data));
 				});
 			} catch (error) {
-				// console.log(3);
+				toast.error('Error al obtener los resultados, por favor salga y vuelva a entrar al sistema', {
+					duration: 3000,
+				});
+
 				setError('root', {
 					type: 'manual',
 					message: 'Error al obtener los resultados, por favor salga y vuelva a entrar al sistema',
 				});
 			} finally {
+				
 				setLoading(false);
+
 			}
 		} else {
 			try {
@@ -170,6 +146,9 @@ function Resultados() {
 					localStorage.setItem('resultados', JSON.stringify(responseData));
 				});
 			} catch (error) {
+				toast.error('No se encontraron resultados', {
+					duration: 3000,
+				});
 				setError('root', {
 					type: 'manual',
 					message: 'No se encontraron resultados',
@@ -184,6 +163,7 @@ function Resultados() {
 
 	return (
 		<>
+			<Toaster />
 			{loading && <Preloader />}
 			<div className="resultados">
 				<h1 className="resultados__title">Resultados</h1>
