@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { sugerenciasPacientes } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
+import { getVisitorFingerprint } from "../../../utils/fingerprint";
 
 const pacienteSchema = z.object({
   nombre: z.string().optional(),
@@ -69,12 +70,13 @@ function PacientesSugerencias() {
   const onSubmit = async (data) => {
     try {
       clearErrors("root");
+      const fingerprint = await getVisitorFingerprint();
+      if (!fingerprint) {
+        throw new Error("No se pudo obtener la identificación del navegador");
+      }
 
-      // Log the data being sent
-      // console.log("Enviando datos:", data);
-
-      await sugerenciasPacientes(data);
-      // console.log("Respuesta del servidor:", res);
+      const response = await sugerenciasPacientes({ ...data, fingerprint });
+      console.log("Respuesta exitosa:", response);
 
       // Resetear el formulario y mostrar mensaje de éxito
       reset({
@@ -85,26 +87,24 @@ function PacientesSugerencias() {
 
       toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
     } catch (error) {
-      console.error("Error detallado:", error);
+      console.error("Error completo:", error);
 
-      let errorMessage = "Error al enviar la sugerencia. ";
+      // Asegurarnos de que estamos obteniendo el mensaje de error correctamente
+      let errorMessage;
 
-      if (error.message.includes("HTTP error!")) {
-        errorMessage += "El servidor no pudo procesar la solicitud.";
-      } else if (
-        error.message.includes("La respuesta del servidor está vacía")
-      ) {
-        errorMessage += "No se recibió respuesta del servidor.";
-      } else if (
-        error.message.includes("La respuesta del servidor no es JSON válido")
-      ) {
-        errorMessage +=
-          "La respuesta del servidor no tiene el formato esperado.";
-      } else if (error.message.includes("Failed to fetch")) {
-        errorMessage +=
-          "No se pudo conectar con el servidor. Verifique su conexión a internet.";
-      } else {
-        errorMessage += error.message || "Por favor, intente nuevamente.";
+      try {
+        // Si el error viene como respuesta del servidor
+        if (error.response?.data) {
+          errorMessage = error.response.data.message;
+          console.log("Mensaje de error del servidor:", errorMessage);
+        } else {
+          // Si es un error de red u otro tipo
+          errorMessage = error.message || "Error al enviar la sugerencia";
+          console.log("Mensaje de error general:", errorMessage);
+        }
+      } catch (e) {
+        errorMessage = "Error al enviar la sugerencia";
+        console.error("Error al procesar el mensaje de error:", e);
       }
 
       setError("root", {
@@ -112,7 +112,19 @@ function PacientesSugerencias() {
         message: errorMessage,
       });
 
-      toast.error(errorMessage, toasterConfig.error);
+      // Asegurarnos de que el mensaje no sea undefined o null
+      if (!errorMessage) {
+        errorMessage = "Error al enviar la sugerencia";
+      }
+
+      // Configurar el toast con el mensaje y las opciones
+      const toastOptions = {
+        ...toasterConfig.error,
+        duration: 4000,
+      };
+
+      // Mostrar el mensaje de error
+      toast.error(errorMessage, toastOptions);
     }
   };
 

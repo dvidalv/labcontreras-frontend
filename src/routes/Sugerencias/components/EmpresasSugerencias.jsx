@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { sugerenciasEmpresas } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
+import { getVisitorFingerprint } from "../../../utils/fingerprint";
 
 const empresaSchema = z.object({
   empresa: z
@@ -69,7 +70,12 @@ function EmpresasSugerencias() {
   const onSubmit = async (data) => {
     try {
       clearErrors("root");
-      await sugerenciasEmpresas(data);
+      const fingerprint = await getVisitorFingerprint();
+      if (!fingerprint) {
+        throw new Error("No se pudo obtener la identificación del navegador");
+      }
+
+      await sugerenciasEmpresas({ ...data, fingerprint });
 
       // Resetear el formulario y mostrar mensaje de éxito
       reset({
@@ -82,24 +88,19 @@ function EmpresasSugerencias() {
     } catch (error) {
       console.error("Error detallado:", error);
 
-      let errorMessage = "Error al enviar la sugerencia. ";
+      let errorMessage;
 
-      if (error.message.includes("HTTP error!")) {
-        errorMessage += "El servidor no pudo procesar la solicitud.";
-      } else if (
-        error.message.includes("La respuesta del servidor está vacía")
-      ) {
-        errorMessage += "No se recibió respuesta del servidor.";
-      } else if (
-        error.message.includes("La respuesta del servidor no es JSON válido")
-      ) {
-        errorMessage +=
-          "La respuesta del servidor no tiene el formato esperado.";
+      // Manejar errores de la API
+      if (error.response?.data?.error === "RATE_LIMIT_EXCEEDED") {
+        errorMessage = error.response.data.message;
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
       } else if (error.message.includes("Failed to fetch")) {
-        errorMessage +=
+        errorMessage =
           "No se pudo conectar con el servidor. Verifique su conexión a internet.";
       } else {
-        errorMessage += error.message || "Por favor, intente nuevamente.";
+        errorMessage =
+          "Error al enviar la sugerencia. Por favor, intente nuevamente.";
       }
 
       setError("root", {

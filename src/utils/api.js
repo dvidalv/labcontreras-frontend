@@ -150,32 +150,48 @@ export async function sugerenciasPacientes(data) {
     console.log("Response status:", response.status);
     console.log("Response headers:", Object.fromEntries(response.headers));
 
-    // Check if response is ok before trying to parse JSON
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Check if response has content
-    const contentType = response.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
-      throw new Error("La respuesta del servidor no es JSON válido");
-    }
-
-    const text = await response.text();
-    console.log("Response text:", text);
-
-    if (!text) {
-      throw new Error("La respuesta del servidor está vacía");
-    }
-
+    let responseData;
     try {
-      return JSON.parse(text);
-    } catch (e) {
-      throw new Error(`Error al procesar la respuesta del servidor: ${text}`);
+      // Intentamos parsear la respuesta como JSON
+      responseData = await response.json();
+    } catch (parseError) {
+      // Si no es JSON o está vacía, creamos un objeto con mensaje genérico
+      responseData = {
+        error: "ERROR_RESPONSE",
+        message:
+          response.status === 429
+            ? "Por favor, espere antes de enviar otra sugerencia."
+            : "Error en la respuesta del servidor",
+      };
     }
+
+    // Si la respuesta no es ok, lanzamos un error con los datos del servidor
+    if (!response.ok) {
+      const error = new Error();
+      error.response = {
+        status: response.status,
+        data: responseData,
+      };
+      throw error;
+    }
+
+    return responseData;
   } catch (error) {
     console.error("Error en sugerenciasPacientes:", error);
-    throw error;
+    if (error.response) {
+      throw error; // Re-lanzamos el error con la respuesta del servidor
+    }
+    // Si no hay respuesta estructurada, creamos un error genérico
+    const genericError = new Error();
+    genericError.response = {
+      status: 500,
+      data: {
+        error: "ERROR_GENERAL",
+        message:
+          "Error al procesar la solicitud. Por favor, intente más tarde.",
+      },
+    };
+    throw genericError;
   }
 }
 
@@ -193,31 +209,48 @@ export async function sugerenciasMedicos(data) {
       body: JSON.stringify(data),
     });
 
-    // Check if response is ok before trying to parse JSON
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Check if response has content
-    const contentType = response.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
-      throw new Error("La respuesta del servidor no es JSON válido");
-    }
-
-    const text = await response.text();
-
-    if (!text) {
-      throw new Error("La respuesta del servidor está vacía");
-    }
-
+    let responseData;
     try {
-      return JSON.parse(text);
-    } catch (e) {
-      throw new Error(`Error al procesar la respuesta del servidor: ${text}`);
+      // Intentamos parsear la respuesta como JSON
+      responseData = await response.json();
+    } catch (parseError) {
+      // Si no es JSON o está vacía, creamos un objeto con mensaje genérico
+      responseData = {
+        error: "ERROR_RESPONSE",
+        message:
+          response.status === 429
+            ? "Por favor, espere antes de enviar otra sugerencia."
+            : "Error en la respuesta del servidor",
+      };
     }
+
+    // Si la respuesta no es ok, lanzamos un error con los datos del servidor
+    if (!response.ok) {
+      const error = new Error();
+      error.response = {
+        status: response.status,
+        data: responseData,
+      };
+      throw error;
+    }
+
+    return responseData;
   } catch (error) {
     console.error("Error en sugerenciasMedicos:", error);
-    throw error;
+    if (error.response) {
+      throw error; // Re-lanzamos el error con la respuesta del servidor
+    }
+    // Si no hay respuesta estructurada, creamos un error genérico
+    const genericError = new Error();
+    genericError.response = {
+      status: 500,
+      data: {
+        error: "ERROR_GENERAL",
+        message:
+          "Error al procesar la solicitud. Por favor, intente más tarde.",
+      },
+    };
+    throw genericError;
   }
 }
 
@@ -235,31 +268,48 @@ export async function sugerenciasEmpresas(data) {
       body: JSON.stringify(data),
     });
 
-    // Check if response is ok before trying to parse JSON
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Check if response has content
-    const contentType = response.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
-      throw new Error("La respuesta del servidor no es JSON válido");
-    }
-
-    const text = await response.text();
-
-    if (!text) {
-      throw new Error("La respuesta del servidor está vacía");
-    }
-
+    let responseData;
     try {
-      return JSON.parse(text);
-    } catch (e) {
-      throw new Error(`Error al procesar la respuesta del servidor: ${text}`);
+      // Intentamos parsear la respuesta como JSON
+      responseData = await response.json();
+    } catch (parseError) {
+      // Si no es JSON o está vacía, creamos un objeto con mensaje genérico
+      responseData = {
+        error: "ERROR_RESPONSE",
+        message:
+          response.status === 429
+            ? "Por favor, espere antes de enviar otra sugerencia."
+            : "Error en la respuesta del servidor",
+      };
     }
+
+    // Si la respuesta no es ok, lanzamos un error con los datos del servidor
+    if (!response.ok) {
+      const error = new Error();
+      error.response = {
+        status: response.status,
+        data: responseData,
+      };
+      throw error;
+    }
+
+    return responseData;
   } catch (error) {
     console.error("Error en sugerenciasEmpresas:", error);
-    throw error;
+    if (error.response) {
+      throw error; // Re-lanzamos el error con la respuesta del servidor
+    }
+    // Si no hay respuesta estructurada, creamos un error genérico
+    const genericError = new Error();
+    genericError.response = {
+      status: 500,
+      data: {
+        error: "ERROR_GENERAL",
+        message:
+          "Error al procesar la solicitud. Por favor, intente más tarde.",
+      },
+    };
+    throw genericError;
   }
 }
 
