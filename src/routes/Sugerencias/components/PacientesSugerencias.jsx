@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import API_URL from "../../../utils/constants";
+import { sugerenciasPacientes } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
 
 const pacienteSchema = z.object({
@@ -45,7 +45,7 @@ const toasterConfig = {
 };
 
 // eslint-disable-next-line react/prop-types
-function PacientesSugerencias({ onSubmitSuccess }) {
+function PacientesSugerencias() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -69,30 +69,12 @@ function PacientesSugerencias({ onSubmitSuccess }) {
   const onSubmit = async (data) => {
     try {
       clearErrors("root");
-      const response = await fetch(`${API_URL}/api/sugerencias/pacientes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(data),
-      });
 
-      const res = await response.json();
-      if (!response.ok) {
-        setError("root", {
-          type: "manual",
-          message:
-            res.message ||
-            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
-        });
-        toast.error(
-          res.message ||
-            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
-          toasterConfig.error
-        );
-        return;
-      }
+      // Log the data being sent
+      // console.log("Enviando datos:", data);
+
+      await sugerenciasPacientes(data);
+      // console.log("Respuesta del servidor:", res);
 
       // Resetear el formulario y mostrar mensaje de éxito
       reset({
@@ -101,25 +83,36 @@ function PacientesSugerencias({ onSubmitSuccess }) {
         mejora: "",
       });
 
-      toast.success(
-        res.mensaje || "¡Sugerencia enviada con éxito!",
-        toasterConfig.success
-      );
-
-      if (onSubmitSuccess && res.mensaje) {
-        onSubmitSuccess(res.mensaje);
-      }
+      toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
     } catch (error) {
-      console.error("Error al enviar sugerencia:", error);
+      console.error("Error detallado:", error);
+
+      let errorMessage = "Error al enviar la sugerencia. ";
+
+      if (error.message.includes("HTTP error!")) {
+        errorMessage += "El servidor no pudo procesar la solicitud.";
+      } else if (
+        error.message.includes("La respuesta del servidor está vacía")
+      ) {
+        errorMessage += "No se recibió respuesta del servidor.";
+      } else if (
+        error.message.includes("La respuesta del servidor no es JSON válido")
+      ) {
+        errorMessage +=
+          "La respuesta del servidor no tiene el formato esperado.";
+      } else if (error.message.includes("Failed to fetch")) {
+        errorMessage +=
+          "No se pudo conectar con el servidor. Verifique su conexión a internet.";
+      } else {
+        errorMessage += error.message || "Por favor, intente nuevamente.";
+      }
+
       setError("root", {
         type: "manual",
-        message:
-          "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
+        message: errorMessage,
       });
-      toast.error(
-        "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
-        toasterConfig.error
-      );
+
+      toast.error(errorMessage, toasterConfig.error);
     }
   };
 

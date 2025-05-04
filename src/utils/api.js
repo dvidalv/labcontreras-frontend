@@ -1,6 +1,6 @@
 import API_URL from "./constants";
 import {} from "./constants";
-// console.log(API_URL);
+console.log(API_URL);
 
 export async function signinUser(email, password) {
   const response = await fetch(`${API_URL}/signin`, {
@@ -131,36 +131,136 @@ export async function contact(email, subject, message) {
 }
 
 export async function sugerenciasPacientes(data) {
-  const response = await fetch(`${API_URL}/api/sugerencias/pacientes`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
+  try {
+    const requestUrl = `${API_URL}/api/sugerencias/pacientes`;
+    console.log("API_URL:", API_URL);
+    console.log("Request URL:", requestUrl);
+    console.log("Request data:", data);
+
+    const response = await fetch(requestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    console.log("Response status:", response.status);
+    console.log("Response headers:", Object.fromEntries(response.headers));
+
+    // Check if response is ok before trying to parse JSON
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Check if response has content
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("La respuesta del servidor no es JSON válido");
+    }
+
+    const text = await response.text();
+    console.log("Response text:", text);
+
+    if (!text) {
+      throw new Error("La respuesta del servidor está vacía");
+    }
+
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      throw new Error(`Error al procesar la respuesta del servidor: ${text}`);
+    }
+  } catch (error) {
+    console.error("Error en sugerenciasPacientes:", error);
+    throw error;
+  }
 }
 
 export async function sugerenciasMedicos(data) {
-  const response = await fetch(`${API_URL}/api/sugerencias/medicos`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
+  try {
+    const requestUrl = `${API_URL}/api/sugerencias/medicos`;
+
+    const response = await fetch(requestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    // Check if response is ok before trying to parse JSON
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Check if response has content
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("La respuesta del servidor no es JSON válido");
+    }
+
+    const text = await response.text();
+
+    if (!text) {
+      throw new Error("La respuesta del servidor está vacía");
+    }
+
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      throw new Error(`Error al procesar la respuesta del servidor: ${text}`);
+    }
+  } catch (error) {
+    console.error("Error en sugerenciasMedicos:", error);
+    throw error;
+  }
 }
 
 export async function sugerenciasEmpresas(data) {
-  const response = await fetch(`${API_URL}/api/sugerencias/empresas`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
+  try {
+    const requestUrl = `${API_URL}/api/sugerencias/empresas`;
+
+    const response = await fetch(requestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    // Check if response is ok before trying to parse JSON
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Check if response has content
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("La respuesta del servidor no es JSON válido");
+    }
+
+    const text = await response.text();
+
+    if (!text) {
+      throw new Error("La respuesta del servidor está vacía");
+    }
+
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      throw new Error(`Error al procesar la respuesta del servidor: ${text}`);
+    }
+  } catch (error) {
+    console.error("Error en sugerenciasEmpresas:", error);
+    throw error;
+  }
 }
 
 export async function uploadAvatar(data) {

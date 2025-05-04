@@ -3,6 +3,8 @@ import { Form } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { sugerenciasEmpresas } from "../../../utils/api";
+import { Toaster, toast } from "react-hot-toast";
 
 const empresaSchema = z.object({
   empresa: z
@@ -18,7 +20,32 @@ const empresaSchema = z.object({
   }),
 });
 
-function EmpresasSugerencias({ onSubmitSuccess }) {
+const toasterConfig = {
+  style: {
+    padding: "16px",
+    fontSize: "1.1rem",
+    borderRadius: "8px",
+    maxWidth: "500px",
+    fontWeight: "500",
+  },
+  success: {
+    style: {
+      background: "#10B981",
+      color: "white",
+    },
+    duration: 3000,
+  },
+  error: {
+    style: {
+      background: "#EF4444",
+      color: "white",
+    },
+    duration: 4000,
+  },
+};
+
+// eslint-disable-next-line react/prop-types
+function EmpresasSugerencias() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -29,6 +56,7 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
+    reset,
   } = useForm({
     resolver: zodResolver(empresaSchema),
     defaultValues: {
@@ -40,40 +68,46 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
 
   const onSubmit = async (data) => {
     try {
-      clearErrors("root"); // Limpiar errores generales antes de enviar
-      const response = await fetch(
-        "https://labcontreras-backend.vercel.app/api/sugerencias/empresas",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      clearErrors("root");
+      await sugerenciasEmpresas(data);
 
-      const res = await response.json();
+      // Resetear el formulario y mostrar mensaje de éxito
+      reset({
+        empresa: "",
+        satisfaccion: "",
+        oportuno: "",
+      });
 
-      if (!response.ok) {
-        setError("root", {
-          type: "manual",
-          message:
-            res.message ||
-            "Error al enviar la sugerencia. Por favor, intente nuevamente.",
-        });
-        return;
-      }
-
-      if (onSubmitSuccess && res.mensaje) {
-        onSubmitSuccess(res.mensaje);
-      }
+      toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
     } catch (error) {
-      console.error("Error al enviar sugerencia:", error);
+      console.error("Error detallado:", error);
+
+      let errorMessage = "Error al enviar la sugerencia. ";
+
+      if (error.message.includes("HTTP error!")) {
+        errorMessage += "El servidor no pudo procesar la solicitud.";
+      } else if (
+        error.message.includes("La respuesta del servidor está vacía")
+      ) {
+        errorMessage += "No se recibió respuesta del servidor.";
+      } else if (
+        error.message.includes("La respuesta del servidor no es JSON válido")
+      ) {
+        errorMessage +=
+          "La respuesta del servidor no tiene el formato esperado.";
+      } else if (error.message.includes("Failed to fetch")) {
+        errorMessage +=
+          "No se pudo conectar con el servidor. Verifique su conexión a internet.";
+      } else {
+        errorMessage += error.message || "Por favor, intente nuevamente.";
+      }
+
       setError("root", {
         type: "manual",
-        message:
-          "Error de conexión. Por favor, verifique su conexión a internet e intente nuevamente.",
+        message: errorMessage,
       });
+
+      toast.error(errorMessage, toasterConfig.error);
     }
   };
 
@@ -127,6 +161,19 @@ function EmpresasSugerencias({ onSubmitSuccess }) {
       {errors.root && (
         <div className="general-error-message">{errors.root.message}</div>
       )}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={12}
+        containerStyle={{
+          top: 20,
+        }}
+        toastOptions={{
+          ...toasterConfig.style,
+          success: toasterConfig.success,
+          error: toasterConfig.error,
+        }}
+      />
     </Form>
   );
 }
