@@ -9,12 +9,10 @@ import background5 from "../../images/background-5.jpg";
 import PacientesSugerencias from "./components/PacientesSugerencias";
 import { QRCodeSVG } from "qrcode.react";
 import { useLocation } from "react-router-dom";
-import API_URL from "../../utils/constants";
 
 import "animate.css";
 
-
-// console.log(API_URL);
+const baseUrl = "https://www.contrerasrobledo.com";
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 5) + 1;
@@ -28,7 +26,7 @@ function PacientesSugerenciasPage() {
   const timeoutRef = useRef(null);
   const location = useLocation();
   const url = location.pathname;
-  const urlActual = API_URL + url;
+  const urlActual = baseUrl + url;
 
   console.log(urlActual);
 
