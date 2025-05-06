@@ -7,6 +7,7 @@ import { sugerenciasPacientes } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
 import { getVisitorFingerprint } from "../../../utils/fingerprint";
 
+
 const pacienteSchema = z.object({
   nombre: z.string().optional(),
   satisfaccion: z.string({

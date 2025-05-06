@@ -7,8 +7,14 @@ import background3 from "../../images/background-3.jpg";
 import background4 from "../../images/background-4.jpg";
 import background5 from "../../images/background-5.jpg";
 import PacientesSugerencias from "./components/PacientesSugerencias";
+import { QRCodeSVG } from "qrcode.react";
+import { useLocation } from "react-router-dom";
+import API_URL from "../../utils/constants";
 
 import "animate.css";
+
+
+// console.log(API_URL);
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 5) + 1;
@@ -20,6 +26,10 @@ function PacientesSugerenciasPage() {
   const [showBanner, setShowBanner] = useState(false);
   const [message, setMessage] = useState("");
   const timeoutRef = useRef(null);
+  const location = useLocation();
+  const url = location.pathname;
+
+  console.log(API_URL + url);
 
   const handleSubmitSuccess = (mensaje) => {
     console.log(mensaje);
@@ -66,6 +76,9 @@ function PacientesSugerenciasPage() {
         Encuesta de Satisfacción - Pacientes
       </h2>
       <PacientesSugerencias onSubmitSuccess={handleSubmitSuccess} />
+      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+        <QRCodeSVG value={url} />
+      </div>
     </div>
   );
 }
