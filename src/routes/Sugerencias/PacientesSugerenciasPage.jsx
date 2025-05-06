@@ -28,8 +28,9 @@ function PacientesSugerenciasPage() {
   const timeoutRef = useRef(null);
   const location = useLocation();
   const url = location.pathname;
+  const urlActual = API_URL + url;
 
-  console.log(API_URL + url);
+  console.log(urlActual);
 
   const handleSubmitSuccess = (mensaje) => {
     console.log(mensaje);
@@ -77,7 +78,7 @@ function PacientesSugerenciasPage() {
       </h2>
       <PacientesSugerencias onSubmitSuccess={handleSubmitSuccess} />
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <QRCodeSVG value={url} />
+        <QRCodeSVG value={urlActual} />
       </div>
     </div>
   );
