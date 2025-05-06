@@ -75,9 +75,9 @@ function PacientesSugerenciasPage() {
         Encuesta de Satisfacción - Pacientes
       </h2>
       <PacientesSugerencias onSubmitSuccess={handleSubmitSuccess} />
-      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+      {/* <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         <QRCodeSVG value={urlActual} />
-      </div>
+      </div> */}
     </div>
   );
 }
