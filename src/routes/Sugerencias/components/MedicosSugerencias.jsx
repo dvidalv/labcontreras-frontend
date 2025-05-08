@@ -133,10 +133,10 @@ function MedicosSugerencias() {
           {...register("satisfaccion")}
           className={errors.satisfaccion ? "error" : ""}>
           <option value="">Seleccione una opción</option>
-          <option value="nada">Nada satisfecho</option>
-          <option value="poco">Poco satisfecho</option>
+          <option value="muy-satisfecho">Muy satisfecho</option>
           <option value="satisfecho">Satisfecho</option>
-          <option value="muy">Muy satisfecho</option>
+          <option value="poco-satisfecho">Poco satisfecho</option>
+          <option value="nada-satisfecho">Nada satisfecho</option>
         </select>
         {errors.satisfaccion && (
           <span className="error-message">{errors.satisfaccion.message}</span>
