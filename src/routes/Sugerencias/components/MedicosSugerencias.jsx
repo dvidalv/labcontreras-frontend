@@ -12,7 +12,19 @@ const medicoSchema = z.object({
   satisfaccion: z.string({
     required_error: "Debe seleccionar un nivel de satisfacción",
   }),
-  discrepancias: z
+  entregaOportuna: z.string({
+    required_error: "Debe seleccionar una opción",
+  }),
+  informesClaros: z.string({
+    required_error: "Debe seleccionar una opción",
+  }),
+  utilidadDiagnosticos: z.string({
+    required_error: "Debe seleccionar una opción",
+  }),
+  metodosTecnicos: z.string({
+    required_error: "Debe seleccionar una opción",
+  }),
+  sugerencias: z
     .string({
       required_error: "Este campo es requerido",
     })
@@ -63,7 +75,11 @@ function MedicosSugerencias() {
     defaultValues: {
       nombre: "",
       satisfaccion: "",
-      discrepancias: "",
+      entregaOportuna: "",
+      informesClaros: "",
+      utilidadDiagnosticos: "",
+      metodosTecnicos: "",
+      sugerencias: "",
     },
   });
 
@@ -81,7 +97,11 @@ function MedicosSugerencias() {
       reset({
         nombre: "",
         satisfaccion: "",
-        discrepancias: "",
+        entregaOportuna: "",
+        informesClaros: "",
+        utilidadDiagnosticos: "",
+        metodosTecnicos: "",
+        sugerencias: "",
       });
 
       toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
@@ -126,8 +146,9 @@ function MedicosSugerencias() {
           <span className="error-message">{errors.nombre.message}</span>
         )}
       </div>
+
       <div className="form-group">
-        <label>¿Qué tan satisfecho está con el servicio?</label>
+        <label>¿Qué tan satisfecho está con el servicio ofrecido?</label>
         <select
           name="satisfaccion"
           {...register("satisfaccion")}
@@ -142,21 +163,96 @@ function MedicosSugerencias() {
           <span className="error-message">{errors.satisfaccion.message}</span>
         )}
       </div>
+
       <div className="form-group">
-        <label>
-          ¿Ha tenido algún resultado que no coincida con los datos clínicos?
-        </label>
-        <textarea
-          name="discrepancias"
-          {...register("discrepancias")}
-          placeholder="Describa la situación..."
-          rows={6}
-          className={errors.discrepancias ? "error" : ""}
-        />
-        {errors.discrepancias && (
-          <span className="error-message">{errors.discrepancias.message}</span>
+        <label>¿Los resultados han sido entregados en tiempo oportuno?</label>
+        <select
+          name="entregaOportuna"
+          {...register("entregaOportuna")}
+          className={errors.entregaOportuna ? "error" : ""}>
+          <option value="">Seleccione una opción</option>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+        {errors.entregaOportuna && (
+          <span className="error-message">
+            {errors.entregaOportuna.message}
+          </span>
         )}
       </div>
+
+      <div className="form-group">
+        <label>¿Los informes emitidos son claros y precisos?</label>
+        <select
+          name="informesClaros"
+          {...register("informesClaros")}
+          className={errors.informesClaros ? "error" : ""}>
+          <option value="">Seleccione una opción</option>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+        {errors.informesClaros && (
+          <span className="error-message">{errors.informesClaros.message}</span>
+        )}
+      </div>
+
+      <div className="form-group">
+        <label>Los diagnósticos fueron generalmente:</label>
+        <select
+          name="utilidadDiagnosticos"
+          {...register("utilidadDiagnosticos")}
+          className={errors.utilidadDiagnosticos ? "error" : ""}>
+          <option value="">Seleccione una opción</option>
+          <option value="utiles">Útiles para el manejo de los pacientes</option>
+          <option value="no-concluyentes">
+            No concluyentes para el manejo de los pacientes
+          </option>
+          <option value="sin-beneficio">
+            No aportaron beneficio para el manejo de los pacientes
+          </option>
+        </select>
+        {errors.utilidadDiagnosticos && (
+          <span className="error-message">
+            {errors.utilidadDiagnosticos.message}
+          </span>
+        )}
+      </div>
+
+      <div className="form-group">
+        <label>Los métodos técnicos aplicados fueron:</label>
+        <select
+          name="metodosTecnicos"
+          {...register("metodosTecnicos")}
+          className={errors.metodosTecnicos ? "error" : ""}>
+          <option value="">Seleccione una opción</option>
+          <option value="modernos">Modernos y actualizados</option>
+          <option value="excesivos">Exagerados y excesivos</option>
+          <option value="obsoletos">Obsoletos</option>
+        </select>
+        {errors.metodosTecnicos && (
+          <span className="error-message">
+            {errors.metodosTecnicos.message}
+          </span>
+        )}
+      </div>
+
+      <div className="form-group">
+        <label>
+          ¿Cuáles son los puntos de mejora que usted sugiere para ofrecer un
+          mejor diagnóstico y/o servicio?
+        </label>
+        <textarea
+          name="sugerencias"
+          {...register("sugerencias")}
+          placeholder="Describa sus sugerencias..."
+          rows={6}
+          className={errors.sugerencias ? "error" : ""}
+        />
+        {errors.sugerencias && (
+          <span className="error-message">{errors.sugerencias.message}</span>
+        )}
+      </div>
+
       <button className="button" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Enviando..." : "Enviar encuesta"}
       </button>
