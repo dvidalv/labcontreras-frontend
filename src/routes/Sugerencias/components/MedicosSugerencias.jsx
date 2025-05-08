@@ -115,7 +115,7 @@ function MedicosSugerencias() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="form-group">
-        <label>¿Nombre? (Opcional)</label>
+        <label>Nombre (Opcional)</label>
         <input
           name="nombre"
           {...register("nombre")}
