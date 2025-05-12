@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { sugerenciasPacientes } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
 import { getVisitorFingerprint } from "../../../utils/fingerprint";
-
 
 const pacienteSchema = z.object({
   nombre: z.string().optional(),
@@ -48,6 +47,8 @@ const toasterConfig = {
 
 // eslint-disable-next-line react/prop-types
 function PacientesSugerencias() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -87,6 +88,11 @@ function PacientesSugerencias() {
       });
 
       toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
+
+      // Redirigir al usuario a la página principal después de 1 segundo
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
       console.error("Error completo:", error);
 

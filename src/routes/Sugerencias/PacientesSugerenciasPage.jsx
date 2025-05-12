@@ -7,7 +7,7 @@ import background3 from "../../images/background-3.jpg";
 import background4 from "../../images/background-4.jpg";
 import background5 from "../../images/background-5.jpg";
 import PacientesSugerencias from "./components/PacientesSugerencias";
-import { QRCodeSVG } from "qrcode.react";
+// import { QRCodeSVG } from "qrcode.react";
 import { useLocation } from "react-router-dom";
 
 import "animate.css";
@@ -31,7 +31,7 @@ function PacientesSugerenciasPage() {
   console.log(urlActual);
 
   const handleSubmitSuccess = (mensaje) => {
-    console.log(mensaje);
+    // console.log(mensaje);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }

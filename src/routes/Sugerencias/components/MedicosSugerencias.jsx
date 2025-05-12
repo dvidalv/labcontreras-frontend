@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -59,6 +59,8 @@ const toasterConfig = {
 
 // eslint-disable-next-line react/prop-types
 function MedicosSugerencias() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -105,6 +107,11 @@ function MedicosSugerencias() {
       });
 
       toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
+
+      // Redirigir al usuario a la página principal después de 3 segundos
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
       console.error("Error detallado:", error);
 
