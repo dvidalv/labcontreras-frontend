@@ -13,9 +13,7 @@ const pacienteSchema = z.object({
     required_error: "Debe seleccionar un nivel de satisfacción",
   }),
   mejora: z
-    .string({
-      required_error: "Este campo es requerido",
-    })
+    .string()
     .min(10, "El mensaje debe tener al menos 10 caracteres")
     .max(500, "El mensaje no puede exceder los 500 caracteres")
     .trim(),
