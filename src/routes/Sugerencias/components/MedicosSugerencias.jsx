@@ -26,8 +26,6 @@ const medicoSchema = z.object({
   }),
   sugerencias: z
     .string()
-    .min(10, "El mensaje debe tener al menos 10 caracteres")
-    .max(500, "El mensaje no puede exceder los 500 caracteres")
     .trim(),
 });
 
