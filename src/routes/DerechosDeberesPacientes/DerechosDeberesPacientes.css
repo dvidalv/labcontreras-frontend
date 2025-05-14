@@ -1,0 +1,64 @@
+.derechos-deberes-pacientes {
+  min-height: calc(
+    100vh - var(--header-height-mobile) - var(--footer-height-mobile)
+  );
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    padding: 6rem;
+  }
+}
+
+.derechos-deberes-pacientes h1 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.derechos-deberes-container {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.seccion {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.seccion h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.lista-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-items li {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.lista-items li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .derechos-deberes-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}

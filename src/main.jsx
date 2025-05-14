@@ -46,6 +46,8 @@ import PacientesSugerenciasPage from "./routes/Sugerencias/PacientesSugerenciasP
 import MedicosSugerenciasPage from "./routes/Sugerencias/MedicosSugerenciasPage.jsx";
 import EmpresasSugerenciasPage from "./routes/Sugerencias/EmpresasSugerenciasPage.jsx";
 
+import DerechosDeberesPacientes from "./routes/DerechosDeberesPacientes/DerechosDeberesPacientes.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "nosotros/mision-vision-valores/",
         element: <MisionVisionValores />,
+      },
+      {
+        path: "nosotros/derechos-deberes-pacientes/",
+        element: <DerechosDeberesPacientes />,
       },
       {
         path: "publicaciones/",

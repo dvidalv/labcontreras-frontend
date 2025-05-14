@@ -18,6 +18,10 @@ export const menuLinks = [
         to: "/nosotros/mision-vision-valores",
         text: "Mision, vision y valores",
       },
+      {
+        to: "/nosotros/derechos-deberes-pacientes",
+        text: "Derechos y deberes de pacientes",
+      },
     ],
   },
   { to: "/medicos", text: "Médicos" },
