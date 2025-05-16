@@ -83,7 +83,9 @@ function Signin() {
 
       <div className="form-container__content">
         <h1 className="form-container__title">Bienvenido</h1>
-        <p className="form-container__subtitle">Ingresa a tu cuenta</p>
+        <p className="form-container__subtitle">
+          No tienes una cuenta? <a href="/signup">Registrate</a>
+        </p>
 
         <Form className="form" onSubmit={handleSubmit(handleForm)}>
           <div className="form__field">

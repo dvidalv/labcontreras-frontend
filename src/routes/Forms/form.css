@@ -151,6 +151,19 @@
   font-weight: 700;
 }
 
+.form-container__subtitle a {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #0560f3;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #003d82;
+    text-decoration: underline;
+  }
+}
+
 .form.medicos-signin,
 .form-container__title {
   animation: fadeIn 0.5s ease-out forwards;
@@ -166,8 +179,6 @@
     transform: translateY(0);
   }
 }
-
-
 
 .form-container__notice {
   background-color: #fff3cd;

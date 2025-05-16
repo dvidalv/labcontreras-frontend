@@ -13,15 +13,65 @@ export async function signinUser(email, password) {
   return response.json();
 }
 
-export async function createUser(email, password) {
+export async function createUser(data) {
+  // console.log("Data:", data);
+  console.log("API_URL:", API_URL);
   const response = await fetch(`${API_URL}/users/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify(data),
   });
   return response.json();
+}
+
+function getPublicIdFromUrl(url) {
+  try {
+    // La URL de Cloudinary tiene este formato:
+    // https://res.cloudinary.com/[cloud_name]/image/upload/v[version]/avatars/[hash].[extension]
+    const urlParts = url.split("/");
+    // Obtener los últimos dos segmentos (carpeta/hash)
+    const filename = urlParts[urlParts.length - 1];
+    const folder = urlParts[urlParts.length - 2];
+
+    // Remover la extensión del archivo
+    const hash = filename.split(".")[0];
+
+    // Retornar el public_id completo incluyendo la carpeta
+    return `${folder}/${hash}`;
+  } catch (error) {
+    console.error("Error al extraer public_id:", error);
+    return null;
+  }
+}
+
+export async function deleteImage(imageUrl) {
+  try {
+    const publicId = getPublicIdFromUrl(imageUrl);
+
+    if (!publicId) {
+      throw new Error("No se pudo obtener el ID de la imagen");
+    }
+
+    const response = await fetch(`${API_URL}/users/me/image/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ public_id: publicId }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Error al eliminar la imagen");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error al eliminar la imagen:", error);
+    throw error;
+  }
 }
 
 export async function updateUser({ data, token }) {
@@ -314,6 +364,7 @@ export async function sugerenciasEmpresas(data) {
 }
 
 export async function uploadAvatar(data) {
+
   const response = await fetch(`${API_URL}/upload`, {
     method: "POST",
     body: data,
