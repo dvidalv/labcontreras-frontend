@@ -71,7 +71,7 @@ function UserDashBoard() {
   });
 
   const {
-    reset,
+    reset: resetNewUser,
     register: registerNewUser,
     handleSubmit: handleSubmitNewUser,
     setValue: setValueNewUser, // para el archivo
@@ -112,6 +112,9 @@ function UserDashBoard() {
         email: "",
         tel: "",
         role: "",
+        url: "",
+        password: "",
+        image: "",
       });
       Swal.fire({
         icon: "success",
@@ -159,7 +162,7 @@ function UserDashBoard() {
           timer: 1500,
         });
         //reseteamos el formulario
-        reset({
+        resetNewUser({
           name: "",
           email: "",
           role: "",
@@ -257,6 +260,18 @@ function UserDashBoard() {
     setModalIsOpen(false);
   };
 
+  const handleOpenModal = () => {
+    setModalIsOpen(true);
+    setPreviewImage(null);
+    resetNewUser({
+      name: "",
+      email: "",
+      role: "",
+      image: "",
+      password: "",
+    });
+  };
+
   return (
     <div className="dashboard-container">
       <div className="user_dashboard">
@@ -329,9 +344,10 @@ function UserDashBoard() {
           <div className="user_dashboard-container-header">
             <IoPersonAddSharp
               className="user_dashboard-container-header-icon"
-              onClick={() => setModalIsOpen(true)}
+              onClick={handleOpenModal}
+
             />
-            <h2>Lista de Usuarios</h2>
+            <h2>Agregar Usuario</h2>
           </div>
           <div className="grid-container">
             {/* Headers */}
