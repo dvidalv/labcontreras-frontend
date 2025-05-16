@@ -34,7 +34,7 @@ import { loader as editMedicoLoader } from "./routes/LayoutMedicos/EditMedico/ed
 import Nosotros from "./routes/Nosotros/Nosotros.jsx";
 
 import UserDashBoard from "./routes/Forms/UserDashBoard/UserDashBoard.jsx";
-import { loader as userDashBoardLoader } from "./routes/Forms/UserDashBoard/UserDashBoardLoader.jsx";
+import { loader as userDashBoardLoader } from "./routes/Forms/UserDashBoard/UserDashBoardLoader.js";
 
 import Resultados from "./routes/Resultados/Resultados.jsx";
 import Publicaciones from "./routes/Publicaciones/Publicaciones.jsx";

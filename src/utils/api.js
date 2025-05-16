@@ -26,6 +26,11 @@ export async function createUser(data) {
   return response.json();
 }
 
+export async function getUsers() {
+  const response = await fetch(`${API_URL}/users`);
+  return response.json();
+}
+
 function getPublicIdFromUrl(url) {
   try {
     // La URL de Cloudinary tiene este formato:
