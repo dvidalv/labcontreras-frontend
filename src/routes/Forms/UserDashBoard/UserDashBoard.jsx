@@ -65,6 +65,7 @@ function UserDashBoard() {
   });
 
   const {
+    reset,
     register: registerNewUser,
     handleSubmit: handleSubmitNewUser,
     setValue: setValueNewUser, // para el archivo
@@ -115,7 +116,6 @@ function UserDashBoard() {
     }
   }
 
-
   async function handleNewUser(data) {
     const file = data.image;
 
@@ -151,6 +151,14 @@ function UserDashBoard() {
           title: "Usuario creado",
           showConfirmButton: false,
           timer: 1500,
+        });
+        //reseteamos el formulario
+        reset({
+          name: "",
+          email: "",
+          role: "",
+          image: "",
+          password: "",
         });
       }
 
