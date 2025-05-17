@@ -503,3 +503,13 @@ export const getPdf = async (url) => {
   // console.log(pdfUrl)
   return pdf;
 };
+
+export const forgotPassword = async (email) => {
+  await fetch(`${API_URL}/forgot-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+};

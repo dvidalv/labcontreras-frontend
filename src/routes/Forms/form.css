@@ -85,6 +85,7 @@
     &:hover:not(.disabled) {
       background-color: var(--color-secondary-dark);
       transform: translateY(-1px);
+      color: black;
     }
 
     &:active:not(.disabled) {
