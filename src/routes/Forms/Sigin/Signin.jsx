@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Tooltip from "../../../components/ToolTip/Tooltip";
 import { useAppContext } from "../../../contexts/MyContext";
 import { authorize } from "../../../utils/auth";
+import { Link } from "react-router-dom";
+import login from "../../../images/login.svg";
 import { useLocation, useNavigate, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -15,7 +17,7 @@ const schema = z.object({
 
 function Signin() {
   const { hasAdmin } = useLoaderData();
-
+  console.log("hasAdmin:", hasAdmin);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,9 +88,17 @@ function Signin() {
 
       <div className="form-container__content">
         <h1 className="form-container__title">Bienvenido</h1>
-        {!hasAdmin && <p className="form-container__subtitle">
-          No tienes una cuenta? <a href="/signup">Registrate</a>
-        </p>}
+        {!hasAdmin && (
+          <p className="form-container__subtitle">
+            No tienes una cuenta? <a href="/signup">Registrate</a>
+          </p>
+        )}
+        <p className="form-container__subtitle">
+          ¿Olvidaste tu contraseña?{" "}
+          <a href="/forgot-password" className="form-container__subtitle-link">
+            Recuperar contraseña
+          </a>
+        </p>
 
         <Form className="form" onSubmit={handleSubmit(handleForm)}>
           <div className="form__field">

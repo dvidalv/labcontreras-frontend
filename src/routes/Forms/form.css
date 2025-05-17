@@ -240,3 +240,8 @@
   margin-top: 1rem;
   text-align: center;
 }
+.login-link {
+  @media screen and (max-width: 768px) {
+    display: none !important;
+  }
+}
