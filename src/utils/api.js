@@ -505,21 +505,41 @@ export const getPdf = async (url) => {
 };
 
 export const forgotPassword = async (email) => {
-  await fetch(`${API_URL}/forgot-password`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email }),
-  });
+  try {
+    const response = await fetch(`${API_URL}/users/forgot-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error en forgotPassword:", error);
+    throw error;
+  }
 };
 
 export const resetPassword = async (token, password) => {
-  await fetch(`${API_URL}/reset-password`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token, password }),
-  });
+  try {
+    const response = await fetch(`${API_URL}/users/reset-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ token, password }),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error en resetPassword:", error);
+    throw error;
+  }
 };

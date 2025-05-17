@@ -25,12 +25,17 @@ export default function ForgotPassword() {
   const handleForm = async (data) => {
     try {
       const response = await forgotPassword(data.email);
-      console.log(response);
-      customToast.success(
-        "Se ha enviado un correo para recuperar tu contraseña"
-      );
+      if (response.status === "success") {
+        customToast.success(response.message);
+      } else if (response.status === "error") {
+        customToast.error(response.message || "Error al procesar la solicitud");
+      }
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
+      customToast.error(
+        error.message ||
+          "Error al conectar con el servidor. Por favor, intente más tarde."
+      );
     }
   };
 
