@@ -513,3 +513,13 @@ export const forgotPassword = async (email) => {
     body: JSON.stringify({ email }),
   });
 };
+
+export const resetPassword = async (token, password) => {
+  await fetch(`${API_URL}/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, password }),
+  });
+};

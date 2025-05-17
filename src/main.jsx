@@ -16,6 +16,7 @@ import Signin from "./routes/Forms/Sigin/Signin.jsx";
 import { loader as hasAdmin } from "./routes/Forms/Sigin/signinLoader.js";
 import Signup from "./routes/Forms/Signup/Signup.jsx";
 import ForgotPassword from "./routes/Forms/forgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./routes/Forms/resetPassword/ResetPassword.jsx";
 import MedicoSignin from "./routes/Forms/MedicoSignin/MedicoSignin.jsx";
 import Contact from "./routes/Forms/Contact/Contact.jsx";
 import Curriculum from "./routes/Curriculum/Curriculum.jsx";
@@ -137,6 +138,14 @@ const router = createBrowserRouter([
       {
         path: "medico-signin/",
         element: <MedicoSignin />,
+      },
+      {
+        path: "reset-password/",
+        element: (
+          <RequireAuth>
+            <ResetPassword />
+          </RequireAuth>
+        ),
       },
       {
         path: "forgot-password/",
