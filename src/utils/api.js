@@ -26,6 +26,28 @@ export async function createUser(data) {
   return response.json();
 }
 
+export async function hasAdmin() {
+  // console.log("role:", role);
+  try {
+    const response = await fetch(`${API_URL}/users/check-admin`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener el usuario por rol:", error);
+    throw error;
+  }
+}
+
 export async function getUsers() {
   const response = await fetch(`${API_URL}/users`);
   return response.json();
@@ -369,7 +391,6 @@ export async function sugerenciasEmpresas(data) {
 }
 
 export async function uploadAvatar(data) {
-
   const response = await fetch(`${API_URL}/upload`, {
     method: "POST",
     body: data,

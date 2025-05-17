@@ -13,6 +13,7 @@ import LayoutPacientes from "./routes/LayoutPacientes/LayoutPacientes.jsx";
 import Paciente from "./routes/LayoutPacientes/Paciente/Paciente.jsx";
 import NotFound from "./routes/NotFound/NotFound.jsx";
 import Signin from "./routes/Forms/Sigin/Signin.jsx";
+import { loader as hasAdmin } from "./routes/Forms/Sigin/signinLoader.js";
 import Signup from "./routes/Forms/Signup/Signup.jsx";
 import MedicoSignin from "./routes/Forms/MedicoSignin/MedicoSignin.jsx";
 import Contact from "./routes/Forms/Contact/Contact.jsx";
@@ -130,6 +131,7 @@ const router = createBrowserRouter([
       {
         path: "signin/",
         element: <Signin />,
+        loader: hasAdmin,
       },
       {
         path: "medico-signin/",
@@ -141,7 +143,11 @@ const router = createBrowserRouter([
       },
       {
         path: "user-dashboard/",
-        element: <UserDashBoard />,
+        element: (
+          <RequireAuth>
+            <UserDashBoard />
+          </RequireAuth>
+        ),
         loader: userDashBoardLoader,
       },
       {
