@@ -1,6 +1,6 @@
 import API_URL from "./constants";
 import {} from "./constants";
-console.log(API_URL);
+
 
 export async function signinUser(email, password) {
   const response = await fetch(`${API_URL}/signin`, {
@@ -517,7 +517,7 @@ export const forgotPassword = async (email) => {
     });
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     console.error("Error en forgotPassword:", error);
@@ -526,8 +526,6 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (token, password) => {
-  console.log("token:", token);
-  console.log("password:", password);
   try {
     const response = await fetch(`${API_URL}/users/reset-password`, {
       method: "POST",
@@ -536,11 +534,13 @@ export const resetPassword = async (token, password) => {
         Accept: "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ token, password }),
+      body: JSON.stringify({
+        token,
+        newPassword: password,
+      }),
     });
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error en resetPassword:", error);

@@ -37,8 +37,11 @@ export default function ResetPassword() {
   const handleForm = async (data) => {
     try {
       const response = await resetPassword(token, data.password);
-      console.log(response);
-      customToast.success("Tu contraseña ha sido actualizada correctamente");
+      if (response.status === "success") {
+        customToast.success(response.message);
+      } else if (response.status === "error") {
+        customToast.error(response.message || "Error al procesar la solicitud");
+      }
       // Redirigir al login después de unos segundos
       setTimeout(() => {
         navigate("/signin");
