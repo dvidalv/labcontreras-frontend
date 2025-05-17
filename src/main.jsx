@@ -140,12 +140,8 @@ const router = createBrowserRouter([
         element: <MedicoSignin />,
       },
       {
-        path: "reset-password/",
-        element: (
-          <RequireAuth>
-            <ResetPassword />
-          </RequireAuth>
-        ),
+        path: "reset-password/:token",
+        element: <ResetPassword />,
       },
       {
         path: "forgot-password/",
