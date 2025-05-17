@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "../form.css";
+import "./ForgotPassword.css";
 import { Link } from "react-router-dom";
 import { forgotPassword } from "../../../utils/api";
 import customToast, { Toaster } from "../../../components/CustomToast";
@@ -23,9 +24,8 @@ export default function ForgotPassword() {
 
   const handleForm = async (data) => {
     try {
-      // TODO: Implement password recovery logic here
-      console.log("Recuperación de contraseña para:", data.email);
-      //   await forgotPassword(data.email);
+      const response = await forgotPassword(data.email);
+      console.log(response);
       customToast.success(
         "Se ha enviado un correo para recuperar tu contraseña"
       );
@@ -35,14 +35,16 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="form-container">
-      <h1 className="form-container__title">Recuperar Contraseña</h1>
-      <p className="form-container__subtitle">
+    <div className="forgot-password-container">
+      <h1 className="forgot-password-title">Recuperar Contraseña</h1>
+      <p className="forgot-password-subtitle">
         Ingresa tu correo electrónico y te enviaremos las instrucciones para
         recuperar tu contraseña
       </p>
 
-      <Form className="form" onSubmit={handleSubmit(handleForm)}>
+      <Form
+        className="form forgot-password-form"
+        onSubmit={handleSubmit(handleForm)}>
         <div className="form__field">
           <label className="form__label" htmlFor="email">
             Correo electrónico
@@ -75,11 +77,12 @@ export default function ForgotPassword() {
           </Link>
         </div>
       </Form>
+
       <Toaster
-        position="top-center" // 
-        gutter={8} // 8px
+        position="top-center"
+        gutter={8}
         containerStyle={{
-          top: 120, // 120px
+          top: 120,
         }}
         toastOptions={{
           duration: 3000,
