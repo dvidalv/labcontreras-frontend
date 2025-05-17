@@ -526,6 +526,8 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (token, password) => {
+  console.log("token:", token);
+  console.log("password:", password);
   try {
     const response = await fetch(`${API_URL}/users/reset-password`, {
       method: "POST",
