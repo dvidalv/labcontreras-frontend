@@ -2,13 +2,12 @@ import { Form } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Tooltip from "../../../components/ToolTip/Tooltip";
 import { useAppContext } from "../../../contexts/MyContext";
 import { authorize } from "../../../utils/auth";
 import { Link } from "react-router-dom";
-import login from "../../../images/login.svg";
 import { useLocation, useNavigate, useLoaderData } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import customToast, { Toaster } from "../../../components/CustomToast";
 
 const schema = z.object({
   email: z.string().email(),
@@ -17,7 +16,9 @@ const schema = z.object({
 
 function Signin() {
   const { hasAdmin } = useLoaderData();
-  console.log("hasAdmin:", hasAdmin);
+  // console.log("hasAdmin:", hasAdmin);
+
+  const { setToken } = useAppContext();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,27 +36,14 @@ function Signin() {
   const locationState = useLocation();
   const navigate = useNavigate();
   const { from } = locationState.state || { from: { pathname: "/" } };
-  const {
-    showTooltip,
-    setShowTooltip,
-    message,
-    setMessage,
-    type,
-    setType,
-    setToken,
-    location,
-    setLocation,
-  } = useAppContext();
+
 
   async function handleForm(data) {
     const { email, password } = data;
     try {
       const response = await authorize(email, password);
       if (!response.ok) {
-        setShowTooltip(true);
-        setType("error");
-        setMessage("Password o Email incorrectos");
-        setLocation("signin");
+        customToast.error("Password o Email incorrectos");
         return;
       }
       const res = await response.json();
@@ -66,9 +54,7 @@ function Signin() {
       }
     } catch (err) {
       console.error(err);
-      setType("error");
-      setMessage("Ha ocurrido un error al intentar iniciar sesión.");
-      setShowTooltip(true);
+      customToast.error("Ha ocurrido un error al intentar iniciar sesión.");
     }
   }
 
@@ -78,11 +64,11 @@ function Signin() {
       <div className="form-container__notice">
         <p>
           ¿Buscas resultados de pacientes? Accede aquí:
-          <a
-            href="https://contrerasrobledo.com/medico-signin"
+          <Link
+            to="https://contrerasrobledo.com/medico-signin"
             className="form-container__notice-link">
             Portal de Resultados
-          </a>
+          </Link>
         </p>
       </div>
 
@@ -90,14 +76,14 @@ function Signin() {
         <h1 className="form-container__title">Bienvenido</h1>
         {!hasAdmin && (
           <p className="form-container__subtitle">
-            No tienes una cuenta? <a href="/signup">Registrate</a>
+            No tienes una cuenta? <Link to="/signup">Registrate</Link>
           </p>
         )}
         <p className="form-container__subtitle">
           ¿Olvidaste tu contraseña?{" "}
-          <a href="/forgot-password" className="form-container__subtitle-link">
+          <Link to="/forgot-password" className="form-container__subtitle-link">
             Recuperar contraseña
-          </a>
+          </Link>
         </p>
 
         <Form className="form" onSubmit={handleSubmit(handleForm)}>
@@ -153,14 +139,31 @@ function Signin() {
         </Form>
       </div>
 
-      {showTooltip && (
-        <Tooltip
-          message={message}
-          type={type}
-          location={location}
-          className="tooltip--visible"
-        />
-      )}
+ 
+
+      <Toaster
+        position="top-center"
+        gutter={8}
+        containerStyle={{
+          top: 120,
+        }}
+        toastOptions={{
+          duration: 3000,
+          success: {
+            style: {
+              background: "#22c55e",
+              color: "#fff",
+              fontSize: "16px",
+              padding: "16px 24px",
+              maxWidth: "500px",
+              width: "fit-content",
+              textAlign: "center",
+              borderRadius: "8px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+            },
+          },
+        }}
+      />
     </div>
   );
 }
