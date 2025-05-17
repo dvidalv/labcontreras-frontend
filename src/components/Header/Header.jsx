@@ -293,13 +293,11 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
                 onClick={() => setIsMenuOpen(false)}>
                 {link.submenu &&
                   link.submenuItems.map((subItem) => {
-                    // console.log(subItem);
                     return (
                       <div
                         key={subItem.to}
                         className="container-dropdown__link">
                         <DropDown
-                          // setOpenSubmenu={() => {}}
                           to={subItem.to}
                           text={subItem.text}
                           onClick={() => setIsMenuOpen(false)}
@@ -320,6 +318,59 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
             );
           }
         })}
+        {!token && !fileMakerToken && (
+          <Link
+            to="/signin"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "1rem",
+              color: "white",
+              textDecoration: "none",
+              fontSize: "1.3rem",
+            }}
+            onClick={() => setIsMenuOpen(false)}>
+            <img
+              src={login}
+              alt="login"
+              style={{
+                width: "30px",
+                height: "30px",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+            <span>Iniciar Sesión</span>
+          </Link>
+        )}
+        {(token || fileMakerToken) && !localStorage.getItem("medicoUser") && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "1rem",
+              color: "white",
+              textDecoration: "none",
+              fontSize: "1.3rem",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              handleLogout();
+              setIsMenuOpen(false);
+            }}>
+            <img
+              src={logout}
+              alt="logout"
+              style={{
+                width: "30px",
+                height: "30px",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+            <span>Cerrar Sesión</span>
+          </div>
+        )}
         {localStorage.getItem("medicoUser") && (
           <div
             className="menu-lateral__logout"
