@@ -345,7 +345,6 @@ function UserDashBoard() {
             <IoPersonAddSharp
               className="user_dashboard-container-header-icon"
               onClick={handleOpenModal}
-
             />
             <h2>Agregar Usuario</h2>
           </div>
@@ -361,13 +360,23 @@ function UserDashBoard() {
             <div className="grid-body">
               {users.map((user) => (
                 <div className="grid-row" key={user._id}>
-                  <div className="grid-cell grid-cell-name">{user.name}</div>
-                  <div className="grid-cell grid-cell-email">{user.email}</div>
-                  <div className="grid-cell grid-cell-role">{user.role}</div>
-                  <div className="grid-cell grid-cell-avatar">
+                  <div className="grid-cell grid-cell-name" data-label="Nombre">
+                    {user.name}
+                  </div>
+                  <div className="grid-cell grid-cell-email" data-label="Email">
+                    {user.email}
+                  </div>
+                  <div className="grid-cell grid-cell-role" data-label="Rol">
+                    {user.role}
+                  </div>
+                  <div
+                    className="grid-cell grid-cell-avatar"
+                    data-label="Avatar">
                     <img src={user.url} alt="avatar" />
                   </div>
-                  <div className="grid-cell grid-cell-actions">
+                  <div
+                    className="grid-cell grid-cell-actions"
+                    data-label="Acciones">
                     <button>Editar</button>
                     <button>Eliminar</button>
                   </div>

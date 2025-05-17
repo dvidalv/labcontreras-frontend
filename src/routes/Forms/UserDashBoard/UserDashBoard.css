@@ -8,9 +8,11 @@
   max-width: 1200px;
   margin: 0 auto;
   min-height: calc(100vh - var(--header-height) - var(--navbar-height));
+  width: 100%;
 }
 
 .user_dashboard {
+  width: 100%;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -147,12 +149,89 @@
 
 @media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+    display: block;
+    overflow-x: auto;
   }
 
-  .actions button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
+  .grid-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 0;
+  }
+
+  .grid-header {
+    display: none;
+  }
+
+  .grid-cell {
+    padding: 0.5rem 1rem;
+    border-right: none;
+    border-bottom: none;
+    position: relative;
+  }
+
+  .grid-cell::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #374151;
+    margin-right: 0.5rem;
+  }
+
+  .grid-cell-actions {
+    justify-content: flex-start;
+    padding: 1rem;
+  }
+
+  .grid-cell-actions button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .user_dashboard-container-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .modal-container {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .user_dashboard-form input,
+  .user_dashboard-form select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem;
+  }
+
+  .drag_and_drop {
+    padding: 1.5rem;
+  }
+
+  .preview_user-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .grid-cell-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .grid-cell-actions button {
+    width: 100%;
   }
 }
 
