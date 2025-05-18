@@ -51,6 +51,9 @@ import EmpresasSugerenciasPage from "./routes/Sugerencias/EmpresasSugerenciasPag
 
 import DerechosDeberesPacientes from "./routes/DerechosDeberesPacientes/DerechosDeberesPacientes.jsx";
 
+import Reportes from "./routes/Reportes/Reportes.jsx";
+import { loader as reportesLoader } from "./routes/Reportes/reportesLoader.js";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -159,6 +162,11 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
         loader: userDashBoardLoader,
+      },
+      {
+        path: "reportes/",
+        element: <Reportes />,
+        loader: reportesLoader,
       },
       {
         path: "curriculum/",

@@ -547,3 +547,22 @@ export const resetPassword = async (token, password) => {
     throw error;
   }
 };
+
+export const getSugerenciasCount = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/sugerencias/count`);
+    const data = await response.json();
+    
+    // data tendrá esta estructura:
+    // {
+    //   pacientes: number,
+    //   medicos: number,
+    //   empresas: number
+    // }
+    
+    return data;
+  } catch (error) {
+    console.error("Error al obtener el conteo de sugerencias:", error);
+    throw error;
+  }
+};

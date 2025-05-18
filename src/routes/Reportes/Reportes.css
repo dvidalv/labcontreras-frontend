@@ -1,0 +1,107 @@
+.reportes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(235, 235, 235);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(
+    100vh - var(--header-height-mobile) - var(--navbar-height) -
+      var(--footer-height-mobile)
+  );
+    /* display: flex;
+    flex-direction: column; */
+
+  @media (min-width: 768px) {
+    min-height: calc(
+      100vh - var(--header-height) - var(--navbar-height) - var(--footer-height)
+    );
+    margin-top: 50px;
+  }
+}
+
+.reportes-container h1 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.stats-grid {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-content: center;
+  align-items: start;
+  gap: 2rem;
+  padding: 1rem;
+  flex: 1;
+
+}
+
+.stat-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.stat-icon {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 2rem;
+  color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-content {
+  flex-grow: 1;
+}
+
+.stat-content h3 {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.stat-number {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0;
+  line-height: 1;
+}
+
+/* Colores específicos para cada tipo de estadística */
+.stat-card:nth-child(1) .stat-icon {
+  color: #e74c3c;
+  background: #ffeded;
+}
+
+.stat-card:nth-child(2) .stat-icon {
+  color: #3498db;
+  background: #edf7ff;
+}
+
+.stat-card:nth-child(3) .stat-icon {
+  color: #2ecc71;
+  background: #edfff5;
+}
