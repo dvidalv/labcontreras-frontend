@@ -14,9 +14,9 @@ import { IoMailOpen } from "react-icons/io5";
 
 import MenuLinkMobile from "../DropDown/MenuLinkMobile";
 import { menuLinks } from "../../utils/constants";
-import DropDown from "../DropDown/DropDown";
 import { IoMdLogOut } from "react-icons/io";
 import { motion } from "framer-motion";
+
 const getViewportWidth = () => {
   return Math.max(
     document.documentElement.clientWidth || 0,
@@ -280,9 +280,6 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
       </div>
       <div className={`menu-lateral ${isMenuOpen ? "open" : ""}`}>
         {menuLinks.map((link) => {
-          if (link.submenu) {
-            // console.log(link.submenu);
-          }
           if (!user || (user.role !== "admin" && link.to !== "/medicos")) {
             return (
               <MenuLinkMobile
@@ -292,19 +289,14 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
                 isSubmenu={link.submenu ? true : false}
                 onClick={() => setIsMenuOpen(false)}>
                 {link.submenu &&
-                  link.submenuItems.map((subItem) => {
-                    return (
-                      <div
-                        key={subItem.to}
-                        className="container-dropdown__link">
-                        <DropDown
-                          to={subItem.to}
-                          text={subItem.text}
-                          onClick={() => setIsMenuOpen(false)}
-                        />
-                      </div>
-                    );
-                  })}
+                  link.submenuItems.map((subItem) => (
+                    <Link
+                      key={subItem.to}
+                      to={subItem.to}
+                      onClick={() => setIsMenuOpen(false)}>
+                      {subItem.text}
+                    </Link>
+                  ))}
               </MenuLinkMobile>
             );
           } else if (user.role === "admin") {
@@ -314,9 +306,20 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
                 to={link.to}
                 text={link.text}
                 isSubmenu={link.submenu ? true : false}
-              />
+                onClick={() => setIsMenuOpen(false)}>
+                {link.submenu &&
+                  link.submenuItems.map((subItem) => (
+                    <Link
+                      key={subItem.to}
+                      to={subItem.to}
+                      onClick={() => setIsMenuOpen(false)}>
+                      {subItem.text}
+                    </Link>
+                  ))}
+              </MenuLinkMobile>
             );
           }
+          return null;
         })}
         {!token && !fileMakerToken && (
           <Link
