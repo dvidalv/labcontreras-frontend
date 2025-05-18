@@ -11,6 +11,9 @@ import { useEffect, useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+// import { hasAdmin } from "../../../utils/auth";
+
+const roles = ["user", "medico", "admin", "guest"];
 
 const schema = z.object({
   name: z.string().min(3).max(30),
@@ -37,11 +40,16 @@ function UserDashBoard() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { users: usersData } = useLoaderData();
-  console.log(usersData);
+  const hasAdmin = usersData.some((user) => user.role === "admin");
+
+  const availableRoles = hasAdmin
+    ? roles.filter((role) => role !== "admin")
+    : roles;
 
   useEffect(() => {
-    if (usersData.length > 0) {
-      setUsers(usersData);
+    const filterUsers = usersData.filter((user) => user.role !== "admin");
+    if (filterUsers.length > 0) {
+      setUsers(filterUsers);
     }
   }, [usersData]);
 
@@ -88,6 +96,7 @@ function UserDashBoard() {
     mode: "onChange",
   });
 
+  // para editar el admin
   async function handleForm(data) {
     data = { ...data, _id: user._id, url: avatarUrl };
     try {
@@ -125,6 +134,7 @@ function UserDashBoard() {
     }
   }
 
+  // para agregar un nuevo usuario
   async function handleNewUser(data) {
     const file = data.image;
 
@@ -346,7 +356,6 @@ function UserDashBoard() {
               className="user_dashboard-container-header-icon"
               onClick={handleOpenModal}
             />
-            <h2>Agregar Usuario</h2>
           </div>
           <div className="grid-container">
             {/* Headers */}
@@ -465,10 +474,11 @@ function UserDashBoard() {
                     <option value="" disabled>
                       Selecciona un rol
                     </option>
-                    <option value="user">Usuario</option>
-                    <option value="medico">Médico</option>
-                    <option value="admin">Administrador</option>
-                    <option value="guest">Invitado</option>
+                    {availableRoles.map((role) => (
+                      <option key={role} value={role}>
+                        {role}
+                      </option>
+                    ))}
                   </motion.select>
                   <input
                     name="image"
