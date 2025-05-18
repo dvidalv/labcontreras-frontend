@@ -54,6 +54,10 @@ import DerechosDeberesPacientes from "./routes/DerechosDeberesPacientes/Derechos
 import Reportes from "./routes/Reportes/Reportes.jsx";
 import { loader as reportesLoader } from "./routes/Reportes/reportesLoader.js";
 
+import ReportesPacientes from "./routes/Reportes/ReportesPacientes.jsx";
+import ReportesMedicos from "./routes/Reportes/ReportesMedicos.jsx";
+import ReportesEmpresas from "./routes/Reportes/ReportesEmpresas.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -171,6 +175,20 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
         loader: reportesLoader,
+        children: [
+          {
+            path: "pacientes",
+            element: <ReportesPacientes />,
+          },
+          {
+            path: "medicos",
+            element: <ReportesMedicos />,
+          },
+          {
+            path: "empresas",
+            element: <ReportesEmpresas />,
+          },
+        ],
       },
       {
         path: "curriculum/",
