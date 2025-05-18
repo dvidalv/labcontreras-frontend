@@ -165,7 +165,11 @@ const router = createBrowserRouter([
       },
       {
         path: "reportes/",
-        element: <Reportes />,
+        element: (
+          <RequireAuth>
+            <Reportes />
+          </RequireAuth>
+        ),
         loader: reportesLoader,
       },
       {
