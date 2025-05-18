@@ -7,7 +7,7 @@ export default function DerechosDeberesPacientes() {
 
       <div className="derechos-deberes-container">
         <section className="seccion">
-          <h2>Derechos de los pacientes LPCR</h2>
+          <h3>Derechos de los pacientes LPCR</h3>
           <ul className="lista-items">
             <li>
               A mantener la confidencialidad y protección de su información
@@ -65,7 +65,7 @@ export default function DerechosDeberesPacientes() {
         </section>
 
         <section className="seccion">
-          <h2>Deberes de los pacientes LPCR</h2>
+          <h3>Deberes de los pacientes LPCR</h3>
           <ul className="lista-items">
             <li>
               Acatar las instrucciones de preparación suministradas por el
