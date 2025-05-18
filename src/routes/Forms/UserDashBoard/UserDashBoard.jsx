@@ -11,7 +11,7 @@ import { useEffect, useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
-// import { hasAdmin } from "../../../utils/auth";
+// import { hasAdmin } from "../../../utils/api";
 
 const roles = ["user", "medico", "admin", "guest"];
 
@@ -38,11 +38,26 @@ function UserDashBoard() {
   const [isDragging, setIsDragging] = useState(false);
   const [users, setUsers] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
+
+  // useEffect(() => {
+  //   const checkAdminStatus = async () => {
+  //     try {
+  //       const adminStatus = await hasAdmin();
+  //       setIsAdmin(adminStatus);
+  //     } catch (error) {
+  //       console.error("Error checking admin status:", error);
+  //     }
+  //   };
+  //   checkAdminStatus();
+  // }, []);
+
+  // console.log(isAdmin);
 
   const { users: usersData } = useLoaderData();
-  const hasAdmin = usersData.some((user) => user.role === "admin");
+  const hasAdminUser = usersData.some((user) => user.role === "admin");
 
-  const availableRoles = hasAdmin
+  const availableRoles = hasAdminUser
     ? roles.filter((role) => role !== "admin")
     : roles;
 
