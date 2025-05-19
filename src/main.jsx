@@ -57,6 +57,7 @@ import { loader as reportesLoader } from "./routes/Reportes/reportesLoader.js";
 import ReportesPacientes from "./routes/Reportes/ReportesPacientes.jsx";
 import ReportesMedicos from "./routes/Reportes/ReportesMedicos.jsx";
 import ReportesEmpresas from "./routes/Reportes/ReportesEmpresas.jsx";
+import { loader as reportesPacientesLoader } from "./routes/Reportes/reportesPacientesLoader.js";
 
 const router = createBrowserRouter([
   {
@@ -179,6 +180,7 @@ const router = createBrowserRouter([
           {
             path: "pacientes",
             element: <ReportesPacientes />,
+            loader: reportesPacientesLoader,
           },
           {
             path: "medicos",

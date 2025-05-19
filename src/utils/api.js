@@ -1,7 +1,6 @@
 import API_URL from "./constants";
 import {} from "./constants";
 
-
 export async function signinUser(email, password) {
   const response = await fetch(`${API_URL}/signin`, {
     method: "POST",
@@ -552,17 +551,35 @@ export const getSugerenciasCount = async () => {
   try {
     const response = await fetch(`${API_URL}/api/sugerencias/count`);
     const data = await response.json();
-    
+
     // data tendrá esta estructura:
     // {
     //   pacientes: number,
     //   medicos: number,
     //   empresas: number
     // }
-    
+
     return data;
   } catch (error) {
     console.error("Error al obtener el conteo de sugerencias:", error);
+    throw error;
+  }
+};
+
+export const getSugerenciasPacientesDetalles = async () => {
+  try {
+    console.log("API_URL:", API_URL);
+    const response = await fetch(
+      `${API_URL}/api/sugerencias/pacientes/detalles`
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(
+      "Error al obtener los detalles de sugerencias de pacientes:",
+      error
+    );
     throw error;
   }
 };
