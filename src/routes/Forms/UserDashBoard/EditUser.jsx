@@ -6,6 +6,7 @@ import { updateUser } from "../../../utils/api";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./UserDashBoard.css";
+import { IoArrowBack } from "react-icons/io5";
 
 const schema = z.object({
   name: z.string().min(3).max(30),
@@ -32,6 +33,10 @@ function EditUser() {
     },
     resolver: zodResolver(schema),
   });
+
+  const handleBack = () => {
+    navigate("/user-dashboard");
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -77,7 +82,12 @@ function EditUser() {
     <div className="dashboard-container">
       <div className="user_dashboard">
         <div className="section user_dashboard-container">
-          <h2>Editar Usuario</h2>
+          <div className="edit-header">
+            <button onClick={handleBack} className="back-button">
+              <IoArrowBack /> Regresar
+            </button>
+            <h2>Editar Usuario</h2>
+          </div>
           <div className="preview_user">
             <div className="preview_user-avatar">
               <img src={userData.user.url} alt="avatar" />
@@ -103,13 +113,21 @@ function EditUser() {
               ))}
             </select>
             {errors.role && <p className="error">{errors.role.message}</p>}
-          
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="submit-button">
-              {isSubmitting ? "Actualizando..." : "Actualizar Usuario"}
-            </button>
+
+            <div className="form-buttons">
+              <button
+                type="button"
+                onClick={handleBack}
+                className="cancel-button">
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="submit-button">
+                {isSubmitting ? "Actualizando..." : "Actualizar Usuario"}
+              </button>
+            </div>
           </form>
         </div>
       </div>

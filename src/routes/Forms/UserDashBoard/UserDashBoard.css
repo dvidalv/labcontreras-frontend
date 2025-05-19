@@ -432,6 +432,7 @@
 }
 
 .user_dashboard-form button {
+  font-size: 1rem;
   background-color: #3b82f6;
   color: white;
   padding: 0.75rem;
@@ -449,4 +450,135 @@
 .user_dashboard-form button:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 8px;
+}
+
+.delete-button:hover {
+  background-color: #ff3333;
+}
+
+/* SweetAlert2 Custom Styles */
+.delete-popup {
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.delete-title {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.delete-content {
+  margin: 20px 0;
+}
+
+.delete-confirmation {
+  text-align: center;
+  padding: 10px;
+}
+
+.delete-confirmation p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.delete-confirmation .warning-text {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.delete-confirm-button {
+  font-size: 1rem;
+  background-color: #e74c3c !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2) !important;
+}
+
+.delete-cancel-button {
+  font-size: 1rem;
+  background-color: #3498db !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2) !important;
+}
+
+.edit-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.edit-header h2 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.back-button {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: #3b82f6;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 8px;
+}
+
+.back-button:hover {
+  background-color: #eff6ff;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-button {
+  flex: 1;
+  background-color: #e5e7eb !important;
+  color: #4b5563 !important;
+  font-size: 1rem;
+}
+
+.cancel-button:hover {
+  background-color: #d1d5db !important;
+}
+
+.submit-button {
+  flex: 1;
+  font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .form-buttons button {
+    width: 100%;
+  }
 }

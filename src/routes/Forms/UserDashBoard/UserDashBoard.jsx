@@ -4,7 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppContext } from "../../../contexts/MyContext";
 import "./UserDashBoard.css";
 import avatar from "../../../images/avatar.svg";
-import { uploadAvatar, createUser, deleteImage } from "../../../utils/api";
+import {
+  uploadAvatar,
+  createUser,
+  deleteImage,
+  deleteUser,
+  getUsers,
+} from "../../../utils/api";
 import Swal from "sweetalert2";
 import { useEffect, useState, useRef } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -23,7 +29,7 @@ const schemaNewUser = z.object({
 
 function UserDashBoard() {
   const navigate = useNavigate();
-  const { setAvatarUrl } = useAppContext();
+  const { setAvatarUrl, token } = useAppContext();
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -95,13 +101,23 @@ function UserDashBoard() {
       const createUserResponse = await createUser(userData);
       console.log("Respuesta de la API:", createUserResponse);
       if (createUserResponse.user) {
-        Swal.fire({
+        await Swal.fire({
           icon: "success",
           title: "Usuario creado",
           showConfirmButton: false,
           timer: 1500,
         });
-        //reseteamos el formulario
+
+        // Actualizar la lista de usuarios
+        const updatedUsersResponse = await getUsers();
+        const filteredUsers = updatedUsersResponse.users.filter(
+          (user) => user.role !== "admin"
+        );
+        setUsers(filteredUsers);
+
+        // Cerrar el modal y resetear el formulario
+        setModalIsOpen(false);
+        setPreviewImage(null);
         resetNewUser({
           name: "",
           email: "",
@@ -181,6 +197,59 @@ function UserDashBoard() {
     });
   };
 
+  const handleDeleteUser = async (userId, userName) => {
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        html: `
+          <div class="delete-confirmation">
+            <p>¿Deseas eliminar al usuario <strong>${userName}</strong>?</p>
+            <p class="warning-text">Esta acción no se puede deshacer.</p>
+          </div>
+        `,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        customClass: {
+          popup: "delete-popup",
+          title: "delete-title",
+          htmlContainer: "delete-content",
+          confirmButton: "delete-confirm-button",
+          cancelButton: "delete-cancel-button",
+        },
+      });
+
+      if (result.isConfirmed) {
+        const response = await deleteUser({ userId, token });
+
+        if (response.status === "error") {
+          throw new Error(response.message);
+        }
+
+        // Remove the user from the local state
+        setUsers(users.filter((user) => user._id !== userId));
+
+        await Swal.fire({
+          title: "¡Eliminado!",
+          text: "El usuario ha sido eliminado correctamente.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "No se pudo eliminar el usuario",
+      });
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <div className="user_dashboard">
@@ -224,7 +293,11 @@ function UserDashBoard() {
                     <button onClick={() => handleEditUser(user._id)}>
                       Editar
                     </button>
-                    <button>Eliminar</button>
+                    <button
+                      onClick={() => handleDeleteUser(user._id, user.name)}
+                      className="delete-button">
+                      Eliminar
+                    </button>
                   </div>
                 </div>
               ))}

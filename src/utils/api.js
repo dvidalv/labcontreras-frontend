@@ -99,6 +99,37 @@ export async function updateUser({ data, token }) {
   }
 }
 
+export async function deleteUser({ userId, token }) {
+  try {
+    const response = await fetch(`${API_URL}/users/${userId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        message: responseData.message || "Error al eliminar el usuario",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error in deleteUser:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al eliminar el usuario",
+    };
+  }
+}
+
+
 function getPublicIdFromUrl(url) {
   try {
     // La URL de Cloudinary tiene este formato:
@@ -626,3 +657,4 @@ export const getSugerenciasPacientesDetalles = async ({
     throw error;
   }
 };
+
