@@ -547,9 +547,14 @@ export const resetPassword = async (token, password) => {
   }
 };
 
-export const getSugerenciasCount = async () => {
+export const getSugerenciasCount = async ({ fechaDesde, fechaHasta } = {}) => {
   try {
-    const response = await fetch(`${API_URL}/api/sugerencias/count`);
+    let url = `${API_URL}/api/sugerencias/count`;
+    const params = [];
+    if (fechaDesde) params.push(`fechaDesde=${encodeURIComponent(fechaDesde)}`);
+    if (fechaHasta) params.push(`fechaHasta=${encodeURIComponent(fechaHasta)}`);
+    if (params.length) url += `?${params.join("&")}`;
+    const response = await fetch(url);
     const data = await response.json();
 
     // data tendrá esta estructura:
@@ -566,14 +571,18 @@ export const getSugerenciasCount = async () => {
   }
 };
 
-export const getSugerenciasPacientesDetalles = async () => {
+export const getSugerenciasPacientesDetalles = async ({
+  fechaDesde,
+  fechaHasta,
+} = {}) => {
   try {
-    console.log("API_URL:", API_URL);
-    const response = await fetch(
-      `${API_URL}/api/sugerencias/pacientes/detalles`
-    );
+    let url = `${API_URL}/api/sugerencias/pacientes/detalles`;
+    const params = [];
+    if (fechaDesde) params.push(`fechaDesde=${encodeURIComponent(fechaDesde)}`);
+    if (fechaHasta) params.push(`fechaHasta=${encodeURIComponent(fechaHasta)}`);
+    if (params.length) url += `?${params.join("&")}`;
+    const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(

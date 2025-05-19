@@ -1,6 +1,7 @@
 import "./Reportes.css";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSubmit, useSearchParams } from "react-router-dom";
 import { useState } from "react";
+import React from "react";
 
 function getPeriodKey(date, agrupacion) {
   const d = new Date(date);
@@ -87,16 +88,6 @@ export default function ReportesPacientes() {
   return (
     <div className="reporte-detalle">
       <h2>Reporte de Pacientes</h2>
-      <div className="date-range-container">
-        <div className="date-input-group">
-          <label htmlFor="fecha-desde">Desde:</label>
-          <input type="date" id="fecha-desde" className="date-input" />
-        </div>
-        <div className="date-input-group">
-          <label htmlFor="fecha-hasta">Hasta:</label>
-          <input type="date" id="fecha-hasta" className="date-input" />
-        </div>
-      </div>
       <div className="filters-container">
         <div className="filter-group">
           <label>Ver resultados por:</label>
@@ -148,10 +139,9 @@ export default function ReportesPacientes() {
               </tr>
             </thead>
             <tbody>
-              {agrupadas.map((grupo, idx) => (
-                <>
+              {agrupadas.map((grupo) => (
+                <React.Fragment key={grupo.periodo}>
                   <tr
-                    key={grupo.periodo}
                     style={{
                       cursor: "pointer",
                       background: expandidos.includes(grupo.periodo)
@@ -213,7 +203,7 @@ export default function ReportesPacientes() {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>
