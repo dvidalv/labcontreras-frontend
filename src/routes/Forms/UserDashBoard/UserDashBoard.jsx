@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { updateUser } from "../../../utils/api";
 import { useEffect, useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
-import { IoPersonAddSharp } from "react-icons/io5";
+import { RiAddLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 // import { hasAdmin } from "../../../utils/api";
 
@@ -367,10 +367,11 @@ function UserDashBoard() {
 
         <div className="section user_dashboard-container">
           <div className="user_dashboard-container-header">
-            <IoPersonAddSharp
+            <RiAddLine
               className="user_dashboard-container-header-icon"
               onClick={handleOpenModal}
             />
+            <h2>Agregar Usuario</h2>
           </div>
           <div className="grid-container">
             {/* Headers */}
