@@ -280,46 +280,33 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
       </div>
       <div className={`menu-lateral ${isMenuOpen ? "open" : ""}`}>
         {menuLinks.map((link) => {
-          if (!user || (user.role !== "admin" && link.to !== "/medicos")) {
-            return (
-              <MenuLinkMobile
-                key={link.to}
-                to={link.to}
-                text={link.text}
-                isSubmenu={link.submenu ? true : false}
-                onClick={() => setIsMenuOpen(false)}>
-                {link.submenu &&
-                  link.submenuItems.map((subItem) => (
-                    <Link
-                      key={subItem.to}
-                      to={subItem.to}
-                      onClick={() => setIsMenuOpen(false)}>
-                      {subItem.text}
-                    </Link>
-                  ))}
-              </MenuLinkMobile>
-            );
-          } else if (user.role === "admin") {
-            return (
-              <MenuLinkMobile
-                key={link.to}
-                to={link.to}
-                text={link.text}
-                isSubmenu={link.submenu ? true : false}
-                onClick={() => setIsMenuOpen(false)}>
-                {link.submenu &&
-                  link.submenuItems.map((subItem) => (
-                    <Link
-                      key={subItem.to}
-                      to={subItem.to}
-                      onClick={() => setIsMenuOpen(false)}>
-                      {subItem.text}
-                    </Link>
-                  ))}
-              </MenuLinkMobile>
-            );
+          if (
+            !user ||
+            (user.role !== "admin" &&
+              user.role !== "user" &&
+              (link.to === "/reportes" || link.to === "/medicos"))
+          ) {
+            return null;
           }
-          return null;
+
+          return (
+            <MenuLinkMobile
+              key={link.to}
+              to={link.to}
+              text={link.text}
+              isSubmenu={link.submenu ? true : false}
+              onClick={() => setIsMenuOpen(false)}>
+              {link.submenu &&
+                link.submenuItems.map((subItem) => (
+                  <Link
+                    key={subItem.to}
+                    to={subItem.to}
+                    onClick={() => setIsMenuOpen(false)}>
+                    {subItem.text}
+                  </Link>
+                ))}
+            </MenuLinkMobile>
+          );
         })}
         {!token && !fileMakerToken && (
           <Link

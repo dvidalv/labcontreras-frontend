@@ -27,6 +27,7 @@ export const menuLinks = [
   { to: "/medicos", text: "Médicos" },
   { to: "/resultados", text: "Resultados Médicos" },
   { to: "/contact", text: "Contacto" },
+  { to: "/reportes", text: "Reportes" },
 ];
 
 // export const FILEMAKER_URL = 'https://www.server-lpcr.com.doo';
