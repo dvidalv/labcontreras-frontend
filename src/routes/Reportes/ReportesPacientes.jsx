@@ -1,7 +1,15 @@
 import "./Reportes.css";
-import { useLoaderData, useSubmit, useSearchParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 function getPeriodKey(date, agrupacion) {
   const d = new Date(date);
@@ -61,6 +69,14 @@ function agruparRespuestas(respuestas, agrupacion) {
   );
 }
 
+const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
+const LABELS = [
+  "Muy satisfecho",
+  "Satisfecho",
+  "Poco satisfecho",
+  "Nada satisfecho",
+];
+
 export default function ReportesPacientes() {
   const respuestas = useLoaderData();
   const [agrupacion, setAgrupacion] = useState("dia");
@@ -76,6 +92,32 @@ export default function ReportesPacientes() {
   }
 
   const agrupadas = agruparRespuestas(respuestas, agrupacion);
+
+  // Calcular totales para el gráfico
+  const totalMuySatisfecho = respuestas.filter(
+    (r) =>
+      r.satisfaccion === "muy-satisfecho" || r.satisfaccion === "muy satisfecho"
+  ).length;
+  const totalSatisfecho = respuestas.filter(
+    (r) => r.satisfaccion === "satisfecho"
+  ).length;
+  const totalPocoSatisfecho = respuestas.filter(
+    (r) =>
+      r.satisfaccion === "poco satisfecho" ||
+      r.satisfaccion === "poco-satisfecho"
+  ).length;
+  const totalNadaSatisfecho = respuestas.filter(
+    (r) =>
+      r.satisfaccion === "nada satisfecho" ||
+      r.satisfaccion === "nada-satisfecho"
+  ).length;
+
+  const dataPie = [
+    { name: "Muy satisfecho", value: totalMuySatisfecho },
+    { name: "Satisfecho", value: totalSatisfecho },
+    { name: "Poco satisfecho", value: totalPocoSatisfecho },
+    { name: "Nada satisfecho", value: totalNadaSatisfecho },
+  ];
 
   const toggleExpand = (periodo) => {
     setExpandidos((prev) =>
@@ -207,6 +249,33 @@ export default function ReportesPacientes() {
               ))}
             </tbody>
           </table>
+        </div>
+        {/* Pie Chart debajo de la tabla */}
+        <div style={{ width: "100%", maxWidth: 400, margin: "2rem auto" }}>
+          <h3 style={{ textAlign: "center", marginBottom: 0 }}>
+            Distribución de Satisfacción
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={dataPie}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label>
+                {dataPie.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
