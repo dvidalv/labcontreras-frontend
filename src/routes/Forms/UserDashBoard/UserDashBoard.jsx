@@ -6,21 +6,12 @@ import "./UserDashBoard.css";
 import avatar from "../../../images/avatar.svg";
 import { uploadAvatar, createUser, deleteImage } from "../../../utils/api";
 import Swal from "sweetalert2";
-import { updateUser } from "../../../utils/api";
 import { useEffect, useState, useRef } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { RiAddLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
-// import { hasAdmin } from "../../../utils/api";
 
 const roles = ["user", "medico", "admin", "guest"];
-
-const schema = z.object({
-  name: z.string().min(3).max(30),
-  email: z.string().email(),
-  role: z.string().min(3).max(10),
-  tel: z.string().min(10).max(12),
-});
 
 const schemaNewUser = z.object({
   name: z.string().min(3).max(30),
@@ -31,28 +22,13 @@ const schemaNewUser = z.object({
 });
 
 function UserDashBoard() {
-  // const [medicosWhiteList, setMedicosWhiteList] = useState([]);
-  const { setUser, user, avatarUrl, setAvatarUrl, token } = useAppContext();
+  const navigate = useNavigate();
+  const { setAvatarUrl } = useAppContext();
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [users, setUsers] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [isAdmin, setIsAdmin] = useState(false);
-
-  // useEffect(() => {
-  //   const checkAdminStatus = async () => {
-  //     try {
-  //       const adminStatus = await hasAdmin();
-  //       setIsAdmin(adminStatus);
-  //     } catch (error) {
-  //       console.error("Error checking admin status:", error);
-  //     }
-  //   };
-  //   checkAdminStatus();
-  // }, []);
-
-  // console.log(isAdmin);
 
   const { users: usersData } = useLoaderData();
   const hasAdminUser = usersData.some((user) => user.role === "admin");
@@ -73,32 +49,11 @@ function UserDashBoard() {
   }, [setAvatarUrl]);
 
   const {
-    register: registerDashboard,
-    handleSubmit: handleSubmitDashboard,
-    setError: setErrorDashboard,
-    reset: resetDashboard,
-    formState: {
-      errors: errorsDashboard,
-      isSubmitting: isSubmittingDashboard,
-      isValid: isValidDashboard,
-    },
-  } = useForm({
-    defaultValues: {
-      name: user.name || "",
-      email: user.email || "",
-      tel: user.tel || "",
-      role: user.role || "",
-    },
-    resolver: zodResolver(schema),
-    mode: "onChange",
-  });
-
-  const {
     reset: resetNewUser,
     register: registerNewUser,
     handleSubmit: handleSubmitNewUser,
-    setValue: setValueNewUser, // para el archivo
-    formState: { errors: errorsNewUser, isSubmitting: isSubmittingNewUser },
+    setValue: setValueNewUser,
+    formState: { isSubmitting: isSubmittingNewUser },
   } = useForm({
     defaultValues: {
       name: "",
@@ -110,44 +65,6 @@ function UserDashBoard() {
     resolver: zodResolver(schemaNewUser),
     mode: "onChange",
   });
-
-  // para editar el admin
-  async function handleForm(data) {
-    data = { ...data, _id: user._id, url: avatarUrl };
-    try {
-      const response = await updateUser({ data, token });
-      setUser({ ...user, ...response.user });
-      if (!response.user) {
-        setErrorDashboard("root", {
-          type: "manual",
-          message: "No se pudo actualizar el usuario",
-        });
-        return;
-      }
-    } catch (err) {
-      console.error(err);
-      setErrorDashboard("root", {
-        type: "manual",
-        message: "Ha ocurrido un error al intentar actualizar el usuario",
-      });
-    } finally {
-      resetDashboard({
-        name: "",
-        email: "",
-        tel: "",
-        role: "",
-        url: "",
-        password: "",
-        image: "",
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Usuario actualizado",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  }
 
   // para agregar un nuevo usuario
   async function handleNewUser(data) {
@@ -173,8 +90,6 @@ function UserDashBoard() {
         role: data.role,
         url: uploadResponse.url,
       };
-
-      // console.log("Nuevo usuario:", userData);
 
       // Aquí puedes agregar la llamada a la API para crear el usuario
       const createUserResponse = await createUser(userData);
@@ -216,44 +131,13 @@ function UserDashBoard() {
     }
   }
 
+  const handleEditUser = (userId) => {
+    navigate(`/user-dashboard/${userId}/edit`);
+  };
+
   function handleOpenPopup() {
     fileInputRef.current.click();
   }
-
-  //   const handleFileChange = async (file) => {
-  //     if (file && file.type.startsWith("image/")) {
-  //       setPreviewImage(URL.createObjectURL(file));
-
-  //       const formData = new FormData();
-  //       formData.append("image", file);
-  //       try {
-  //         const response = await uploadAvatar(formData);
-  //         if (response.url) {
-  //           setAvatarUrl(response.url);
-  //           setValueNewUser("image", response.url);
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Imagen cargada exitosamente",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //         }
-  //       } catch (error) {
-  //         console.error("Error al subir la imagen:", error);
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Error al subir la imagen",
-  //           text: "Por favor, intenta de nuevo",
-  //         });
-  //       }
-  //     } else if (file) {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Formato no válido",
-  //         text: "Por favor, selecciona un archivo de imagen",
-  //       });
-  //     }
-  //   };
 
   const handleInputChange = (e) => {
     const file = e.target.files?.[0];
@@ -300,71 +184,6 @@ function UserDashBoard() {
   return (
     <div className="dashboard-container">
       <div className="user_dashboard">
-        {/* <div">
-            <h2>Agregar Usuario</h2>
-            <div
-              className="user_dashboard-container-img"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
-            <img
-              src={user.url}
-              alt="avatar"
-              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-            />
-          </div>
-          <form
-            className="user_dashboard-form"
-            onSubmit={handleSubmitDashboard(handleForm)}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Nombre"
-              {...registerDashboard("name")}
-            />
-            <p className="error">
-              {errorsDashboard.name && errorsDashboard.name.message}
-            </p>
-
-            <select {...registerDashboard("role")}>
-              <option value="" disabled>
-                Selecciona un rol
-              </option>
-              <option value="user">Usuario</option>
-              <option value="medico">Médico</option>
-              <option value="admin">Administrador</option>
-              <option value="guest">Invitado</option>
-            </select>
-            <p className="error">
-              {errorsDashboard.role && errorsDashboard.role.message}
-            </p>
-
-            <input placeholder="Email" {...registerDashboard("email")} />
-            <p className="error">
-              {errorsDashboard.email && errorsDashboard.email.message}
-            </p>
-
-            <input placeholder="Telefono" {...registerDashboard("tel")} />
-            <p className="error">
-              {errorsDashboard.tel && errorsDashboard.tel.message}
-            </p>
-
-            <button
-              className={`user_dashboard-form-button ${
-                !isValidDashboard || isSubmittingDashboard ? "disabled" : ""
-              }`}
-              disabled={!isValidDashboard || isSubmittingDashboard}
-              type="submit">
-              {isSubmittingDashboard ? "Enviando..." : "Enviar"}
-            </button>
-            {errorsDashboard.root && (
-              <p className="error">{errorsDashboard.root.message}</p>
-            )}
-            </form>
-          </div> */}
-
         <div className="section user_dashboard-container">
           <div className="user_dashboard-container-header">
             <RiAddLine
@@ -402,7 +221,9 @@ function UserDashBoard() {
                   <div
                     className="grid-cell grid-cell-actions"
                     data-label="Acciones">
-                    <button>Editar</button>
+                    <button onClick={() => handleEditUser(user._id)}>
+                      Editar
+                    </button>
                     <button>Eliminar</button>
                   </div>
                 </div>

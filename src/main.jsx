@@ -59,6 +59,9 @@ import ReportesMedicos from "./routes/Reportes/ReportesMedicos.jsx";
 import ReportesEmpresas from "./routes/Reportes/ReportesEmpresas.jsx";
 import { loader as reportesPacientesLoader } from "./routes/Reportes/reportesPacientesLoader.js";
 
+import EditUser from "./routes/Forms/UserDashBoard/EditUser.jsx";
+import { loader as editUserLoader } from "./routes/Forms/UserDashBoard/editUserLoader.js";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -167,6 +170,15 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
         loader: userDashBoardLoader,
+      },
+      {
+        path: "user-dashboard/:id/edit",
+        element: (
+          <RequireAuth>
+            <EditUser />
+          </RequireAuth>
+        ),
+        loader: editUserLoader,
       },
       {
         path: "reportes/",

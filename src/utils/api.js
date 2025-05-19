@@ -52,6 +52,53 @@ export async function getUsers() {
   return response.json();
 }
 
+export async function getUserById(id) {
+  try {
+    const response = await fetch(`${API_URL}/users/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw error;
+  }
+}
+
+export async function updateUser({ data, token }) {
+  try {
+    console.log("Making update request with:", { data, token });
+
+    const response = await fetch(`${API_URL}/users/update`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+    console.log("Update response:", responseData);
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        message: responseData.message || "Error al actualizar el usuario",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error in updateUser:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al actualizar el usuario",
+    };
+  }
+}
+
 function getPublicIdFromUrl(url) {
   try {
     // La URL de Cloudinary tiene este formato:
@@ -98,19 +145,6 @@ export async function deleteImage(imageUrl) {
     console.error("Error al eliminar la imagen:", error);
     throw error;
   }
-}
-
-export async function updateUser({ data, token }) {
-  const response = await fetch(`${API_URL}/users/update`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
 }
 
 export async function getMedicos() {
