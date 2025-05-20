@@ -43,7 +43,6 @@ function UserDashBoard() {
     ? roles.filter((role) => role !== "admin")
     : roles;
 
-  console.log(users);
 
   useEffect(() => {
     const filterUsers = usersData.filter((user) => user.role !== "admin");

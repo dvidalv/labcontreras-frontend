@@ -71,7 +71,6 @@ function agruparRespuestas(respuestas, agrupacion) {
 
 const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
 
-
 export default function ReportesPacientes() {
   const respuestas = useLoaderData();
   const [agrupacion, setAgrupacion] = useState("dia");
@@ -107,12 +106,52 @@ export default function ReportesPacientes() {
       r.satisfaccion === "nada-satisfecho"
   ).length;
 
+  const totalRespuestas =
+    totalMuySatisfecho +
+    totalSatisfecho +
+    totalPocoSatisfecho +
+    totalNadaSatisfecho;
+
   const dataPie = [
-    { name: "Muy satisfecho", value: totalMuySatisfecho },
-    { name: "Satisfecho", value: totalSatisfecho },
-    { name: "Poco satisfecho", value: totalPocoSatisfecho },
-    { name: "Nada satisfecho", value: totalNadaSatisfecho },
+    {
+      name: "Muy satisfecho",
+      value: totalMuySatisfecho,
+      percentage: ((totalMuySatisfecho / totalRespuestas) * 100).toFixed(1),
+    },
+    {
+      name: "Satisfecho",
+      value: totalSatisfecho,
+      percentage: ((totalSatisfecho / totalRespuestas) * 100).toFixed(1),
+    },
+    {
+      name: "Poco satisfecho",
+      value: totalPocoSatisfecho,
+      percentage: ((totalPocoSatisfecho / totalRespuestas) * 100).toFixed(1),
+    },
+    {
+      name: "Nada satisfecho",
+      value: totalNadaSatisfecho,
+      percentage: ((totalNadaSatisfecho / totalRespuestas) * 100).toFixed(1),
+    },
   ];
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          style={{
+            backgroundColor: "#fff",
+            padding: "10px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+          }}>
+          <p>{`${payload[0].name}: ${payload[0].payload.percentage}%`}</p>
+          <p style={{ margin: 0 }}>{`(${payload[0].value} respuestas)`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   const toggleExpand = (periodo) => {
     setExpandidos((prev) =>
@@ -259,7 +298,7 @@ export default function ReportesPacientes() {
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
-                label>
+                label={({ name, percentage }) => `${name} (${percentage}%)`}>
                 {dataPie.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
@@ -267,7 +306,7 @@ export default function ReportesPacientes() {
                   />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip content={<CustomTooltip />} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
