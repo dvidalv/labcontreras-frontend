@@ -70,12 +70,7 @@ function agruparRespuestas(respuestas, agrupacion) {
 }
 
 const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
-const LABELS = [
-  "Muy satisfecho",
-  "Satisfecho",
-  "Poco satisfecho",
-  "Nada satisfecho",
-];
+
 
 export default function ReportesPacientes() {
   const respuestas = useLoaderData();
