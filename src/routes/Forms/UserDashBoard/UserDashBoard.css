@@ -74,6 +74,17 @@
   display: contents;
 }
 
+.grid-row.disabled .grid-cell {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.grid-row.disabled .grid-cell-avatar img {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
 .grid-row:not(:last-child) .grid-cell {
   border-bottom: 1px solid #e5e7eb;
 }
@@ -465,6 +476,25 @@
 
 .delete-button:hover {
   background-color: #ff3333;
+}
+
+.disable-button {
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 8px;
+}
+
+.disable-button:hover {
+  background-color: #d97706;
+}
+
+.disable-button.disabled {
+  background-color: #78350f;
 }
 
 /* SweetAlert2 Custom Styles */

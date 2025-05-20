@@ -37,8 +37,6 @@ export default function Reportes() {
     [searchParams, setSearchParams]
   );
 
-
-
   return (
     <div className="reportes-container">
       <h1>Estadísticas Generales</h1>

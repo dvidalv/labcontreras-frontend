@@ -43,10 +43,16 @@ function UserDashBoard() {
     ? roles.filter((role) => role !== "admin")
     : roles;
 
+  console.log(users);
+
   useEffect(() => {
     const filterUsers = usersData.filter((user) => user.role !== "admin");
     if (filterUsers.length > 0) {
-      setUsers(filterUsers);
+      const usersWithDisabled = filterUsers.map((user) => ({
+        ...user,
+        disabled: user.disabled || false,
+      }));
+      setUsers(usersWithDisabled);
     }
   }, [usersData]);
 
@@ -256,6 +262,17 @@ function UserDashBoard() {
     }
   };
 
+  const handleToggleDisable = (userId) => {
+    setUsers(
+      users.map((user) => {
+        if (user._id === userId) {
+          return { ...user, disabled: !user.disabled };
+        }
+        return user;
+      })
+    );
+  };
+
   return (
     <div className="dashboard-container">
       <div className="user_dashboard">
@@ -278,7 +295,9 @@ function UserDashBoard() {
             {/* Body */}
             <div className="grid-body">
               {users.map((user) => (
-                <div className="grid-row" key={user._id}>
+                <div
+                  className={`grid-row ${user.disabled ? "disabled" : ""}`}
+                  key={user._id}>
                   <div className="grid-cell grid-cell-name" data-label="Nombre">
                     {user.name}
                   </div>
@@ -298,6 +317,13 @@ function UserDashBoard() {
                     data-label="Acciones">
                     <button onClick={() => handleEditUser(user._id)}>
                       Editar
+                    </button>
+                    <button
+                      onClick={() => handleToggleDisable(user._id)}
+                      className={`disable-button ${
+                        user.disabled ? "disabled" : ""
+                      }`}>
+                      {user.disabled ? "Habilitar" : "Deshabilitar"}
                     </button>
                     <button
                       onClick={() =>
