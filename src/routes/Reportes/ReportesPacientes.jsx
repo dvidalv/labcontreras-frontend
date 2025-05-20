@@ -114,7 +114,7 @@ export default function ReportesPacientes() {
 
   const dataPie = [
     {
-      name: "Muy satisfecho",
+      name: "Muy Satisfecho",
       value: totalMuySatisfecho,
       percentage: ((totalMuySatisfecho / totalRespuestas) * 100).toFixed(1),
     },
@@ -124,12 +124,12 @@ export default function ReportesPacientes() {
       percentage: ((totalSatisfecho / totalRespuestas) * 100).toFixed(1),
     },
     {
-      name: "Poco satisfecho",
+      name: "Poco Satisfecho",
       value: totalPocoSatisfecho,
       percentage: ((totalPocoSatisfecho / totalRespuestas) * 100).toFixed(1),
     },
     {
-      name: "Nada satisfecho",
+      name: "Nada Satisfecho",
       value: totalNadaSatisfecho,
       percentage: ((totalNadaSatisfecho / totalRespuestas) * 100).toFixed(1),
     },
@@ -285,11 +285,11 @@ export default function ReportesPacientes() {
           </table>
         </div>
         {/* Pie Chart debajo de la tabla */}
-        <div style={{ width: "100%", maxWidth: 400, margin: "2rem auto" }}>
+        <div style={{ width: "100%", maxWidth: 600, margin: "2rem auto" }}>
           <h3 style={{ textAlign: "center", marginBottom: 0 }}>
             Distribución de Satisfacción
           </h3>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={400}>
             <PieChart>
               <Pie
                 data={dataPie}
@@ -298,7 +298,8 @@ export default function ReportesPacientes() {
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
-                label={({ name, percentage }) => `${name} (${percentage}%)`}>
+                label={(entry) => `${entry.name} (${entry.percentage}%)`}
+                labelLine={true}>
                 {dataPie.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
