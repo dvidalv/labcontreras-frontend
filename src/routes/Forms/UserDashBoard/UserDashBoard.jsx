@@ -197,7 +197,7 @@ function UserDashBoard() {
     });
   };
 
-  const handleDeleteUser = async (userId, userName) => {
+  const handleDeleteUser = async (userId, userName, userImageUrl) => {
     try {
       const result = await Swal.fire({
         title: "¿Estás seguro?",
@@ -223,6 +223,12 @@ function UserDashBoard() {
       });
 
       if (result.isConfirmed) {
+        // 1. Elimina la imagen de Cloudinary
+        if (userImageUrl) {
+          await deleteImage(userImageUrl);
+        }
+
+        // 2. Elimina el usuario de la base de datos
         const response = await deleteUser({ userId, token });
 
         if (response.status === "error") {
@@ -294,7 +300,9 @@ function UserDashBoard() {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDeleteUser(user._id, user.name)}
+                      onClick={() =>
+                        handleDeleteUser(user._id, user.name, user.url)
+                      }
                       className="delete-button">
                       Eliminar
                     </button>

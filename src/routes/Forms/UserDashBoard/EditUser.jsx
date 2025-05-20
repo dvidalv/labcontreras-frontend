@@ -7,7 +7,8 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./UserDashBoard.css";
 import { IoArrowBack } from "react-icons/io5";
-
+import { useState } from "react";
+import { uploadAvatar } from "../../../utils/api";
 const schema = z.object({
   name: z.string().min(3).max(30),
   email: z.string().email(),
@@ -19,7 +20,9 @@ const roles = ["user", "medico", "admin", "guest"];
 function EditUser() {
   const { token } = useAppContext();
   const navigate = useNavigate();
-  const { user: userData } = useLoaderData();
+  const { user: loadedUserData } = useLoaderData();
+  const [newImage, setNewImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(loadedUserData.user.url);
 
   const {
     register,
@@ -27,9 +30,9 @@ function EditUser() {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      name: userData.user.name || "",
-      email: userData.user.email || "",
-      role: userData.user.role || "",
+      name: loadedUserData.user.name || "",
+      email: loadedUserData.user.email || "",
+      role: loadedUserData.user.role || "",
     },
     resolver: zodResolver(schema),
   });
@@ -40,18 +43,13 @@ function EditUser() {
 
   const onSubmit = async (data) => {
     try {
-      console.log("Submitting data:", {
+      const userData = {
         ...data,
-        _id: userData.user._id,
-        url: userData.user.url,
-      });
+        _id: loadedUserData.user._id,
+        url: newImage || loadedUserData.user.url,
+      };
 
-      const response = await updateUser({
-        data: { ...data, _id: userData.user._id, url: userData.user.url },
-        token,
-      });
-
-      console.log("Server response:", response);
+      const response = await updateUser({ data: userData, token });
 
       if (response.status === "error") {
         throw new Error(response.message || "Error al actualizar usuario");
@@ -78,6 +76,32 @@ function EditUser() {
     }
   };
 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+      console.log("image:", file);
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      //subimos la imagen
+      try {
+        const response = await uploadAvatar(formData);
+        if (response.url) {
+          setNewImage(response.url);
+        }
+      } catch (error) {
+        console.error("Error al subir la imagen:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error al subir la imagen",
+          text: "Por favor intente nuevamente",
+        });
+      }
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <div className="user_dashboard">
@@ -90,7 +114,7 @@ function EditUser() {
           </div>
           <div className="preview_user">
             <div className="preview_user-avatar">
-              <img src={userData.user.url} alt="avatar" />
+              <img src={loadedUserData.user.url} alt="avatar actual" />
             </div>
           </div>
           <form
@@ -113,6 +137,18 @@ function EditUser() {
               ))}
             </select>
             {errors.role && <p className="error">{errors.role.message}</p>}
+
+            <div className="preview_user">
+              <div className="preview_user-avatar">
+                <img src={previewUrl} alt="nueva imagen" />
+              </div>
+              <input
+                onChange={handleImageChange}
+                type="file"
+                accept="image/*"
+                className="image-input"
+              />
+            </div>
 
             <div className="form-buttons">
               <button

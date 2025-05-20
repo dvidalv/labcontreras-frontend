@@ -66,6 +66,8 @@ export async function getUserById(id) {
 }
 
 export async function updateUser({ data, token }) {
+  console.log("data:", data);
+  console.log("token:", token);
   try {
     console.log("Making update request with:", { data, token });
 
@@ -128,7 +130,6 @@ export async function deleteUser({ userId, token }) {
     };
   }
 }
-
 
 function getPublicIdFromUrl(url) {
   try {
@@ -460,7 +461,17 @@ export async function uploadAvatar(data) {
     body: data,
   });
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    // Intenta leer el mensaje de error del backend
+    let errorMsg = "Network response was not ok";
+    try {
+      const errorData = await response.json();
+      errorMsg = errorData.message || errorMsg;
+      // Imprime el error completo para depuración
+      console.error("Error del backend al subir imagen:", errorData);
+    } catch (e) {
+      console.error("Error al leer el error del backend:", e);
+    }
+    throw new Error(errorMsg);
   }
   const result = await response.json();
   return result;
@@ -657,4 +668,3 @@ export const getSugerenciasPacientesDetalles = async ({
     throw error;
   }
 };
-
