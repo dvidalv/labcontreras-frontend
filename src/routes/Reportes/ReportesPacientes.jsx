@@ -194,11 +194,19 @@ export default function ReportesPacientes() {
         </div>
       </div>
       <div className="reporte-content">
-        <div className="table-container">
-          <table className="respuestas-table">
+        <div
+          className="table-container"
+          style={{ overflowX: "auto", margin: "0 -1rem" }}>
+          <table
+            className="respuestas-table"
+            style={{
+              minWidth: "600px",
+              fontSize: "0.9rem",
+              margin: "0 1rem",
+            }}>
             <thead>
               <tr>
-                <th>
+                <th style={{ padding: "0.5rem" }}>
                   {agrupacion === "dia"
                     ? "Día"
                     : agrupacion === "semana"
@@ -207,11 +215,11 @@ export default function ReportesPacientes() {
                     ? "Mes"
                     : "Año"}
                 </th>
-                <th>Total respuestas</th>
-                <th>Muy satisfecho</th>
-                <th>Satisfecho</th>
-                <th>Poco satisfecho</th>
-                <th>Nada satisfecho</th>
+                <th style={{ padding: "0.5rem" }}>Total</th>
+                <th style={{ padding: "0.5rem" }}>Muy sat.</th>
+                <th style={{ padding: "0.5rem" }}>Sat.</th>
+                <th style={{ padding: "0.5rem" }}>Poco sat.</th>
+                <th style={{ padding: "0.5rem" }}>Nada sat.</th>
               </tr>
             </thead>
             <tbody>
@@ -225,12 +233,16 @@ export default function ReportesPacientes() {
                         : "",
                     }}
                     onClick={() => toggleExpand(grupo.periodo)}>
-                    <td>{grupo.periodo}</td>
-                    <td>{grupo.total}</td>
-                    <td>{grupo.muySatisfecho}</td>
-                    <td>{grupo.satisfecho}</td>
-                    <td>{grupo.pocoSatisfecho}</td>
-                    <td>{grupo.nadaSatisfecho}</td>
+                    <td style={{ padding: "0.5rem" }}>{grupo.periodo}</td>
+                    <td style={{ padding: "0.5rem" }}>{grupo.total}</td>
+                    <td style={{ padding: "0.5rem" }}>{grupo.muySatisfecho}</td>
+                    <td style={{ padding: "0.5rem" }}>{grupo.satisfecho}</td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.pocoSatisfecho}
+                    </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.nadaSatisfecho}
+                    </td>
                   </tr>
                   {expandidos.includes(grupo.periodo) && (
                     <tr key={grupo.periodo + "-detalles"}>
@@ -240,29 +252,38 @@ export default function ReportesPacientes() {
                             background: "#fff",
                             borderRadius: 8,
                             margin: 0,
-                            padding: "0.5rem 0.5rem 0.5rem 1.5rem",
+                            padding: "0.5rem",
+                            overflowX: "auto",
                           }}>
                           <table
                             className="respuestas-table"
-                            style={{ margin: 0 }}>
+                            style={{
+                              margin: 0,
+                              minWidth: "600px",
+                              fontSize: "0.9rem",
+                            }}>
                             <thead>
                               <tr>
-                                <th>Fecha</th>
-                                <th>Nombre</th>
-                                <th>Nivel de Satisfacción</th>
-                                <th>Mejora</th>
+                                <th style={{ padding: "0.5rem" }}>Fecha</th>
+                                <th style={{ padding: "0.5rem" }}>Nombre</th>
+                                <th style={{ padding: "0.5rem" }}>
+                                  Satisfacción
+                                </th>
+                                <th style={{ padding: "0.5rem" }}>Mejora</th>
                               </tr>
                             </thead>
                             <tbody>
                               {grupo.detalles.map((respuesta, i) => (
                                 <tr key={i}>
-                                  <td>
+                                  <td style={{ padding: "0.5rem" }}>
                                     {new Date(
                                       respuesta.fecha
                                     ).toLocaleDateString()}
                                   </td>
-                                  <td>{respuesta.nombre || "-"}</td>
-                                  <td>
+                                  <td style={{ padding: "0.5rem" }}>
+                                    {respuesta.nombre || "-"}
+                                  </td>
+                                  <td style={{ padding: "0.5rem" }}>
                                     <span
                                       className={`satisfaction-badge ${respuesta.satisfaccion
                                         .toLowerCase()
@@ -270,7 +291,9 @@ export default function ReportesPacientes() {
                                       {respuesta.satisfaccion}
                                     </span>
                                   </td>
-                                  <td>{respuesta.mejora || "-"}</td>
+                                  <td style={{ padding: "0.5rem" }}>
+                                    {respuesta.mejora || "-"}
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>
@@ -285,11 +308,17 @@ export default function ReportesPacientes() {
           </table>
         </div>
         {/* Pie Chart debajo de la tabla */}
-        <div style={{ width: "100%", maxWidth: 600, margin: "2rem auto" }}>
-          <h3 style={{ textAlign: "center", marginBottom: 0 }}>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "100%",
+            margin: "2rem auto",
+            padding: "0 1rem",
+          }}>
+          <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>
             Distribución de Satisfacción
           </h3>
-          <ResponsiveContainer width="100%" height={400}>
+          <ResponsiveContainer width="100%" aspect={1}>
             <PieChart>
               <Pie
                 data={dataPie}
@@ -297,7 +326,7 @@ export default function ReportesPacientes() {
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                outerRadius={100}
+                outerRadius="80%"
                 label={(entry) => `${entry.name} (${entry.percentage}%)`}
                 labelLine={true}>
                 {dataPie.map((entry, index) => (
