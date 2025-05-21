@@ -39,23 +39,50 @@ function agruparRespuestas(respuestas, agrupacion) {
       grupos[key] = {
         periodo: key,
         total: 0,
+        muySatisfecho: 0,
+        satisfecho: 0,
+        pocoSatisfecho: 0,
+        nadaSatisfecho: 0,
+        entregaOportunaSi: 0,
+        entregaOportunaNo: 0,
         informesClarosSi: 0,
         informesClarosNo: 0,
         diagnosticosUtiles: 0,
         diagnosticosNoConcluyentes: 0,
         diagnosticosSinBeneficio: 0,
+        metodosModernos: 0,
+        metodosExcesivos: 0,
+        metodosObsoletos: 0,
         detalles: [],
       };
     }
     grupos[key].total++;
+
+    // Conteo de satisfacción
+    if (r.satisfaccion === "muy-satisfecho") grupos[key].muySatisfecho++;
+    else if (r.satisfaccion === "satisfecho") grupos[key].satisfecho++;
+    else if (r.satisfaccion === "poco-satisfecho") grupos[key].pocoSatisfecho++;
+    else if (r.satisfaccion === "nada-satisfecho") grupos[key].nadaSatisfecho++;
+
+    // Conteo de entrega oportuna
+    if (r.entregaOportuna === "si") grupos[key].entregaOportunaSi++;
+    else if (r.entregaOportuna === "no") grupos[key].entregaOportunaNo++;
+
+    // Conteo de informes claros
     if (r.informesClaros === "si") grupos[key].informesClarosSi++;
     else if (r.informesClaros === "no") grupos[key].informesClarosNo++;
 
+    // Conteo de utilidad de diagnósticos
     if (r.utilidadDiagnosticos === "utiles") grupos[key].diagnosticosUtiles++;
     else if (r.utilidadDiagnosticos === "no-concluyentes")
       grupos[key].diagnosticosNoConcluyentes++;
     else if (r.utilidadDiagnosticos === "sin-beneficio")
       grupos[key].diagnosticosSinBeneficio++;
+
+    // Conteo de métodos técnicos
+    if (r.metodosTecnicos === "modernos") grupos[key].metodosModernos++;
+    else if (r.metodosTecnicos === "excesivos") grupos[key].metodosExcesivos++;
+    else if (r.metodosTecnicos === "obsoletos") grupos[key].metodosObsoletos++;
 
     grupos[key].detalles.push(r);
   });
@@ -68,6 +95,7 @@ const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
 
 export default function ReportesMedicos() {
   const respuestas = useLoaderData();
+  console.log("respuestas", respuestas);
   const [agrupacion, setAgrupacion] = useState("dia");
   const [expandidos, setExpandidos] = useState([]); // array de periodos expandidos
 
@@ -241,11 +269,20 @@ export default function ReportesMedicos() {
                     : "Año"}
                 </th>
                 <th style={{ padding: "0.5rem" }}>Total</th>
-                <th style={{ padding: "0.5rem" }}>Informes Claros</th>
-                <th style={{ padding: "0.5rem" }}>Informes No Claros</th>
+                <th style={{ padding: "0.5rem" }}>Muy Satisfecho</th>
+                <th style={{ padding: "0.5rem" }}>Satisfecho</th>
+                <th style={{ padding: "0.5rem" }}>Poco Satisfecho</th>
+                <th style={{ padding: "0.5rem" }}>Nada Satisfecho</th>
+                <th style={{ padding: "0.5rem" }}>Entrega Oportuna Sí</th>
+                <th style={{ padding: "0.5rem" }}>Entrega Oportuna No</th>
+                <th style={{ padding: "0.5rem" }}>Informes Claros Sí</th>
+                <th style={{ padding: "0.5rem" }}>Informes Claros No</th>
                 <th style={{ padding: "0.5rem" }}>Diag. Útiles</th>
                 <th style={{ padding: "0.5rem" }}>Diag. No Concluyentes</th>
                 <th style={{ padding: "0.5rem" }}>Diag. Sin Beneficio</th>
+                <th style={{ padding: "0.5rem" }}>Métodos Modernos</th>
+                <th style={{ padding: "0.5rem" }}>Métodos Excesivos</th>
+                <th style={{ padding: "0.5rem" }}>Métodos Obsoletos</th>
               </tr>
             </thead>
             <tbody>
@@ -261,6 +298,20 @@ export default function ReportesMedicos() {
                     onClick={() => toggleExpand(grupo.periodo)}>
                     <td style={{ padding: "0.5rem" }}>{grupo.periodo}</td>
                     <td style={{ padding: "0.5rem" }}>{grupo.total}</td>
+                    <td style={{ padding: "0.5rem" }}>{grupo.muySatisfecho}</td>
+                    <td style={{ padding: "0.5rem" }}>{grupo.satisfecho}</td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.pocoSatisfecho}
+                    </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.nadaSatisfecho}
+                    </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.entregaOportunaSi}
+                    </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.entregaOportunaNo}
+                    </td>
                     <td style={{ padding: "0.5rem" }}>
                       {grupo.informesClarosSi}
                     </td>
@@ -276,10 +327,19 @@ export default function ReportesMedicos() {
                     <td style={{ padding: "0.5rem" }}>
                       {grupo.diagnosticosSinBeneficio}
                     </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.metodosModernos}
+                    </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.metodosExcesivos}
+                    </td>
+                    <td style={{ padding: "0.5rem" }}>
+                      {grupo.metodosObsoletos}
+                    </td>
                   </tr>
                   {expandidos.includes(grupo.periodo) && (
                     <tr key={grupo.periodo + "-detalles"}>
-                      <td colSpan={7} style={{ padding: 0 }}>
+                      <td colSpan={16} style={{ padding: 0 }}>
                         <div
                           style={{
                             background: "#fff",
@@ -300,10 +360,22 @@ export default function ReportesMedicos() {
                                 <th style={{ padding: "0.5rem" }}>Fecha</th>
                                 <th style={{ padding: "0.5rem" }}>Nombre</th>
                                 <th style={{ padding: "0.5rem" }}>
+                                  Satisfacción
+                                </th>
+                                <th style={{ padding: "0.5rem" }}>
+                                  Entrega Oportuna
+                                </th>
+                                <th style={{ padding: "0.5rem" }}>
                                   Informes Claros
                                 </th>
                                 <th style={{ padding: "0.5rem" }}>
                                   Utilidad Diagnósticos
+                                </th>
+                                <th style={{ padding: "0.5rem" }}>
+                                  Métodos Técnicos
+                                </th>
+                                <th style={{ padding: "0.5rem" }}>
+                                  Sugerencias
                                 </th>
                                 <th style={{ padding: "0.5rem" }}>
                                   Comentarios
@@ -320,6 +392,44 @@ export default function ReportesMedicos() {
                                   </td>
                                   <td style={{ padding: "0.5rem" }}>
                                     {respuesta.nombre || "-"}
+                                  </td>
+                                  <td style={{ padding: "0.5rem" }}>
+                                    <span
+                                      className={`satisfaction-badge ${
+                                        respuesta.satisfaccion ===
+                                        "muy-satisfecho"
+                                          ? "muy-satisfecho"
+                                          : respuesta.satisfaccion ===
+                                            "satisfecho"
+                                          ? "satisfecho"
+                                          : respuesta.satisfaccion ===
+                                            "poco-satisfecho"
+                                          ? "poco-satisfecho"
+                                          : "nada-satisfecho"
+                                      }`}>
+                                      {respuesta.satisfaccion ===
+                                      "muy-satisfecho"
+                                        ? "Muy Satisfecho"
+                                        : respuesta.satisfaccion ===
+                                          "satisfecho"
+                                        ? "Satisfecho"
+                                        : respuesta.satisfaccion ===
+                                          "poco-satisfecho"
+                                        ? "Poco Satisfecho"
+                                        : "Nada Satisfecho"}
+                                    </span>
+                                  </td>
+                                  <td style={{ padding: "0.5rem" }}>
+                                    <span
+                                      className={`satisfaction-badge ${
+                                        respuesta.entregaOportuna === "si"
+                                          ? "muy-satisfecho"
+                                          : "nada-satisfecho"
+                                      }`}>
+                                      {respuesta.entregaOportuna === "si"
+                                        ? "Sí"
+                                        : "No"}
+                                    </span>
                                   </td>
                                   <td style={{ padding: "0.5rem" }}>
                                     <span
@@ -352,6 +462,27 @@ export default function ReportesMedicos() {
                                         ? "No Concluyentes"
                                         : "Sin Beneficio"}
                                     </span>
+                                  </td>
+                                  <td style={{ padding: "0.5rem" }}>
+                                    <span
+                                      className={`satisfaction-badge ${
+                                        respuesta.metodosTecnicos === "modernos"
+                                          ? "muy-satisfecho"
+                                          : respuesta.metodosTecnicos ===
+                                            "excesivos"
+                                          ? "poco-satisfecho"
+                                          : "nada-satisfecho"
+                                      }`}>
+                                      {respuesta.metodosTecnicos === "modernos"
+                                        ? "Modernos"
+                                        : respuesta.metodosTecnicos ===
+                                          "excesivos"
+                                        ? "Excesivos"
+                                        : "Obsoletos"}
+                                    </span>
+                                  </td>
+                                  <td style={{ padding: "0.5rem" }}>
+                                    {respuesta.sugerencias || "-"}
                                   </td>
                                   <td style={{ padding: "0.5rem" }}>
                                     {respuesta.comentarios || "-"}
