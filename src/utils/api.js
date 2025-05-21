@@ -40,9 +40,6 @@ export async function updateUserStatus(userId, status, token) {
   return response.json();
 }
 
-
-
-
 export async function hasAdmin() {
   // console.log("role:", role);
   try {
@@ -681,6 +678,28 @@ export const getSugerenciasPacientesDetalles = async ({
   } catch (error) {
     console.error(
       "Error al obtener los detalles de sugerencias de pacientes:",
+      error
+    );
+    throw error;
+  }
+};
+
+export const getSugerenciasMedicosDetalles = async ({
+  fechaDesde,
+  fechaHasta,
+} = {}) => {
+  try {
+    let url = `${API_URL}/api/sugerencias/medicos/detalles`;
+    const params = [];
+    if (fechaDesde) params.push(`fechaDesde=${encodeURIComponent(fechaDesde)}`);
+    if (fechaHasta) params.push(`fechaHasta=${encodeURIComponent(fechaHasta)}`);
+    if (params.length) url += `?${params.join("&")}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(
+      "Error al obtener los detalles de sugerencias de médicos:",
       error
     );
     throw error;

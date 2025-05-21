@@ -10,7 +10,7 @@ import { useCallback } from "react";
 
 export default function Reportes() {
   const data = useLoaderData();
-  console.log(data);
+  // console.log(data);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 

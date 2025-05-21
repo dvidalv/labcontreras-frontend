@@ -58,6 +58,7 @@ import ReportesPacientes from "./routes/Reportes/ReportesPacientes.jsx";
 import ReportesMedicos from "./routes/Reportes/ReportesMedicos.jsx";
 import ReportesEmpresas from "./routes/Reportes/ReportesEmpresas.jsx";
 import { loader as reportesPacientesLoader } from "./routes/Reportes/reportesPacientesLoader.js";
+import { loader as reportesMedicosLoader } from "./routes/Reportes/reportesMedicosLoader.js";
 
 import EditUser from "./routes/Forms/UserDashBoard/EditUser.jsx";
 import { loader as editUserLoader } from "./routes/Forms/UserDashBoard/editUserLoader.js";
@@ -197,6 +198,7 @@ const router = createBrowserRouter([
           {
             path: "medicos",
             element: <ReportesMedicos />,
+            loader: reportesMedicosLoader,
           },
           {
             path: "empresas",
