@@ -256,10 +256,17 @@ export default function ReportesMedicos() {
               minWidth: "600px",
               fontSize: "0.9rem",
               margin: "0 1rem",
+              borderCollapse: "collapse",
             }}>
             <thead>
               <tr>
-                <th style={{ padding: "0.5rem" }}>
+                <th
+                  rowSpan={2}
+                  style={{
+                    padding: "0.5rem",
+                    verticalAlign: "bottom",
+                    borderRight: "2px solid #ddd",
+                  }}>
                   {agrupacion === "dia"
                     ? "Día"
                     : agrupacion === "semana"
@@ -268,21 +275,124 @@ export default function ReportesMedicos() {
                     ? "Mes"
                     : "Año"}
                 </th>
-                <th style={{ padding: "0.5rem" }}>Total</th>
-                <th style={{ padding: "0.5rem" }}>Muy Satisfecho</th>
-                <th style={{ padding: "0.5rem" }}>Satisfecho</th>
-                <th style={{ padding: "0.5rem" }}>Poco Satisfecho</th>
-                <th style={{ padding: "0.5rem" }}>Nada Satisfecho</th>
-                <th style={{ padding: "0.5rem" }}>Entrega Oportuna Sí</th>
-                <th style={{ padding: "0.5rem" }}>Entrega Oportuna No</th>
-                <th style={{ padding: "0.5rem" }}>Informes Claros Sí</th>
-                <th style={{ padding: "0.5rem" }}>Informes Claros No</th>
-                <th style={{ padding: "0.5rem" }}>Diag. Útiles</th>
-                <th style={{ padding: "0.5rem" }}>Diag. No Concluyentes</th>
-                <th style={{ padding: "0.5rem" }}>Diag. Sin Beneficio</th>
-                <th style={{ padding: "0.5rem" }}>Métodos Modernos</th>
-                <th style={{ padding: "0.5rem" }}>Métodos Excesivos</th>
-                <th style={{ padding: "0.5rem" }}>Métodos Obsoletos</th>
+                <th
+                  rowSpan={2}
+                  style={{
+                    padding: "0.5rem",
+                    verticalAlign: "bottom",
+                    borderRight: "2px solid #ddd",
+                  }}>
+                  Total
+                </th>
+                <th
+                  colSpan={4}
+                  style={{
+                    padding: "0.5rem",
+                    textAlign: "center",
+                    borderBottom: "1px solid #ddd",
+                    borderRight: "2px solid #ddd",
+                    background: "#f8f9fa",
+                  }}>
+                  Satisfacción
+                </th>
+                <th
+                  colSpan={2}
+                  style={{
+                    padding: "0.5rem",
+                    textAlign: "center",
+                    borderBottom: "1px solid #ddd",
+                    borderRight: "2px solid #ddd",
+                    background: "#f8f9fa",
+                  }}>
+                  Entrega Oportuna
+                </th>
+                <th
+                  colSpan={2}
+                  style={{
+                    padding: "0.5rem",
+                    textAlign: "center",
+                    borderBottom: "1px solid #ddd",
+                    borderRight: "2px solid #ddd",
+                    background: "#f8f9fa",
+                  }}>
+                  Informes Claros
+                </th>
+                <th
+                  colSpan={3}
+                  style={{
+                    padding: "0.5rem",
+                    textAlign: "center",
+                    borderBottom: "1px solid #ddd",
+                    borderRight: "2px solid #ddd",
+                    background: "#f8f9fa",
+                  }}>
+                  Utilidad Dx
+                </th>
+                <th
+                  colSpan={3}
+                  style={{
+                    padding: "0.5rem",
+                    textAlign: "center",
+                    borderBottom: "1px solid #ddd",
+                    background: "#f8f9fa",
+                  }}>
+                  Métodos Técnicos
+                </th>
+              </tr>
+              <tr>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Muy Satis.
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Satis.
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Poco
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "2px solid #ddd" }}>
+                  Nada
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Sí
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "2px solid #ddd" }}>
+                  No
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Sí
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "2px solid #ddd" }}>
+                  No
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Útiles
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  No Concl.
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "2px solid #ddd" }}>
+                  No Benef.
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Modern.
+                </th>
+                <th
+                  style={{ padding: "0.5rem", borderRight: "1px solid #ddd" }}>
+                  Exces.
+                </th>
+                <th style={{ padding: "0.5rem" }}>Obsol.</th>
               </tr>
             </thead>
             <tbody>
@@ -296,44 +406,130 @@ export default function ReportesMedicos() {
                         : "",
                     }}
                     onClick={() => toggleExpand(grupo.periodo)}>
-                    <td style={{ padding: "0.5rem" }}>{grupo.periodo}</td>
-                    <td style={{ padding: "0.5rem" }}>{grupo.total}</td>
-                    <td style={{ padding: "0.5rem" }}>{grupo.muySatisfecho}</td>
-                    <td style={{ padding: "0.5rem" }}>{grupo.satisfecho}</td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "2px solid #ddd",
+                      }}>
+                      {grupo.periodo}
+                    </td>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "2px solid #ddd",
+                      }}>
+                      {grupo.total}
+                    </td>
+                    {/* Satisfacción */}
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
+                      {grupo.muySatisfecho}
+                    </td>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
+                      {grupo.satisfecho}
+                    </td>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.pocoSatisfecho}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "2px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.nadaSatisfecho}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    {/* Entrega Oportuna */}
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.entregaOportunaSi}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "2px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.entregaOportunaNo}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    {/* Informes Claros */}
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.informesClarosSi}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "2px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.informesClarosNo}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    {/* Utilidad Dx */}
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.diagnosticosUtiles}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.diagnosticosNoConcluyentes}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "2px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.diagnosticosSinBeneficio}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    {/* Métodos Técnicos */}
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.metodosModernos}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td
+                      style={{
+                        padding: "0.5rem",
+                        borderRight: "1px solid #ddd",
+                        textAlign: "center",
+                      }}>
                       {grupo.metodosExcesivos}
                     </td>
-                    <td style={{ padding: "0.5rem" }}>
+                    <td style={{ padding: "0.5rem", textAlign: "center" }}>
                       {grupo.metodosObsoletos}
                     </td>
                   </tr>

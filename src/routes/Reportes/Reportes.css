@@ -107,7 +107,7 @@
 
 /* Estilos para los reportes detallados */
 .reporte-detalle {
-  /* width: 90%; */
+  width: 90%;
   max-width: 90vw;
   background: white;
   border-radius: 15px;
