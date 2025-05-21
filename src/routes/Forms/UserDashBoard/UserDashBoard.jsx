@@ -11,6 +11,7 @@ import {
   deleteUser,
   getUsers,
   updateUserStatus,
+  sendInvitationEmail,
 } from "../../../utils/api";
 import Swal from "sweetalert2";
 import { useEffect, useState, useRef } from "react";
@@ -100,13 +101,42 @@ function UserDashBoard() {
         url: uploadResponse.url,
       };
 
-      // Aquí puedes agregar la llamada a la API para crear el usuario
+      // Crear el usuario
       const createUserResponse = await createUser(userData);
       console.log("Respuesta de la API:", createUserResponse);
+
       if (createUserResponse.user) {
+        // Enviar email de invitación
+        try {
+          if (!token) {
+            throw new Error("No hay token de autenticación");
+          }
+          const emailResponse = await sendInvitationEmail(
+            data.email,
+            data.name,
+            data.password,
+            token
+          );
+          if (emailResponse.status === "error") {
+            throw new Error(
+              emailResponse.message || "Error al enviar el email de invitación"
+            );
+          }
+        } catch (emailError) {
+          console.error("Error al enviar el email de invitación:", emailError);
+          // Mostrar un mensaje de advertencia pero continuar con el flujo
+          await Swal.fire({
+            icon: "warning",
+            title: "Usuario creado",
+            text: "El usuario se creó correctamente pero hubo un error al enviar el email de invitación. Por favor, intente enviar el email más tarde.",
+            showConfirmButton: true,
+          });
+        }
+
         await Swal.fire({
           icon: "success",
           title: "Usuario creado",
+          text: "Se ha enviado un email de invitación al usuario",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -260,7 +290,6 @@ function UserDashBoard() {
   };
 
   const handleToggleDisable = async (userId) => {
-
     try {
       const newStatus = !users.find((user) => user._id === userId).isDisabled;
       const response = await updateUserStatus(userId, newStatus, token);

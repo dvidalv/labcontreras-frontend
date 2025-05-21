@@ -705,3 +705,20 @@ export const getSugerenciasMedicosDetalles = async ({
     throw error;
   }
 };
+
+export async function sendInvitationEmail(email, name, password, token) {
+  const response = await fetch(`${API_URL}/users/send-invitation`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      email,
+      name,
+      password,
+      isExistingUser: true, // Add this flag to indicate this is for an existing user
+    }),
+  });
+  return response.json();
+}
