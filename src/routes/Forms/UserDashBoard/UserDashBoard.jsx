@@ -10,6 +10,7 @@ import {
   deleteImage,
   deleteUser,
   getUsers,
+  updateUserStatus,
 } from "../../../utils/api";
 import Swal from "sweetalert2";
 import { useEffect, useState, useRef } from "react";
@@ -43,15 +44,12 @@ function UserDashBoard() {
     ? roles.filter((role) => role !== "admin")
     : roles;
 
+  // console.log("users", users);
 
   useEffect(() => {
     const filterUsers = usersData.filter((user) => user.role !== "admin");
     if (filterUsers.length > 0) {
-      const usersWithDisabled = filterUsers.map((user) => ({
-        ...user,
-        disabled: user.disabled || false,
-      }));
-      setUsers(usersWithDisabled);
+      setUsers(filterUsers);
     }
   }, [usersData]);
 
@@ -261,15 +259,48 @@ function UserDashBoard() {
     }
   };
 
-  const handleToggleDisable = (userId) => {
-    setUsers(
-      users.map((user) => {
-        if (user._id === userId) {
-          return { ...user, disabled: !user.disabled };
-        }
-        return user;
-      })
-    );
+  const handleToggleDisable = async (userId) => {
+
+    try {
+      const newStatus = !users.find((user) => user._id === userId).isDisabled;
+      const response = await updateUserStatus(userId, newStatus, token);
+      console.log("response", response);
+
+      if (response.status === "error") {
+        throw new Error(
+          response.message || "Error al actualizar el estado del usuario"
+        );
+      }
+
+      // Solo actualizamos el estado local si la petición al backend fue exitosa
+      setUsers(
+        users.map((user) => {
+          if (user._id === userId) {
+            return { ...user, isDisabled: !user.isDisabled };
+          }
+          return user;
+        })
+      );
+
+      // Opcional: Mostrar mensaje de éxito
+      await Swal.fire({
+        icon: "success",
+        title: "Estado actualizado",
+        text: `Usuario ${
+          newStatus ? "deshabilitado" : "habilitado"
+        } correctamente`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Error al actualizar el estado:", error);
+      // Mostrar mensaje de error al usuario
+      await Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "No se pudo actualizar el estado del usuario",
+      });
+    }
   };
 
   return (
@@ -295,7 +326,7 @@ function UserDashBoard() {
             <div className="grid-body">
               {users.map((user) => (
                 <div
-                  className={`grid-row ${user.disabled ? "disabled" : ""}`}
+                  className={`grid-row ${user.isDisabled ? "disabled" : ""}`}
                   key={user._id}>
                   <div className="grid-cell grid-cell-name" data-label="Nombre">
                     {user.name}
@@ -320,9 +351,9 @@ function UserDashBoard() {
                     <button
                       onClick={() => handleToggleDisable(user._id)}
                       className={`disable-button ${
-                        user.disabled ? "disabled" : ""
+                        user.isDisabled ? "disabled" : ""
                       }`}>
-                      {user.disabled ? "Habilitar" : "Deshabilitar"}
+                      {user.isDisabled ? "Habilitar" : "Deshabilitar"}
                     </button>
                     <button
                       onClick={() =>

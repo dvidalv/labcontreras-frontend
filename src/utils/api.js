@@ -25,6 +25,24 @@ export async function createUser(data) {
   return response.json();
 }
 
+export async function updateUserStatus(userId, status, token) {
+  console.log("userId", userId);
+  console.log("status", status);
+  console.log("token", token);
+  const response = await fetch(`${API_URL}/users/${userId}/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ userId, status }),
+  });
+  return response.json();
+}
+
+
+
+
 export async function hasAdmin() {
   // console.log("role:", role);
   try {

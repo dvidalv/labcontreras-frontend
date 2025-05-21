@@ -37,7 +37,6 @@ function Signin() {
   const navigate = useNavigate();
   const { from } = locationState.state || { from: { pathname: "/" } };
 
-
   async function handleForm(data) {
     const { email, password } = data;
     try {
@@ -47,6 +46,15 @@ function Signin() {
         return;
       }
       const res = await response.json();
+      // console.log("res:", res);
+
+      if (res.user.isDisabled) {
+        customToast.error(
+          "Tu cuenta está deshabilitada. Por favor, contacta al administrador."
+        );
+        return;
+      }
+
       navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior
       if (res.token) {
         setToken(res.token);
@@ -138,8 +146,6 @@ function Signin() {
           )}
         </Form>
       </div>
-
- 
 
       <Toaster
         position="top-center"
