@@ -6,7 +6,7 @@
   background-color: rgb(235, 235, 235);
   max-width: 2500px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   min-height: calc(
     100vh - var(--header-height-mobile) - var(--navbar-height) -
       var(--footer-height-mobile)
@@ -107,7 +107,8 @@
 
 /* Estilos para los reportes detallados */
 .reporte-detalle {
-  width: 90%;
+  /* width: 90%; */
+  max-width: 90vw;
   background: white;
   border-radius: 15px;
   padding: 2rem;

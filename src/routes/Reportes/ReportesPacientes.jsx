@@ -327,7 +327,8 @@ export default function ReportesPacientes() {
                 cx="50%"
                 cy="50%"
                 outerRadius="80%"
-                label={(entry) => `${entry.name} (${entry.percentage}%)`}
+                // label={(entry) => `${entry.name} (${entry.percentage}%)`}
+                label={(entry) => `${entry.percentage}%`}
                 labelLine={true}>
                 {dataPie.map((entry, index) => (
                   <Cell
