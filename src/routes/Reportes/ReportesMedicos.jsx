@@ -95,7 +95,6 @@ const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
 
 export default function ReportesMedicos() {
   const respuestas = useLoaderData();
-  console.log("respuestas", respuestas);
   const [agrupacion, setAgrupacion] = useState("dia");
   const [expandidos, setExpandidos] = useState([]); // array de periodos expandidos
 
