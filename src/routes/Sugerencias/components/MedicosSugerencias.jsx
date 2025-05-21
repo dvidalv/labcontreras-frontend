@@ -24,9 +24,8 @@ const medicoSchema = z.object({
   metodosTecnicos: z.string({
     required_error: "Debe seleccionar una opción",
   }),
-  sugerencias: z
-    .string()
-    .trim(),
+  comentarios: z.string().trim().optional(),
+  sugerencias: z.string().trim().optional(),
 });
 
 const toasterConfig = {
@@ -78,6 +77,7 @@ function MedicosSugerencias() {
       utilidadDiagnosticos: "",
       metodosTecnicos: "",
       sugerencias: "",
+      comentarios: "",
     },
   });
 
@@ -100,6 +100,7 @@ function MedicosSugerencias() {
         utilidadDiagnosticos: "",
         metodosTecnicos: "",
         sugerencias: "",
+        comentarios: "",
       });
 
       toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
@@ -242,7 +243,7 @@ function MedicosSugerencias() {
       <div className="form-group">
         <label>
           ¿Cuáles son los puntos de mejora que usted sugiere para ofrecer un
-          mejor diagnóstico y/o servicio?
+          mejor diagnóstico y/o servicio? (Opcional)
         </label>
         <textarea
           name="sugerencias"
@@ -253,6 +254,20 @@ function MedicosSugerencias() {
         />
         {errors.sugerencias && (
           <span className="error-message">{errors.sugerencias.message}</span>
+        )}
+      </div>
+
+      <div className="form-group">
+        <label>Comentarios (Opcional)</label>
+        <textarea
+          name="comentarios"
+          {...register("comentarios")}
+          placeholder="Ingrese sus comentarios..."
+          rows={6}
+          className={errors.comentarios ? "error" : ""}
+        />
+        {errors.comentarios && (
+          <span className="error-message">{errors.comentarios.message}</span>
         )}
       </div>
 
