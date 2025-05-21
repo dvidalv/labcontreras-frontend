@@ -692,7 +692,12 @@ export const getSugerenciasMedicosDetalles = async ({
     let url = `${API_URL}/api/sugerencias/medicos/detalles`;
     const params = [];
     if (fechaDesde) params.push(`fechaDesde=${encodeURIComponent(fechaDesde)}`);
-    if (fechaHasta) params.push(`fechaHasta=${encodeURIComponent(fechaHasta)}`);
+    if (fechaHasta) {
+      // Sumar un día y restar un milisegundo para incluir todo el día
+      const hasta = new Date(fechaHasta);
+      hasta.setHours(23, 59, 59, 999);
+      params.push(`fechaHasta=${encodeURIComponent(hasta.toISOString())}`);
+    }
     if (params.length) url += `?${params.join("&")}`;
     const response = await fetch(url);
     const data = await response.json();
