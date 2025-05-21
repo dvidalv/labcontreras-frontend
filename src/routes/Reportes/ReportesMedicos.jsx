@@ -266,6 +266,7 @@ export default function ReportesMedicos() {
                     padding: "0.5rem",
                     verticalAlign: "bottom",
                     borderRight: "2px solid #ddd",
+                    // fontWeight: "bold",
                   }}>
                   {agrupacion === "dia"
                     ? "Día"
@@ -292,6 +293,7 @@ export default function ReportesMedicos() {
                     borderBottom: "1px solid #ddd",
                     borderRight: "2px solid #ddd",
                     background: "#f8f9fa",
+                    fontWeight: "bold",
                   }}>
                   Satisfacción
                 </th>
@@ -303,6 +305,7 @@ export default function ReportesMedicos() {
                     borderBottom: "1px solid #ddd",
                     borderRight: "2px solid #ddd",
                     background: "#f8f9fa",
+                    fontWeight: "bold",
                   }}>
                   Entrega Oportuna
                 </th>
@@ -314,6 +317,7 @@ export default function ReportesMedicos() {
                     borderBottom: "1px solid #ddd",
                     borderRight: "2px solid #ddd",
                     background: "#f8f9fa",
+                    fontWeight: "bold",
                   }}>
                   Informes Claros
                 </th>
@@ -325,6 +329,7 @@ export default function ReportesMedicos() {
                     borderBottom: "1px solid #ddd",
                     borderRight: "2px solid #ddd",
                     background: "#f8f9fa",
+                    fontWeight: "bold",
                   }}>
                   Utilidad Dx
                 </th>
@@ -335,6 +340,7 @@ export default function ReportesMedicos() {
                     textAlign: "center",
                     borderBottom: "1px solid #ddd",
                     background: "#f8f9fa",
+                    fontWeight: "bold",
                   }}>
                   Métodos Técnicos
                 </th>
