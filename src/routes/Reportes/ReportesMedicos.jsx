@@ -94,15 +94,33 @@ function agruparRespuestas(respuestas, agrupacion) {
 const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
 
 export default function ReportesMedicos() {
-  const respuestas = useLoaderData();
+  const rawRespuestas = useLoaderData();
+  const respuestas = Array.isArray(rawRespuestas) ? rawRespuestas : [];
   const [agrupacion, setAgrupacion] = useState("dia");
   const [expandidos, setExpandidos] = useState([]); // array de periodos expandidos
 
-  if (!respuestas || respuestas.length === 0) {
+  // Si hay un error en la carga de datos
+  if (
+    !rawRespuestas ||
+    (rawRespuestas.error && !Array.isArray(rawRespuestas))
+  ) {
     return (
       <div className="reporte-detalle">
         <h2>Reporte de Médicos</h2>
-        <p>No hay datos disponibles</p>
+        <p className="error-message">
+          {rawRespuestas?.message ||
+            "Error al cargar los datos. Por favor, intente con un rango de fechas diferente."}
+        </p>
+      </div>
+    );
+  }
+
+  // Si no hay datos
+  if (respuestas.length === 0) {
+    return (
+      <div className="reporte-detalle">
+        <h2>Reporte de Médicos</h2>
+        <p>No hay datos disponibles para el período seleccionado</p>
       </div>
     );
   }

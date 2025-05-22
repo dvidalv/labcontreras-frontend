@@ -6,13 +6,14 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { FaUserInjured, FaUserMd, FaBuilding } from "react-icons/fa";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export default function Reportes() {
   const data = useLoaderData();
   // console.log(data);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState("");
 
   const handleCardClick = (route) => {
     navigate(route + window.location.search); // Mantener los query params al navegar
@@ -22,10 +23,39 @@ export default function Reportes() {
   const fechaDesde = searchParams.get("fechaDesde") || "";
   const fechaHasta = searchParams.get("fechaHasta") || "";
 
+  // Validar si una fecha es futura
+  const isFutureDate = (date) => {
+    if (!date) return false;
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return selectedDate > today;
+  };
+
   // Manejar cambios en los inputs de fecha
   const handleFechaChange = useCallback(
     (e) => {
       const { name, value } = e.target;
+
+      // Validar si es fecha futura
+      if (isFutureDate(value)) {
+        setError("La fecha no puede ser una fecha futura");
+        return;
+      }
+
+      // Validar que fecha hasta no sea menor que fecha desde
+      if (name === "fechaHasta" && fechaDesde && value < fechaDesde) {
+        setError("La fecha final no puede ser menor que la fecha inicial");
+        return;
+      }
+
+      if (name === "fechaDesde" && fechaHasta && value > fechaHasta) {
+        setError("La fecha inicial no puede ser mayor que la fecha final");
+        return;
+      }
+
+      // Si pasa las validaciones, limpiar error y actualizar params
+      setError("");
       const params = new URLSearchParams(searchParams);
       if (value) {
         params.set(name, value);
@@ -34,7 +64,7 @@ export default function Reportes() {
       }
       setSearchParams(params);
     },
-    [searchParams, setSearchParams]
+    [searchParams, setSearchParams, fechaDesde, fechaHasta]
   );
 
   return (
@@ -50,6 +80,7 @@ export default function Reportes() {
             className="date-input"
             value={fechaDesde}
             onChange={handleFechaChange}
+            max={new Date().toISOString().split("T")[0]} // Prevenir selección de fechas futuras
           />
         </div>
         <div className="date-input-group">
@@ -61,9 +92,30 @@ export default function Reportes() {
             className="date-input"
             value={fechaHasta}
             onChange={handleFechaChange}
+            max={new Date().toISOString().split("T")[0]} // Prevenir selección de fechas futuras
+            min={fechaDesde} // La fecha final no puede ser menor que la inicial
           />
         </div>
       </div>
+      {error && (
+        <div
+          className="error-message"
+          style={{
+            color: "#dc2626",
+            backgroundColor: "#fee2e2",
+            padding: "0.5rem 1rem",
+            borderRadius: "0.375rem",
+            marginBottom: "1rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}>
+          <span role="img" aria-label="warning">
+            ⚠️
+          </span>
+          {error}
+        </div>
+      )}
       <div className="stats-grid">
         <div className="stat-card" onClick={() => handleCardClick("pacientes")}>
           <div className="stat-icon">

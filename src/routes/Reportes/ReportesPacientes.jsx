@@ -72,7 +72,8 @@ function agruparRespuestas(respuestas, agrupacion) {
 const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
 
 export default function ReportesPacientes() {
-  const respuestas = useLoaderData();
+  const rawRespuestas = useLoaderData();
+  const respuestas = Array.isArray(rawRespuestas) ? rawRespuestas : [];
   const [agrupacion, setAgrupacion] = useState("dia");
   const [expandidos, setExpandidos] = useState([]); // array de periodos expandidos
 
