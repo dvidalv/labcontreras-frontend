@@ -571,8 +571,8 @@ export const isTokenExpired = () => {
   const now = new Date(); // Obtener la fecha actual
   const tokenTimestamp = localStorage.getItem("tokenTimestamp"); // Obtener el timestamp del token
   const timeElapsed = now.getTime() - tokenTimestamp; // Calcular el tiempo transcurrido desde el ltimo token
-  const timeRemaining = 900000 - timeElapsed; // 15 minutos en milisegundos
-  const minutesRemaining = Math.floor(timeRemaining / 60000);
+  // const timeRemaining = 900000 - timeElapsed; // 15 minutos en milisegundos
+  // const minutesRemaining = Math.floor(timeRemaining / 60000);
   // console.log(`Tiempo restante: ${minutesRemaining} minutos`);
   return timeElapsed > 900000;
 };
@@ -670,9 +670,18 @@ export const getSugerenciasPacientesDetalles = async ({
     let url = `${API_URL}/api/sugerencias/pacientes/detalles`;
     const params = [];
     if (fechaDesde) params.push(`fechaDesde=${encodeURIComponent(fechaDesde)}`);
-    if (fechaHasta) params.push(`fechaHasta=${encodeURIComponent(fechaHasta)}`);
+    if (fechaHasta) {
+      // Sumar un día y restar un milisegundo para incluir todo el día
+      const hasta = new Date(fechaHasta);
+      hasta.setHours(23, 59, 59, 999);
+      params.push(`fechaHasta=${encodeURIComponent(hasta.toISOString())}`);
+    }
     if (params.length) url += `?${params.join("&")}`;
+
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
     return data;
   } catch (error) {

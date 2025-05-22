@@ -4,16 +4,24 @@ import {
   useNavigate,
   Outlet,
   useSearchParams,
+  useNavigation,
 } from "react-router-dom";
 import { FaUserInjured, FaUserMd, FaBuilding } from "react-icons/fa";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 
 export default function Reportes() {
   const data = useLoaderData();
   // console.log(data);
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState("");
+  const isLoading = navigation.state === "loading";
+
+  useEffect(() => {
+    console.log("Navigation state:", navigation.state);
+  }, [navigation.state]);
 
   const handleCardClick = (route) => {
     navigate(route + window.location.search); // Mantener los query params al navegar
@@ -69,6 +77,7 @@ export default function Reportes() {
 
   return (
     <div className="reportes-container">
+      {isLoading && <Spinner size="large" message="Cargando reportes..." />}
       <h1>Estadísticas Generales</h1>
       <div className="date-range-container">
         <div className="date-input-group">

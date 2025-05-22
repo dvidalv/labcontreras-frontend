@@ -189,6 +189,12 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
         loader: reportesLoader,
+        shouldRevalidate: ({ currentUrl, nextUrl }) => {
+          return (
+            currentUrl.pathname !== nextUrl.pathname ||
+            currentUrl.search !== nextUrl.search
+          );
+        },
         children: [
           {
             path: "pacientes",
@@ -238,7 +244,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AppProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </AppProvider>
   </React.StrictMode>
 );

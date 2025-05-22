@@ -1,5 +1,5 @@
 import "./Reportes.css";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
 import PropTypes from "prop-types";
@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Spinner from "../../components/Spinner/Spinner";
 
 function getPeriodKey(date, agrupacion) {
   const d = new Date(date);
@@ -95,9 +96,16 @@ const COLORS = ["#16a34a", "#2563eb", "#f59e42", "#ef4444"];
 
 export default function ReportesMedicos() {
   const rawRespuestas = useLoaderData();
+  const navigation = useNavigation();
   const respuestas = Array.isArray(rawRespuestas) ? rawRespuestas : [];
   const [agrupacion, setAgrupacion] = useState("dia");
   const [expandidos, setExpandidos] = useState([]); // array de periodos expandidos
+  const isLoading = navigation.state === "loading";
+
+  // Si está cargando, mostrar el spinner
+  if (isLoading) {
+    return <Spinner size="large" message="Cargando datos de médicos..." />;
+  }
 
   // Si hay un error en la carga de datos
   if (
