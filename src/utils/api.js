@@ -411,62 +411,28 @@ export async function sugerenciasMedicos(data) {
   }
 }
 
-export async function sugerenciasEmpresas(data) {
+export async function sugerenciasEmpresas({ fechaDesde, fechaHasta } = {}) {
   try {
-    const requestUrl = `${API_URL}/api/sugerencias/empresas`;
+    let url = `${API_URL}/api/sugerencias/empresas`;
+    const params = [];
+    if (fechaDesde) params.push(`fechaDesde=${encodeURIComponent(fechaDesde)}`);
+    if (fechaHasta) params.push(`fechaHasta=${encodeURIComponent(fechaHasta)}`);
+    if (params.length) url += `?${params.join("&")}`;
 
-    const response = await fetch(requestUrl, {
-      method: "POST",
+    const response = await fetch(url, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(data),
     });
 
-    let responseData;
-    try {
-      // Intentamos parsear la respuesta como JSON
-      responseData = await response.json();
-    } catch (parseError) {
-      // Si no es JSON o está vacía, creamos un objeto con mensaje genérico
-      responseData = {
-        error: "ERROR_RESPONSE",
-        message:
-          response.status === 429
-            ? "Por favor, espere antes de enviar otra sugerencia."
-            : "Error en la respuesta del servidor",
-      };
-    }
-
-    // Si la respuesta no es ok, lanzamos un error con los datos del servidor
-    if (!response.ok) {
-      const error = new Error();
-      error.response = {
-        status: response.status,
-        data: responseData,
-      };
-      throw error;
-    }
-
-    return responseData;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Error en sugerenciasEmpresas:", error);
-    if (error.response) {
-      throw error; // Re-lanzamos el error con la respuesta del servidor
-    }
-    // Si no hay respuesta estructurada, creamos un error genérico
-    const genericError = new Error();
-    genericError.response = {
-      status: 500,
-      data: {
-        error: "ERROR_GENERAL",
-        message:
-          "Error al procesar la solicitud. Por favor, intente más tarde.",
-      },
-    };
-    throw genericError;
+    throw error;
   }
 }
 
