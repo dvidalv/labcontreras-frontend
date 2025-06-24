@@ -13,7 +13,7 @@ export async function signinUser(email, password) {
 
 export async function createUser(data) {
   // console.log("Data:", data);
-  console.log("API_URL:", API_URL);
+  // console.log("API_URL:", API_URL);
   const response = await fetch(`${API_URL}/users/signup`, {
     method: "POST",
     headers: {
@@ -25,9 +25,9 @@ export async function createUser(data) {
 }
 
 export async function updateUserStatus(userId, status, token) {
-  console.log("userId", userId);
-  console.log("status", status);
-  console.log("token", token);
+  // console.log("userId", userId);
+  // console.log("status", status);
+  // console.log("token", token);
   const response = await fetch(`${API_URL}/users/${userId}/status`, {
     method: "PATCH",
     headers: {
@@ -80,8 +80,8 @@ export async function getUserById(id) {
 }
 
 export async function updateUser({ data, token }) {
-  console.log("data:", data);
-  console.log("token:", token);
+  // console.log("data:", data);
+  // console.log("token:", token);
   try {
     console.log("Making update request with:", { data, token });
 
@@ -201,10 +201,10 @@ export async function getMedicos() {
       throw new Error("API_URL is not defined");
     }
 
-    console.log("API_URL value:", API_URL);
-    console.log("Making request to:", `${API_URL}/medicos`);
-    console.log("Current window.location:", window.location.href);
-    console.log("Current window.location.hostname:", window.location.hostname);
+    // console.log("API_URL value:", API_URL);
+    // console.log("Making request to:", `${API_URL}/medicos`);
+    // console.log("Current window.location:", window.location.href);
+    // console.log("Current window.location.hostname:", window.location.hostname);
 
     // Create an AbortController for timeout
     const controller = new AbortController();
@@ -222,15 +222,15 @@ export async function getMedicos() {
 
     clearTimeout(timeoutId);
 
-    console.log("Response status:", response.status);
-    console.log("Response headers:", Object.fromEntries(response.headers));
+    // console.log("Response status:", response.status);
+    // console.log("Response headers:", Object.fromEntries(response.headers));
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log("Medicos data received:", data);
+    // console.log("Medicos data received:", data);
     return data;
   } catch (error) {
     console.error("Error en getMedicos:", error);
@@ -339,9 +339,9 @@ export async function contact(email, subject, message) {
 export async function sugerenciasPacientes(data) {
   try {
     const requestUrl = `${API_URL}/api/sugerencias/pacientes`;
-    console.log("API_URL:", API_URL);
-    console.log("Request URL:", requestUrl);
-    console.log("Request data:", data);
+    // console.log("API_URL:", API_URL);
+    // console.log("Request URL:", requestUrl);
+    // console.log("Request data:", data);
 
     const response = await fetch(requestUrl, {
       method: "POST",
@@ -353,8 +353,8 @@ export async function sugerenciasPacientes(data) {
       body: JSON.stringify(data),
     });
 
-    console.log("Response status:", response.status);
-    console.log("Response headers:", Object.fromEntries(response.headers));
+    // console.log("Response status:", response.status);
+    // console.log("Response headers:", Object.fromEntries(response.headers));
 
     let responseData;
     try {

@@ -34,16 +34,16 @@ function Main() {
     gotoTop();
     const fetchMedicos = async () => {
       try {
-        console.log("Fetching medicos...");
+        //console.log("Fetching medicos...");
         const data = await getMedicos();
-        console.log("Medicos data received in component:", data);
+        //console.log("Medicos data received in component:", data);
         // Ordenar los médicos por la propiedad 'order'
         const medicosOrdenados = Array.isArray(data)
           ? [...data].sort((a, b) => (a.order || 0) - (b.order || 0))
           : data;
         setMedicos(medicosOrdenados);
       } catch (error) {
-        console.error("Error fetching medicos in component:", error);
+        //console.error("Error fetching medicos in component:", error);
         // Set empty array as fallback to prevent crashes
         setMedicos([]);
       }
@@ -61,7 +61,7 @@ function Main() {
         setPublicaciones(data);
       } catch (error) {
         setErrorFetchPublicaciones(true);
-        console.error("Error fetching publicaciones:", error);
+        // console.error("Error fetching publicaciones:", error);
       }
     };
 
