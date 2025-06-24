@@ -1,9 +1,20 @@
 let API_URL = "";
 
-if (window.location.hostname === "localhost") {
-  API_URL = "http://localhost:3001";
+// Check if we're in a browser environment
+if (typeof window !== "undefined") {
+  if (window.location.hostname === "localhost") {
+    API_URL = "http://localhost:3001";
+  } else {
+    API_URL = "https://labcontreras-backend.vercel.app";
+  }
+
+  // Debug logging
+  console.log("Current hostname:", window.location.hostname);
+  console.log("API_URL set to:", API_URL);
 } else {
-  API_URL = "https://labcontreras-backend.vercel.app";
+  // Fallback for server-side rendering or when window is not available
+  API_URL = "http://localhost:3001";
+  console.log("Window not available, using fallback API_URL:", API_URL);
 }
 
 export const menuLinks = [

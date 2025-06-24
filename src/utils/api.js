@@ -1,5 +1,4 @@
 import API_URL from "./constants";
-import {} from "./constants";
 
 export async function signinUser(email, password) {
   const response = await fetch(`${API_URL}/signin`, {
@@ -196,13 +195,63 @@ export async function deleteImage(imageUrl) {
 
 export async function getMedicos() {
   try {
-    const response = await fetch(`${API_URL}/medicos`);
+    // Check if API_URL is defined
+    if (!API_URL) {
+      console.error("API_URL is not defined!");
+      throw new Error("API_URL is not defined");
+    }
+
+    console.log("API_URL value:", API_URL);
+    console.log("Making request to:", `${API_URL}/medicos`);
+    console.log("Current window.location:", window.location.href);
+    console.log("Current window.location.hostname:", window.location.hostname);
+
+    // Create an AbortController for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+    const response = await fetch(`${API_URL}/medicos`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include", // Include cookies if needed
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    console.log("Response status:", response.status);
+    console.log("Response headers:", Object.fromEntries(response.headers));
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return await response.json();
+
+    const data = await response.json();
+    console.log("Medicos data received:", data);
+    return data;
   } catch (error) {
     console.error("Error en getMedicos:", error);
+    console.error("Error details:", {
+      message: error.message,
+      name: error.name,
+      stack: error.stack,
+    });
+
+    // Handle different types of errors
+    if (error.name === "AbortError") {
+      console.error("Request timed out after 10 seconds");
+    } else if (
+      error.name === "TypeError" &&
+      error.message.includes("Failed to fetch")
+    ) {
+      console.error(
+        "Network error detected. Check if the backend server is running and accessible."
+      );
+    }
+
     throw error; // re-lanzamos el error para que el componente lo maneje
   }
 }
