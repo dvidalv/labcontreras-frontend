@@ -45,4 +45,16 @@ export const menuLinks = [
 // export const FILEMAKER_DATABASE = 'lpcr';
 // export const FILEMAKER_LAYOUT = 'pacientes_web';
 
+// Tipos de Comprobantes Electrónicos (e-CF) República Dominicana
+export const TIPOS_ECF = [
+  { codigo: "31", nombre: "Factura de Crédito Fiscal Electrónica" },
+  { codigo: "32", nombre: "Factura de Consumo Electrónica" },
+  { codigo: "33", nombre: "Nota de Débito Electrónica" },
+  { codigo: "34", nombre: "Nota de Crédito Electrónica" },
+  { codigo: "41", nombre: "Compras Electrónicas" },
+  { codigo: "43", nombre: "Gastos Menores Electrónico" },
+  { codigo: "44", nombre: "Régimenes Especiales Electrónico" },
+  { codigo: "45", nombre: "Gubernamental Electrónico" },
+];
+
 export default API_URL;

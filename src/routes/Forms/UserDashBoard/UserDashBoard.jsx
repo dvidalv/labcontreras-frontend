@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppContext } from "../../../contexts/MyContext";
 import "./UserDashBoard.css";
 import avatar from "../../../images/avatar.svg";
+import { RiMenuAddFill } from "react-icons/ri";
 import {
   uploadAvatar,
   createUser,
@@ -12,12 +13,14 @@ import {
   getUsers,
   updateUserStatus,
   sendInvitationEmail,
+  getComprobantes,
 } from "../../../utils/api";
 import Swal from "sweetalert2";
 import { useEffect, useState, useRef } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { RiAddLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
+import NuevoComprobante from "../../../components/nuevo comprobante/NuevoComprobante";
 
 const roles = ["user", "medico", "admin", "guest"];
 
@@ -38,9 +41,12 @@ function UserDashBoard() {
   const [users, setUsers] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("users");
-
-  const { users: usersData } = useLoaderData();
+  const [showModal, setShowModal] = useState(false);
+  const [comprobantesData, setComprobantesData] = useState([]);
+  const { users: usersData, comprobantes } = useLoaderData();
   const hasAdminUser = usersData.some((user) => user.role === "admin");
+
+  // console.log(comprobantes);
 
   const availableRoles = hasAdminUser
     ? roles.filter((role) => role !== "admin")
@@ -52,6 +58,29 @@ function UserDashBoard() {
       setUsers(filterUsers);
     }
   }, [usersData]);
+
+  useEffect(() => {
+    if (comprobantes) {
+      setComprobantesData(comprobantes);
+    }
+  }, [comprobantes]);
+
+  // Función para actualizar la lista de comprobantes
+  const refreshComprobantes = async () => {
+    try {
+      const response = await getComprobantes(token);
+
+      // Manejar la estructura de datos de comprobantes igual que en el loader
+      const comprobantes =
+        response?.comprobantes ||
+        response?.data ||
+        (Array.isArray(response) ? response : []);
+
+      setComprobantesData(comprobantes);
+    } catch (error) {
+      console.error("Error al actualizar comprobantes:", error);
+    }
+  };
 
   useEffect(() => {
     setAvatarUrl("");
@@ -509,7 +538,70 @@ function UserDashBoard() {
   const renderComprobantesTab = () => (
     <div className="comprobantes-container">
       <h2>Comprobantes</h2>
-      <p>Contenido de comprobantes próximamente...</p>
+      <div className="comprobantes-container-header">
+        <RiMenuAddFill
+          className="comprobantes-container-icon"
+          size={20}
+          onClick={() => setShowModal(true)}
+        />
+      </div>
+      <div className="comprobantes-container-content">
+        {comprobantesData.length > 0 ? (
+          <div className="comprobantes-grid">
+            {comprobantesData.map((comprobante) => (
+              <div key={comprobante._id} className="comprobante-card">
+                <h3>{comprobante.descripcion_tipo}</h3>
+                <div className="comprobante-info">
+                  <p>
+                    <strong>RNC:</strong> {comprobante.rnc}
+                  </p>
+                  <p>
+                    <strong>Razón Social:</strong> {comprobante.razon_social}
+                  </p>
+                  <p>
+                    <strong>Tipo:</strong> {comprobante.tipo_comprobante}
+                  </p>
+                  <p>
+                    <strong>Prefijo:</strong> {comprobante.prefijo}
+                  </p>
+                  <p>
+                    <strong>Rango:</strong> {comprobante.numero_inicial} -{" "}
+                    {comprobante.numero_final}
+                  </p>
+                  <p>
+                    <strong>Disponibles:</strong>{" "}
+                    {comprobante.numeros_disponibles}
+                  </p>
+                  <p>
+                    <strong>Utilizados:</strong>{" "}
+                    {comprobante.numeros_utilizados}
+                  </p>
+                  <p>
+                    <strong>Próximo Número:</strong> {comprobante.proximoNumero}
+                  </p>
+                  <p>
+                    <strong>Estado:</strong>
+                    <span className={`estado ${comprobante.estado}`}>
+                      {" "}
+                      {comprobante.estado}
+                    </span>
+                  </p>
+                  <p>
+                    <strong>Vencimiento:</strong>{" "}
+                    {new Date(
+                      comprobante.fecha_vencimiento
+                    ).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ textAlign: "center", color: "red" }}>
+            No hay comprobantes disponibles
+          </div>
+        )}
+      </div>
     </div>
   );
 
@@ -533,6 +625,14 @@ function UserDashBoard() {
       <div className="tab-content">
         {activeTab === "users" ? renderUsersTab() : renderComprobantesTab()}
       </div>
+      {showModal && (
+        <NuevoComprobante
+          setShowModal={setShowModal}
+          showModal={showModal}
+          token={token}
+          refreshComprobantes={refreshComprobantes}
+        />
+      )}
     </div>
   );
 }

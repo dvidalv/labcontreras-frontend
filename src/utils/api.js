@@ -751,3 +751,67 @@ export async function sendInvitationEmail(email, name, password, token) {
   });
   return response.json();
 }
+
+// Función para crear comprobantes fiscales
+export async function createComprobante(data, token) {
+
+  try {
+    const response = await fetch(`${API_URL}/comprobantes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        message: responseData.message || "Error al crear el comprobante",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error al crear comprobante:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al crear el comprobante",
+    };
+  }
+}
+
+// Función para obtener todos los comprobantes
+export async function getComprobantes(token) {
+  try {
+    const response = await fetch(`${API_URL}/comprobantes`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+
+
+    const responseData = await response.json();
+    // console.log(responseData);
+    if (!response.ok) {
+      return {
+        status: "error",
+        message: responseData.message || "Error al obtener los comprobantes",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error al obtener comprobantes:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al obtener los comprobantes",
+    };
+  }
+}
