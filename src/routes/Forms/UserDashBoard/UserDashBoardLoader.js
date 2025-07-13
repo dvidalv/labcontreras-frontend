@@ -1,23 +1,32 @@
 import { getUsers, getComprobantes } from "../../../utils/api";
 
 export async function loader() {
-  const token = localStorage.getItem("token");
-  const usersResponse = await getUsers();
-  const comprobantesResponse = token ? await getComprobantes(token) : null;
+  try {
+    const token = localStorage.getItem("token");
 
-  // Manejar diferentes estructuras de respuesta del backend
-  const users = Array.isArray(usersResponse)
-    ? usersResponse
-    : usersResponse?.users || [];
+    const usersResponse = await getUsers();
+    const comprobantesResponse = token ? await getComprobantes(token) : null;
 
-  // Manejar la estructura de datos de comprobantes
-  const comprobantes =
-    comprobantesResponse?.comprobantes ||
-    comprobantesResponse?.data ||
-    (Array.isArray(comprobantesResponse) ? comprobantesResponse : []);
+    // Manejar diferentes estructuras de respuesta del backend
+    const users = Array.isArray(usersResponse)
+      ? usersResponse
+      : usersResponse?.users || [];
 
-  return {
-    users,
-    comprobantes,
-  };
+    // Manejar la estructura de datos de comprobantes
+    const comprobantes =
+      comprobantesResponse?.comprobantes ||
+      comprobantesResponse?.data ||
+      (Array.isArray(comprobantesResponse) ? comprobantesResponse : []);
+
+    return {
+      users,
+      comprobantes,
+    };
+  } catch (error) {
+    console.error("Error in loader:", error);
+    return {
+      users: [],
+      comprobantes: [],
+    };
+  }
 }

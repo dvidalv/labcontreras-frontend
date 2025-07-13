@@ -775,6 +775,17 @@
   border: 1px solid #e5e7eb;
 }
 
+.loading-message {
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #f0f9ff;
+  border-radius: 8px;
+  border: 1px solid #bfdbfe;
+}
+
 .comprobantes-container-icon {
   color: #3b82f6;
   cursor: pointer;

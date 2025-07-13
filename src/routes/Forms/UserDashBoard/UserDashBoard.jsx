@@ -46,6 +46,7 @@ function UserDashBoard() {
   const [showModal, setShowModal] = useState(false);
   const [comprobantesData, setComprobantesData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loadingComprobantes, setLoadingComprobantes] = useState(false);
   const { users: usersData, comprobantes } = useLoaderData();
   const hasAdminUser = usersData.some((user) => user.role === "admin");
 
@@ -68,9 +69,17 @@ function UserDashBoard() {
     }
   }, [comprobantes]);
 
+  // Cargar comprobantes cuando se monte el componente o cambie el token
+  useEffect(() => {
+    if (token && comprobantesData.length === 0) {
+      refreshComprobantes();
+    }
+  }, [token]);
+
   // Función para actualizar la lista de comprobantes
   const refreshComprobantes = async () => {
     try {
+      setLoadingComprobantes(true);
       const response = await getComprobantes(token);
 
       // Manejar la estructura de datos de comprobantes igual que en el loader
@@ -82,6 +91,8 @@ function UserDashBoard() {
       setComprobantesData(comprobantes);
     } catch (error) {
       console.error("Error al actualizar comprobantes:", error);
+    } finally {
+      setLoadingComprobantes(false);
     }
   };
 
@@ -375,6 +386,16 @@ function UserDashBoard() {
     setSearchTerm("");
   };
 
+  // Función para manejar el cambio de tab
+  const handleTabChange = async (tab) => {
+    setActiveTab(tab);
+
+    // Si cambia al tab de comprobantes y no hay datos, cargar comprobantes
+    if (tab === "comprobantes" && comprobantesData.length === 0) {
+      await refreshComprobantes();
+    }
+  };
+
   const renderUsersTab = () => (
     <div className="user_dashboard">
       <div className="section user_dashboard-container">
@@ -596,7 +617,9 @@ function UserDashBoard() {
         />
       </div>
       <div className="comprobantes-container-content">
-        {filteredComprobantes.length > 0 ? (
+        {loadingComprobantes ? (
+          <div className="loading-message">Cargando comprobantes...</div>
+        ) : filteredComprobantes.length > 0 ? (
           <div className="comprobantes-grid">
             {filteredComprobantes.map((comprobante) => (
               <div key={comprobante._id} className="comprobante-card">
@@ -676,14 +699,14 @@ function UserDashBoard() {
       <div className="dashboard-tabs">
         <button
           className={`tab-button ${activeTab === "users" ? "active" : ""}`}
-          onClick={() => setActiveTab("users")}>
+          onClick={() => handleTabChange("users")}>
           Usuarios
         </button>
         <button
           className={`tab-button ${
             activeTab === "comprobantes" ? "active" : ""
           }`}
-          onClick={() => setActiveTab("comprobantes")}>
+          onClick={() => handleTabChange("comprobantes")}>
           Comprobantes
         </button>
       </div>
