@@ -19,6 +19,7 @@ import Swal from "sweetalert2";
 import { useEffect, useState, useRef } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { RiAddLine } from "react-icons/ri";
+import { RiEditLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import NuevoComprobante from "../../../components/nuevo comprobante/NuevoComprobante";
 
@@ -80,6 +81,13 @@ function UserDashBoard() {
     } catch (error) {
       console.error("Error al actualizar comprobantes:", error);
     }
+  };
+
+  // Función para manejar la edición de comprobantes
+  const handleEditComprobante = (comprobante) => {
+    // TODO: Implementar la edición de comprobantes
+    console.log("Editar comprobante:", comprobante);
+    // Aquí puedes abrir un modal de edición similar al de crear
   };
 
   useEffect(() => {
@@ -550,7 +558,15 @@ function UserDashBoard() {
           <div className="comprobantes-grid">
             {comprobantesData.map((comprobante) => (
               <div key={comprobante._id} className="comprobante-card">
-                <h3>{comprobante.descripcion_tipo}</h3>
+                <div className="comprobante-header">
+                  <h3>{comprobante.descripcion_tipo}</h3>
+                  <button
+                    className="edit-comprobante-btn"
+                    onClick={() => handleEditComprobante(comprobante)}
+                    title="Editar comprobante">
+                    <RiEditLine size={16} />
+                  </button>
+                </div>
                 <div className="comprobante-info">
                   <p>
                     <strong>RNC:</strong> {comprobante.rnc}
