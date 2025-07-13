@@ -20,6 +20,7 @@ import { useEffect, useState, useRef } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { RiAddLine } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
+import { RiSearchLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import NuevoComprobante from "../../../components/nuevo comprobante/NuevoComprobante";
 
@@ -44,6 +45,7 @@ function UserDashBoard() {
   const [activeTab, setActiveTab] = useState("users");
   const [showModal, setShowModal] = useState(false);
   const [comprobantesData, setComprobantesData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const { users: usersData, comprobantes } = useLoaderData();
   const hasAdminUser = usersData.some((user) => user.role === "admin");
 
@@ -352,6 +354,27 @@ function UserDashBoard() {
     }
   };
 
+  // Función para filtrar comprobantes según el término de búsqueda
+  const filteredComprobantes = comprobantesData.filter((comprobante) => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      comprobante.rnc.toLowerCase().includes(searchLower) ||
+      comprobante.razon_social.toLowerCase().includes(searchLower) ||
+      comprobante.tipo_comprobante.toLowerCase().includes(searchLower) ||
+      comprobante.descripcion_tipo.toLowerCase().includes(searchLower)
+    );
+  });
+
+  // Función para manejar el cambio en la búsqueda
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Función para limpiar la búsqueda
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
+
   const renderUsersTab = () => (
     <div className="user_dashboard">
       <div className="section user_dashboard-container">
@@ -545,8 +568,27 @@ function UserDashBoard() {
 
   const renderComprobantesTab = () => (
     <div className="comprobantes-container">
-      <h2>Comprobantes</h2>
       <div className="comprobantes-container-header">
+        <div className="search-container">
+          <div className="search-input-wrapper">
+            <RiSearchLine className="search-icon" size={20} />
+            <input
+              type="text"
+              placeholder="Buscar por RNC, razón social o tipo..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
+            {searchTerm && (
+              <button
+                onClick={clearSearch}
+                className="clear-search-btn"
+                title="Limpiar búsqueda">
+                ×
+              </button>
+            )}
+          </div>
+        </div>
         <RiMenuAddFill
           className="comprobantes-container-icon"
           size={20}
@@ -554,9 +596,9 @@ function UserDashBoard() {
         />
       </div>
       <div className="comprobantes-container-content">
-        {comprobantesData.length > 0 ? (
+        {filteredComprobantes.length > 0 ? (
           <div className="comprobantes-grid">
-            {comprobantesData.map((comprobante) => (
+            {filteredComprobantes.map((comprobante) => (
               <div key={comprobante._id} className="comprobante-card">
                 <div className="comprobante-header">
                   <h3>{comprobante.descripcion_tipo}</h3>
@@ -613,8 +655,16 @@ function UserDashBoard() {
             ))}
           </div>
         ) : (
-          <div style={{ textAlign: "center", color: "red" }}>
-            No hay comprobantes disponibles
+          <div className="no-results">
+            {searchTerm ? (
+              <p>
+                No se encontraron comprobantes que coincidan con {searchTerm}
+              </p>
+            ) : (
+              <p style={{ textAlign: "center", color: "red" }}>
+                No hay comprobantes disponibles
+              </p>
+            )}
           </div>
         )}
       </div>
