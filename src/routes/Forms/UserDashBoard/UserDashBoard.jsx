@@ -614,7 +614,7 @@ function UserDashBoard() {
         </div>
         <RiMenuAddFill
           className="comprobantes-container-icon"
-          size={20}
+          size={45}
           onClick={() => setShowModal(true)}
         />
       </div>
