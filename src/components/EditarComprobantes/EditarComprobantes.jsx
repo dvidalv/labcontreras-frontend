@@ -34,15 +34,11 @@ export default function EditarComprobantes({
   // Efecto para pre-llenar el formulario con los datos del comprobante
   useEffect(() => {
     if (comprobante) {
-      console.log("=== LOADING COMPROBANTE DATA ===");
-      console.log("Original comprobante:", comprobante);
-
       // Formatear las fechas para el input type="date"
       const formatDate = (dateString) => {
         if (!dateString) return "";
         const date = new Date(dateString);
         const formatted = date.toISOString().split("T")[0];
-        console.log("Date formatting:", { original: dateString, formatted });
         return formatted;
       };
 
@@ -61,10 +57,6 @@ export default function EditarComprobantes({
         estado: comprobante.estado || "activo",
         comentario: comprobante.comentario || "",
       };
-
-      console.log("Formatted form data:", formData);
-      console.log("numero_inicial type:", typeof formData.numero_inicial);
-      console.log("numero_final type:", typeof formData.numero_final);
 
       setForm(formData);
     }
@@ -100,24 +92,14 @@ export default function EditarComprobantes({
     // Verificar que ambos sean números válidos
     if (isNaN(inicial) || isNaN(final)) return false;
 
-    const isValid = final > inicial;
-    console.log("isNumeroFinalValid:", {
-      inicial,
-      final,
-      inicialType: typeof form.numero_inicial,
-      finalType: typeof form.numero_final,
-      isValid,
-    });
-    return isValid;
+    return final > inicial;
   };
 
   const isFechaVencimientoValid = () => {
     if (!form.fecha_autorizacion || !form.fecha_vencimiento) return true;
     const fechaAuth = new Date(form.fecha_autorizacion);
     const fechaVenc = new Date(form.fecha_vencimiento);
-    const isValid = fechaVenc > fechaAuth;
-    console.log("isFechaVencimientoValid:", { fechaAuth, fechaVenc, isValid });
-    return isValid;
+    return fechaVenc > fechaAuth;
   };
 
   const handleChange = (e) => {
@@ -149,23 +131,9 @@ export default function EditarComprobantes({
   const validateForm = () => {
     const errors = [];
 
-    console.log("=== VALIDATING FORM ===");
-
     // Validar que numero_final > numero_inicial
     const numeroInicial = Number(form.numero_inicial);
     const numeroFinal = Number(form.numero_final);
-
-    console.log(
-      "Validation - numeroInicial:",
-      numeroInicial,
-      "numeroFinal:",
-      numeroFinal
-    );
-    console.log("Is numeroFinal > numeroInicial?", numeroFinal > numeroInicial);
-    console.log(
-      "Are both numbers valid?",
-      !isNaN(numeroInicial) && !isNaN(numeroFinal)
-    );
 
     if (isNaN(numeroInicial) || isNaN(numeroFinal)) {
       errors.push("Los números inicial y final deben ser números válidos");
@@ -176,17 +144,6 @@ export default function EditarComprobantes({
     // Validar que fecha_vencimiento > fecha_autorizacion
     const fechaAutorizacion = new Date(form.fecha_autorizacion);
     const fechaVencimiento = new Date(form.fecha_vencimiento);
-
-    console.log("Validation - fechaAutorizacion:", fechaAutorizacion);
-    console.log("Validation - fechaVencimiento:", fechaVencimiento);
-    console.log(
-      "Is fechaVencimiento > fechaAutorizacion?",
-      fechaVencimiento > fechaAutorizacion
-    );
-    console.log(
-      "Are both dates valid?",
-      !isNaN(fechaAutorizacion.getTime()) && !isNaN(fechaVencimiento.getTime())
-    );
 
     if (
       isNaN(fechaAutorizacion.getTime()) ||
@@ -217,31 +174,17 @@ export default function EditarComprobantes({
       }
     });
 
-    console.log("Validation errors found:", errors);
     return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("=== DEBUG EDITAR COMPROBANTE ===");
-    console.log("Form data:", form);
-    console.log(
-      "Numero inicial:",
-      form.numero_inicial,
-      typeof form.numero_inicial
-    );
-    console.log("Numero final:", form.numero_final, typeof form.numero_final);
-    console.log("Fecha autorización:", form.fecha_autorizacion);
-    console.log("Fecha vencimiento:", form.fecha_vencimiento);
-
     // Validar formulario antes de enviar
     const validationErrors = validateForm();
-    console.log("Validation errors:", validationErrors);
 
     if (validationErrors.length > 0) {
       setError(validationErrors.join(". "));
-      console.log("Frontend validation failed, not sending to backend");
       return;
     }
 
@@ -253,33 +196,11 @@ export default function EditarComprobantes({
       alerta_minima_restante: Number(form.alerta_minima_restante),
     };
 
-    console.log("Data to send:", dataToSend);
-    console.log(
-      "Numero inicial (parsed):",
-      dataToSend.numero_inicial,
-      typeof dataToSend.numero_inicial
-    );
-    console.log(
-      "Numero final (parsed):",
-      dataToSend.numero_final,
-      typeof dataToSend.numero_final
-    );
-    console.log(
-      "Is numero_final > numero_inicial?",
-      dataToSend.numero_final > dataToSend.numero_inicial
-    );
-    console.log(
-      "Fecha comparison:",
-      new Date(dataToSend.fecha_vencimiento) >
-        new Date(dataToSend.fecha_autorizacion)
-    );
-
     const response = await updateComprobante(
       comprobante._id,
       dataToSend,
       token
     );
-    console.log("Backend response:", response);
 
     if (response.status === "success") {
       setShowModal(false);
@@ -478,35 +399,6 @@ export default function EditarComprobantes({
                     {error}
                   </p>
                 )}
-
-                {/* Panel de debug temporal */}
-                <div
-                  style={{
-                    background: "#f0f0f0",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    fontSize: "12px",
-                    marginTop: "10px",
-                  }}>
-                  <strong>DEBUG INFO:</strong>
-                  <div>
-                    Número inicial: {form.numero_inicial} (tipo:{" "}
-                    {typeof form.numero_inicial})
-                  </div>
-                  <div>
-                    Número final: {form.numero_final} (tipo:{" "}
-                    {typeof form.numero_final})
-                  </div>
-                  <div>Fecha auth: {form.fecha_autorizacion}</div>
-                  <div>Fecha venc: {form.fecha_vencimiento}</div>
-                  <div>
-                    Número final válido: {isNumeroFinalValid() ? "SÍ" : "NO"}
-                  </div>
-                  <div>
-                    Fecha venc válida: {isFechaVencimientoValid() ? "SÍ" : "NO"}
-                  </div>
-                  <div>Cantidad: {cantidadNumeros}</div>
-                </div>
               </form>
             </div>
             <div className={styles.modalActions}>
