@@ -754,7 +754,6 @@ export async function sendInvitationEmail(email, name, password, token) {
 
 // Función para crear comprobantes fiscales
 export async function createComprobante(data, token) {
-
   try {
     const response = await fetch(`${API_URL}/comprobantes`, {
       method: "POST",
@@ -784,6 +783,37 @@ export async function createComprobante(data, token) {
   }
 }
 
+// Función para actualizar un comprobante
+export async function updateComprobante(id, data, token) {
+  try {
+    const response = await fetch(`${API_URL}/comprobantes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        message: responseData.message || "Error al actualizar el comprobante",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error al actualizar comprobante:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al actualizar el comprobante",
+    };
+  }
+}
+
 // Función para obtener todos los comprobantes
 export async function getComprobantes(token) {
   try {
@@ -794,8 +824,6 @@ export async function getComprobantes(token) {
         Authorization: `Bearer ${token}`,
       },
     });
-
-
 
     const responseData = await response.json();
     // console.log(responseData);

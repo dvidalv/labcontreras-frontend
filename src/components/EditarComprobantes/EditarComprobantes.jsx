@@ -1,14 +1,15 @@
-import styles from "./NuevoComprobante.module.css";
+import styles from "./EditarComprobantes.module.css";
 import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { TIPOS_ECF } from "../../utils/constants";
-import { createComprobante } from "../../utils/api";
+import { updateComprobante } from "../../utils/api";
 
-export default function NuevoComprobante({
+export default function EditarComprobantes({
   setShowModal,
   showModal,
   token,
   refreshComprobantes,
+  comprobante,
 }) {
   const [form, setForm] = useState({
     rnc: "",
@@ -29,6 +30,45 @@ export default function NuevoComprobante({
   // Referencias para hacer scroll
   const errorRef = useRef(null);
   const modalBodyRef = useRef(null);
+
+  // Efecto para pre-llenar el formulario con los datos del comprobante
+  useEffect(() => {
+    if (comprobante) {
+      console.log("=== LOADING COMPROBANTE DATA ===");
+      console.log("Original comprobante:", comprobante);
+
+      // Formatear las fechas para el input type="date"
+      const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        const formatted = date.toISOString().split("T")[0];
+        console.log("Date formatting:", { original: dateString, formatted });
+        return formatted;
+      };
+
+      const formData = {
+        rnc: comprobante.rnc || "",
+        razon_social: comprobante.razon_social || "",
+        tipo_comprobante: comprobante.tipo_comprobante || "",
+        descripcion_tipo: comprobante.descripcion_tipo || "",
+        prefijo: comprobante.prefijo || "E",
+        numero_inicial: Number(comprobante.numero_inicial) || "",
+        numero_final: Number(comprobante.numero_final) || "",
+        fecha_autorizacion: formatDate(comprobante.fecha_autorizacion),
+        fecha_vencimiento: formatDate(comprobante.fecha_vencimiento),
+        alerta_minima_restante:
+          Number(comprobante.alerta_minima_restante) || "",
+        estado: comprobante.estado || "activo",
+        comentario: comprobante.comentario || "",
+      };
+
+      console.log("Formatted form data:", formData);
+      console.log("numero_inicial type:", typeof formData.numero_inicial);
+      console.log("numero_final type:", typeof formData.numero_final);
+
+      setForm(formData);
+    }
+  }, [comprobante]);
 
   // Efecto para hacer scroll al error cuando aparezca
   useEffect(() => {
@@ -60,12 +100,24 @@ export default function NuevoComprobante({
     // Verificar que ambos sean números válidos
     if (isNaN(inicial) || isNaN(final)) return false;
 
-    return final > inicial;
+    const isValid = final > inicial;
+    console.log("isNumeroFinalValid:", {
+      inicial,
+      final,
+      inicialType: typeof form.numero_inicial,
+      finalType: typeof form.numero_final,
+      isValid,
+    });
+    return isValid;
   };
 
   const isFechaVencimientoValid = () => {
     if (!form.fecha_autorizacion || !form.fecha_vencimiento) return true;
-    return new Date(form.fecha_vencimiento) > new Date(form.fecha_autorizacion);
+    const fechaAuth = new Date(form.fecha_autorizacion);
+    const fechaVenc = new Date(form.fecha_vencimiento);
+    const isValid = fechaVenc > fechaAuth;
+    console.log("isFechaVencimientoValid:", { fechaAuth, fechaVenc, isValid });
+    return isValid;
   };
 
   const handleChange = (e) => {
@@ -97,9 +149,23 @@ export default function NuevoComprobante({
   const validateForm = () => {
     const errors = [];
 
+    console.log("=== VALIDATING FORM ===");
+
     // Validar que numero_final > numero_inicial
     const numeroInicial = Number(form.numero_inicial);
     const numeroFinal = Number(form.numero_final);
+
+    console.log(
+      "Validation - numeroInicial:",
+      numeroInicial,
+      "numeroFinal:",
+      numeroFinal
+    );
+    console.log("Is numeroFinal > numeroInicial?", numeroFinal > numeroInicial);
+    console.log(
+      "Are both numbers valid?",
+      !isNaN(numeroInicial) && !isNaN(numeroFinal)
+    );
 
     if (isNaN(numeroInicial) || isNaN(numeroFinal)) {
       errors.push("Los números inicial y final deben ser números válidos");
@@ -110,6 +176,17 @@ export default function NuevoComprobante({
     // Validar que fecha_vencimiento > fecha_autorizacion
     const fechaAutorizacion = new Date(form.fecha_autorizacion);
     const fechaVencimiento = new Date(form.fecha_vencimiento);
+
+    console.log("Validation - fechaAutorizacion:", fechaAutorizacion);
+    console.log("Validation - fechaVencimiento:", fechaVencimiento);
+    console.log(
+      "Is fechaVencimiento > fechaAutorizacion?",
+      fechaVencimiento > fechaAutorizacion
+    );
+    console.log(
+      "Are both dates valid?",
+      !isNaN(fechaAutorizacion.getTime()) && !isNaN(fechaVencimiento.getTime())
+    );
 
     if (
       isNaN(fechaAutorizacion.getTime()) ||
@@ -140,45 +217,73 @@ export default function NuevoComprobante({
       }
     });
 
+    console.log("Validation errors found:", errors);
     return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("=== DEBUG EDITAR COMPROBANTE ===");
+    console.log("Form data:", form);
+    console.log(
+      "Numero inicial:",
+      form.numero_inicial,
+      typeof form.numero_inicial
+    );
+    console.log("Numero final:", form.numero_final, typeof form.numero_final);
+    console.log("Fecha autorización:", form.fecha_autorizacion);
+    console.log("Fecha vencimiento:", form.fecha_vencimiento);
+
     // Validar formulario antes de enviar
     const validationErrors = validateForm();
+    console.log("Validation errors:", validationErrors);
+
     if (validationErrors.length > 0) {
       setError(validationErrors.join(". "));
+      console.log("Frontend validation failed, not sending to backend");
       return;
     }
 
     // Preparar datos para enviar (asegurar tipos correctos)
     const dataToSend = {
       ...form,
-      numero_inicial: parseInt(form.numero_inicial),
-      numero_final: parseInt(form.numero_final),
-      alerta_minima_restante: parseInt(form.alerta_minima_restante),
+      numero_inicial: Number(form.numero_inicial),
+      numero_final: Number(form.numero_final),
+      alerta_minima_restante: Number(form.alerta_minima_restante),
     };
 
-    const response = await createComprobante(dataToSend, token);
+    console.log("Data to send:", dataToSend);
+    console.log(
+      "Numero inicial (parsed):",
+      dataToSend.numero_inicial,
+      typeof dataToSend.numero_inicial
+    );
+    console.log(
+      "Numero final (parsed):",
+      dataToSend.numero_final,
+      typeof dataToSend.numero_final
+    );
+    console.log(
+      "Is numero_final > numero_inicial?",
+      dataToSend.numero_final > dataToSend.numero_inicial
+    );
+    console.log(
+      "Fecha comparison:",
+      new Date(dataToSend.fecha_vencimiento) >
+        new Date(dataToSend.fecha_autorizacion)
+    );
+
+    const response = await updateComprobante(
+      comprobante._id,
+      dataToSend,
+      token
+    );
+    console.log("Backend response:", response);
+
     if (response.status === "success") {
       setShowModal(false);
-      setForm({
-        rnc: "",
-        razon_social: "",
-        tipo_comprobante: "",
-        descripcion_tipo: "",
-        prefijo: "E",
-        numero_inicial: "",
-        numero_final: "",
-        fecha_autorizacion: "",
-        fecha_vencimiento: "",
-        alerta_minima_restante: "",
-        estado: "activo",
-        comentario: "",
-      });
-      setError(null); // Limpiar el error al éxito
+      setError(null);
 
       // Actualizar la lista de comprobantes
       if (refreshComprobantes) {
@@ -199,20 +304,18 @@ export default function NuevoComprobante({
   };
 
   return (
-    <div className={styles.nuevoComprobanteContainer}>
-      <h2>Nuevo Comprobante</h2>
-
+    <div className={styles.editarComprobanteContainer}>
       {showModal && (
         <div className={styles.modalBg}>
           <div className={styles.modal}>
             <div className={styles.modalHeader}>
-              <h3>Crear numeración de e-CF</h3>
+              <h3>Editar numeración de e-CF</h3>
             </div>
             <div className={styles.modalBody} ref={modalBodyRef}>
               <form
-                id="comprobanteForm"
+                id="editarComprobanteForm"
                 onSubmit={handleSubmit}
-                className={styles.nuevoComprobanteForm}>
+                className={styles.editarComprobanteForm}>
                 <div className={styles.formGroup}>
                   <label>
                     RNC*
@@ -224,7 +327,7 @@ export default function NuevoComprobante({
                     />
                   </label>
                   <label>
-                    Razón social
+                    Razón social*
                     <input
                       name="razon_social"
                       value={form.razon_social}
@@ -268,6 +371,7 @@ export default function NuevoComprobante({
                     <input
                       name="numero_inicial"
                       type="number"
+                      value={form.numero_inicial}
                       onChange={handleChange}
                       min={0}
                       required
@@ -374,29 +478,56 @@ export default function NuevoComprobante({
                     {error}
                   </p>
                 )}
+
+                {/* Panel de debug temporal */}
+                <div
+                  style={{
+                    background: "#f0f0f0",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    fontSize: "12px",
+                    marginTop: "10px",
+                  }}>
+                  <strong>DEBUG INFO:</strong>
+                  <div>
+                    Número inicial: {form.numero_inicial} (tipo:{" "}
+                    {typeof form.numero_inicial})
+                  </div>
+                  <div>
+                    Número final: {form.numero_final} (tipo:{" "}
+                    {typeof form.numero_final})
+                  </div>
+                  <div>Fecha auth: {form.fecha_autorizacion}</div>
+                  <div>Fecha venc: {form.fecha_vencimiento}</div>
+                  <div>
+                    Número final válido: {isNumeroFinalValid() ? "SÍ" : "NO"}
+                  </div>
+                  <div>
+                    Fecha venc válida: {isFechaVencimientoValid() ? "SÍ" : "NO"}
+                  </div>
+                  <div>Cantidad: {cantidadNumeros}</div>
+                </div>
               </form>
             </div>
             <div className={styles.modalActions}>
               <button type="button" onClick={() => setShowModal(false)}>
                 Cancelar
               </button>
-              <button type="submit" form="comprobanteForm">
-                Guardar
+              <button type="submit" form="editarComprobanteForm">
+                Actualizar
               </button>
             </div>
           </div>
         </div>
       )}
-      <div className={styles.nuevoComprobanteContainerContent}>
-        {/* Aquí podrías mostrar la lista de rangos creados, si lo deseas */}
-      </div>
     </div>
   );
 }
 
-NuevoComprobante.propTypes = {
+EditarComprobantes.propTypes = {
   setShowModal: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
   token: PropTypes.string,
   refreshComprobantes: PropTypes.func,
+  comprobante: PropTypes.object.isRequired,
 };

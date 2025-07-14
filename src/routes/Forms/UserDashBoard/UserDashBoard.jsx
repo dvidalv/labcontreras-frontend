@@ -23,6 +23,7 @@ import { RiEditLine } from "react-icons/ri";
 import { RiSearchLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import NuevoComprobante from "../../../components/nuevo comprobante/NuevoComprobante";
+import EditarComprobantes from "../../../components/EditarComprobantes/EditarComprobantes";
 
 const roles = ["user", "medico", "admin", "guest"];
 
@@ -47,6 +48,8 @@ function UserDashBoard() {
   const [comprobantesData, setComprobantesData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loadingComprobantes, setLoadingComprobantes] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedComprobante, setSelectedComprobante] = useState(null);
   const { users: usersData, comprobantes } = useLoaderData();
   const hasAdminUser = usersData.some((user) => user.role === "admin");
 
@@ -98,9 +101,8 @@ function UserDashBoard() {
 
   // Función para manejar la edición de comprobantes
   const handleEditComprobante = (comprobante) => {
-    // TODO: Implementar la edición de comprobantes
-    console.log("Editar comprobante:", comprobante);
-    // Aquí puedes abrir un modal de edición similar al de crear
+    setSelectedComprobante(comprobante);
+    setShowEditModal(true);
   };
 
   useEffect(() => {
@@ -720,6 +722,15 @@ function UserDashBoard() {
           showModal={showModal}
           token={token}
           refreshComprobantes={refreshComprobantes}
+        />
+      )}
+      {showEditModal && selectedComprobante && (
+        <EditarComprobantes
+          setShowModal={setShowEditModal}
+          showModal={showEditModal}
+          token={token}
+          refreshComprobantes={refreshComprobantes}
+          comprobante={selectedComprobante}
         />
       )}
     </div>
