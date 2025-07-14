@@ -144,7 +144,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
             </div>
             <div className="info">
               <IoMailOpen className="header-icons" />
-              <a href="mailto:info@contrerasrobledo.com.do">
+              <a href="mailto:informacion@contrerasrobledo.com.do">
                 informacion@contrerasrobledo.com.do
               </a>
             </div>

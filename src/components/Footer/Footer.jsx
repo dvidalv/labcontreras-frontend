@@ -66,7 +66,7 @@ function Footer() {
             </a>
           </div>
           <div className="info">
-            <a className="info" href="mailto:info@contrerasrobledo.com.do">
+            <a className="info" href="mailto:informacion@contrerasrobledo.com.do">
               <IoMailOpen className="icons" />
               <span>informacion@contrerasrobledo.com.do</span>
             </a>
