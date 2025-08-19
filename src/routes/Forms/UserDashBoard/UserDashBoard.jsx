@@ -13,10 +13,10 @@ import {
   getUsers,
   updateUserStatus,
   sendInvitationEmail,
-  getComprobantes,
+  getAllComprobantes,
 } from "../../../utils/api";
 import Swal from "sweetalert2";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { RiAddLine } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
@@ -37,7 +37,7 @@ const schemaNewUser = z.object({
 
 function UserDashBoard() {
   const navigate = useNavigate();
-  const { setAvatarUrl, token } = useAppContext();
+  const { setAvatarUrl, token, user } = useAppContext();
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -60,13 +60,62 @@ function UserDashBoard() {
     : roles;
 
   useEffect(() => {
-    const filterUsers = usersData.filter((user) => user.role !== "admin");
+    // Filtrar usuarios: mostrar todos menos admin, pero permitir que admin se vea a sí mismo
+    const filterUsers = usersData.filter((userData) => {
+      // Si el usuario no es admin, mostrarlo
+      if (userData.role !== "admin") {
+        return true;
+      }
+      // Si es admin, solo mostrarlo si es el usuario actual
+      return userData._id === user._id;
+    });
+
     if (filterUsers.length > 0) {
       setUsers(filterUsers);
     }
-  }, [usersData]);
+  }, [usersData, user._id]);
+
+  // Función para actualizar la lista de comprobantes
+  const refreshComprobantes = useCallback(async () => {
+    try {
+      setLoadingComprobantes(true);
+      // console.log("🔄 Iniciando carga de comprobantes...");
+      // console.log("👤 Usuario autenticado:", user);
+      // console.log("🆔 User ID:", user?._id);
+      // console.log(
+      //   "🔑 Token usado:",
+      //   token ? token.substring(0, 20) + "..." : "NO TOKEN"
+      // );
+
+      const response = await getAllComprobantes(token);
+      // console.log("📦 Respuesta raw de la API:", response);
+
+      // Verificar si hay un error en la respuesta
+      if (response?.status === "error") {
+        console.error("❌ Error del backend:", response.message);
+        setComprobantesData([]);
+        return;
+      }
+
+      // Manejar la estructura de datos de comprobantes igual que en el loader
+      const comprobantes =
+        response?.data || // Basado en el backend, los datos están en 'data'
+        response?.comprobantes ||
+        (Array.isArray(response) ? response : []);
+
+      // console.log("📋 Comprobantes procesados:", comprobantes);
+      // console.log("📊 Cantidad de comprobantes:", comprobantes.length);
+      setComprobantesData(comprobantes);
+    } catch (error) {
+      console.error("Error al actualizar comprobantes:", error);
+      setComprobantesData([]);
+    } finally {
+      setLoadingComprobantes(false);
+    }
+  }, [token, user]);
 
   useEffect(() => {
+    // console.log("📥 useEffect comprobantes del loader:", comprobantes);
     if (comprobantes) {
       setComprobantesData(comprobantes);
     }
@@ -74,30 +123,13 @@ function UserDashBoard() {
 
   // Cargar comprobantes cuando se monte el componente o cambie el token
   useEffect(() => {
+    // console.log("🔑 Token disponible:", !!token);
+    // console.log("📊 Comprobantes data length:", comprobantesData.length);
     if (token && comprobantesData.length === 0) {
+      // console.log("⚡ Ejecutando refreshComprobantes en useEffect");
       refreshComprobantes();
     }
-  }, [token]);
-
-  // Función para actualizar la lista de comprobantes
-  const refreshComprobantes = async () => {
-    try {
-      setLoadingComprobantes(true);
-      const response = await getComprobantes(token);
-
-      // Manejar la estructura de datos de comprobantes igual que en el loader
-      const comprobantes =
-        response?.comprobantes ||
-        response?.data ||
-        (Array.isArray(response) ? response : []);
-
-      setComprobantesData(comprobantes);
-    } catch (error) {
-      console.error("Error al actualizar comprobantes:", error);
-    } finally {
-      setLoadingComprobantes(false);
-    }
-  };
+  }, [token, comprobantesData.length, refreshComprobantes]);
 
   // Función para manejar la edición de comprobantes
   const handleEditComprobante = (comprobante) => {
@@ -135,6 +167,7 @@ function UserDashBoard() {
       formData.append("image", file);
 
       const uploadResponse = await uploadAvatar(formData);
+      // console.log("uploadResponse:", uploadResponse);
 
       if (!uploadResponse.url) {
         throw new Error("No se recibió la URL de la imagen");
@@ -149,7 +182,7 @@ function UserDashBoard() {
       };
 
       const createUserResponse = await createUser(userData);
-      console.log("Respuesta de la API:", createUserResponse);
+      // console.log("Respuesta de la API:", createUserResponse);
 
       if (createUserResponse.user) {
         try {
@@ -186,9 +219,19 @@ function UserDashBoard() {
         });
 
         const updatedUsersResponse = await getUsers();
-        const filteredUsers = updatedUsersResponse.users.filter(
-          (user) => user.role !== "admin"
-        );
+        // getUsers() puede devolver directamente un array o un objeto con propiedad users
+        const usersArray = Array.isArray(updatedUsersResponse)
+          ? updatedUsersResponse
+          : updatedUsersResponse.users || [];
+
+        const filteredUsers = usersArray.filter((userData) => {
+          // Si el usuario no es admin, mostrarlo
+          if (userData.role !== "admin") {
+            return true;
+          }
+          // Si es admin, solo mostrarlo si es el usuario actual
+          return userData._id === user._id;
+        });
         setUsers(filteredUsers);
 
         setModalIsOpen(false);
@@ -208,8 +251,19 @@ function UserDashBoard() {
           title: "Error al crear el usuario",
           text: createUserResponse.message,
         });
-        const deleteImageResponse = await deleteImage(uploadResponse.url);
-        console.log("Respuesta de la API:", deleteImageResponse);
+        try {
+          const deleteImageResponse = await deleteImage(uploadResponse.url);
+          console.log(
+            "Imagen eliminada tras error de creación:",
+            deleteImageResponse
+          );
+        } catch (imageError) {
+          console.warn(
+            "No se pudo eliminar la imagen tras error de creación:",
+            imageError
+          );
+          // No lanzamos el error, solo lo registramos
+        }
       }
     } catch (error) {
       console.error("Error al subir la imagen:", error);
@@ -297,10 +351,21 @@ function UserDashBoard() {
       });
 
       if (result.isConfirmed) {
+        // Intentar eliminar la imagen, pero no detener el proceso si falla
         if (userImageUrl) {
-          await deleteImage(userImageUrl);
+          try {
+            await deleteImage(userImageUrl);
+            console.log("Imagen eliminada correctamente");
+          } catch (imageError) {
+            console.warn(
+              "No se pudo eliminar la imagen, pero continuando con la eliminación del usuario:",
+              imageError
+            );
+            // No lanzamos el error, solo lo registramos
+          }
         }
 
+        // Proceder con la eliminación del usuario independientemente del estado de la imagen
         const response = await deleteUser({ userId, token });
 
         if (response.status === "error") {
@@ -331,7 +396,7 @@ function UserDashBoard() {
     try {
       const newStatus = !users.find((user) => user._id === userId).isDisabled;
       const response = await updateUserStatus(userId, newStatus, token);
-      console.log("response", response);
+      // console.log("response", response);
 
       if (response.status === "error") {
         throw new Error(
@@ -390,10 +455,17 @@ function UserDashBoard() {
 
   // Función para manejar el cambio de tab
   const handleTabChange = async (tab) => {
+    // console.log("🔄 Cambiando a tab:", tab);
+    // console.log(
+    //   "📊 Datos actuales de comprobantes:",
+    //   comprobantesData.length,
+    //   comprobantesData
+    // );
     setActiveTab(tab);
 
     // Si cambia al tab de comprobantes y no hay datos, cargar comprobantes
     if (tab === "comprobantes" && comprobantesData.length === 0) {
+      // console.log("💾 Cargando comprobantes porque no hay datos...");
       await refreshComprobantes();
     }
   };
@@ -683,12 +755,18 @@ function UserDashBoard() {
           <div className="no-results">
             {searchTerm ? (
               <p>
-                No se encontraron comprobantes que coincidan con {searchTerm}
+                No se encontraron comprobantes que coincidan con &quot;
+                {searchTerm}&quot;
               </p>
             ) : (
-              <p style={{ textAlign: "center", color: "red" }}>
-                No hay comprobantes disponibles
-              </p>
+              <div style={{ textAlign: "center", padding: "2rem" }}>
+                <p style={{ color: "#666", marginBottom: "1rem" }}>
+                  No hay comprobantes disponibles
+                </p>
+                <p style={{ color: "#999", fontSize: "0.9rem" }}>
+                  Haz clic en el ícono + para agregar tu primer comprobante
+                </p>
+              </div>
             )}
           </div>
         )}

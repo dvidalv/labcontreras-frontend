@@ -15,10 +15,13 @@ const schema = z.object({
 });
 
 function Signin() {
-  const { hasAdmin } = useLoaderData();
+  const loaderData = useLoaderData();
+  // console.log("LoaderData:", loaderData);
+  // Handle cases where loaderData might be null or undefined
+  const { hasAdmin } = loaderData || { hasAdmin: false };
   // console.log("hasAdmin:", hasAdmin);
 
-  const { setToken } = useAppContext();
+  const { setToken, setUser } = useAppContext();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,10 +58,11 @@ function Signin() {
         return;
       }
 
-      navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior
       if (res.token) {
-        setToken(res.token);
+        setToken(res.token); // Establecer el token en el contexto
+        setUser(res.user); // Establecer el usuario en el contexto
         localStorage.setItem("token", res.token);
+        navigate(from.pathname, { replace: true }); // Redirecciona al usuario al estado anterior
       }
     } catch (err) {
       console.error(err);

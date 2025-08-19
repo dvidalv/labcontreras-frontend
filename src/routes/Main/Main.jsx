@@ -36,7 +36,7 @@ function Main() {
       try {
         //console.log("Fetching medicos...");
         const data = await getMedicos();
-        //console.log("Medicos data received in component:", data);
+        // console.log("Medicos data received in component:", data);
         // Ordenar los médicos por la propiedad 'order'
         const medicosOrdenados = Array.isArray(data)
           ? [...data].sort((a, b) => (a.order || 0) - (b.order || 0))

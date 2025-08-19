@@ -1,11 +1,11 @@
-import { getUsers, getComprobantes } from "../../../utils/api";
+import { getUsers, getAllComprobantes } from "../../../utils/api";
 
 export async function loader() {
   try {
     const token = localStorage.getItem("token");
 
     const usersResponse = await getUsers();
-    const comprobantesResponse = token ? await getComprobantes(token) : null;
+    const comprobantesResponse = token ? await getAllComprobantes(token) : null;
 
     // Manejar diferentes estructuras de respuesta del backend
     const users = Array.isArray(usersResponse)
@@ -13,10 +13,12 @@ export async function loader() {
       : usersResponse?.users || [];
 
     // Manejar la estructura de datos de comprobantes
+    // console.log("📦 Loader - Respuesta de comprobantes:", comprobantesResponse);
     const comprobantes =
+      comprobantesResponse?.data || // Basado en el backend, los datos están en 'data'
       comprobantesResponse?.comprobantes ||
-      comprobantesResponse?.data ||
       (Array.isArray(comprobantesResponse) ? comprobantesResponse : []);
+    // console.log("📋 Loader - Comprobantes procesados:", comprobantes);
 
     return {
       users,

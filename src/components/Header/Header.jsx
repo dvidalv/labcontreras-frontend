@@ -80,6 +80,8 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
 
   // console.log(medicoUser);
 
+  // console.log("user:", user);
+
   const [isMenuFixed] = useState(false);
 
   const navigate = useNavigate();
@@ -154,19 +156,35 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
         <div className="header__user">
           <div className="header__user_info">
             <div className="header__user_info--user">
-              {token && (
+              {token && user && user.name && (
                 <Link to={`${role === "admin" ? "/user-dashboard" : ""}`}>
                   <div className="header__user_info--user--img">
-                    <img
-                      src={user.url}
-                      alt="user"
-                      className="header__user_info--user--img"
-                    />
+                    {user.url ? (
+                      <img
+                        src={user.url}
+                        alt="user"
+                        className="header__user_info--user--img"
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
+                      />
+                    ) : (
+                      <div className="header__user_info--user--img header__user_info--user--img--placeholder">
+                        {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                      </div>
+                    )}
                   </div>
                   <span className="header__user_info--user--name">
                     Bienvenido, {user.name}
                   </span>
                 </Link>
+              )}
+              {token && (!user || !user.name) && (
+                <div className="header__user_info--loading">
+                  <span className="header__user_info--user--name">
+                    Cargando usuario...
+                  </span>
+                </div>
               )}
             </div>
             {medicoData.foto && (

@@ -1,7 +1,7 @@
 import API_URL from "./constants";
 
 export async function signinUser(email, password) {
-  const response = await fetch(`${API_URL}/signin`, {
+  const response = await fetch(`${API_URL}/users/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -40,8 +40,8 @@ export async function updateUserStatus(userId, status, token) {
 }
 
 export async function hasAdmin() {
-  // console.log("role:", role);
   try {
+    // console.log("Making request to:", `${API_URL}/users/check-admin`);
     const response = await fetch(`${API_URL}/users/check-admin`, {
       method: "GET",
       headers: {
@@ -49,21 +49,86 @@ export async function hasAdmin() {
       },
     });
 
+    // console.log("Response status:", response.status);
+    // console.log("Response ok:", response.ok);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // console.log("check-admin endpoint failed, trying alternative method");
+      // If the check-admin endpoint fails, try to get all users and check for admin
+      return await checkAdminFromUsers();
     }
 
     const data = await response.json();
-    return data;
+    // console.log("hasAdmin response data:", data);
+
+    // Backend returns: { status: 'success', hasAdmin: boolean }
+    if (data.status === "success" && data.hasAdmin !== undefined) {
+      return { hasAdmin: data.hasAdmin };
+    } else {
+      // Fallback to alternative method if response structure is unexpected
+      console.log("Unexpected response structure, trying alternative method");
+      return await checkAdminFromUsers();
+    }
   } catch (error) {
     console.error("Error al obtener el usuario por rol:", error);
+    console.log("Trying alternative method due to error");
+    // Fallback to checking users endpoint
+    try {
+      return await checkAdminFromUsers();
+    } catch (fallbackError) {
+      console.error("Fallback method also failed:", fallbackError);
+      throw error;
+    }
+  }
+}
+
+// Alternative method to check for admin by getting all users
+export async function checkAdminFromUsers() {
+  try {
+    console.log("Checking for admin using users endpoint");
+    const usersResponse = await fetch(`${API_URL}/users`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!usersResponse.ok) {
+      throw new Error(`HTTP error! status: ${usersResponse.status}`);
+    }
+
+    const response = await usersResponse.json();
+    console.log("Users response:", response);
+
+    // Backend returns: { status: 'success', message: 'Users found', users: [...] }
+    const users = response.users || response;
+
+    // Check if any user has admin role
+    const hasAdminUser = Array.isArray(users)
+      ? users.some((user) => user.role === "admin")
+      : false;
+    console.log("Has admin user:", hasAdminUser);
+
+    return { hasAdmin: hasAdminUser };
+  } catch (error) {
+    console.error("Error checking admin from users:", error);
     throw error;
   }
 }
 
 export async function getUsers() {
-  const response = await fetch(`${API_URL}/users`);
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/users`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    // Backend returns: { status: 'success', message: 'Users found', users: [...] }
+    return data.users || data;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
 }
 
 export async function getUserById(id) {
@@ -83,7 +148,7 @@ export async function updateUser({ data, token }) {
   // console.log("data:", data);
   // console.log("token:", token);
   try {
-    console.log("Making update request with:", { data, token });
+    // console.log("Making update request with:", { data, token });
 
     const response = await fetch(`${API_URL}/users/update`, {
       method: "PUT",
@@ -96,7 +161,7 @@ export async function updateUser({ data, token }) {
     });
 
     const responseData = await response.json();
-    console.log("Update response:", responseData);
+    // console.log("Update response:", responseData);
 
     if (!response.ok) {
       return {
@@ -166,8 +231,12 @@ function getPublicIdFromUrl(url) {
 }
 
 export async function deleteImage(imageUrl) {
+  console.log("imageUrl:", imageUrl);
+
   try {
     const publicId = getPublicIdFromUrl(imageUrl);
+
+    console.log("publicId:", publicId);
 
     if (!publicId) {
       throw new Error("No se pudo obtener el ID de la imagen");
@@ -653,6 +722,29 @@ export const resetPassword = async (token, password) => {
   }
 };
 
+// Get current authenticated user
+export const getCurrentUser = async (token) => {
+  try {
+    const response = await fetch(`${API_URL}/users/verifyToken`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error en getCurrentUser:", error);
+    throw error;
+  }
+};
+
 export const getSugerenciasCount = async ({ fechaDesde, fechaHasta } = {}) => {
   try {
     let url = `${API_URL}/api/sugerencias/count`;
@@ -840,6 +932,37 @@ export async function getComprobantes(token) {
     return {
       status: "error",
       message: "Error de conexión al obtener los comprobantes",
+    };
+  }
+}
+
+// Función para obtener TODOS los comprobantes sin filtro de usuario
+export async function getAllComprobantes(token) {
+  try {
+    // Agregamos parámetro query para indicar que queremos todos
+    const response = await fetch(`${API_URL}/comprobantes?all=true`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const responseData = await response.json();
+    if (!response.ok) {
+      return {
+        status: "error",
+        message:
+          responseData.message || "Error al obtener todos los comprobantes",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error al obtener todos los comprobantes:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al obtener todos los comprobantes",
     };
   }
 }

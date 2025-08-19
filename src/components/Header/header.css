@@ -199,6 +199,28 @@
 	}
 }
 
+.header__user_info--user--img--placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--color-primary);
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	border: 1px solid var(--color-primary);
+	transition: all ease .5s;
+	
+	@media (min-width: 768px) {
+		font-size: 20px;
+	}
+	
+	&:hover {
+		background-color: var(--color-secondary);
+		border: 2px solid var(--color-secondary);
+		transform: scale(1.1);
+	}
+}
+
 .header__login-icon {
 	display: none;
 	&.open {

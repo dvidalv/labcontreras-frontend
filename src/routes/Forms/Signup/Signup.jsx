@@ -11,6 +11,7 @@ const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6).max(12),
   role: z.string().min(1).max(10),
+  url: z.string().url().optional().or(z.literal("")),
 });
 
 function Signup() {
@@ -25,6 +26,7 @@ function Signup() {
       email: "",
       password: "",
       role: "",
+      url: "",
     },
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -35,23 +37,45 @@ function Signup() {
   // const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleForm = async (data) => {
-    // console.log(data);
+    console.log("Signup data:", data);
     try {
       const res = await registerAction(data);
+      console.log("Registration response:", res);
+
       if (res.status === "success") {
-        customToast.success(res.message);
+        customToast.success(res.message || "Usuario creado exitosamente");
         navigate("/signin");
+      } else if (res.status === "error") {
+        // Handle specific validation errors from backend
+        if (res.errors && Array.isArray(res.errors)) {
+          // Show the first validation error
+          const firstError = res.errors[0];
+          setError("root", {
+            message: `${firstError.field}: ${firstError.message}`,
+          });
+        } else {
+          customToast.error(res.message || "Error al crear el usuario");
+        }
       } else {
-        customToast.error(res.message);
+        customToast.error("Error desconocido al crear el usuario");
       }
     } catch (error) {
-      if (error.toString().includes("409")) {
+      console.error("Registration error:", error);
+
+      if (
+        error.toString().includes("409") ||
+        error.toString().includes("11000")
+      ) {
         setError("root", {
-          message: "El correo ya existe",
+          message: "El correo electrónico ya está registrado",
+        });
+      } else if (error.toString().includes("400")) {
+        setError("root", {
+          message: "Datos inválidos. Por favor verifica todos los campos",
         });
       } else {
         setError("root", {
-          message: "Ha ocurrido un error",
+          message: "Ha ocurrido un error. Intenta nuevamente",
         });
       }
     }
@@ -98,6 +122,10 @@ function Signup() {
           placeholder="Ingresa tu clave"
           {...register("password")}
         />
+        {errors.password && (
+          <p className="form__error">{errors.password?.message}</p>
+        )}
+
         <label className="form__label" htmlFor="role">
           Rol
         </label>
@@ -106,13 +134,25 @@ function Signup() {
           name="role"
           className="form__input"
           {...register("role")}>
+          <option value="">Selecciona un rol</option>
           <option value="user">Usuario</option>
           <option value="medico">Médico</option>
           <option value="admin">Administrador</option>
         </select>
-        {errors.password && (
-          <p className="form__error">{errors.password?.message}</p>
-        )}
+        {errors.role && <p className="form__error">{errors.role?.message}</p>}
+
+        <label className="form__label" htmlFor="url">
+          URL de Avatar (opcional)
+        </label>
+        <input
+          type="url"
+          id="url"
+          name="url"
+          className="form__input"
+          placeholder="https://ejemplo.com/avatar.jpg"
+          {...register("url")}
+        />
+        {errors.url && <p className="form__error">{errors.url?.message}</p>}
 
         <div className="form__links form__link_create-account">
           <Link to="/signin">Ya tienes cuenta?</Link>
