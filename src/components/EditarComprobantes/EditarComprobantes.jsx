@@ -164,15 +164,25 @@ export default function EditarComprobantes({
       { field: "numero_inicial", label: "Número inicial" },
       { field: "numero_final", label: "Número final" },
       { field: "fecha_autorizacion", label: "Fecha de autorización" },
-      { field: "fecha_vencimiento", label: "Fecha de vencimiento" },
       { field: "alerta_minima_restante", label: "Alerta mínima restante" },
     ];
 
+    // Validar campos básicos requeridos
     requiredFields.forEach(({ field, label }) => {
       if (!form[field] || form[field] === "") {
         errors.push(`${label} es requerido`);
       }
     });
+
+    // Validar fecha de vencimiento solo para tipos 32 y 34
+    const tiposQueRequierenVencimiento = ["32", "34"];
+    if (tiposQueRequierenVencimiento.includes(form.tipo_comprobante)) {
+      if (!form.fecha_vencimiento || form.fecha_vencimiento === "") {
+        errors.push(
+          "Fecha de vencimiento es requerida para este tipo de comprobante"
+        );
+      }
+    }
 
     return errors;
   };
@@ -347,13 +357,14 @@ export default function EditarComprobantes({
                     />
                   </label>
                   <label>
-                    Fecha vencimiento*
+                    Fecha vencimiento
+                    {["32", "34"].includes(form.tipo_comprobante) ? "*" : ""}
                     <input
                       name="fecha_vencimiento"
                       type="date"
                       value={form.fecha_vencimiento}
                       onChange={handleChange}
-                      required
+                      required={["32", "34"].includes(form.tipo_comprobante)}
                       style={{
                         borderColor: !isFechaVencimientoValid()
                           ? "#ef4444"
