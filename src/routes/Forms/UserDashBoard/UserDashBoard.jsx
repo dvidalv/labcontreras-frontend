@@ -14,6 +14,7 @@ import {
   updateUserStatus,
   sendInvitationEmail,
   getAllComprobantes,
+  deleteComprobante,
 } from "../../../utils/api";
 import Swal from "sweetalert2";
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -21,6 +22,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { RiAddLine } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
 import { RiSearchLine } from "react-icons/ri";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import NuevoComprobante from "../../../components/nuevo comprobante/NuevoComprobante";
 import EditarComprobantes from "../../../components/EditarComprobantes/EditarComprobantes";
@@ -112,7 +114,7 @@ function UserDashBoard() {
     } finally {
       setLoadingComprobantes(false);
     }
-  }, [token, user]);
+  }, [token]);
 
   useEffect(() => {
     // console.log("📥 useEffect comprobantes del loader:", comprobantes);
@@ -135,6 +137,62 @@ function UserDashBoard() {
   const handleEditComprobante = (comprobante) => {
     setSelectedComprobante(comprobante);
     setShowEditModal(true);
+  };
+
+  // Función para manejar la eliminación de comprobantes
+  const handleDeleteComprobante = async (comprobante) => {
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        html: `
+          <div class="delete-confirmation">
+            <p>¿Deseas eliminar el comprobante <strong>${comprobante.descripcion_tipo}</strong>?</p>
+            <p><strong>RNC:</strong> ${comprobante.rnc}</p>
+            <p><strong>Razón Social:</strong> ${comprobante.razon_social}</p>
+            <p class="warning-text">Esta acción no se puede deshacer.</p>
+          </div>
+        `,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        customClass: {
+          popup: "delete-popup",
+          title: "delete-title",
+          htmlContainer: "delete-content",
+          confirmButton: "delete-confirm-button",
+          cancelButton: "delete-cancel-button",
+        },
+      });
+
+      if (result.isConfirmed) {
+        const response = await deleteComprobante(comprobante._id, token);
+
+        if (response.status === "error") {
+          throw new Error(response.message);
+        }
+
+        // Actualizar la lista de comprobantes
+        await refreshComprobantes();
+
+        await Swal.fire({
+          title: "¡Eliminado!",
+          text: "El comprobante ha sido eliminado correctamente.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    } catch (error) {
+      console.error("Error al eliminar comprobante:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "No se pudo eliminar el comprobante",
+      });
+    }
   };
 
   useEffect(() => {
@@ -699,12 +757,22 @@ function UserDashBoard() {
               <div key={comprobante._id} className="comprobante-card">
                 <div className="comprobante-header">
                   <h3>{comprobante.descripcion_tipo}</h3>
-                  <button
-                    className="edit-comprobante-btn"
-                    onClick={() => handleEditComprobante(comprobante)}
-                    title="Editar comprobante">
-                    <RiEditLine size={16} />
-                  </button>
+                  <div className="comprobante-actions">
+                    <button
+                      className="edit-comprobante-btn"
+                      onClick={() => handleEditComprobante(comprobante)}
+                      title="Editar comprobante">
+                      <RiEditLine size={16} />
+                    </button>
+                    {user.role === "admin" && (
+                      <button
+                        className="delete-comprobante-btn"
+                        onClick={() => handleDeleteComprobante(comprobante)}
+                        title="Eliminar comprobante">
+                        <RiDeleteBinLine size={16} />
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className="comprobante-info">
                   <p>

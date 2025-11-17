@@ -893,7 +893,14 @@
   flex: 1;
 }
 
-.edit-comprobante-btn {
+.comprobante-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.edit-comprobante-btn,
+.delete-comprobante-btn {
   background: none;
   border: none;
   padding: 0.5rem;
@@ -904,7 +911,6 @@
   justify-content: center;
   color: #6b7280;
   transition: all 0.2s ease;
-  margin-left: 0.5rem;
 }
 
 .edit-comprobante-btn:hover {
@@ -913,7 +919,14 @@
   transform: scale(1.1);
 }
 
-.edit-comprobante-btn:active {
+.delete-comprobante-btn:hover {
+  background-color: #fef2f2;
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+.edit-comprobante-btn:active,
+.delete-comprobante-btn:active {
   transform: scale(0.95);
 }
 
@@ -962,7 +975,12 @@
     font-size: 1rem;
   }
 
-  .edit-comprobante-btn {
+  .comprobante-actions {
     margin-top: 0.25rem;
+  }
+
+  .edit-comprobante-btn,
+  .delete-comprobante-btn {
+    padding: 0.4rem;
   }
 }

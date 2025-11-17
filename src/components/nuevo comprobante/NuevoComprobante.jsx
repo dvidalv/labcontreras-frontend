@@ -356,6 +356,7 @@ export default function NuevoComprobante({
                       onChange={handleChange}
                       required>
                       <option value="activo">Activo</option>
+                      <option value="inactivo">Inactivo</option>
                       <option value="vencido">Vencido</option>
                       <option value="agotado">Agotado</option>
                     </select>

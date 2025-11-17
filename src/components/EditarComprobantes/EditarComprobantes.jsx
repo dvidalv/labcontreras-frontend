@@ -196,11 +196,19 @@ export default function EditarComprobantes({
       alerta_minima_restante: Number(form.alerta_minima_restante),
     };
 
+    console.log("🔄 Datos que se envían al backend:", dataToSend);
+    console.log("🆔 ID del comprobante:", comprobante._id);
+    console.log("📋 Comprobante completo:", comprobante);
+    console.log("👤 Usuario del comprobante:", comprobante.usuario);
+    console.log("🔑 Token usuario actual:", token ? "Presente" : "Ausente");
+
     const response = await updateComprobante(
       comprobante._id,
       dataToSend,
       token
     );
+
+    console.log("📦 Respuesta del backend:", response);
 
     if (response.status === "success") {
       setShowModal(false);
@@ -381,6 +389,7 @@ export default function EditarComprobantes({
                       onChange={handleChange}
                       required>
                       <option value="activo">Activo</option>
+                      <option value="inactivo">Inactivo</option>
                       <option value="vencido">Vencido</option>
                       <option value="agotado">Agotado</option>
                     </select>

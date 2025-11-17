@@ -878,6 +878,8 @@ export async function createComprobante(data, token) {
 // Función para actualizar un comprobante
 export async function updateComprobante(id, data, token) {
   try {
+    console.log("🌐 URL de la petición:", `${API_URL}/comprobantes/${id}`);
+    console.log("📤 Datos enviados:", data);
     const response = await fetch(`${API_URL}/comprobantes/${id}`, {
       method: "PUT",
       headers: {
@@ -963,6 +965,36 @@ export async function getAllComprobantes(token) {
     return {
       status: "error",
       message: "Error de conexión al obtener todos los comprobantes",
+    };
+  }
+}
+
+// Función para eliminar un comprobante
+export async function deleteComprobante(id, token) {
+  try {
+    const response = await fetch(`${API_URL}/comprobantes/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        message: responseData.message || "Error al eliminar el comprobante",
+      };
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error al eliminar comprobante:", error);
+    return {
+      status: "error",
+      message: "Error de conexión al eliminar el comprobante",
     };
   }
 }
