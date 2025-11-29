@@ -179,7 +179,7 @@ function Video({
       )}
 
       {/* Botón para activar sonido cuando está silenciado */}
-      {isPlaying && isMuted && (
+      {/* {isPlaying && isMuted && (
         <button
           onClick={handleUnmute}
           style={{
@@ -211,7 +211,7 @@ function Video({
           }}>
           🔊 Activar sonido
         </button>
-      )}
+      )} */}
     </div>
   );
 }
