@@ -98,6 +98,13 @@ function Video({
         className={className}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
+        playsInline={true}
+        {...{
+          "webkit-playsinline": "true",
+          "x5-playsinline": "true",
+          "x5-video-player-type": "h5",
+          "x5-video-player-fullscreen": "false",
+        }}
         style={{
           maxWidth: "100%",
           maxHeight: maxHeight,
