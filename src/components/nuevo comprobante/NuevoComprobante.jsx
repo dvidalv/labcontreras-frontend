@@ -25,6 +25,7 @@ export default function NuevoComprobante({
     comentario: "",
   });
   const [error, setError] = useState(null);
+  const [showValidation, setShowValidation] = useState(false);
 
   // Referencias para hacer scroll
   const errorRef = useRef(null);
@@ -64,8 +65,25 @@ export default function NuevoComprobante({
   };
 
   const isFechaVencimientoValid = () => {
-    if (!form.fecha_autorizacion || !form.fecha_vencimiento) return true;
+    // Si no hay fecha de vencimiento, siempre es válido para la comparación de fechas
+    // (el campo requerido se maneja por separado)
+    if (!form.fecha_vencimiento) return true;
+
+    // Si no hay fecha de autorización, no podemos validar la comparación
+    if (!form.fecha_autorizacion) return true;
+
+    // Si ambas fechas existen, validar que vencimiento > autorización
     return new Date(form.fecha_vencimiento) > new Date(form.fecha_autorizacion);
+  };
+
+  // Función para determinar si mostrar error de fecha requerida
+  const shouldShowFechaVencimientoRequiredError = () => {
+    if (!showValidation) return false;
+    const tiposQueNoRequierenVencimiento = ["32", "34"];
+    return (
+      !tiposQueNoRequierenVencimiento.includes(form.tipo_comprobante) &&
+      (!form.fecha_vencimiento || form.fecha_vencimiento === "")
+    );
   };
 
   const handleChange = (e) => {
@@ -91,11 +109,14 @@ export default function NuevoComprobante({
     if (error) {
       setError(null);
     }
+    // Resetear validación al cambiar tipo
+    setShowValidation(false);
   };
 
   // Función de validación
   const validateForm = () => {
     const errors = [];
+    const tiposQueNoRequierenVencimiento = ["32", "34"];
 
     // Validar que numero_final > numero_inicial
     const numeroInicial = Number(form.numero_inicial);
@@ -107,19 +128,31 @@ export default function NuevoComprobante({
       errors.push("El número final debe ser mayor que el número inicial");
     }
 
-    // Validar que fecha_vencimiento > fecha_autorizacion
+    // Validar fechas solo si ambas están presentes
     const fechaAutorizacion = new Date(form.fecha_autorizacion);
-    const fechaVencimiento = new Date(form.fecha_vencimiento);
 
+    if (isNaN(fechaAutorizacion.getTime())) {
+      errors.push("La fecha de autorización debe ser válida");
+    }
+
+    // Solo validar fecha de vencimiento si está presente o es requerida
     if (
-      isNaN(fechaAutorizacion.getTime()) ||
-      isNaN(fechaVencimiento.getTime())
+      form.fecha_vencimiento ||
+      !tiposQueNoRequierenVencimiento.includes(form.tipo_comprobante)
     ) {
-      errors.push("Las fechas de autorización y vencimiento deben ser válidas");
-    } else if (fechaVencimiento <= fechaAutorizacion) {
-      errors.push(
-        "La fecha de vencimiento debe ser posterior a la fecha de autorización"
-      );
+      const fechaVencimiento = new Date(form.fecha_vencimiento);
+
+      if (form.fecha_vencimiento && isNaN(fechaVencimiento.getTime())) {
+        errors.push("La fecha de vencimiento debe ser válida");
+      } else if (
+        form.fecha_vencimiento &&
+        !isNaN(fechaAutorizacion.getTime()) &&
+        fechaVencimiento <= fechaAutorizacion
+      ) {
+        errors.push(
+          "La fecha de vencimiento debe ser posterior a la fecha de autorización"
+        );
+      }
     }
 
     // Validar campos requeridos
@@ -140,13 +173,12 @@ export default function NuevoComprobante({
       }
     });
 
-    // Validar fecha de vencimiento solo para tipos 32 y 34
-    const tiposQueRequierenVencimiento = ["32", "34"];
-    if (tiposQueRequierenVencimiento.includes(form.tipo_comprobante)) {
+    // Validar fecha de vencimiento para todos los tipos EXCEPTO 32 y 34
+    // (Validamos pero no mostramos mensaje aquí, se maneja visualmente en el campo)
+    if (!tiposQueNoRequierenVencimiento.includes(form.tipo_comprobante)) {
       if (!form.fecha_vencimiento || form.fecha_vencimiento === "") {
-        errors.push(
-          "Fecha de vencimiento es requerida para este tipo de comprobante"
-        );
+        // Agregamos un error silencioso para prevenir el envío
+        errors.push("FECHA_VENCIMIENTO_REQUERIDA");
       }
     }
 
@@ -156,10 +188,19 @@ export default function NuevoComprobante({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Activar la validación visual
+    setShowValidation(true);
+
     // Validar formulario antes de enviar
     const validationErrors = validateForm();
     if (validationErrors.length > 0) {
-      setError(validationErrors.join(". "));
+      // Filtrar errores silenciosos que se muestran visualmente en los campos
+      const visibleErrors = validationErrors.filter(
+        (error) => error !== "FECHA_VENCIMIENTO_REQUERIDA"
+      );
+      if (visibleErrors.length > 0) {
+        setError(visibleErrors.join(". "));
+      }
       return;
     }
 
@@ -189,6 +230,7 @@ export default function NuevoComprobante({
         comentario: "",
       });
       setError(null); // Limpiar el error al éxito
+      setShowValidation(false); // Resetear validación
 
       // Actualizar la lista de comprobantes
       if (refreshComprobantes) {
@@ -222,7 +264,8 @@ export default function NuevoComprobante({
               <form
                 id="comprobanteForm"
                 onSubmit={handleSubmit}
-                className={styles.nuevoComprobanteForm}>
+                className={styles.nuevoComprobanteForm}
+                noValidate>
                 <div className={styles.formGroup}>
                   <label>
                     RNC*
@@ -325,13 +368,13 @@ export default function NuevoComprobante({
                   </label>
                   <label>
                     Fecha vencimiento
-                    {["32", "34"].includes(form.tipo_comprobante) ? "*" : ""}
+                    {!["32", "34"].includes(form.tipo_comprobante) ? "*" : ""}
                     <input
                       name="fecha_vencimiento"
                       type="date"
                       value={form.fecha_vencimiento}
                       onChange={handleChange}
-                      required={["32", "34"].includes(form.tipo_comprobante)}
+                      key={`fecha_vencimiento_${form.tipo_comprobante}`}
                       style={{
                         borderColor: !isFechaVencimientoValid()
                           ? "#ef4444"
@@ -344,6 +387,12 @@ export default function NuevoComprobante({
                     {!isFechaVencimientoValid() && (
                       <span style={{ color: "#ef4444", fontSize: "0.75rem" }}>
                         Debe ser posterior a la fecha de autorización
+                      </span>
+                    )}
+                    {shouldShowFechaVencimientoRequiredError() && (
+                      <span style={{ color: "#ef4444", fontSize: "0.75rem" }}>
+                        Fecha de vencimiento es requerida para este tipo de
+                        comprobante
                       </span>
                     )}
                   </label>

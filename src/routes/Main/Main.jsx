@@ -15,6 +15,7 @@ import "animate.css";
 import Publicaciones from "../Publicaciones/Publicaciones";
 import WhatsApp from "../../components/WhatsApp/WhatsApp";
 import { motion, useInView } from "framer-motion";
+import Video from "../../components/Video.jsx";
 
 function Main() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -71,12 +72,13 @@ function Main() {
 
   return (
     <main className="page">
-      <motion.section
+      {/* <motion.section
         className="hero"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}></motion.section>
-
+        transition={{ duration: 1 }}>
+      </motion.section> */}
+      <Video />
       <section className="about">
         <div className="about__container">
           <div className="about__text">

@@ -40,6 +40,24 @@ const schemaNewUser = z.object({
 function UserDashBoard() {
   const navigate = useNavigate();
   const { setAvatarUrl, token, user } = useAppContext();
+
+  // Función para formatear números con comas
+  const formatNumber = (number) => {
+    if (!number && number !== 0) return '';
+    return number.toLocaleString('en-US');
+  };
+
+  // Función para formatear fechas
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return '';
+      return date.toLocaleDateString('es-ES');
+    } catch (error) {
+      return '';
+    }
+  };
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -788,19 +806,19 @@ function UserDashBoard() {
                     <strong>Prefijo:</strong> {comprobante.prefijo}
                   </p>
                   <p>
-                    <strong>Rango:</strong> {comprobante.numero_inicial} -{" "}
-                    {comprobante.numero_final}
+                    <strong>Rango:</strong> {formatNumber(comprobante.numero_inicial)} -{" "}
+                    {formatNumber(comprobante.numero_final)}
                   </p>
                   <p>
                     <strong>Disponibles:</strong>{" "}
-                    {comprobante.numeros_disponibles}
+                    {formatNumber(comprobante.numeros_disponibles)}
                   </p>
                   <p>
                     <strong>Utilizados:</strong>{" "}
-                    {comprobante.numeros_utilizados}
+                    {formatNumber(comprobante.numeros_utilizados)}
                   </p>
                   <p>
-                    <strong>Próximo Número:</strong> {comprobante.proximoNumero}
+                    <strong>Próximo Número:</strong> {formatNumber(comprobante.proximoNumero)}
                   </p>
                   <p>
                     <strong>Estado:</strong>
@@ -811,9 +829,7 @@ function UserDashBoard() {
                   </p>
                   <p>
                     <strong>Vencimiento:</strong>{" "}
-                    {new Date(
-                      comprobante.fecha_vencimiento
-                    ).toLocaleDateString()}
+                    {formatDate(comprobante.fecha_vencimiento) || 'No especificado'}
                   </p>
                 </div>
               </div>
