@@ -18,6 +18,16 @@ function Video({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(muted);
   const [autoplayFailed, setAutoplayFailed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement || !autoplay) return;
@@ -84,7 +94,7 @@ function Video({
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        marginTop: "53.98px",
+        marginTop: isMobile ? "0" : "53.98px",
       }}>
       <video
         ref={videoRef}
