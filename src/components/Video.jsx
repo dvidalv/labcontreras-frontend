@@ -5,10 +5,10 @@ function Video({
   width = "100%",
   height = "auto",
   maxHeight = "800px",
-  autoplay = false,
+  autoplay = true,
   muted = false,
-  loop = false,
-  poster = null,
+  loop = true,
+  poster = null, 
   className = "",
   ...props
 }) {
