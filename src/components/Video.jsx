@@ -78,13 +78,6 @@ function Video({
     }
   };
 
-  const handleUnmute = async () => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
-
-    videoElement.muted = false;
-    setIsMuted(false);
-  };
 
   return (
     <div

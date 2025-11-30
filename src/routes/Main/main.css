@@ -79,7 +79,7 @@
   .services__image {
     width: 100%;
     object-fit: cover;
-    background-image: url("../../images/servicios.jpg");
+    background-image: url("/public/equipos/DSC01438.webp");
     background-size: cover;
     background-position: center center;
     padding: 0;

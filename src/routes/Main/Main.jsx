@@ -16,6 +16,7 @@ import Publicaciones from "../Publicaciones/Publicaciones";
 import WhatsApp from "../../components/WhatsApp/WhatsApp";
 import { motion, useInView } from "framer-motion";
 import Video from "../../components/Video.jsx";
+import ImageSlider from "../../components/images/image-slider";
 
 function Main() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -179,7 +180,7 @@ function Main() {
                 <p>CITOMETRÍA DE FLUJO</p>
               </li>
             </ul>
-            <div className="services__image"></div>
+            <div className="services__image"><ImageSlider /></div>
           </div>
         </div>
       </section>
