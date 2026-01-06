@@ -110,6 +110,7 @@ function Video({
         }}
         style={{
           maxWidth: "100%",
+          minHeight: "600px",
           maxHeight: maxHeight,
           height: "auto",
           display: "block",
