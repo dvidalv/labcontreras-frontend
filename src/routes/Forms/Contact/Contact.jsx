@@ -80,74 +80,11 @@ function Contact() {
 
 	return (
 		<div className="contact-container">
-			<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API}>
+		
 				<div className="map-container">
-					<GoogleMap
-						zoom={20}
-						center={position}
-						mapId={import.meta.env.VITE_MAP_ID}
-						gestureHandling="auto"
-						options={{
-							zoomControl: true,
-							scrollwheel: true,
-							disableDoubleClickZoom: false,
-							draggable: true,
-							keyboardShortcuts: true,
-							mapTypeControl: true,
-							fullscreenControl: true,
-							streetViewControl: true,
-							gestureHandling: 'auto'
-						}}
-						style={{ width: '100%', height: '100%' }}
-					>
-						<AdvancedMarker position={position} onClick={() => setIsOpen(true)}>
-							<Pin
-								background={'purple'}
-								borderColor={'black'}
-								glyphColor={'white'}
-							/>
-						</AdvancedMarker>
-						{isOpen && (
-							<InfoWindow
-								position={position}
-								onClose={() => setIsOpen(false)}
-								options={{
-									opacity: 0.5,
-								}}
-								style={{
-									backgroundColor: 'white',
-									borderRadius: '10px',
-									padding: '10px',
-									color: 'black',
-									width: '150px',
-									height: '180px',
-								}}
-							>
-								<a
-									href="https://maps.app.goo.gl/rTL6Gqw5wddR9xNK8"
-									target="_blank"
-									rel="noopener noreferrer"
-									title="Laboratorio de Patología Contreras Robledo"
-								>
-									<div
-										style={{
-											width: '100%',
-											height: '100px',
-											color: 'black',
-											backgroundImage: `url(${lpcrPic})`,
-											backgroundSize: 'cover',
-											backgroundPosition: 'center',
-											backgroundRepeat: 'no-repeat',
-											borderRadius: '10px',
-										}}
-									></div>
-								</a>
-								<p>Laboratorio de Patología Contreras Robledo</p>
-							</InfoWindow>
-						)}
-					</GoogleMap>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.8881627429405!2d-70.68325772346496!3d19.460388081824945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb1c50062fc15f1%3A0x439490309857aaff!2sLaboratorio%20de%20Patolog%C3%ADa%20Contreras%20Robledo!5e0!3m2!1ses-419!2sdo!4v1768152014927!5m2!1ses-419!2sdo" width="600" height="450" style={{border:0}} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
 				</div>
-			</APIProvider>
+		
 			<div className="form-container">
 				<h1>CONTÁCTANOS!</h1>
 				<p>
