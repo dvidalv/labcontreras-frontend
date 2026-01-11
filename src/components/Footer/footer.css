@@ -1,107 +1,204 @@
 .footer {
-	background-color: var(--color-secondary);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 20px 10px 10px 10px;
-	height: 100%;
-
-	@media (max-width: 768px){
-		height: auto;
-	}
-
-	.info-compania {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly;
-		align-items: center;
-		flex-basis: 95%;
-		/* gap: 15px; */
-	}
-
-	.datos {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 5px;
-		width: 100%;
-		justify-content: space-evenly;
-		align-items: flex-start;
-
-		.info {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-
-			span {
-				color: var(--color-light);
-				font-weight: 100;
-				font-size: 12px;
-				text-align: center;
-				margin-top: 5px;
-
-				@media (min-width: 768px){
-					font-size: 14px;
-				}
-			}
-
-			.icons {
-				width: 25px;
-				height: 25px;
-				margin-bottom: 5px;
-				filter: invert(90%) sepia(0%) saturate(1%) hue-rotate(360deg) brightness(107%)
-					contrast(100%);
-
-				@media (min-width: 768px) {
-					width: 25px;
-					height: 25px;
-				}
-				
-			}
-		}
-	}
-
-	.redes-sociales {
-		margin-bottom: 10px;
-		flex-basis: 5%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-		margin-top: 10px;
-		filter: invert(90%) sepia(0%) saturate(1%) hue-rotate(360deg)
-			brightness(107%) contrast(100%);
-
-		img {
-			width: 30px;
-			height: 30px;
-		}
-	}
-
+  background-color: #2a2d4a;
+  color: #e0e0e0;
+  padding: 40px 20px 20px 20px;
+  width: 100%;
 }
 
+.footer__content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 30px;
 
-.derechos {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	color: var(--color-light);
-	font-size: .8rem;
-	font-weight: 200;
-	margin-top: 0;
-	margin-bottom: 5px;
-	span {
-		text-align: center;
-		font-size: .6rem;
-	}
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
 
-	p {
-		color: var(--color-light);
-		font-weight: 400;
-		text-align: center;
-		font-size: .7rem;
-		margin: 0;
-		/* margin-bottom: 5px; */
-	}
+.footer__column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Columna Izquierda - Compañía */
+.footer__company {
+  gap: 20px;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--color-light);
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer__logo-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-light);
+  }
+}
+
+.footer__description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d0d0d0;
+  margin: 0;
+  font-weight: 300;
+}
+
+.footer__social {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.footer__social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #3a3d5a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-light);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+
+  &:hover {
+    background-color: var(--color-primary);
+  }
+}
+
+/* Columna Central - Enlaces */
+.footer__links {
+  gap: 15px;
+}
+
+.footer__heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-light);
+  margin: 0 0 15px 0;
+}
+
+.footer__link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    color: #d0d0d0;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    font-weight: 300;
+
+    &:hover {
+      color: var(--color-light);
+    }
+  }
+}
+
+/* Columna Derecha - Contacto */
+.footer__contact {
+  gap: 15px;
+}
+
+.footer__contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #d0d0d0;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+  font-weight: 300;
+
+  &:hover {
+    color: var(--color-light);
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+.footer__contact-icon {
+  color: var(--color-primary);
+  font-size: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Sección Inferior */
+.footer__bottom {
+  border-top: 1px solid #3a3d5a;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.footer__copyright {
+  font-size: 13px;
+  color: #b0b0b0;
+  font-weight: 300;
+}
+
+.footer__legal {
+  display: flex;
+  gap: 20px;
+
+  a {
+    color: #d0d0d0;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.3s ease;
+    font-weight: 300;
+
+    &:hover {
+      color: var(--color-light);
+    }
+  }
 }

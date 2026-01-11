@@ -1,111 +1,560 @@
-.historia__hero {
-  padding: 120px 20px 60px;
-  background-color: #f8f9fa;
+/* Modern Mission, Vision & Values Styles */
+
+.mvv-container {
+  background: #f8fafc;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.historia {
+/* Hero Section */
+.mvv-hero {
+  position: relative;
+  padding: 8rem 1rem 5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  overflow: hidden;
+}
+
+.mvv-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+.mvv-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#ddd6fe 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.mvv-hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.mvv-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: #ede9fe;
+  color: #7c3aed;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.mvv-hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.mvv-gradient-text {
+  background: linear-gradient(135deg, #6d28d9 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mvv-hero-description {
+  font-size: 1.125rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Main Content */
+.mvv-content {
+  padding: 3rem 0 6rem;
+  position: relative;
+}
+
+.mvv-content-wrapper {
+  max-width: 87.5rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Grid Layouts */
+.mvv-top-row,
+.mvv-bottom-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-.historia__mision,
-.historia__vision,
-.historia__valores,
-.historia__principios {
+/* Card Base Styles */
+.mvv-card {
+  position: relative;
   background: white;
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 1.5rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.historia__mision:hover,
-.historia__vision:hover,
-.historia__valores:hover,
-.historia__principios:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+.mvv-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.1);
+  transform: translateY(-2px);
 }
 
-.historia__imagen {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 25px;
+.mvv-card-bg-effect {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16rem;
+  height: 16rem;
+  background: #f3f4f6;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  filter: blur(3rem);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transform: translate(50%, -50%);
 }
 
-.historia__imagen-container {
-  width: 60px;
-  height: 60px;
-  background-color: var(--color-primary);
-  border-radius: 15px;
+.mvv-card:hover .mvv-card-bg-effect {
+  opacity: 0.5;
+}
+
+.mvv-vision-bg {
+  background: #e0e7ff;
+}
+
+.mvv-card-content {
+  position: relative;
+  z-index: 10;
+}
+
+.mvv-card-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.875rem;
+  margin-bottom: 2rem;
   transition: transform 0.3s ease;
 }
 
-.historia__imagen:hover .historia__imagen-container {
-  transform: rotate(10deg);
+.mvv-card:hover .mvv-card-icon {
+  transform: scale(1.1);
 }
 
-.historia__titulo {
-  font-size: 1.8rem;
+.mvv-mission-icon {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.mvv-vision-icon {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.mvv-card-title {
+  font-size: 1.875rem;
   font-weight: 700;
-  color: #2d3436;
-  margin: 0;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
 }
 
-.historia__texto {
-  font-size: 1.1rem;
+.mvv-card:hover .mvv-card-title {
+  color: #7c3aed;
+}
+
+.mvv-vision-card:hover .mvv-card-title {
+  color: #4f46e5;
+}
+
+.mvv-card-text {
+  font-size: 1.125rem;
+  color: #64748b;
   line-height: 1.6;
-  color: #636e72;
-  margin: 0;
-  padding: 0 10px;
+  margin-bottom: 2rem;
 }
 
-.historia__valores ul,
-.historia__principios ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.mvv-card-link {
+  display: flex;
+  align-items: center;
+  color: #7c3aed;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.historia__item {
+.mvv-card-link:hover {
+  transform: translateX(0.5rem);
+}
+
+.mvv-vision-link {
+  color: #4f46e5;
+}
+
+.mvv-card-link svg {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Values Card */
+.mvv-values-card {
   position: relative;
-  padding: 10px 0 10px 35px;
-  font-size: 1.1rem;
-  color: #636e72;
-  transition: transform 0.2s ease;
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+  border-radius: 1.5rem;
+  padding: 2rem 2.5rem;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25);
 }
 
-.historia__item::before {
-  content: "•";
+.mvv-values-card::before {
+  content: "";
   position: absolute;
-  left: 15px;
-  color: var(--color-primary);
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.1;
+}
+
+.mvv-values-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mvv-values-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.5rem;
 }
 
-.historia__item:hover {
-  transform: translateX(5px);
-  color: var(--color-primary);
+.mvv-values-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0;
 }
 
+.mvv-values-grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.mvv-value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.mvv-value-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mvv-value-icon {
+  margin-top: 0.25rem;
+  color: #c4b5fd;
+}
+
+.mvv-value-name {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.mvv-value-desc {
+  font-size: 0.875rem;
+  color: #c4b5fd;
+  margin: 0;
+}
+
+/* Principles Card */
+.mvv-principles-card {
+  position: relative;
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.mvv-principles-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+.mvv-principles-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mvv-principles-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  background: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.mvv-principles-card:hover .mvv-principles-icon {
+  background: #1e293b;
+  color: white;
+}
+
+.mvv-principles-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.mvv-principles-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.mvv-principle-item {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.mvv-principle-item:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.mvv-principle-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c3aed;
+  margin-right: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.mvv-principle-item:hover .mvv-principle-icon {
+  transform: scale(1.1);
+}
+
+.mvv-principle-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.mvv-principle-desc {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Technology Section */
+.mvv-technology {
+  padding: 3rem 0;
+  background: white;
+}
+
+.mvv-technology-wrapper {
+  max-width: 87.5rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.mvv-technology-card {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  height: 25rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.mvv-technology-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  position: relative;
+}
+
+.mvv-technology-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    transparent 100%
+  );
+  display: flex;
+  align-items: center;
+  padding: 3rem 5rem;
+}
+
+.mvv-technology-content {
+  max-width: 36rem;
+  color: white;
+}
+
+.mvv-technology-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.mvv-technology-text {
+  font-size: 1.125rem;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.mvv-technology-button {
+  background: white;
+  color: #0f172a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mvv-technology-button:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
 @media (min-width: 768px) {
-  .historia {
+  .mvv-hero {
+    padding: 12rem 1.5rem 8rem;
+  }
+
+  .mvv-hero-title {
+    font-size: 3rem;
+  }
+
+  .mvv-hero-description {
+    font-size: 1.25rem;
+  }
+
+  .mvv-top-row,
+  .mvv-bottom-row {
     grid-template-columns: repeat(2, 1fr);
-    padding: 0;
+  }
+
+  .mvv-values-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .historia__hero {
-    padding: 140px 40px 80px;
+  .mvv-hero {
+    padding: 12rem 2rem 8rem;
   }
+
+  .mvv-hero-title {
+    font-size: 3.75rem;
+  }
+
+  .mvv-card {
+    padding: 2.5rem 2.5rem;
+  }
+
+  .mvv-technology-overlay {
+    padding: 3rem 5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mvv-hero-title {
+    font-size: 4rem;
+  }
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mvv-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.mvv-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.mvv-values-card {
+  animation: fadeInUp 0.6s ease-out;
+  animation-delay: 0.2s;
+}
+
+.mvv-principles-card {
+  animation: fadeInUp 0.6s ease-out;
+  animation-delay: 0.3s;
 }
