@@ -73,10 +73,11 @@ function MisionVisionValores() {
                 </div>
                 <h2 className="mvv-card-title">Misión</h2>
                 <p className="mvv-card-text">
-                  En el año 2030 seremos un referente en servicios de patología
-                  de vanguardia con honestidad incuestionable. Representaremos
-                  la mejor opción para nuestros pacientes, colaboradores y la
-                  comunidad, brindando diagnósticos precisos que salvan vidas.
+                  Ofrecemos a nuestros pacientes servicios de patología de
+                  excelencia en la prevención, diagnóstico, tratamiento y
+                  seguimiento para la toma de las mejores decisiones clínicas
+                  por medio de la innovación y el uso de tecnología avanzada.
+                  Contribuimos con la protección del medio ambiente.
                 </p>
                 <div className="mvv-card-link">
                   <span>Saber más</span>
@@ -94,11 +95,10 @@ function MisionVisionValores() {
                 </div>
                 <h2 className="mvv-card-title">Visión</h2>
                 <p className="mvv-card-text">
-                  Ofrecemos a nuestros pacientes servicios de patología de
-                  excelencia en la prevención, diagnóstico, tratamiento y
-                  seguimiento para la toma de las mejores decisiones clínicas
-                  por medio de la innovación y el uso de tecnología avanzada.
-                  Contribuimos con la protección del medio ambiente.
+                  En el año 2030 seremos un referente en servicios de patología
+                  de vanguardia con honestidad incuestionable. Representaremos
+                  la mejor opción para nuestros pacientes, colaboradores y la
+                  comunidad.
                 </p>
                 <div className="mvv-card-link mvv-vision-link">
                   <span>Nuestra meta</span>
