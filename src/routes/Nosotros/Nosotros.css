@@ -286,6 +286,7 @@
 .nosotros-corporate-card-text {
   color: #4b5563;
   line-height: 1.75;
+  font-size: 1.125rem;
 }
 
 /* Values Card */
@@ -366,6 +367,7 @@
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 0.25rem;
+  font-size: 1.125rem;
 }
 
 .nosotros-value-item-text {
@@ -569,6 +571,7 @@
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 0.25rem;
+  font-size: 1.125rem;
 }
 
 .nosotros-director-info-text {
