@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./VideoModal.css";
 
 function VideoModal({ isOpen, onClose, videoSrc }) {
   const videoRef = useRef(null);
   const modalRef = useRef(null);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -35,14 +36,36 @@ function VideoModal({ isOpen, onClose, videoSrc }) {
 
   useEffect(() => {
     if (isOpen && videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.log("Error al reproducir video:", error);
-      });
+      const video = videoRef.current;
+      
+      const handleError = (e) => {
+        console.error("Error al cargar video:", e);
+        console.error("URL del video:", videoSrc);
+        setHasError(true);
+      };
+
+      const handleLoadedData = () => {
+        setHasError(false);
+        video.play().catch((error) => {
+          console.log("Error al reproducir video:", error);
+        });
+      };
+
+      video.addEventListener("error", handleError);
+      video.addEventListener("loadeddata", handleLoadedData);
+      
+      // Intentar cargar el video
+      video.load();
+
+      return () => {
+        video.removeEventListener("error", handleError);
+        video.removeEventListener("loadeddata", handleLoadedData);
+      };
     } else if (!isOpen && videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
     }
-  }, [isOpen]);
+  }, [isOpen, videoSrc]);
 
   if (!isOpen) return null;
 
@@ -53,15 +76,24 @@ function VideoModal({ isOpen, onClose, videoSrc }) {
           ×
         </button>
         <div className="video-modal-content">
-          <video
-            ref={videoRef}
-            src={videoSrc}
-            controls
-            autoPlay
-            className="video-modal-player"
-          >
-            Tu navegador no soporta el elemento de video.
-          </video>
+          {hasError ? (
+            <div className="video-modal-error">
+              <p>Error al cargar el video</p>
+              <p style={{ fontSize: "0.875rem", marginTop: "0.5rem", opacity: 0.8 }}>
+                Verifica que la URL de Cloudinary sea correcta
+              </p>
+            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              src={videoSrc}
+              controls
+              autoPlay
+              className="video-modal-player"
+            >
+              Tu navegador no soporta el elemento de video.
+            </video>
+          )}
         </div>
       </div>
     </div>

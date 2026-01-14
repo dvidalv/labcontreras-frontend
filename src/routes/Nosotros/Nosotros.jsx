@@ -23,7 +23,11 @@ import {
 
 function Nosotros() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const videoSrc = "/videos/CONTRERAS_ROBLEDO_FINAL.mp4";
+  // URL de Cloudinary en formato de transformación para video
+  // Si esta URL no funciona, necesitas obtener la URL directa desde Cloudinary Media Library
+  // Formato: https://res.cloudinary.com/{cloud_name}/video/upload/{public_id}.mp4
+  const videoSrc =
+    "https://res.cloudinary.com/dv44uehlk/video/upload/v1768432985/lpcr/videos/CONTRERAS_Y_ROBLEDO_FINAL-_2_xkodu5.mp4";
 
   useEffect(() => {
     window.scrollTo(0, 0);
