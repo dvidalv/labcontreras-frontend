@@ -644,7 +644,6 @@
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 .nosotros-cta-buttons {
@@ -654,8 +653,6 @@
   justify-content: center;
   font-size: 1rem;
   font-weight: 100;
-  
-  
 }
 
 @media (min-width: 640px) {
@@ -668,14 +665,19 @@
 
 .nosotros-cta-btn-primary,
 .nosotros-cta-btn-secondary,
-.nosotros-cta-btn-catalog {
+.nosotros-cta-btn-catalog,
+.nosotros-cta-btn-video {
   padding: 1rem 2rem;
   font-weight: 700;
   border-radius: 0.5rem;
   text-decoration: none;
   transition: all 0.3s ease;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  border: none;
+  font-family: inherit;
 }
 
 .nosotros-cta-btn-primary {
@@ -709,6 +711,19 @@
 
 .nosotros-cta-btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nosotros-cta-btn-video {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+.nosotros-cta-btn-video:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive adjustments */

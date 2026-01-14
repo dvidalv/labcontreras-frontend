@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Nosotros.css";
 import WhatsApp from "../../components/WhatsApp/WhatsApp";
+import VideoModal from "../../components/VideoModal/VideoModal";
 import edificioPrincipal from "../../images/nosotros-edificio.png";
 import nosotrosGroup from "../../images/nosotros1-group.png";
 import felixImage from "../../images/felix.png";
@@ -17,9 +18,13 @@ import {
   FaStar,
   FaGraduationCap,
   FaAward,
+  FaPlay,
 } from "react-icons/fa6";
 
 function Nosotros() {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const videoSrc = "/videos/CONTRERAS_ROBLEDO_FINAL.mp4";
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -297,13 +302,12 @@ function Nosotros() {
               <Link to="/publicaciones" className="nosotros-cta-btn-primary">
                 Ver Servicios
               </Link>
-              {/* <a
-                href="/Catálogo_Servicios.pdf"
-                download="Catálogo_Servicios.pdf"
-                className="nosotros-cta-btn-catalog"
-              >
-                Descargar Catálogo
-              </a> */}
+              <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="nosotros-cta-btn-video">
+                <FaPlay style={{ marginRight: "0.5rem" }} />
+                Ver Video Institucional
+              </button>
               <Link to="/contact" className="nosotros-cta-btn-secondary">
                 Contactar Ahora
               </Link>
@@ -311,6 +315,12 @@ function Nosotros() {
           </div>
         </div>
       </section>
+
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoSrc={videoSrc}
+      />
 
       <WhatsApp />
     </div>
