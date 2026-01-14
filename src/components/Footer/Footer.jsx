@@ -76,6 +76,16 @@ function Footer() {
                 Resultados en Línea
               </Link>
             </li>
+            <li>
+              <a
+                href="/Catálogo_Servicios.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Catálogo_Servicios.pdf"
+              >
+                Catálogo de Servicios
+              </a>
+            </li>
           </ul>
         </div>
 
