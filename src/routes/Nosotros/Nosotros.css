@@ -660,7 +660,8 @@
 }
 
 .nosotros-cta-btn-primary,
-.nosotros-cta-btn-secondary {
+.nosotros-cta-btn-secondary,
+.nosotros-cta-btn-catalog {
   padding: 1rem 2rem;
   font-weight: 700;
   border-radius: 0.5rem;
@@ -678,6 +679,19 @@
 
 .nosotros-cta-btn-primary:hover {
   background-color: #f3f4f6;
+}
+
+.nosotros-cta-btn-catalog {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 2px solid white;
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+.nosotros-cta-btn-catalog:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 .nosotros-cta-btn-secondary {

@@ -297,6 +297,13 @@ function Nosotros() {
               <Link to="/publicaciones" className="nosotros-cta-btn-primary">
                 Ver Servicios
               </Link>
+              {/* <a
+                href="/Catálogo_Servicios.pdf"
+                download="Catálogo_Servicios.pdf"
+                className="nosotros-cta-btn-catalog"
+              >
+                Descargar Catálogo
+              </a> */}
               <Link to="/contact" className="nosotros-cta-btn-secondary">
                 Contactar Ahora
               </Link>
