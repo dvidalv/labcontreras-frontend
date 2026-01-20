@@ -3,7 +3,6 @@ import "./footer.css";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { IoMailOpen } from "react-icons/io5";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import logo from "../../images/logo.svg";
 
 function getCurrentYear() {
   const currentYear = new Date().getFullYear();
