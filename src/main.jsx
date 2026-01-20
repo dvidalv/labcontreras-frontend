@@ -35,6 +35,7 @@ import EditMedico from "./routes/LayoutMedicos/EditMedico/EditMedico.jsx";
 import { loader as editMedicoLoader } from "./routes/LayoutMedicos/EditMedico/editMedicoLoader.jsx";
 
 import Nosotros from "./routes/Nosotros/Nosotros.jsx";
+import Servicios from "./routes/Servicios/Servicios.jsx";
 
 import UserDashBoard from "./routes/Forms/UserDashBoard/UserDashBoard.jsx";
 import { loader as userDashBoardLoader } from "./routes/Forms/UserDashBoard/UserDashBoardLoader.js";
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: "historia/",
         element: <Nosotros />,
+      },
+      {
+        path: "servicios/",
+        element: <Servicios />,
       },
       {
         path: "nosotros/mision-vision-valores/",

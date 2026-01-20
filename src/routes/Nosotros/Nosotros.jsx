@@ -303,7 +303,7 @@ function Nosotros() {
               nosotros para recibir orientación personalizada.
             </p>
             <div className="nosotros-cta-buttons">
-              <Link to="/publicaciones" className="nosotros-cta-btn-primary">
+              <Link to="/servicios" className="nosotros-cta-btn-primary">
                 Ver Servicios
               </Link>
               <button
