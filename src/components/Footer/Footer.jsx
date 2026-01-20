@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./footer.css";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { IoMailOpen } from "react-icons/io5";
-import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import logo from "../../images/logo.svg";
 
 function getCurrentYear() {
@@ -36,18 +36,11 @@ function Footer() {
               <FaFacebookF />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/labcontrerasrobledo/"
               target="_blank"
               rel="noreferrer"
               className="footer__social-icon">
-              <FaTwitter />
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noreferrer"
-              className="footer__social-icon">
-              <FaLinkedinIn />
+              <FaInstagram />
             </a>
           </div>
         </div>
