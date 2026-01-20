@@ -68,7 +68,7 @@ function Footer() {
                 Resultados en Línea
               </Link>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="/Catálogo_Servicios.pdf"
                 target="_blank"
@@ -77,7 +77,7 @@ function Footer() {
               >
                 Catálogo de Servicios
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
