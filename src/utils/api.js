@@ -317,7 +317,7 @@ export async function getMedicos() {
       error.message.includes("Failed to fetch")
     ) {
       console.error(
-        "Network error detected. Check if the backend server is running and accessible."
+        "Network error detected. Check if the backend server is running and accessible.",
       );
     }
 
@@ -617,7 +617,7 @@ export const getResultadosByName = async (
   token,
   name,
   medicoId,
-  centroExterno
+  centroExterno,
 ) => {
   const response = await fetch(`${API_URL}/resultados/record/`, {
     method: "POST",
@@ -794,7 +794,7 @@ export const getSugerenciasPacientesDetalles = async ({
   } catch (error) {
     console.error(
       "Error al obtener los detalles de sugerencias de pacientes:",
-      error
+      error,
     );
     throw error;
   }
@@ -821,7 +821,7 @@ export const getSugerenciasMedicosDetalles = async ({
   } catch (error) {
     console.error(
       "Error al obtener los detalles de sugerencias de médicos:",
-      error
+      error,
     );
     throw error;
   }

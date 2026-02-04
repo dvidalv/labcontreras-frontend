@@ -6,6 +6,7 @@ import "./index.css";
 import { AppProvider } from "./contexts/MyContext";
 import RequireAuth from "./components/ProtectedRoute/RequireAuth.jsx";
 import RequireAuthMedicos from "./components/ProtectedRoute/RequireAuthMedicos.jsx";
+import RootLayout from "./RootLayout.jsx"; // added
 
 import App from "./routes/App/App.jsx";
 import Main from "./routes/Main/Main.jsx";
@@ -68,183 +69,188 @@ import { loader as editUserLoader } from "./routes/Forms/UserDashBoard/editUserL
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <RootLayout />,
     children: [
       {
-        index: true,
-        element: <Main />,
-        loader: loaderMedicos,
-      },
-      {
-        path: "pacientes/",
-        element: (
-          <RequireAuth>
-            <LayoutPacientes />
-          </RequireAuth>
-        ),
+        element: <App />,
         children: [
           {
-            path: ":id",
-            element: <Paciente />,
+            index: true,
+            element: <Main />,
+            loader: loaderMedicos,
+          },
+          {
+            path: "pacientes/",
+            element: (
+              <RequireAuth>
+                <LayoutPacientes />
+              </RequireAuth>
+            ),
+            children: [
+              {
+                path: ":id",
+                element: <Paciente />,
+              },
+            ],
+          },
+          {
+            path: "historia/",
+            element: <Nosotros />,
+          },
+          {
+            path: "servicios/",
+            element: <Servicios />,
+          },
+          {
+            path: "nosotros/mision-vision-valores/",
+            element: <MisionVisionValores />,
+          },
+          {
+            path: "nosotros/derechos-deberes-pacientes/",
+            element: <DerechosDeberesPacientes />,
+          },
+          {
+            path: "publicaciones/",
+            element: <Publicaciones />,
+          },
+          {
+            path: "publicaciones/:id",
+            element: <Publicacion />,
+          },
+          {
+            path: "medicos/",
+            element: (
+              <RequireAuth>
+                <LayoutMedicos />
+              </RequireAuth>
+            ),
+            loader: loaderMedicos,
+            action: actionMedico,
+            children: [
+              {
+                path: ":id",
+                element: <Medico />,
+                loader: loaderMedico,
+              },
+              {
+                path: ":id/edit",
+                element: <EditMedico />,
+                loader: editMedicoLoader,
+              },
+              {
+                path: ":id/destroy",
+                element: <h1>Eliminando...</h1>,
+                errorElement: <h1>Hubo un error al eliminar el medico</h1>,
+              },
+              {
+                path: "nuevo/",
+                element: <NuevoMedico />,
+              },
+            ],
+          },
+          {
+            path: "signup/",
+            element: <Signup />,
+          },
+          {
+            path: "signin/",
+            element: <Signin />,
+            loader: hasAdmin,
+          },
+          {
+            path: "medico-signin/",
+            element: <MedicoSignin />,
+          },
+          {
+            path: "reset-password/:token",
+            element: <ResetPassword />,
+          },
+          {
+            path: "forgot-password/",
+            element: <ForgotPassword />,
+          },
+          {
+            path: "contact/",
+            element: <Contact />,
+          },
+          {
+            path: "user-dashboard/",
+            element: (
+              <RequireAuth>
+                <UserDashBoard />
+              </RequireAuth>
+            ),
+            loader: userDashBoardLoader,
+          },
+          {
+            path: "user-dashboard/:id/edit",
+            element: (
+              <RequireAuth>
+                <EditUser />
+              </RequireAuth>
+            ),
+            loader: editUserLoader,
+          },
+          {
+            path: "reportes/",
+            element: (
+              <RequireAuth>
+                <Reportes />
+              </RequireAuth>
+            ),
+            loader: reportesLoader,
+            shouldRevalidate: ({ currentUrl, nextUrl }) => {
+              return (
+                currentUrl.pathname !== nextUrl.pathname ||
+                currentUrl.search !== nextUrl.search
+              );
+            },
+            children: [
+              {
+                path: "pacientes",
+                element: <ReportesPacientes />,
+                loader: reportesPacientesLoader,
+              },
+              {
+                path: "medicos",
+                element: <ReportesMedicos />,
+                loader: reportesMedicosLoader,
+              },
+              {
+                path: "empresas",
+                element: <ReportesEmpresas />,
+                loader: reportesEmpresasLoader,
+              },
+            ],
+          },
+          {
+            path: "curriculum/",
+            element: <Curriculum />,
+          },
+          {
+            path: "resultados/",
+            element: (
+              <RequireAuthMedicos>
+                <Resultados />
+              </RequireAuthMedicos>
+            ),
+          },
+          {
+            path: "sugerencias/pacientes",
+            element: <PacientesSugerenciasPage />,
+          },
+          {
+            path: "sugerencias/medicos",
+            element: <MedicosSugerenciasPage />,
+          },
+          {
+            path: "sugerencias/empresas",
+            element: <EmpresasSugerenciasPage />,
           },
         ],
-      },
-      {
-        path: "historia/",
-        element: <Nosotros />,
-      },
-      {
-        path: "servicios/",
-        element: <Servicios />,
-      },
-      {
-        path: "nosotros/mision-vision-valores/",
-        element: <MisionVisionValores />,
-      },
-      {
-        path: "nosotros/derechos-deberes-pacientes/",
-        element: <DerechosDeberesPacientes />,
-      },
-      {
-        path: "publicaciones/",
-        element: <Publicaciones />,
-      },
-      {
-        path: "publicaciones/:id",
-        element: <Publicacion />,
-      },
-      {
-        path: "medicos/",
-        element: (
-          <RequireAuth>
-            <LayoutMedicos />
-          </RequireAuth>
-        ),
-        loader: loaderMedicos,
-        action: actionMedico,
-        children: [
-          {
-            path: ":id",
-            element: <Medico />,
-            loader: loaderMedico,
-          },
-          {
-            path: ":id/edit",
-            element: <EditMedico />,
-            loader: editMedicoLoader,
-          },
-          {
-            path: ":id/destroy",
-            element: <h1>Eliminando...</h1>,
-            errorElement: <h1>Hubo un error al eliminar el medico</h1>,
-          },
-          {
-            path: "nuevo/",
-            element: <NuevoMedico />,
-          },
-        ],
-      },
-      {
-        path: "signup/",
-        element: <Signup />,
-      },
-      {
-        path: "signin/",
-        element: <Signin />,
-        loader: hasAdmin,
-      },
-      {
-        path: "medico-signin/",
-        element: <MedicoSignin />,
-      },
-      {
-        path: "reset-password/:token",
-        element: <ResetPassword />,
-      },
-      {
-        path: "forgot-password/",
-        element: <ForgotPassword />,
-      },
-      {
-        path: "contact/",
-        element: <Contact />,
-      },
-      {
-        path: "user-dashboard/",
-        element: (
-          <RequireAuth>
-            <UserDashBoard />
-          </RequireAuth>
-        ),
-        loader: userDashBoardLoader,
-      },
-      {
-        path: "user-dashboard/:id/edit",
-        element: (
-          <RequireAuth>
-            <EditUser />
-          </RequireAuth>
-        ),
-        loader: editUserLoader,
-      },
-      {
-        path: "reportes/",
-        element: (
-          <RequireAuth>
-            <Reportes />
-          </RequireAuth>
-        ),
-        loader: reportesLoader,
-        shouldRevalidate: ({ currentUrl, nextUrl }) => {
-          return (
-            currentUrl.pathname !== nextUrl.pathname ||
-            currentUrl.search !== nextUrl.search
-          );
-        },
-        children: [
-          {
-            path: "pacientes",
-            element: <ReportesPacientes />,
-            loader: reportesPacientesLoader,
-          },
-          {
-            path: "medicos",
-            element: <ReportesMedicos />,
-            loader: reportesMedicosLoader,
-          },
-          {
-            path: "empresas",
-            element: <ReportesEmpresas />,
-            loader: reportesEmpresasLoader,
-          },
-        ],
-      },
-      {
-        path: "curriculum/",
-        element: <Curriculum />,
-      },
-      {
-        path: "resultados/",
-        element: (
-          <RequireAuthMedicos>
-            <Resultados />
-          </RequireAuthMedicos>
-        ),
-      },
-      {
-        path: "sugerencias/pacientes",
-        element: <PacientesSugerenciasPage />,
-      },
-      {
-        path: "sugerencias/medicos",
-        element: <MedicosSugerenciasPage />,
-      },
-      {
-        path: "sugerencias/empresas",
-        element: <EmpresasSugerenciasPage />,
+        errorElement: <NotFound />,
       },
     ],
-    errorElement: <NotFound />,
   },
 ]);
 
@@ -253,5 +259,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AppProvider>
       <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </AppProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
