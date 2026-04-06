@@ -15,6 +15,7 @@ import { IoMailOpen } from "react-icons/io5";
 
 import MenuLinkMobile from "../DropDown/MenuLinkMobile";
 import { menuLinks } from "../../utils/constants";
+import { canViewMedicosNav, canViewReportesNav } from "../../utils/roles";
 import { IoMdLogOut } from "react-icons/io";
 import { motion } from "framer-motion";
 
@@ -84,16 +85,8 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
   // console.log("user:", user);
 
   const [isMenuFixed] = useState(false);
-  const normalizedRole = (user?.role || "")
-    .toString()
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-  const canViewReportes = ["admin", "user", "medico", "recepcion"].includes(
-    normalizedRole
-  );
-  const canViewMedicos = ["admin", "user"].includes(normalizedRole);
+  const canViewReportes = canViewReportesNav(user);
+  const canViewMedicos = canViewMedicosNav(user);
 
   const navigate = useNavigate();
 

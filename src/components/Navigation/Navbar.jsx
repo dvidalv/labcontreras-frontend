@@ -6,6 +6,7 @@ import "./navbar.css";
 import DropDown from "../DropDown/DropDown";
 import { useAppContext } from "../../contexts/MyContext";
 import { menuLinks } from "../../utils/constants";
+import { canViewMedicosNav, canViewReportesNav } from "../../utils/roles";
 
 function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
   const location = useLocation();
@@ -25,16 +26,8 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
     return location.pathname.startsWith(path); // true or false
   };
 
-  const normalizedRole = (user?.role || "")
-    .toString()
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-  const canViewReportes = ["admin", "user", "medico", "recepcion"].includes(
-    normalizedRole
-  );
-  const canViewMedicos = ["admin", "user"].includes(normalizedRole);
+  const canViewReportes = canViewReportesNav(user);
+  const canViewMedicos = canViewMedicosNav(user);
 
   return (
     <nav
