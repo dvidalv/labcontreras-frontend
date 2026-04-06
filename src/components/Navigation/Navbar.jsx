@@ -25,10 +25,16 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
     return location.pathname.startsWith(path); // true or false
   };
 
+  const normalizedRole = (user?.role || "")
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
   const canViewReportes = ["admin", "user", "medico", "recepcion"].includes(
-    user?.role
+    normalizedRole
   );
-  const canViewMedicos = ["admin", "user"].includes(user?.role);
+  const canViewMedicos = ["admin", "user"].includes(normalizedRole);
 
   return (
     <nav
