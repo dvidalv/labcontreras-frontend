@@ -137,6 +137,7 @@ function Signup() {
           <option value="">Selecciona un rol</option>
           <option value="user">Usuario</option>
           <option value="medico">Médico</option>
+          <option value="recepcion">Recepción</option>
           <option value="admin">Administrador</option>
         </select>
         {errors.role && <p className="form__error">{errors.role?.message}</p>}

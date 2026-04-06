@@ -25,6 +25,11 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
     return location.pathname.startsWith(path); // true or false
   };
 
+  const canViewReportes = ["admin", "user", "medico", "recepcion"].includes(
+    user?.role
+  );
+  const canViewMedicos = ["admin", "user"].includes(user?.role);
+
   return (
     <nav
       className={`navbar ${isMenuOpen ? "open" : ""}`}
@@ -33,12 +38,15 @@ function Navbar({ color, bgColor, isMenuOpen, display, setIsMenuOpen }) {
         className={`navbar__menu ${display ? "display" : ""}`}
         style={{ backgroundColor: bgColor }}>
         {menuLinks.map((link) => {
-          if (
-            !user ||
-            (user.role !== "admin" &&
-              user.role !== "user" &&
-              (link.to === "/reportes" || link.to === "/medicos"))
-          ) {
+          if (!user) {
+            return null;
+          }
+
+          if (link.to === "/reportes" && !canViewReportes) {
+            return null;
+          }
+
+          if (link.to === "/medicos" && !canViewMedicos) {
             return null;
           }
 

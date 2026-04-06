@@ -27,7 +27,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import NuevoComprobante from "../../../components/nuevo comprobante/NuevoComprobante";
 import EditarComprobantes from "../../../components/EditarComprobantes/EditarComprobantes";
 
-const roles = ["user", "medico", "admin", "guest"];
+const roles = ["user", "medico", "recepcion", "admin", "guest"];
 
 const schemaNewUser = z.object({
   name: z.string().min(3).max(30),
@@ -580,7 +580,14 @@ function UserDashBoard() {
                   {user.role}
                 </div>
                 <div className="grid-cell grid-cell-avatar" data-label="Avatar">
-                  <img src={user.url} alt="avatar" />
+                  <img
+                    src={user.url || avatar}
+                    alt="avatar"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = avatar;
+                    }}
+                  />
                 </div>
                 <div
                   className="grid-cell grid-cell-actions"

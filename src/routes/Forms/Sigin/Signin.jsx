@@ -10,8 +10,11 @@ import { useEffect } from "react";
 import customToast, { Toaster } from "../../../components/CustomToast";
 
 const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6).max(12),
+  email: z.string().email("Ingresa un correo electrónico válido"),
+  password: z
+    .string()
+    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .max(128, "La contraseña no puede exceder 128 caracteres"),
 });
 
 function Signin() {

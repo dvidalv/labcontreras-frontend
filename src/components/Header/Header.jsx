@@ -6,6 +6,7 @@ import logo from "../../images/logo.svg";
 import login from "../../images/login.svg";
 import logout from "../../images/logout.svg";
 import medicoAvatar from "../../images/medico-avatar.svg";
+import avatar from "../../images/avatar.svg";
 import Navbar from "../Navigation/Navbar";
 import { useAppContext } from "../../contexts/MyContext";
 import styled from "styled-components";
@@ -83,6 +84,10 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
   // console.log("user:", user);
 
   const [isMenuFixed] = useState(false);
+  const canViewReportes = ["admin", "user", "medico", "recepcion"].includes(
+    user?.role
+  );
+  const canViewMedicos = ["admin", "user"].includes(user?.role);
 
   const navigate = useNavigate();
 
@@ -165,7 +170,8 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
                         alt="user"
                         className="header__user_info--user--img"
                         onError={(e) => {
-                          e.target.style.display = "none";
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = avatar;
                         }}
                       />
                     ) : (
@@ -189,14 +195,15 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
             </div>
             {medicoData.foto && (
               <div className="header__user_info--medico">
-                <div
+                <img
+                  src={medicoData.foto || medicoAvatar}
+                  alt="medico"
                   className="medico-user"
-                  style={{
-                    backgroundImage: `url(${medicoData.foto})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                  }}></div>
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = medicoAvatar;
+                  }}
+                />
                 <span
                   style={{
                     fontSize: "12px",
@@ -298,12 +305,15 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
       </div>
       <div className={`menu-lateral ${isMenuOpen ? "open" : ""}`}>
         {menuLinks.map((link) => {
-          if (
-            !user ||
-            (user.role !== "admin" &&
-              user.role !== "user" &&
-              (link.to === "/reportes" || link.to === "/medicos"))
-          ) {
+          if (!user) {
+            return null;
+          }
+
+          if (link.to === "/reportes" && !canViewReportes) {
+            return null;
+          }
+
+          if (link.to === "/medicos" && !canViewMedicos) {
             return null;
           }
 
