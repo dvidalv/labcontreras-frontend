@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./MenuLinkMobile.css";
 import { IoIosArrowDown } from "react-icons/io";
 
-function MenuLinkMobile({ to, text, isSubmenu, children, onClick }) {
+function MenuLinkMobile({ to, text, isSubmenu, children, onClick, external }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleArrowClick = (e) => {
@@ -21,6 +21,23 @@ function MenuLinkMobile({ to, text, isSubmenu, children, onClick }) {
       setIsOpen(false);
     }
   };
+
+  if (external) {
+    return (
+      <div className="menu-link-mobile">
+        <div>
+          <a
+            href={to}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleLinkClick}
+          >
+            {text}
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="menu-link-mobile">
@@ -46,6 +63,7 @@ MenuLinkMobile.propTypes = {
   isSubmenu: PropTypes.bool,
   children: PropTypes.node,
   onClick: PropTypes.func,
+  external: PropTypes.bool,
 };
 
 MenuLinkMobile.defaultProps = {

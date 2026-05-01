@@ -1,6 +1,9 @@
 const envApiUrl = import.meta.env.VITE_API_URL?.trim();
 const API_URL = envApiUrl || "https://labcontreras-backend.vercel.app";
 
+/** PDF en `public/` (nombre ASCII para despliegue en Linux/Vercel). */
+export const CATALOGO_SERVICIOS_PDF = "/DE-D-01-catalogo-servicios-v0-4.pdf";
+
 export const menuLinks = [
   { to: "/", text: "Inicio" },
   {
@@ -21,6 +24,11 @@ export const menuLinks = [
   },
   { to: "/medicos", text: "Médicos" },
   { to: "/resultados", text: "Resultados Médicos" },
+  {
+    to: CATALOGO_SERVICIOS_PDF,
+    text: "Catálogo de Servicios",
+    external: true,
+  },
   { to: "/contact", text: "Contacto" },
   { to: "/reportes", text: "Reportes" },
 ];

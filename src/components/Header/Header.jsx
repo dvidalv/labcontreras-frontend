@@ -322,6 +322,7 @@ function Header({ isMenuOpen, setIsMenuOpen }) {
               to={link.to}
               text={link.text}
               isSubmenu={link.submenu ? true : false}
+              external={link.external}
               onClick={() => setIsMenuOpen(false)}>
               {link.submenu &&
                 link.submenuItems.map((subItem) => (

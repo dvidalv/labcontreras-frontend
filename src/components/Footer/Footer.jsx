@@ -3,9 +3,7 @@ import "./footer.css";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { IoMailOpen } from "react-icons/io5";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-
-// Nombre solo ASCII: mismo archivo en macOS, Linux (Vercel) y sin ambigüedad NFC/NFD.
-const CATALOGO_SERVICIOS_PDF = "/DE-D-01-catalogo-servicios-v0-4.pdf";
+import { CATALOGO_SERVICIOS_PDF } from "../../utils/constants";
 
 function getCurrentYear() {
   const currentYear = new Date().getFullYear();
