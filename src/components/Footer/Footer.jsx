@@ -4,9 +4,8 @@ import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { IoMailOpen } from "react-icons/io5";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
-// Nombre real en disco: "a" + U+0301 (NFD), no la "á" precompuesta (NFC).
-const CATALOGO_SERVICIOS_PDF =
-  "/DE-D-01 Cata\u0301logo de Servicios V0 4.pdf";
+// Nombre solo ASCII: mismo archivo en macOS, Linux (Vercel) y sin ambigüedad NFC/NFD.
+const CATALOGO_SERVICIOS_PDF = "/DE-D-01-catalogo-servicios-v0-4.pdf";
 
 async function handleCatalogoServiciosDownload(event) {
   event.preventDefault();
