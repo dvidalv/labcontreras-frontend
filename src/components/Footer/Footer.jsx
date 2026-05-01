@@ -7,31 +7,6 @@ import { FaFacebookF, FaInstagram } from "react-icons/fa";
 // Nombre solo ASCII: mismo archivo en macOS, Linux (Vercel) y sin ambigüedad NFC/NFD.
 const CATALOGO_SERVICIOS_PDF = "/DE-D-01-catalogo-servicios-v0-4.pdf";
 
-async function handleCatalogoServiciosDownload(event) {
-  event.preventDefault();
-  const url = encodeURI(CATALOGO_SERVICIOS_PDF);
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("fetch failed");
-    const contentType = response.headers.get("content-type") || "";
-    if (contentType.includes("text/html")) {
-      throw new Error("expected pdf, got html");
-    }
-    const blob = await response.blob();
-    const objectUrl = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = objectUrl;
-    link.download = "Catálogo_Servicios.pdf";
-    link.rel = "noopener";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(objectUrl);
-  } catch {
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-}
-
 function getCurrentYear() {
   const currentYear = new Date().getFullYear();
   return currentYear;
@@ -98,9 +73,9 @@ function Footer() {
             </li>
             <li>
               <a
-                href={encodeURI(CATALOGO_SERVICIOS_PDF)}
+                href={CATALOGO_SERVICIOS_PDF}
+                target="_blank"
                 rel="noopener noreferrer"
-                onClick={handleCatalogoServiciosDownload}
               >
                 Catálogo de Servicios
               </a>
