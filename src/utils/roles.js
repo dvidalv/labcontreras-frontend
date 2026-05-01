@@ -29,12 +29,7 @@ export function normalizeAppRole(role) {
   return aliases[raw] ?? raw;
 }
 
-export const ROLES_CAN_VIEW_REPORTES = [
-  "admin",
-  "user",
-  "medico",
-  "recepcion",
-];
+export const ROLES_CAN_VIEW_REPORTES = ["admin", "user", "medico", "recepcion"];
 
 export const ROLES_CAN_VIEW_MEDICOS_LINK = ["admin", "user"];
 

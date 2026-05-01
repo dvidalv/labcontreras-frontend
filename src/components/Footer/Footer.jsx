@@ -4,6 +4,35 @@ import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { IoMailOpen } from "react-icons/io5";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
+// Nombre real en disco: "a" + U+0301 (NFD), no la "á" precompuesta (NFC).
+const CATALOGO_SERVICIOS_PDF =
+  "/DE-D-01 Cata\u0301logo de Servicios V0 4.pdf";
+
+async function handleCatalogoServiciosDownload(event) {
+  event.preventDefault();
+  const url = encodeURI(CATALOGO_SERVICIOS_PDF);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("fetch failed");
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("text/html")) {
+      throw new Error("expected pdf, got html");
+    }
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = objectUrl;
+    link.download = "Catálogo_Servicios.pdf";
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(objectUrl);
+  } catch {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+}
+
 function getCurrentYear() {
   const currentYear = new Date().getFullYear();
   return currentYear;
@@ -68,16 +97,15 @@ function Footer() {
                 Resultados en Línea
               </Link>
             </li>
-            {/* <li>
+            <li>
               <a
-                href="/Catálogo_Servicios.pdf"
-                target="_blank"
+                href={encodeURI(CATALOGO_SERVICIOS_PDF)}
                 rel="noopener noreferrer"
-                download="Catálogo_Servicios.pdf"
+                onClick={handleCatalogoServiciosDownload}
               >
                 Catálogo de Servicios
               </a>
-            </li> */}
+            </li>
           </ul>
         </div>
 
