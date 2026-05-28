@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react';
 
-
-import guantes from "/public/equipos/DSC01438.webp";
-import canasta from "/public/equipos/P1700688.webp";
-import bencher from "/public/equipos/P1700691.webp";
-import micro from "/public/equipos/P1700756.webp";
-import tissue from "/public/equipos/P1700776.webp";
-import bandeja from "/public/equipos/P1700803.webp";
-
 import classes from './image-slideshow.module.css';
 
 const images = [
-  { image: guantes, alt: 'ilustracion de guantes' },
-  { image: canasta, alt: 'ilustracion de canasta' },
-  { image: bencher, alt: 'ilustracion de bencher' },
-  { image: micro, alt: 'ilustracion de micro' },
-  { image: tissue, alt: 'ilustracion de tissue' },
-  { image: bandeja, alt: 'ilustracion de bandeja' },
+  { image: '/equipos/DSC01438.webp', alt: 'ilustracion de guantes' },
+  { image: '/equipos/P1700688.webp', alt: 'ilustracion de canasta' },
+  { image: '/equipos/P1700691.webp', alt: 'ilustracion de bencher' },
+  { image: '/equipos/P1700756.webp', alt: 'ilustracion de micro' },
+  { image: '/equipos/P1700776.webp', alt: 'ilustracion de tissue' },
+  { image: '/equipos/P1700803.webp', alt: 'ilustracion de bandeja' },
 ];
 
 export default function ImageSlider() {

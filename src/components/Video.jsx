@@ -1,6 +1,7 @@
-import video from "/public/videos/video.mp4";
 import PropTypes from "prop-types";
 import { useRef, useEffect, useState } from "react";
+
+const VIDEO_SRC = "/videos/video.mp4";
 
 function Video({
   width = "100%",
@@ -118,14 +119,14 @@ function Video({
         }}
         {...props}>
         {/* Múltiples formatos para mejor compatibilidad */}
-        <source src={video} type="video/mp4" />
-        <source src={video.replace(".mp4", ".webm")} type="video/webm" />
-        <source src={video.replace(".mp4", ".ogg")} type="video/ogg" />
+        <source src={VIDEO_SRC} type="video/mp4" />
+        <source src={VIDEO_SRC.replace(".mp4", ".webm")} type="video/webm" />
+        <source src={VIDEO_SRC.replace(".mp4", ".ogg")} type="video/ogg" />
 
         {/* Fallback para navegadores muy antiguos */}
         <p>
           Tu navegador no soporta el elemento de video.
-          <a href={video} download>
+          <a href={VIDEO_SRC} download>
             Descarga el video aquí
           </a>
         </p>
