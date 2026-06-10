@@ -19,6 +19,7 @@ const empresaSchema = z.object({
   oportuno: z.string({
     required_error: "Debe seleccionar si los resultados han sido oportunos",
   }),
+  sugerencia: z.string().trim().optional(),
 });
 
 const toasterConfig = {
@@ -66,6 +67,7 @@ function EmpresasSugerencias() {
       empresa: "",
       satisfaccion: "",
       oportuno: "",
+      sugerencia: "",
     },
   });
 
@@ -84,6 +86,7 @@ function EmpresasSugerencias() {
         empresa: "",
         satisfaccion: "",
         oportuno: "",
+        sugerencia: "",
       });
 
       toast.success("¡Sugerencia enviada con éxito!", toasterConfig.success);
@@ -161,6 +164,19 @@ function EmpresasSugerencias() {
         </select>
         {errors.oportuno && (
           <span className="error-message">{errors.oportuno.message}</span>
+        )}
+      </div>
+      <div className="form-group">
+        <label>¿Qué podemos mejorar? (Opcional)</label>
+        <textarea
+          name="sugerencia"
+          {...register("sugerencia")}
+          placeholder="Escribe tu sugerencia aquí..."
+          rows={6}
+          className={errors.sugerencia ? "error" : ""}
+        />
+        {errors.sugerencia && (
+          <span className="error-message">{errors.sugerencia.message}</span>
         )}
       </div>
       <button className="button" type="submit" disabled={isSubmitting}>

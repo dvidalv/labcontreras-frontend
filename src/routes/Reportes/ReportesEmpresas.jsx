@@ -360,6 +360,7 @@ export default function ReportesEmpresas() {
                                 <th>Empresa</th>
                                 <th>Satisfacción</th>
                                 <th>Atención Rápida</th>
+                                <th>Sugerencia</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -409,6 +410,7 @@ export default function ReportesEmpresas() {
                                         : "No"}
                                     </span>
                                   </td>
+                                  <td>{respuesta.sugerencia || "-"}</td>
                                 </tr>
                               ))}
                             </tbody>
