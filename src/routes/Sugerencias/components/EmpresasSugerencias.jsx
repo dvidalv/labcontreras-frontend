@@ -3,7 +3,7 @@ import { Form, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { sugerenciasEmpresas } from "../../../utils/api";
+import { enviarSugerenciaEmpresa } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
 import { getVisitorFingerprint } from "../../../utils/fingerprint";
 
@@ -77,7 +77,7 @@ function EmpresasSugerencias() {
         throw new Error("No se pudo obtener la identificación del navegador");
       }
 
-      await sugerenciasEmpresas({ ...data, fingerprint });
+      await enviarSugerenciaEmpresa({ ...data, fingerprint });
 
       // Resetear el formulario y mostrar mensaje de éxito
       reset({

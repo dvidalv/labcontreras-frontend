@@ -529,6 +529,61 @@ export async function sugerenciasMedicos(data) {
   }
 }
 
+export async function enviarSugerenciaEmpresa(data) {
+  try {
+    const requestUrl = `${API_URL}/api/sugerencias/empresas`;
+
+    const response = await fetch(requestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    let responseData;
+    try {
+      responseData = await response.json();
+    } catch (parseError) {
+      responseData = {
+        error: "ERROR_RESPONSE",
+        message:
+          response.status === 429
+            ? "Por favor, espere antes de enviar otra sugerencia."
+            : "Error en la respuesta del servidor",
+      };
+    }
+
+    if (!response.ok) {
+      const error = new Error();
+      error.response = {
+        status: response.status,
+        data: responseData,
+      };
+      throw error;
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Error en enviarSugerenciaEmpresa:", error);
+    if (error.response) {
+      throw error;
+    }
+    const genericError = new Error();
+    genericError.response = {
+      status: 500,
+      data: {
+        error: "ERROR_GENERAL",
+        message:
+          "Error al procesar la solicitud. Por favor, intente más tarde.",
+      },
+    };
+    throw genericError;
+  }
+}
+
 export async function sugerenciasEmpresas({ fechaDesde, fechaHasta } = {}) {
   try {
     let url = `${API_URL}/api/sugerencias/empresas`;
