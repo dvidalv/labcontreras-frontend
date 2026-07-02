@@ -4,22 +4,46 @@ import PropTypes from "prop-types";
 import { TIPOS_ECF } from "../../utils/constants";
 import { createComprobante } from "../../utils/api";
 
+// Formatea una fecha a YYYY-MM-DD (formato requerido por input type="date")
+const toDateInputValue = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+// Valores por defecto para las fechas:
+// - Autorización: hoy
+// - Vencimiento: 31 de diciembre del próximo año
+const getFechasPorDefecto = () => {
+  const hoy = new Date();
+  return {
+    fecha_autorizacion: toDateInputValue(hoy),
+    fecha_vencimiento: `${hoy.getFullYear() + 1}-12-31`,
+  };
+};
+
 export default function NuevoComprobante({
   setShowModal,
   showModal,
   token,
   refreshComprobantes,
+  comprobantesData = [],
 }) {
+  // Tomar RNC y razón social del primer comprobante existente (datos del laboratorio)
+  const empresaBase = comprobantesData?.[0] || {};
+  const fechasPorDefecto = getFechasPorDefecto();
+
   const [form, setForm] = useState({
-    rnc: "",
-    razon_social: "",
+    rnc: empresaBase.rnc || "",
+    razon_social: empresaBase.razon_social || "",
     tipo_comprobante: "",
     descripcion_tipo: "",
     prefijo: "E",
     numero_inicial: "",
     numero_final: "",
-    fecha_autorizacion: "",
-    fecha_vencimiento: "",
+    fecha_autorizacion: fechasPorDefecto.fecha_autorizacion,
+    fecha_vencimiento: fechasPorDefecto.fecha_vencimiento,
     alerta_minima_restante: "",
     estado: "activo",
     comentario: "",
@@ -215,16 +239,17 @@ export default function NuevoComprobante({
     const response = await createComprobante(dataToSend, token);
     if (response.status === "success") {
       setShowModal(false);
+      const nuevasFechas = getFechasPorDefecto();
       setForm({
-        rnc: "",
-        razon_social: "",
+        rnc: empresaBase.rnc || "",
+        razon_social: empresaBase.razon_social || "",
         tipo_comprobante: "",
         descripcion_tipo: "",
         prefijo: "E",
         numero_inicial: "",
         numero_final: "",
-        fecha_autorizacion: "",
-        fecha_vencimiento: "",
+        fecha_autorizacion: nuevasFechas.fecha_autorizacion,
+        fecha_vencimiento: nuevasFechas.fecha_vencimiento,
         alerta_minima_restante: "",
         estado: "activo",
         comentario: "",
@@ -460,4 +485,5 @@ NuevoComprobante.propTypes = {
   showModal: PropTypes.bool.isRequired,
   token: PropTypes.string,
   refreshComprobantes: PropTypes.func,
+  comprobantesData: PropTypes.array,
 };

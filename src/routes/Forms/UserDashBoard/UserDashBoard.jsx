@@ -891,6 +891,7 @@ function UserDashBoard() {
           showModal={showModal}
           token={token}
           refreshComprobantes={refreshComprobantes}
+          comprobantesData={comprobantesData}
         />
       )}
       {showEditModal && selectedComprobante && (
