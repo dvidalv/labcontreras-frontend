@@ -19,6 +19,7 @@ export default function EditarComprobantes({
     prefijo: "E",
     numero_inicial: "",
     numero_final: "",
+    proximo_numero: "",
     fecha_autorizacion: "",
     fecha_vencimiento: "",
     alerta_minima_restante: "",
@@ -26,6 +27,7 @@ export default function EditarComprobantes({
     comentario: "",
   });
   const [error, setError] = useState(null);
+  const [proximoNumeroMinimo, setProximoNumeroMinimo] = useState(null);
 
   // Referencias para hacer scroll
   const errorRef = useRef(null);
@@ -42,6 +44,13 @@ export default function EditarComprobantes({
         return formatted;
       };
 
+      const numeroInicial = Number(comprobante.numero_inicial) || 0;
+      const numerosUtilizados = Number(comprobante.numeros_utilizados) || 0;
+      const proximoActual =
+        comprobante.proximoNumero != null
+          ? Number(comprobante.proximoNumero)
+          : numeroInicial + numerosUtilizados;
+
       const formData = {
         rnc: comprobante.rnc || "",
         razon_social: comprobante.razon_social || "",
@@ -50,6 +59,7 @@ export default function EditarComprobantes({
         prefijo: comprobante.prefijo || "E",
         numero_inicial: Number(comprobante.numero_inicial) || "",
         numero_final: Number(comprobante.numero_final) || "",
+        proximo_numero: proximoActual || "",
         fecha_autorizacion: formatDate(comprobante.fecha_autorizacion),
         fecha_vencimiento: formatDate(comprobante.fecha_vencimiento),
         alerta_minima_restante:
@@ -58,6 +68,7 @@ export default function EditarComprobantes({
         comentario: comprobante.comentario || "",
       };
 
+      setProximoNumeroMinimo(proximoActual || null);
       setForm(formData);
     }
   }, [comprobante]);
@@ -107,6 +118,29 @@ export default function EditarComprobantes({
     const fechaAuth = new Date(form.fecha_autorizacion);
     const fechaVenc = new Date(form.fecha_vencimiento);
     return fechaVenc > fechaAuth;
+  };
+
+  const isProximoNumeroValid = () => {
+    if (
+      form.proximo_numero === "" ||
+      form.proximo_numero == null ||
+      !form.numero_inicial ||
+      !form.numero_final
+    ) {
+      return true;
+    }
+
+    const proximo = Number(form.proximo_numero);
+    const inicial = Number(form.numero_inicial);
+    const final = Number(form.numero_final);
+
+    if (isNaN(proximo) || isNaN(inicial) || isNaN(final)) return false;
+    if (proximo < inicial || proximo > final) return false;
+    if (proximoNumeroMinimo != null && proximo < proximoNumeroMinimo) {
+      return false;
+    }
+
+    return true;
   };
 
   const handleChange = (e) => {
@@ -203,6 +237,31 @@ export default function EditarComprobantes({
       }
     }
 
+    // Validar próximo número (solo avanzar dentro del rango)
+    if (form.proximo_numero === "" || form.proximo_numero == null) {
+      errors.push("Próximo número es requerido");
+    } else {
+      const proximo = Number(form.proximo_numero);
+      if (isNaN(proximo)) {
+        errors.push("El próximo número debe ser un número válido");
+      } else if (
+        !isNaN(numeroInicial) &&
+        !isNaN(numeroFinal) &&
+        (proximo < numeroInicial || proximo > numeroFinal)
+      ) {
+        errors.push(
+          `El próximo número debe estar entre ${numeroInicial} y ${numeroFinal}`
+        );
+      } else if (
+        proximoNumeroMinimo != null &&
+        proximo < proximoNumeroMinimo
+      ) {
+        errors.push(
+          `El próximo número no puede ser menor que el actual (${proximoNumeroMinimo}). Solo se puede avanzar.`
+        );
+      }
+    }
+
     return errors;
   };
 
@@ -217,27 +276,24 @@ export default function EditarComprobantes({
       return;
     }
 
+    const numeroInicial = Number(form.numero_inicial);
+    const proximoNumero = Number(form.proximo_numero);
+    const { proximo_numero: _proximoOmitido, ...formSinProximo } = form;
+
     // Preparar datos para enviar (asegurar tipos correctos)
     const dataToSend = {
-      ...form,
-      numero_inicial: Number(form.numero_inicial),
+      ...formSinProximo,
+      numero_inicial: numeroInicial,
       numero_final: Number(form.numero_final),
       alerta_minima_restante: Number(form.alerta_minima_restante),
+      numeros_utilizados: proximoNumero - numeroInicial,
     };
-
-    console.log("🔄 Datos que se envían al backend:", dataToSend);
-    console.log("🆔 ID del comprobante:", comprobante._id);
-    console.log("📋 Comprobante completo:", comprobante);
-    console.log("👤 Usuario del comprobante:", comprobante.usuario);
-    console.log("🔑 Token usuario actual:", token ? "Presente" : "Ausente");
 
     const response = await updateComprobante(
       comprobante._id,
       dataToSend,
       token
     );
-
-    console.log("📦 Respuesta del backend:", response);
 
     if (response.status === "success") {
       setShowModal(false);
@@ -365,6 +421,42 @@ export default function EditarComprobantes({
                     />
                   </label>
                 </div>
+                <label>
+                  Próximo número*
+                  <input
+                    name="proximo_numero"
+                    type="number"
+                    value={form.proximo_numero}
+                    onChange={handleChange}
+                    min={proximoNumeroMinimo ?? form.numero_inicial ?? 0}
+                    max={form.numero_final || undefined}
+                    required
+                    style={{
+                      borderColor: !isProximoNumeroValid() ? "#ef4444" : "",
+                      backgroundColor: !isProximoNumeroValid()
+                        ? "#fef2f2"
+                        : "",
+                    }}
+                  />
+                  {!isProximoNumeroValid() && (
+                    <span style={{ color: "#ef4444", fontSize: "0.75rem" }}>
+                      Debe estar en el rango y no puede ser menor que el actual
+                      {proximoNumeroMinimo != null
+                        ? ` (${proximoNumeroMinimo})`
+                        : ""}
+                    </span>
+                  )}
+                  <span
+                    style={{
+                      color: "#64748b",
+                      fontSize: "0.75rem",
+                      display: "block",
+                      marginTop: "0.25rem",
+                    }}>
+                    Solo se puede avanzar (p. ej. para alinear con números ya
+                    emitidos en The Factory). Esto reduce los disponibles.
+                  </span>
+                </label>
                 <div className={styles.formGroup}>
                   <label>
                     Fecha autorización*
